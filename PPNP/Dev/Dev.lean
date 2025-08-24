@@ -190,8 +190,47 @@ theorem RET_All_Enropy_Is_Scaled_Shannon_Entropy (ef : EntropyFunction) (C : ℝ
       simp only [ef.props.apply_to_empty_domain, NNReal.coe_zero, mul_zero, Real.toNNReal_zero]
   }
 
--- With this, C_constant_of_EntropyFunction(TheCanonicalEntropyFunction) is provably 1.
-theorem C_of_H_canonical_is_one :
-  C_constant_of_EntropyFunction TheCanonicalEntropyFunction = 1 / Real.log 2 :=
-  -- This would be a proof based on the definition of C and H_canonical.
-  sorry
+
+
+/--
+The canonical entropy function for computer science is the standard Shannon
+Entropy measured in **bits** (using log base 2).
+-/
+noncomputable def H_canonical_log2 {α : Type} [Fintype α] (p : α → NNReal) : NNReal :=
+  ((stdShannonEntropyLn p) / Real.log 2).toNNReal
+
+/--
+**Theorem:** For the canonical base-2 Shannon entropy function (`H_canonical_log2`),
+the entropy of a single fair coin flip is exactly 1 bit.
+
+**Interpretation:** This is the formal "unit test" confirming that our EGPT
+entropy engine is perfectly calibrated for computer science applications, where
+the bit is the fundamental unit of information.
+-/
+theorem entropy_of_fair_coin_is_one_bit :
+    -- We model a fair coin flip as the uniform distribution on a set of 2 outcomes (Fin 2).
+    let coin_flip_dist := canonicalUniformDist 2 (by norm_num)
+    H_canonical_log2 coin_flip_dist = 1 := by
+
+  -- Let's define our distribution for clarity.
+  let coin_flip_dist := canonicalUniformDist 2 (by norm_num)
+  -- Unfold the definition of our base-2 entropy function.
+  simp only [H_canonical_log2, coin_flip_dist, canonicalUniformDist]
+
+  -- The expression is now `((stdShannonEntropyLn (uniformDist ...)) / log 2).toNNReal`.
+  -- From our previous proofs, we know that `stdShannonEntropyLn (uniformDist h_card_pos)` is `log (card)`.
+  have h2_pos : (2 : ℕ) > 0 := by norm_num
+  have h_uniform_entropy : stdShannonEntropyLn (uniformDist (Fintype_card_fin_pos h2_pos)) = log 2 := by
+    rw [stdShannonEntropyLn_uniform_eq_log_card (Fintype_card_fin_pos h2_pos)]
+    simp [Fintype.card_fin]
+
+  -- Substitute this into our goal.
+  rw [h_uniform_entropy]
+
+  -- The goal is now `((log 2 / log 2)).toNNReal = 1`.
+  -- `log 2 / log 2` simplifies to 1.
+  have h_log2_ne_zero : log 2 ≠ 0 := ne_of_gt (log_pos (by norm_num : (2:ℝ) > 1))
+  rw [div_self h_log2_ne_zero]
+
+  -- The goal is now `(1:ℝ).toNNReal = 1`. This is true by definition.
+  rw [Real.toNNReal_one]

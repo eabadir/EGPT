@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Rota Entropy Properties – Interactive Bernoulli Demo</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<style>
+		:root { --bg:#0f1115; --panel:#1d222b; --accent:#3fa9f5; --accent2:#ffb347; --text:#e7ecf3; --ok:#6bd968; --warn:#ff6868; }
+		body { margin:0; font-family: system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background:var(--bg); color:var(--text); line-height:1.4; }
+		header { padding:1rem 1.25rem; background:#14181f; border-bottom:2px solid var(--accent); }
+		h1 { font-size:1.4rem; margin:0 0 .25rem; }
+		h2 { margin-top:2rem; border-left:4px solid var(--accent); padding-left:.5rem; }
+		a { color:var(--accent); text-decoration:none; }
+		a:hover { text-decoration:underline; }
+		main { max-width:1200px; margin:0 auto; padding:1.25rem 1.25rem 4rem; }
+		.flex { display:flex; flex-wrap:wrap; gap:1rem; }
+		.panel { background:var(--panel); padding:1rem 1.1rem 1.3rem; border-radius:10px; flex:1 1 320px; box-shadow:0 2px 6px #0008; position:relative; }
+		.panel h3 { margin-top:0; font-size:1.05rem; letter-spacing:.5px; text-transform:uppercase; color:var(--accent2); }
+		label { display:block; font-size:.8rem; letter-spacing:.5px; text-transform:uppercase; margin-top:.65rem; opacity:.8; }
+		input[type=range] { width:100%; }
+		input[type=number] { width:80px; padding:.3rem .4rem; border-radius:4px; border:1px solid #333; background:#101418; color:var(--text); }
+		button { background:var(--accent); border:none; color:#041b2c; padding:.55rem .9rem; border-radius:6px; margin-top:.75rem; font-weight:600; cursor:pointer; box-shadow:0 2px 4px #0009; }
+		button:hover { filter:brightness(1.1); }
+		code { background:#222830; padding:.15rem .35rem; border-radius:4px; font-size:.85rem; }
+		table { border-collapse:collapse; width:100%; font-size:.8rem; }
+		th, td { border:1px solid #2c343f; padding:.35rem .45rem; text-align:right; }
+		th { background:#242b35; position:sticky; top:0; }
+		tbody tr:nth-child(odd) { background:#1c232c; }
+		.small { font-size:.7rem; opacity:.75; }
+		#entropyPlot { width:100%; height:160px; background:#101418; border:1px solid #2b333e; border-radius:6px; }
+		.badge { display:inline-block; padding:.2rem .45rem; border-radius:4px; font-size:.65rem; background:#24313f; color:var(--accent); margin-left:.4rem; }
+		.ok { color:var(--ok); }
+		.warn { color:var(--warn); }
+		.fade { opacity:.5; }
+		details { background:#101418; border:1px solid #2a323d; padding:.6rem .8rem; border-radius:6px; }
+		summary { cursor:pointer; font-weight:600; }
+		.tree { font-family: Menlo,Consolas,monospace; font-size:.7rem; max-height:260px; overflow:auto; background:#0d1218; padding:.5rem .6rem; border:1px solid #202830; border-radius:6px; line-height:1.25; }
+		.footerNote { margin-top:3rem; font-size:.65rem; opacity:.55; text-align:center; }
+		.prop-row td:first-child { text-align:left; }
+		.highlight { background:#203546 !important; }
+	</style>
+</head>
+<body>
+	<header>
+		<h1>Rota's Entropy Properties – Conditional Additivity for a Bernoulli Process</h1>
+		<div class="small">Electronic Graph Paper Theory (EGPT) • Interactive Teaching Tool</div>
+	</header>
+	<main>
+		<p>
+			This page demonstrates the five core properties used in <strong>Rota's Entropy Theorem</strong>, with a special focus on the
+			<em>conditional additivity</em> axiom (a recursive partitioning law) using an i.i.d. Bernoulli process.
+			In Lean, these appear as the structures: <code>IsEntropyNormalized</code>, <code>IsEntropySymmetric</code>,
+			<code>IsEntropyContinuous</code>, <code>IsEntropyZeroInvariance</code>, <code>IsEntropyMaxUniform</code>, and the sigma-type conditional additivity axiom.
+		</p>
+
+		<section class="panel" id="controlsPanel">
+			<h3>1. Controls</h3>
+			<label for="pInput">Bernoulli parameter p (P[X=1]) <span id="pVal"></span></label>
+			<input id="pInput" type="range" min="0" max="1" step="0.001" value="0.5" />
+			<label for="depthInput">Depth (number of trials n)</label>
+			<input id="depthInput" type="number" min="1" max="12" value="5" />
+			<div style="margin-top:.5rem;display:flex;gap:.5rem;flex-wrap:wrap;">
+				<button id="recomputeBtn" title="Recompute all derived quantities">Recompute</button>
+				<button id="randomizeBtn" title="Choose a random p and depth">Randomize</button>
+				<button id="edgeBtn" title="Toggle edge case p≈0 or p≈1">Edge p→0</button>
+			</div>
+			<p class="small">Adjust <strong>p</strong> and depth to see entropy propagation. For an i.i.d. process:
+				<code>H(X₁,…,Xₙ) = n · H(Bernoulli(p))</code>. Conditional additivity gives
+				<code>H(X₁,…,Xₙ₊₁) = H(X₁,…,Xₙ) + H(Xₙ₊₁ | X₁,…,Xₙ)</code> and independence makes the conditional term constant.</p>
+		</section>
+
+		<div class="flex">
+			<section class="panel" id="resultsPanel">
+				<h3>2. Entropy Decomposition</h3>
+				<div id="entropySummary"></div>
+				<canvas id="entropyPlot" aria-label="Entropy vs p" title="H(Bernoulli(p))"></canvas>
+				<div class="small">Graph shows <code>H(p) = -p log₂ p - (1-p) log₂(1-p)</code>, maximum at p=0.5 (uniform).</div>
+						<h4 style="margin-top:1rem;">Conditional Additivity vs log₂(|Support|)</h4>
+						<div class="small">Table compares recursive entropy build (<code>H_k = k·H₁</code>) to <code>log₂(2^k)=k</code>. Only equal when distribution uniform (p=0.5).</div>
+						<div style="overflow:auto; max-height:200px; border:1px solid #2b333e; border-radius:6px;">
+							<table style="width:100%; font-size:.7rem;" id="condAddLogComparison">
+								<thead>
+									<tr style="background:#242b35;">
+										<th style="text-align:right;">k</th>
+										<th style="text-align:right;">H₁</th>
+										<th style="text-align:right;">H_k (sum)</th>
+										<th style="text-align:right;">k·H₁</th>
+										<th style="text-align:right;">log₂(|S_k|)</th>
+										<th style="text-align:right;">H_k - k·H₁</th>
+										<th style="text-align:right;">Gap to k</th>
+										<th style="text-align:right;">Ratio H_k / k</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+						</div>
+			</section>
+			<section class="panel" id="treePanel">
+				<h3>3. Probability Tree (First k Leaves)</h3>
+				<div id="treeContainer" class="tree" aria-live="polite"></div>
+				<div class="small">Each depth adds a layer: conditional additivity partitions total entropy by sub-branches.</div>
+			</section>
+		</div>
+
+		<section class="panel" id="propertiesPanel">
+			<h3>4. Rota Properties Live Check</h3>
+			<table id="propsTable">
+				<thead>
+					<tr><th style="text-align:left;">Property</th><th>Illustration</th><th>Numeric Check</th><th>Status</th></tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+			<div class="small">Zero invariance test uses <code>[p,(1-p),0]</code>. Symmetry uses <code>H(p)=H(1-p)</code>.</div>
+		</section>
+
+		<section class="panel" id="derivationPanel">
+			<h3>5. Conditional Additivity Formula</h3>
+			<p>The Bernoulli i.i.d. process yields a joint distribution on <code>2^n</code> strings. Let <code>Sₙ</code> be all bit-strings of length n, <code>P(s)=p^{#1}(1-p)^{#0}</code>. Then:</p>
+			<p><code>H(X₁,…,Xₙ) = - Σ_{s∈Sₙ} P(s) log₂ P(s)</code></p>
+			<p>Independence ⇒ <code>H(X₁,…,Xₙ₊₁) = H(X₁,…,Xₙ) + H(Bernoulli(p))</code>. Recursively: <code>Hₙ = n · H₁</code>.</p>
+			<details>
+				<summary>Show Algebraic Expansion</summary>
+				<pre class="small">Hₙ₊₁ = - Σ_{s∈Sₙ} Σ_{b∈{0,1}} P(s) P(b) log₂ (P(s) P(b))
+			= - Σ_{s} Σ_{b} P(s) P(b) [log₂ P(s) + log₂ P(b)]
+			= - Σ_{s} P(s) log₂ P(s) Σ_{b} P(b) - Σ_{b} P(b) log₂ P(b) Σ_{s} P(s)
+			= Hₙ + H₁.</pre>
+			</details>
+			<div id="additivityCheck"></div>
+		</section>
+
+		<div class="footerNote">Built for classroom use. All computations client-side. Lean formalization references: <code>EGPT/Entropy/Common.lean</code>.</div>
+	</main>
+	<script src="RotaEntropyProperties.js"></script>
+</body>
+</html>
