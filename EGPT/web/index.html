@@ -288,6 +288,67 @@
 								<div class="small" id="codesComputeNarrative"></div>
 							</section>
 
+							<section class="panel" id="ftaPanel">
+								<h3>10. Prime Information Atoms (EGPT–FTA Interactive)</h3>
+								<p>
+									This section illustrates the EGPT reinterpretation of the Fundamental Theorem of Arithmetic: multiplicative
+									prime factorization becomes <em>additive decomposition of information</em>. With the calibration that a fair coin
+									has one bit of information, the entropy / information content of a uniform system of <code>k</code> states is
+									<code>log₂ k</code>. Thus for any natural number <code>n ≥ 2</code> we have:
+								</p>
+								<p class="small"><code>H(n) = log₂ n</code> and if <code>n = ∏ pᵢ ^ eᵢ</code> (prime factorization) then
+									<code>log₂ n = Σ eᵢ · log₂ pᵢ</code>. For factorials: <code>log₂(n!) = Σ_{p ≤ n} ( Σ_{k≥1} ⌊ n / p^k ⌋ ) log₂ p</code>.</p>
+								<div style="display:flex; gap:1rem; flex-wrap:wrap; align-items:flex-end;">
+									<label style="margin:0;">n (2–500)<br><input id="ftaNInput" type="number" min="2" max="500" value="30" style="width:90px;"/></label>
+									<button id="ftaUpdateBtn">Compute</button>
+									<div class="small" id="ftaStatus"></div>
+								</div>
+								<h4 style="margin-top:1rem;">(a) Prime Factorization Information</h4>
+								<div style="overflow:auto; max-height:210px; border:1px solid #2b333e; border-radius:6px;">
+									<table id="ftaFactorizationTable" style="width:100%; font-size:.7rem; border-collapse:collapse;">
+										<thead>
+											<tr style="background:#242b35;">
+												<th style="text-align:right;">#</th>
+												<th style="text-align:right;">p</th>
+												<th style="text-align:right;">e</th>
+												<th style="text-align:right;">e·log₂ p</th>
+											</tr>
+										</thead>
+										<tbody></tbody>
+										<tfoot>
+											<tr style="background:#1d252e; font-weight:600;">
+												<td colspan="3" style="text-align:right;">Σ e·log₂ p = log₂ n</td>
+												<td id="ftaFactorizationTotal"></td>
+											</tr>
+										</tfoot>
+									</table>
+								</div>
+								<div class="small" id="ftaFactorizationNote"></div>
+								<h4 style="margin-top:1.2rem;">(b) Factorial Decomposition log₂(n!) via Prime Exponents</h4>
+								<div style="overflow:auto; max-height:210px; border:1px solid #2b333e; border-radius:6px;">
+									<table id="ftaFactorialTable" style="width:100%; font-size:.7rem; border-collapse:collapse;">
+										<thead>
+											<tr style="background:#242b35;">
+												<th style="text-align:right;">p</th>
+												<th style="text-align:right;">αₚ (in n!)</th>
+												<th style="text-align:right;">αₚ · log₂ p</th>
+											</tr>
+										</thead>
+										<tbody></tbody>
+										<tfoot>
+											<tr style="background:#1d252e; font-weight:600;">
+												<td colspan="2" style="text-align:right;">Σ αₚ · log₂ p = log₂(n!)</td>
+												<td id="ftaFactorialTotal"></td>
+											</tr>
+										</tfoot>
+									</table>
+								</div>
+								<div class="small" id="ftaFactorialNote"></div>
+								<h4 style="margin-top:1.2rem;">(c) Incremental View</h4>
+								<p class="small" id="ftaIncremental"></p>
+								<p class="small">Interpretation: A prime contributes a <em>new irreducible information atom</em> of size <code>log₂ p</code> bits. A composite contributes only previously discovered atoms (information already latent in the system). This mirrors Section 7's linear growth for IID entropy with constant per-trial contribution.</p>
+							</section>
+
 		<div class="footerNote">Built for classroom use. All computations client-side. Lean formalization references: <code>EGPT/Entropy/Common.lean</code>.</div>
 	</main>
 	<script src="RotaEntropyProperties.js"></script>

@@ -461,3 +461,114 @@ window.RotaEntropyDemo = {
 	checkMaxUniform,
 	checkConditionalAdditivity
 };
+
+// =============== Section 10: Prime Information Atoms (EGPT–FTA) ===============
+// Lightweight prime utilities (n <= 500 so simplest sieve is fine)
+function sievePrimes(limit) {
+	const isPrime = new Array(limit + 1).fill(true);
+	isPrime[0] = false; isPrime[1] = false;
+	for (let p = 2; p * p <= limit; p++) if (isPrime[p]) for (let q = p * p; q <= limit; q += p) isPrime[q] = false;
+	const primes = [];
+	for (let i = 2; i <= limit; i++) if (isPrime[i]) primes.push(i);
+	return { isPrime, primes };
+}
+
+function factorInteger(n, primes) {
+	const fac = [];
+	let m = n;
+	for (const p of primes) {
+		if (p * p > m) break;
+		if (m % p === 0) {
+			let e = 0;
+			while (m % p === 0) { m /= p; e++; }
+			fac.push([p, e]);
+		}
+	}
+	if (m > 1) fac.push([m, 1]);
+	return fac;
+}
+
+// exponent of prime p in n! (Legendre formula)
+function primeExponentInFactorial(n, p) {
+	let exp = 0;
+	let pk = p;
+	while (pk <= n) { exp += Math.floor(n / pk); pk *= p; }
+	return exp;
+}
+
+function updateFTA() {
+	const nInput = document.getElementById('ftaNInput');
+	if (!nInput) return; // section not present
+	let n = parseInt(nInput.value, 10);
+	if (isNaN(n) || n < 2) n = 2; if (n > 500) n = 500; nInput.value = n;
+	const statusEl = document.getElementById('ftaStatus');
+	const { isPrime, primes } = sievePrimes(n);
+
+	// (a) Factorization of n
+	const fac = factorInteger(n, primes);
+	const factBody = document.querySelector('#ftaFactorizationTable tbody');
+	if (factBody) {
+		factBody.innerHTML = '';
+		let idx = 0, sumInfo = 0;
+		for (const [p, e] of fac) {
+			const contrib = e * log2(p);
+			sumInfo += contrib;
+			const tr = document.createElement('tr');
+			tr.innerHTML = `<td>${++idx}</td><td>${p}</td><td>${e}</td><td>${contrib.toFixed(6)}</td>`;
+			factBody.appendChild(tr);
+		}
+		const totalEl = document.getElementById('ftaFactorizationTotal');
+		if (totalEl) totalEl.textContent = sumInfo.toFixed(6) + ` (log₂ n = ${log2(n).toFixed(6)})`;
+		const note = document.getElementById('ftaFactorizationNote');
+		if (note) {
+			note.textContent = `Verification: |Σ e·log₂ p − log₂ n| = ${Math.abs(sumInfo - log2(n)).toExponential(2)}.`;
+		}
+	}
+
+	// (b) Factorial decomposition log2(n!) = Σ α_p log2 p
+	const factTableBody = document.querySelector('#ftaFactorialTable tbody');
+	if (factTableBody) {
+		factTableBody.innerHTML = '';
+		let sum = 0;
+		for (const p of primes) {
+			if (p > n) break;
+			const alpha = primeExponentInFactorial(n, p);
+			if (alpha === 0) continue;
+			const contrib = alpha * log2(p);
+			sum += contrib;
+			const tr = document.createElement('tr');
+			tr.innerHTML = `<td>${p}${isPrime[p] ? '' : ''}</td><td>${alpha}</td><td>${contrib.toFixed(6)}</td>`;
+			factTableBody.appendChild(tr);
+		}
+		const totalEl2 = document.getElementById('ftaFactorialTotal');
+		const lognFact = (() => { // log2(n!) via summation log2 k
+			let acc = 0; for (let k = 2; k <= n; k++) acc += log2(k); return acc; })();
+		if (totalEl2) totalEl2.textContent = sum.toFixed(6) + ` (log₂(n!)=${lognFact.toFixed(6)})`;
+		const note2 = document.getElementById('ftaFactorialNote');
+		if (note2) note2.textContent = `Verification: |Σ αₚ·log₂ p − log₂(n!)| = ${Math.abs(sum - lognFact).toExponential(2)}.`;
+	}
+
+	// (c) Incremental description 2..n classify primes vs composites
+	const newPrimeBits = [];
+	let totalBits = 0;
+	for (let k = 2; k <= n; k++) {
+		const bits = log2(k);
+		if (isPrime[k]) newPrimeBits.push({ k, bits });
+		totalBits += bits; // this is log2(n!) incrementally
+	}
+	const incr = document.getElementById('ftaIncremental');
+	if (incr) {
+		const primeSummary = newPrimeBits.slice(-8).map(o => `${o.k}(${o.bits.toFixed(2)})`).join(', ');
+		incr.textContent = `log₂(n!) = Σ_{i=2..n} log₂ i accumulated = ${totalBits.toFixed(6)} bits. New prime atoms up to n: ${newPrimeBits.length}. Recent primes: ${primeSummary}${newPrimeBits.length > 8 ? ', …' : ''}`;
+	}
+
+	if (statusEl) statusEl.textContent = `n=${n} • primes≤n: ${primes.filter(p=>p<=n).length}`;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+	const btn = document.getElementById('ftaUpdateBtn');
+	if (btn) btn.addEventListener('click', updateFTA);
+	const nInput = document.getElementById('ftaNInput');
+	if (nInput) nInput.addEventListener('input', updateFTA);
+	updateFTA();
+});

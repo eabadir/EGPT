@@ -675,7 +675,7 @@ theorem total_entropy_from_classes_eq_shannon_formula
     ∑ k ∈ Finset.range (n+1), (n.choose k : ℝ) * pk k
       = ( (p : ℝ) + q )^n := by
     simpa [pk, add_comm, add_left_comm, add_assoc, mul_comm, mul_left_comm, mul_assoc]
-      using (add_pow (x := (p : ℝ)) (y := q) (n := n))
+      using (add_pow (x := (p : ℝ)) (y := q) (n := n)).symm
   have S2 :
     ∑ k ∈ Finset.range (n+1), (n.choose k : ℝ) * pk k * ((n : ℝ) - k)
       = (n : ℝ) * q := by
@@ -685,11 +685,17 @@ theorem total_entropy_from_classes_eq_shannon_formula
       ∑ k ∈ Finset.range (n+1), (n.choose k : ℝ) * pk k * ((n : ℝ) - k)
         = (n : ℝ) * (∑ k ∈ Finset.range (n+1), (n.choose k : ℝ) * pk k)
           - (∑ k ∈ Finset.range (n+1), (n.choose k : ℝ) * pk k * (k : ℝ)) := by
-      have := Finset.sum_congr rfl (by
-        intro k hk; simp [mul_sub, mul_comm, mul_left_comm, mul_assoc])
-      -- turn sum of differences into difference of sums and factor constants
-      simpa [Finset.sum_sub_distrib, Finset.mul_sum, Finset.sum_mul]
-        using this
+      -- apply distributive property for subtraction inside the sum
+      conv_lhs =>
+        arg 2
+        ext k
+        rw [mul_sub]
+      rw [Finset.sum_sub_distrib]
+      congr 1
+      simp only [Finset.mul_sum]
+      congr 1
+      ext i
+      ring
     -- now use Ssum and S1 and simplify with (p+q)=1
     have pq_one : (p : ℝ) + q = 1 := by
       have hp_le_one : p ≤ 1 := le_of_lt hp_lt_one
@@ -716,7 +722,13 @@ theorem total_entropy_from_classes_eq_shannon_formula
     have : (1 - p : NNReal) ≠ 0 := by
       -- since 0 < q, coercion is nonzero
       have : 0 < q := hy_pos
-      exact_mod_cast ne_of_gt this
+      -- Convert from q ≠ 0 to (1 - p) ≠ 0
+      have h_q_ne_zero : q ≠ 0 := ne_of_gt this
+      -- Since q = ((1 - p : NNReal) : ℝ), and q ≠ 0, we have (1 - p : NNReal) ≠ 0
+      intro h_zero
+      have h_q_zero : q = 0 := by
+        simp [q, h_zero]
+      exact h_q_ne_zero h_q_zero
     simpa [negMulLogb2, q, this]
 
   -- Combine everything and convert back from the finset sum to the list foldl form
@@ -725,8 +737,12 @@ theorem total_entropy_from_classes_eq_shannon_formula
       = (n : ℝ) * (negMulLogb2 p) + (n : ℝ) * (negMulLogb2 (1 - p)) := by
     have := main_sum
     -- Substitute S1 and S2 and rearrange
-    simpa [S1, S2, hnp, hnq, mul_comm, mul_left_comm, mul_assoc, sub_eq_add_neg, add_comm, add_left_comm, add_assoc]
-      using this
+    rw [S1, S2] at this
+    -- Now we need to rearrange the products to match the expected form
+    convert this using 1
+    -- Use the definitions of hnp and hnq to rewrite
+    rw [hnp, hnq]
+    ring
 
   -- Fold back to the original list-based definition
   -- Note: the RHS of the goal uses `n * (...)` with `n : ℕ`; coerce `n` to ℝ implicitly.
