@@ -49,6 +49,18 @@ function bernoulliSequenceDistribution(n, p) {
 	return dist;
 }
 
+// Binomial coefficient helper (n choose k) using multiplicative formula for stability at moderate n
+function binomial(n, k) {
+	if (k < 0 || k > n) return 0;
+	if (k === 0 || k === n) return 1;
+	k = Math.min(k, n - k);
+	let res = 1;
+	for (let i = 1; i <= k; i++) {
+		res = res * (n - k + i) / i;
+	}
+	return Math.round(res); // k small enough here; rounding corrects FP drift
+}
+
 // Numerical derivative for continuity heuristics
 function numericalDerivative(f, x, h = 1e-4) {
 	return (f(x + h) - f(x - h)) / (2 * h);
@@ -256,6 +268,154 @@ function updateAll() {
 				if (Math.abs(gapUniform) < 1e-9) tr.classList.add('highlight'); // highlight uniform case p=0.5
 				compTableBody.appendChild(tr);
 			}
+
+				// Unique entropy ⇔ unique Shannon code table
+				const ucTableBody = document.querySelector('#uniqueCodeTable tbody');
+				if (ucTableBody) {
+					ucTableBody.innerHTML = '';
+					const maxShow = Math.min(256, 1 << Math.min(n, 12));
+					let kraftSum = 0;
+					let partialExpected = 0;
+					const totalStates = 1 << n;
+					// Show first lexicographic outcomes only for large n
+					for (let idx = 0; idx < maxShow; idx++) {
+						const bits = idx.toString(2).padStart(n, '0');
+						// count ones
+						let ones = 0; for (let i = 0; i < bits.length; i++) if (bits[i] === '1') ones++;
+						const prob = Math.pow(p, ones) * Math.pow(1 - p, n - ones);
+						const length = prob > 0 ? -log2(prob) : 0;
+						const expContrib = prob * length;
+						const ceilL = Math.ceil(length);
+						const kraftTerm = Math.pow(2, -ceilL);
+						kraftSum += kraftTerm;
+						partialExpected += expContrib;
+						const tr = document.createElement('tr');
+						tr.innerHTML = `
+							<td>${idx+1}</td>
+							<td style="text-align:left;">${bits}</td>
+							<td>${prob.toExponential(2)}</td>
+							<td>${length.toFixed(4)}</td>
+							<td>${expContrib.toFixed(4)}</td>
+							<td>${ceilL}</td>
+							<td>${kraftTerm.toFixed(4)}</td>`;
+						ucTableBody.appendChild(tr);
+					}
+					document.getElementById('ucPartialExpected').textContent = partialExpected.toFixed(4);
+					document.getElementById('ucKraftSum').textContent = kraftSum.toFixed(4);
+					const HnExact = hn;
+					document.getElementById('ucExactEntropy').textContent = HnExact.toFixed(6);
+					const uniform = Math.abs(p - 0.5) < 1e-9;
+					document.getElementById('ucUniformNote').textContent = uniform ? 'Uniform: all ℓ(s)=n' : '';
+					const narrative = document.getElementById('uniqueCodeNarrative');
+					narrative.textContent = `Shown ${maxShow}/${totalStates} outcomes. Each ideal length ℓ(s) = -log₂P(s). Entropy is the expected ℓ(s); conditional additivity ensures ℓ extends by either -log₂p or -log₂(1-p) per trial.`;
+				}
+
+					// Incremental Shannon encoder efficiency table (Section 7)
+					const incrBody = document.querySelector('#incrementalEncoderTable tbody');
+					if (incrBody) {
+						incrBody.innerHTML = '';
+						const maxK = Math.min(64, Math.max(5, n));
+						const deltaH = h1; // constant increment per trial in IID case
+						for (let k = 1; k <= maxK; k++) {
+							const Hk = k * h1;
+							const logSupport = k; // log2(2^k)
+							const efficiency = logSupport > 0 ? (Hk / logSupport) : 0;
+							const redundancy = logSupport - Hk;
+							const tr = document.createElement('tr');
+							tr.innerHTML = `
+								<td>${k}</td>
+								<td>${(k===1? h1 : deltaH).toFixed(4)}</td>
+								<td>${Hk.toFixed(4)}</td>
+								<td>${logSupport}</td>
+								<td>${efficiency.toFixed(4)}</td>
+								<td>${redundancy.toFixed(4)}</td>`;
+							if (Math.abs(redundancy) < 1e-9) tr.classList.add('highlight');
+							incrBody.appendChild(tr);
+						}
+						document.getElementById('encHn').textContent = hn.toFixed(4);
+						document.getElementById('encLogN').textContent = n;
+						document.getElementById('encEff').textContent = (hn / n).toFixed(4);
+						document.getElementById('encRed').textContent = (n - hn).toFixed(4);
+						const encNarr = document.getElementById('encoderNarrative');
+						encNarr.textContent = `Each increment adds ΔH = H₁ = ${h1.toFixed(6)} bits. Uniform case p=0.5 reaches efficiency 1; biased source efficiency < 1 reveals systematic compressibility.`;
+					}
+
+						// Bijection / log2 encoder equivalence table (Section 8)
+						const bijBody = document.querySelector('#bijectionTable tbody');
+						if (bijBody) {
+							bijBody.innerHTML = '';
+							const maxK = Math.min(32, Math.max(8, n));
+							for (let k = 1; k <= maxK; k++) {
+								const codes = 1 << k; // 2^k
+								const maxNat = codes - 1;
+								const uniformEntropy = k; // bits
+								const generalEntropy = k * h1; // IID Bernoulli
+								const logCodes = k; // log2(2^k)
+								const stepsToExtend = 1; // one new trial step
+								const deltaRep = 1; // one bit appended
+								const tr = document.createElement('tr');
+								tr.innerHTML = `
+									<td>${k}</td>
+									<td>${codes.toLocaleString()}</td>
+									<td>${maxNat.toLocaleString()}</td>
+									<td>${uniformEntropy}</td>
+									<td>${generalEntropy.toFixed(4)}</td>
+									<td>${logCodes}</td>
+									<td>${stepsToExtend}</td>
+									<td>${deltaRep}</td>`;
+								if (Math.abs(generalEntropy - uniformEntropy) < 1e-9) tr.classList.add('highlight');
+								bijBody.appendChild(tr);
+							}
+							document.getElementById('bijUniformRef').textContent = 'Hₖ(uniform)=k';
+							document.getElementById('bijGeneralRef').textContent = `Hₖ(p)=k·H₁=${(h1).toFixed(4)}·k`; // pattern
+							const bijNarr = document.getElementById('bijNarrative');
+							bijNarr.textContent = `log₂(#Codes)=k acts as canonical length. Bias (p ≠ 0.5) lowers actual average length to slope H₁=${h1.toFixed(6)}.`;
+						}
+		}
+
+		// Section 9: Informationally Irreducible Shannon Codes (probability classes)
+		const codesTableBody = document.querySelector('#codesComputeTable tbody');
+		if (codesTableBody) {
+			codesTableBody.innerHTML = '';
+			// Distinct classes correspond to k=0..n (# of ones)
+			let totalEntropy = 0;
+			let newCount = 0;
+			// Previous step probability values for comparison (k=0..n-1)
+			const prevSet = new Set();
+			for (let k = 0; k < n; k++) {
+				const pv = Math.pow(p, k) * Math.pow(1 - p, (n - 1) - k);
+				prevSet.add(pv.toPrecision(12));
+			}
+			for (let k = 0; k <= n; k++) {
+				const multiplicity = binomial(n, k);
+				const prob = Math.pow(p, k) * Math.pow(1 - p, n - k);
+				const length = prob > 0 ? -log2(prob) : 0;
+				const mass = multiplicity * prob; // should sum to 1
+				const entropyContribution = mass * length;
+				totalEntropy += entropyContribution;
+				// Check if class probability is new (wasn’t in previous step). Always new when k=0 or k=n or p in (0,1) because exponents differ, but we test numerically.
+				const isNew = !prevSet.has(prob.toPrecision(12));
+				if (isNew) newCount++;
+				const tr = document.createElement('tr');
+				tr.innerHTML = `
+					<td>${k}</td>
+					<td>${multiplicity}</td>
+					<td>${prob.toExponential(3)}</td>
+					<td>${length.toFixed(4)}</td>
+					<td>${mass.toFixed(4)}</td>
+					<td>${entropyContribution.toFixed(6)}</td>
+					<td>${isNew ? 'New' : ''}</td>`;
+				if (isNew) tr.classList.add('highlight');
+				codesTableBody.appendChild(tr);
+			}
+			const peEl = document.getElementById('codesPartialEntropy');
+			if (peEl) peEl.textContent = totalEntropy.toFixed(6);
+			const eeEl = document.getElementById('codesExactEntropy');
+			if (eeEl) eeEl.textContent = hn.toFixed(6);
+			const ncEl = document.getElementById('codesNewCount');
+			if (ncEl) ncEl.textContent = `${newCount} new classes`;
+			const narr = document.getElementById('codesComputeNarrative');
+			if (narr) narr.textContent = `n=${n} produced ${n+1} probability classes; ${newCount} numerically new vs step n-1. Total entropy matches Hₙ = ${(hn).toFixed(6)}.`;
 		}
 }
 
@@ -281,6 +441,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('recomputeBtn').addEventListener('click', updateAll);
 	document.getElementById('randomizeBtn').addEventListener('click', randomize);
 	document.getElementById('edgeBtn').addEventListener('click', toggleEdge);
+	// Section 9 controls (if present)
+	const codesRefreshBtn = document.getElementById('codesRefreshBtn');
+	if (codesRefreshBtn) codesRefreshBtn.addEventListener('click', updateAll);
+	const codesMaxRows = document.getElementById('codesMaxRows');
+	if (codesMaxRows) codesMaxRows.addEventListener('input', updateAll);
 	updateAll();
 });
 
