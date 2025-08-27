@@ -349,6 +349,63 @@
 								<p class="small">Interpretation: A prime contributes a <em>new irreducible information atom</em> of size <code>log₂ p</code> bits. A composite contributes only previously discovered atoms (information already latent in the system). This mirrors Section 7's linear growth for IID entropy with constant per-trial contribution.</p>
 							</section>
 
+							<section class="panel" id="factorPanel">
+								<h3>11. Efficient Factorization (Information Atom Extraction)</h3>
+								<p>
+									This section applies the <em>informational irreducibility</em> idea (Section 9) and the
+									<em>prime information atoms</em> decomposition (Section 10) to factor an arbitrary natural number <code>N</code>.
+									Each prime divisor contributes a new irreducible information atom of size <code>log₂ p</code> bits; extracting it
+									corresponds to peeling off its multiplicative power from <code>N</code>. The sum <code>Σ e·log₂ p</code> is verified against <code>log₂ N</code>.
+								</p>
+								<div style="display:flex; gap:1rem; flex-wrap:wrap; align-items:flex-end;">
+									<label style="margin:0;">N (2 – 1e9)<br><input id="factorNInput" type="number" min="2" max="1000000000" value="123456789" style="width:140px;"></label>
+									<button id="factorComputeBtn">Factor</button>
+									<button id="factorRandomBtn" title="Random composite near current scale">Random</button>
+									<button id="factorClearCacheBtn" title="Clear cached primes">Clear Prime Cache</button>
+									<div class="small" id="factorStatus"></div>
+								</div>
+								<h4 style="margin-top:1rem;">(a) Prime Factors</h4>
+								<div style="overflow:auto; max-height:210px; border:1px solid #2b333e; border-radius:6px;">
+									<table id="factorResultTable" style="width:100%; font-size:.7rem; border-collapse:collapse;">
+										<thead>
+											<tr style="background:#242b35;">
+												<th style="text-align:right;">#</th>
+												<th style="text-align:right;">Prime p</th>
+												<th style="text-align:right;">Exponent e</th>
+												<th style="text-align:right;">e·log₂p</th>
+												<th style="text-align:right;">Partial Σ</th>
+											</tr>
+										</thead>
+										<tbody></tbody>
+										<tfoot>
+											<tr style="background:#1d252e; font-weight:600;">
+												<td colspan="3" style="text-align:right;">Σ e·log₂ p</td>
+												<td id="factorTotalBits" style="text-align:right;"></td>
+												<td id="factorLogN" style="text-align:right;"></td>
+											</tr>
+										</tfoot>
+									</table>
+								</div>
+								<h4 style="margin-top:1rem;">(b) Incremental Extraction Steps</h4>
+								<p class="small">Trial division by cached primes (auto-extended as needed). Each new prime needed up to <code>√N</code> corresponds to searching for a new irreducible information atom.</p>
+								<div style="overflow:auto; max-height:210px; border:1px solid #2b333e; border-radius:6px;">
+									<table id="factorStepsTable" style="width:100%; font-size:.7rem; border-collapse:collapse;">
+										<thead>
+											<tr style="background:#242b35;">
+												<th style="text-align:right;">Step</th>
+												<th style="text-align:right;">Prime Tested</th>
+												<th style="text-align:right;">Divisions</th>
+												<th style="text-align:right;">Remainder</th>
+												<th style="text-align:right;">New Atom?</th>
+											</tr>
+										</thead>
+										<tbody></tbody>
+									</table>
+								</div>
+								<p class="small" id="factorNarrative"></p>
+								<p class="small">Optimization note: For <code>N</code> ≤ 1e9, trial division with a cached sieve ≤ <code>√N</code> (≤ 31623) is fast in JS. Larger bounds would require segmented sieves or Pollard Rho for practical speed, but the educational objective here is the additive ↔ multiplicative correspondence.</p>
+							</section>
+
 		<div class="footerNote">Built for classroom use. All computations client-side. Lean formalization references: <code>EGPT/Entropy/Common.lean</code>.</div>
 	</main>
 	<script src="RotaEntropyProperties.js"></script>

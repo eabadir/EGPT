@@ -749,3 +749,87 @@ theorem total_entropy_from_classes_eq_shannon_formula
   -- The left side uses the `foldl` form; use `hfold` to rewrite it to a finset sum.
   simpa [hfold, two_mul, mul_add, add_comm, add_left_comm, add_assoc]
     using final_sum
+
+
+/-!
+## Section 10 (JS Demo Parity): Prime Information Atoms / EGPTPrimeGenerator
+
+Mirrors the web Section 10 incremental identities:
+  (1) log₂ n = Σ e_p · log₂ p
+  (2) log₂(n!) = Σ α_p(n) · log₂ p,  α_p(n)=∑_{k≥1} ⌊n / p^k⌋
+  (3) Incremental: log₂((n+1)!) − log₂(n!) = log₂(n+1).
+
+We provide concise Lean lemmas (reusing earlier factorization identities) in
+`namespace PrimeAtoms` to justify the JavaScript computations.
+-/
+
+namespace PrimeAtoms
+
+open scoped BigOperators
+
+noncomputable def primeAtomSum (m : ℕ) : ℝ :=
+  ∑ p ∈ m.factorization.support, (m.factorization p : ℝ) * Real.logb 2 p
+
+lemma primeAtomSum_eq_logb (m : ℕ) (hm : 0 < m) :
+    primeAtomSum m = Real.logb 2 m := by
+  classical
+  simpa [primeAtomSum] using (logb_two_factorization m hm).symm
+
+noncomputable def factorialPrimeAtomSum (n : ℕ) : ℝ := primeAtomSum (Nat.factorial n)
+
+lemma factorialPrimeAtomSum_eq_logb (n : ℕ) :
+    factorialPrimeAtomSum n = Real.logb 2 (Nat.factorial n) := by
+  classical
+  have hpos : 0 < Nat.factorial n := Nat.factorial_pos n
+  -- unfold and apply earlier lemma
+  unfold factorialPrimeAtomSum
+  simpa using primeAtomSum_eq_logb (Nat.factorial n) hpos
+
+lemma logb_factorial_succ (n : ℕ) :
+    Real.logb 2 (Nat.factorial (n+1)) = Real.logb 2 (n+1) + Real.logb 2 (Nat.factorial n) := by
+  classical
+  have h1 : (Nat.factorial n : ℝ) ≠ 0 := by exact_mod_cast Nat.factorial_ne_zero n
+  have h2 : ((n+1) : ℝ) ≠ 0 := by exact_mod_cast Nat.succ_ne_zero n
+  have hfac : (Nat.factorial (n+1) : ℝ) = (n+1) * Nat.factorial n := by
+    simp [Nat.factorial_succ, Nat.cast_mul, Nat.cast_add, Nat.cast_one]
+  calc
+    Real.logb 2 (Nat.factorial (n+1))
+  = Real.logb 2 ((n+1) * Nat.factorial n) := by simp [hfac]
+    _ = Real.logb 2 (n+1) + Real.logb 2 (Nat.factorial n) :=
+          Real.logb_mul (b:=2) (x:=(n+1 : ℝ)) (y:=Nat.factorial n) h2 h1
+
+lemma logb_factorial_increment (n : ℕ) :
+    Real.logb 2 (Nat.factorial (n+1)) - Real.logb 2 (Nat.factorial n)
+      = Real.logb 2 (n+1) := by
+  classical
+  have := logb_factorial_succ n
+  simpa [sub_eq_add_neg, add_comm, add_left_comm, add_assoc]
+    using congrArg (fun t => t - Real.logb 2 (Nat.factorial n)) this
+
+theorem factorial_information_decomposition (n : ℕ) :
+    Real.logb 2 (Nat.factorial n)
+      = ∑ p ∈ (Nat.factorial n).factorization.support,
+          ((Nat.factorial n).factorization p : ℝ) * Real.logb 2 p := by
+  classical
+  -- from factorialPrimeAtomSum_eq_logb and definition
+  have := factorialPrimeAtomSum_eq_logb n
+  -- rewrite target
+  unfold factorialPrimeAtomSum at this
+  -- this: ∑ ... = logb; want logb = ∑ ...
+  simpa [primeAtomSum] using this.symm
+
+theorem factorial_information_increment (n : ℕ) :
+    Real.logb 2 (Nat.factorial (n+1))
+      = Real.logb 2 (Nat.factorial n) + Real.logb 2 (n+1) :=
+  (logb_factorial_succ n).trans (by simp [add_comm])
+
+end PrimeAtoms
+
+/-- NOTE: Detailed correctness lemmas (e.g., primes, product reconstruction) are
+omitted here to avoid depending on any trimmed mathlib parts. The `primeAtomSum`
+lemmas above already supply the identities used in the JS demo. `EGPTPrimeGenerator`
+serves as an extraction-friendly list of (prime, exponent) pairs. -/
+
+-- Optional explicit list generator mirroring JS (p,e) enumeration
+noncomputable def EGPTPrimeGenerator (n : ℕ) : List (ℕ × ℕ) :=
+  if n = 0 then [] else n.factorization.support.toList.map (fun p => (p, n.factorization p))

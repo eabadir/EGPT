@@ -572,3 +572,115 @@ document.addEventListener('DOMContentLoaded', () => {
 	if (nInput) nInput.addEventListener('input', updateFTA);
 	updateFTA();
 });
+
+// =============== Section 11: Efficient Factorization (Info Atom Extraction) ===============
+// We'll maintain a cached prime list that can grow as needed.
+const FactorCache = {
+	primes: [2,3,5,7,11,13],
+	limit: 13
+};
+
+function extendPrimeCache(upto) {
+	if (upto <= FactorCache.limit) return;
+	// Simple sieve extension
+	const start = FactorCache.limit + 1;
+	const isPrime = new Array(upto + 1).fill(true);
+	isPrime[0] = false; isPrime[1] = false;
+	// Mark using existing primes first
+	for (const p of FactorCache.primes) {
+		for (let m = p * 2; m <= upto; m += p) isPrime[m] = false;
+	}
+	for (let p = 2; p * p <= upto; p++) if (isPrime[p]) {
+		for (let m = p * p; m <= upto; m += p) isPrime[m] = false;
+	}
+	for (let p = start; p <= upto; p++) if (isPrime[p]) FactorCache.primes.push(p);
+	FactorCache.limit = upto;
+}
+
+function factorIntegerWithSteps(N) {
+	const steps = [];
+	const factors = [];
+	let n = N;
+	if (n < 2) return { factors: [], steps };
+	const bound = Math.floor(Math.sqrt(n));
+	extendPrimeCache(bound);
+	for (const p of FactorCache.primes) {
+		if (p * p > n) break;
+		let divisions = 0;
+		if (n % p === 0) {
+			let e = 0;
+			while (n % p === 0) { n /= p; e++; divisions++; }
+			factors.push([p, e]);
+			steps.push({ p, divisions, remainder: n, newAtom: true });
+		} else {
+			steps.push({ p, divisions: 0, remainder: n, newAtom: false });
+		}
+	}
+	if (n > 1) { // remaining prime
+		factors.push([n, 1]);
+		steps.push({ p: n, divisions: 0, remainder: 1, newAtom: true, terminal: true });
+	}
+	return { factors, steps };
+}
+
+function updateFactorizationUI() {
+	const input = document.getElementById('factorNInput');
+	if (!input) return;
+	let N = parseInt(input.value, 10);
+	if (isNaN(N) || N < 2) N = 2; if (N > 1000000000) N = 1000000000; input.value = N;
+	const { factors, steps } = factorIntegerWithSteps(N);
+	const tbody = document.querySelector('#factorResultTable tbody');
+	const stepsBody = document.querySelector('#factorStepsTable tbody');
+	const status = document.getElementById('factorStatus');
+	const totalBitsEl = document.getElementById('factorTotalBits');
+	const logNEl = document.getElementById('factorLogN');
+	const narrative = document.getElementById('factorNarrative');
+	if (tbody) {
+		tbody.innerHTML = '';
+		let partial = 0;
+		factors.forEach(([p,e],i)=>{
+			const bits = e * log2(p);
+			partial += bits;
+			const tr = document.createElement('tr');
+			tr.innerHTML = `<td>${i+1}</td><td>${p}</td><td>${e}</td><td>${bits.toFixed(6)}</td><td>${partial.toFixed(6)}</td>`;
+			tbody.appendChild(tr);
+		});
+		if (totalBitsEl) totalBitsEl.textContent = partial.toFixed(6);
+		if (logNEl) logNEl.textContent = log2(N).toFixed(6);
+	}
+	if (stepsBody) {
+		stepsBody.innerHTML = '';
+		steps.forEach((s,i)=>{
+			const tr = document.createElement('tr');
+			tr.innerHTML = `<td>${i+1}</td><td>${s.p}</td><td>${s.divisions}</td><td>${s.remainder}</td><td class="${s.newAtom?'ok':'fade'}">${s.newAtom? 'yes':'no'}</td>`;
+			stepsBody.appendChild(tr);
+		});
+	}
+	if (status) status.textContent = `Primes cached ≤ ${FactorCache.limit} (count=${FactorCache.primes.length})`;
+	if (narrative) narrative.textContent = `Factored N = ${N} into ${factors.length} distinct primes. Sum e·log₂p matches log₂N within numerical tolerance (${Math.abs(factors.reduce((a,[p,e])=>a+e*log2(p),0)-log2(N)).toExponential(2)}). Steps use trial division up to √N ≈ ${Math.sqrt(N).toFixed(1)}.`;
+}
+
+function randomComposite() {
+	// Generate random number with at least two prime factors
+	extendPrimeCache(10000);
+	const pick = () => FactorCache.primes[6 + Math.floor(Math.random()* (FactorCache.primes.length-6))];
+	const a = pick();
+	const b = pick();
+	const c = Math.random() < 0.33 ? pick() : 1;
+	let n = a * b * c;
+	if (n > 1e9) n = a * b; // ensure bound
+	document.getElementById('factorNInput').value = n;
+	updateFactorizationUI();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+	const factorBtn = document.getElementById('factorComputeBtn');
+	if (factorBtn) factorBtn.addEventListener('click', updateFactorizationUI);
+	const factorInput = document.getElementById('factorNInput');
+	if (factorInput) factorInput.addEventListener('input', updateFactorizationUI);
+	const randBtn = document.getElementById('factorRandomBtn');
+	if (randBtn) randBtn.addEventListener('click', randomComposite);
+	const clearBtn = document.getElementById('factorClearCacheBtn');
+	if (clearBtn) clearBtn.addEventListener('click', () => { FactorCache.primes = [2,3,5,7,11,13]; FactorCache.limit = 13; updateFactorizationUI(); });
+	updateFactorizationUI();
+});
