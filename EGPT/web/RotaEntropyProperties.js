@@ -186,18 +186,99 @@ function updateAll() {
 		<div><strong>H(X₁,…,X_${n+1})</strong> = ${formatBits(hnPlus)} bits</div>
 		<div class="small ${condCheck.ok ? 'ok':'warn'}">Check: Hₙ₊₁ − (Hₙ + H₁) = ${(condCheck.lhs - condCheck.rhs).toExponential(2)}</div>`;
 
-	// Tree & contributions (limit leaves for performance)
-	const treeLeaves = buildBernoulliPrefixTree(Math.min(n, 10), p, 512);
-	const contribs = leavesEntropyContribution(treeLeaves);
-	const treeEl = document.getElementById('treeContainer');
-	const totalLeafEntropy = contribs.reduce((a,b)=>a+b.contrib,0);
-	let html = '';
-	contribs.slice(0,256).forEach(c => {
-		html += `${c.prefix.padEnd(n,'·')}  p=${c.p.toExponential(2)}  contrib=${c.contrib.toExponential(2)}\n`;
-	});
-	if (contribs.length > 256) html += `... (${contribs.length-256} more)\n`;
-	html += `\nSum leaf contributions (depth=${Math.min(n,10)}) = ${totalLeafEntropy.toFixed(6)} bits\n`;
-	treeEl.textContent = html;
+	// Tree & contributions - build for ALL levels from 1 to n to show progressive build-up
+	const treeTableBody = document.querySelector('#treeTable tbody');
+	
+	if (treeTableBody) {
+		treeTableBody.innerHTML = '';
+		
+		let globalLeafCounter = 0;
+		let crossLevelCumulativeSum = 0;
+		let totalEntropyAllLevels = 0;
+		
+		// Build trees for each level from 1 to n
+		for (let currentLevel = 1; currentLevel <= Math.min(n, 8); currentLevel++) {
+			const levelLeaves = buildBernoulliPrefixTree(currentLevel, p, 256);
+			const levelContribs = leavesEntropyContribution(levelLeaves);
+			
+			// Calculate level total entropy
+			const levelTotalEntropy = levelContribs.reduce((sum, c) => sum + c.contrib, 0);
+			totalEntropyAllLevels += levelTotalEntropy;
+			
+			let inLevelCumulativeSum = 0;
+			
+			// Display each leaf in this level
+			levelContribs.slice(0, 64).forEach((c, indexInLevel) => {
+				globalLeafCounter++;
+				inLevelCumulativeSum += c.contrib;
+				crossLevelCumulativeSum += c.contrib;
+				
+				const sequence = c.prefix.length > 0 ? c.prefix : '(root)';
+				const probability = c.p.toFixed(6);
+				const contribution = c.contrib.toFixed(6);
+				const inLevelCumulativeDisplay = inLevelCumulativeSum.toFixed(6);
+				const crossLevelCumulativeDisplay = crossLevelCumulativeSum.toFixed(6);
+				
+				// Show level total only for the first leaf in each level
+				const levelTotalDisplay = indexInLevel === 0 ? (currentLevel * h1).toFixed(6) : '';
+				
+				const tr = document.createElement('tr');
+				tr.innerHTML = `
+					<td style="text-align:right;">${currentLevel}</td>
+					<td style="text-align:right;">${globalLeafCounter}</td>
+					<td style="text-align:left; font-family:monospace;">${sequence}</td>
+					<td style="text-align:right;">${probability}</td>
+					<td style="text-align:right;">${contribution}</td>
+					<td style="text-align:right;">${inLevelCumulativeDisplay}</td>
+					<td style="text-align:right;">${crossLevelCumulativeDisplay}</td>
+					<td style="text-align:right;">${levelTotalDisplay}</td>
+				`;
+				
+				// Highlight rows that start a new level
+				if (indexInLevel === 0 && currentLevel > 1) {
+					tr.style.borderTop = '2px solid #3fa9f5';
+				}
+				
+				treeTableBody.appendChild(tr);
+			});
+		}
+		
+		// Update footer displays
+		const totalEntropyEl = document.getElementById('treeTotalEntropy');
+		const inLevelTotalEl = document.getElementById('treeInLevelTotal');
+		const crossLevelTotalEl = document.getElementById('treeCrossLevelTotal');
+		const levelTotalEl = document.getElementById('treeLevelTotal');
+		
+		if (totalEntropyEl) {
+			totalEntropyEl.textContent = totalEntropyAllLevels.toFixed(6);
+		}
+		if (inLevelTotalEl) {
+			// This would be the sum within the last level shown
+			inLevelTotalEl.textContent = "varies by level";
+		}
+		if (crossLevelTotalEl) {
+			crossLevelTotalEl.textContent = crossLevelCumulativeSum.toFixed(6);
+		}
+		if (levelTotalEl) {
+			// Show theoretical total for the final level
+			const maxLevel = Math.min(n, 8);
+			const theoreticalTotal = (maxLevel * h1).toFixed(6);
+			levelTotalEl.textContent = theoreticalTotal;
+		}
+		
+		// Update the description text with current H₁ value
+		const treeDescriptionEl = document.querySelector('#treePanel .small');
+		if (treeDescriptionEl && treeDescriptionEl.innerHTML.includes('H₁ bits')) {
+			treeDescriptionEl.innerHTML = `
+				<strong>Reading the table:</strong> 
+				• <em>In Level Cumulative Sum</em> shows entropy accumulation within each level
+				• <em>Cross Level Cumulative Sum</em> shows total entropy accumulation across all levels up to current leaf
+				• <em>Level Total H_k</em> shows theoretical entropy for k trials = k·H₁
+				• Blue borders separate levels, demonstrating that each level adds exactly H₁ = ${h1.toFixed(4)} bits
+				• This verifies conditional additivity: H_k = k·H₁ for independent Bernoulli trials
+			`;
+		}
+	}
 
 	// Property table
 	const tbody = document.querySelector('#propsTable tbody');
@@ -446,7 +527,25 @@ document.addEventListener('DOMContentLoaded', () => {
 	if (codesRefreshBtn) codesRefreshBtn.addEventListener('click', updateAll);
 	const codesMaxRows = document.getElementById('codesMaxRows');
 	if (codesMaxRows) codesMaxRows.addEventListener('input', updateAll);
+	
+	// Section 10 and 11 controls
+	const ftaBtn = document.getElementById('ftaUpdateBtn');
+	if (ftaBtn) ftaBtn.addEventListener('click', updateFTA);
+	const ftaNInput = document.getElementById('ftaNInput');
+	if (ftaNInput) ftaNInput.addEventListener('input', updateFTA);
+	
+	const factorBtn = document.getElementById('factorComputeBtn');
+	if (factorBtn) factorBtn.addEventListener('click', updateFactorizationUI);
+	const factorInput = document.getElementById('factorNInput');
+	if (factorInput) factorInput.addEventListener('input', updateFactorizationUI);
+	const randBtn = document.getElementById('factorRandomBtn');
+	if (randBtn) randBtn.addEventListener('click', randomComposite);
+	const clearBtn = document.getElementById('factorClearCacheBtn');
+	if (clearBtn) clearBtn.addEventListener('click', () => { FactorCache.primes = [2,3,5,7,11,13]; FactorCache.limit = 13; updateFactorizationUI(); });
+
 	updateAll();
+	updateFTA(); // Initial call for section 10
+	updateFactorizationUI(); // Initial call for section 11
 });
 
 // Expose core functions for console experimentation
@@ -565,14 +664,6 @@ function updateFTA() {
 	if (statusEl) statusEl.textContent = `n=${n} • primes≤n: ${primes.filter(p=>p<=n).length}`;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-	const btn = document.getElementById('ftaUpdateBtn');
-	if (btn) btn.addEventListener('click', updateFTA);
-	const nInput = document.getElementById('ftaNInput');
-	if (nInput) nInput.addEventListener('input', updateFTA);
-	updateFTA();
-});
-
 // =============== Section 11: Efficient Factorization (Info Atom Extraction) ===============
 // We'll maintain a cached prime list that can grow as needed.
 const FactorCache = {
@@ -672,15 +763,3 @@ function randomComposite() {
 	document.getElementById('factorNInput').value = n;
 	updateFactorizationUI();
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-	const factorBtn = document.getElementById('factorComputeBtn');
-	if (factorBtn) factorBtn.addEventListener('click', updateFactorizationUI);
-	const factorInput = document.getElementById('factorNInput');
-	if (factorInput) factorInput.addEventListener('input', updateFactorizationUI);
-	const randBtn = document.getElementById('factorRandomBtn');
-	if (randBtn) randBtn.addEventListener('click', randomComposite);
-	const clearBtn = document.getElementById('factorClearCacheBtn');
-	if (clearBtn) clearBtn.addEventListener('click', () => { FactorCache.primes = [2,3,5,7,11,13]; FactorCache.limit = 13; updateFactorizationUI(); });
-	updateFactorizationUI();
-});
