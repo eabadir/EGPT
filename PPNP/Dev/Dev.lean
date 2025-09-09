@@ -266,7 +266,7 @@ lemma log_two_ne_zero : Real.log 2 ≠ 0 := by exact ne_of_gt (Real.log_pos logb
   unfold Real.logb
   rw [div_self log_two_ne_zero]
 
-lemma logb_two_factorization (n : ℕ) (_hn : 0 < n) :
+@[simp] lemma logb_two_factorization (n : ℕ) (_hn : 0 < n) :
     Real.logb 2 n =
       ∑ p ∈ n.factorization.support,
         (n.factorization p : ℝ) * Real.logb 2 p := by
@@ -279,7 +279,7 @@ lemma logb_two_factorization (n : ℕ) (_hn : 0 < n) :
 /-! Bridge to entropy: entropy (in bits) of the uniform distribution on `n`
     outcomes equals `Real.logb 2 n` (proved or assumed elsewhere). We package
     the factorization version in entropy form. -/
-lemma entropy_uniform_bits_factorization
+lemma entropy_uniform_logb_factorization
     (n : ℕ) (hn : 1 < n)
     (bridge : H_canonical_log2 (canonicalUniformDist n (Nat.lt_trans (Nat.succ_pos 0) hn))
                 = ((Real.logb 2 n)).toNNReal)
@@ -297,7 +297,7 @@ Main statement (bits form): EGPT Fundamental Theorem of Information Arithmetic.
 We state it purely in logarithmic terms; the entropy version follows by the
 uniform-entropy bridge.
 -/
-theorem EGPT_FTA_information_bits (n : ℕ) (hn : 1 < n) :
+theorem EGPT_Fundamental_Theorem_of_Arithmetic_via_Information (n : ℕ) (hn : 1 < n) :
     Real.logb 2 n = ∑ p ∈ n.factorization.support, (n.factorization p : ℝ) * Real.logb 2 p :=
   logb_two_factorization n (Nat.lt_trans (Nat.succ_pos 0) hn)
 
@@ -305,7 +305,7 @@ theorem EGPT_FTA_information_bits (n : ℕ) (hn : 1 < n) :
 Entropy phrasing (schematic): each prime factor contributes additively its
 bit-information.  This mirrors the Lean outline in `EGPT_FTA.md`.
 -/
-theorem EGPT_FTA_entropy_bits
+theorem EGPT_Fundamental_Theorem_of_Arithmetic_via_Entropy_Bits
     (n : ℕ) (hn : 1 < n)
     (bridge : H_canonical_log2 (canonicalUniformDist n (Nat.lt_trans (Nat.succ_pos 0) hn))
                 = ((Real.logb 2 n)).toNNReal)
@@ -313,7 +313,7 @@ theorem EGPT_FTA_entropy_bits
   H_canonical_log2 (canonicalUniformDist n (Nat.lt_trans (Nat.succ_pos 0) hn)) =
     ((∑ p ∈ n.factorization.support, (n.factorization p : ℝ) * Real.logb 2 p)).toNNReal := by
   classical
-  have hfac := EGPT_FTA_information_bits n hn
+  have hfac := EGPT_Fundamental_Theorem_of_Arithmetic_via_Information n hn
   simp [bridge, hfac]
 
 

@@ -543,9 +543,22 @@ document.addEventListener('DOMContentLoaded', () => {
 	const clearBtn = document.getElementById('factorClearCacheBtn');
 	if (clearBtn) clearBtn.addEventListener('click', () => { FactorCache.primes = [2,3,5,7,11,13]; FactorCache.limit = 13; updateFactorizationUI(); });
 
+	// Section 12 multi-level controls
+	const multiBtn = document.getElementById('biasMultiRefreshBtn');
+	if (multiBtn) multiBtn.addEventListener('click', ()=>updateBiasSection(true));
+	const multiMaxRows = document.getElementById('biasMultiMaxRows');
+	if (multiMaxRows) multiMaxRows.addEventListener('input', ()=>updateBiasSection(true));
+	const multiMaxLevel = document.getElementById('biasMultiMaxLevel');
+	if (multiMaxLevel) multiMaxLevel.addEventListener('input', ()=>updateBiasSection(true));
+
+	// Chain search & prefix tables
+	const chainBtn = document.getElementById('biasChainSearchBtn');
+	if (chainBtn) chainBtn.addEventListener('click', ()=>updateBiasSection(true));
+
 	updateAll();
 	updateFTA(); // Initial call for section 10
 	updateFactorizationUI(); // Initial call for section 11
+	updateBiasSection(); // Initial call for section 12
 });
 
 // Expose core functions for console experimentation
@@ -749,6 +762,9 @@ function updateFactorizationUI() {
 	}
 	if (status) status.textContent = `Primes cached ≤ ${FactorCache.limit} (count=${FactorCache.primes.length})`;
 	if (narrative) narrative.textContent = `Factored N = ${N} into ${factors.length} distinct primes. Sum e·log₂p matches log₂N within numerical tolerance (${Math.abs(factors.reduce((a,[p,e])=>a+e*log2(p),0)-log2(N)).toExponential(2)}). Steps use trial division up to √N ≈ ${Math.sqrt(N).toFixed(1)}.`;
+
+	// Trigger Section 12 refresh (bias interpretation depends on N)
+	updateBiasSection();
 }
 
 function randomComposite() {
@@ -762,4 +778,301 @@ function randomComposite() {
 	if (n > 1e9) n = a * b; // ensure bound
 	document.getElementById('factorNInput').value = n;
 	updateFactorizationUI();
+}
+
+// =============== Section 12: Bias Factorization & Code Class Convergence ===============
+function bitLength(n) {
+ 	if (n <= 0) return 0;
+ 	return Math.floor(Math.log2(n)) + 1;
+}
+
+function popcount(n) {
+ 	let c = 0; while (n) { n &= (n - 1); c++; } return c;
+}
+
+function computeBias(n) {
+ 	const k = bitLength(n);
+ 	return { k, bias: n / (2 ** k) };
+}
+
+function biasPreservingFactorPairs(N, maxPairs=5000) {
+ 	// Return factor pairs (P,Q) with P*Q=N and bitlen(P)+bitlen(Q)=bitlen(N)
+ 	const kN = bitLength(N);
+ 	const pairs = [];
+ 	for (let P = 2; P * P <= N; P++) {
+ 		if (N % P !== 0) continue;
+ 		const Q = N / P;
+ 		const kP = bitLength(P);
+ 		const kQ = bitLength(Q);
+ 		if (kP + kQ === kN) {
+ 			pairs.push({ P, Q, kP, kQ });
+ 			if (pairs.length >= maxPairs) break;
+ 		}
+ 	}
+ 	return pairs;
+}
+
+function updateBiasSection(refreshLevels=false) {
+ 	const NInput = document.getElementById('factorNInput');
+ 	if (!NInput) return; // section 11 absent => skip
+ 	const N = parseInt(NInput.value, 10);
+ 	if (!Number.isFinite(N) || N < 2) return;
+ 	const { k, bias } = computeBias(N);
+ 	const pcN = popcount(N);
+ 	const summaryEl = document.getElementById('biasSummary');
+	if (summaryEl) {
+		summaryEl.textContent = `N=${N} (k=${k} bits, popcount=${pcN}, density popcount/k=${(pcN/k).toFixed(3)}) ⇒ b_N = ${bias.toFixed(6)}.`;
+	}
+
+ 	// (a) Bias-preserving factor pairs
+ 	const pairs = biasPreservingFactorPairs(N);
+ 	const tbodyPairs = document.querySelector('#biasFactorPairsTable tbody');
+ 	if (tbodyPairs) {
+ 		tbodyPairs.innerHTML = '';
+ 		pairs.forEach((pr, idx) => {
+ 			const bP = pr.P / (2 ** pr.kP);
+ 			const bQ = pr.Q / (2 ** pr.kQ);
+ 			const prod = bP * bQ;
+ 			const delta = prod - bias;
+ 			const tr = document.createElement('tr');
+			const success = Math.abs(delta) < 1e-12;
+			tr.className = success ? 'row-ok' : (Math.abs(delta) < 5e-4 ? 'row-warn':'');
+			tr.innerHTML = `<td>${idx+1}</td>`+
+ 				`<td>${pr.P}</td><td>${pr.Q}</td>`+
+ 				`<td>${pr.kP}</td><td>${pr.kQ}</td>`+
+ 				`<td>${bP.toFixed(6)}</td><td>${bQ.toFixed(6)}</td>`+
+ 				`<td>${prod.toFixed(6)}</td>`+
+ 				`<td>${Math.abs(delta) < 1e-12 ? '0' : delta.toExponential(2)}</td>`+
+ 				`<td>${popcount(pr.P)+popcount(pr.Q)}</td>`+
+ 				`<td>${pcN}</td>`;
+ 			tbodyPairs.appendChild(tr);
+ 		});
+ 		const countEl = document.getElementById('biasPairCount');
+ 		if (countEl) countEl.textContent = pairs.length;
+		const status = document.getElementById('biasSuccessStatus');
+		if (status) {
+			if (pairs.length === 0) {
+				status.innerHTML = `<span class="badge-status badge-fail">No bias-preserving factorization found</span> <span class='small'>Most numbers have none; N behaves like a "prime" under the (bitlen,bias) constraint.</span>`;
+			} else {
+				const exact = pairs.filter(pr => {
+					const bP = pr.P / (2 ** pr.kP); const bQ = pr.Q / (2 ** pr.kQ); return Math.abs(bP * bQ - bias) < 1e-12;});
+				status.innerHTML = `<span class="badge-status badge-success">${exact.length} exact bias-preserving pair${exact.length!==1?'s':''}</span> <span class='small'>Bit-length budget splits as k = k_P + k_Q without overflow.</span>`;
+			}
+		}
+ 	}
+
+	// (b) Iterative convergence search from n=k down to ceil(k/2)
+	const tbodyClasses = document.querySelector('#biasCodeClassesTable tbody');
+	if (tbodyClasses) {
+		let chosenLevel = k;
+		let exact = false;
+		let levelData = null;
+		for (let nLevel = k; nLevel >= Math.ceil(k/2); nLevel--) {
+			// Check if bias has a rational form r/nLevel exactly within tolerance
+			const rCandidate = Math.round(bias * nLevel);
+			if (Math.abs(rCandidate / nLevel - bias) < 1e-12) { chosenLevel = nLevel; exact = true; break; }
+		}
+		// Build table at chosenLevel
+		const nL = chosenLevel;
+		tbodyClasses.innerHTML = '';
+		let expBias = 0;
+		for (let ones = 0; ones <= nL; ones++) {
+			const mult = binomial(nL, ones);
+			const prob = Math.pow(bias, ones) * Math.pow(1 - bias, nL - ones);
+			const classBias = nL === 0 ? 0 : ones / nL;
+			expBias += classBias * mult * prob;
+			const deltaBias = Math.abs(classBias - bias);
+			const tr = document.createElement('tr');
+			if (Math.abs(classBias - bias) < 1e-12) tr.className = 'row-ok';
+			tr.innerHTML = `<td>${ones}</td><td>${mult}</td>`+
+				`<td>${prob.toExponential(3)}</td>`+
+				`<td>${classBias.toFixed(4)}</td>`+
+				`<td>${deltaBias.toExponential(2)}</td>`+
+				`<td>${(classBias*mult*prob).toExponential(3)}</td>`;
+			tbodyClasses.appendChild(tr);
+		}
+		const expEl = document.getElementById('biasClassExpectation');
+		if (expEl) expEl.textContent = expBias.toFixed(6);
+		const bnEl = document.getElementById('biasBNExact');
+		if (bnEl) bnEl.textContent = bias.toFixed(6);
+		const varEl = document.getElementById('biasVariance');
+		if (varEl) varEl.textContent = (bias*(1-bias)/nL).toExponential(3);
+		const narr = document.getElementById('biasClassesNarrative');
+		if (narr) narr.textContent = `Level n=${nL} chosen (searched from k=${k} down to ⌈k/2⌉). Expectation ≈ b_N (|Δ|=${Math.abs(expBias-bias).toExponential(2)}). Variance p(1-p)/n=${(bias*(1-bias)/nL).toExponential(2)}.`;
+		const convSummary = document.getElementById('biasConvergenceSummary');
+		if (convSummary) convSummary.innerHTML = exact
+			? `<span class="badge-status badge-success">Exact representation found at n=${nL}</span> r=${Math.round(bias*nL)} so b_N = r/n.`
+			: `<span class="badge-status badge-fail">No exact rational match r/n for n in [${Math.ceil(k/2)},${k}]</span> Showing widest level n=k for approximation.`;
+	}
+
+	// (c) Multi-level classes 1..k (or truncated)
+	if (refreshLevels) {
+		buildMultiLevelBiasTable(k, bias);
+	} else {
+		// build at first load too if table empty
+		const tbl = document.querySelector('#biasMultiLevelTable tbody');
+		if (tbl && tbl.children.length === 0) buildMultiLevelBiasTable(k, bias);
+	}
+
+	// (d) Prefix table
+	buildPrefixBiasTable(N, k, bias);
+
+	// (e) Multi-factor chains
+	buildBiasChains(N, k, bias, refreshLevels);
+}
+
+function buildMultiLevelBiasTable(k, p) {
+ 	const tbody = document.querySelector('#biasMultiLevelTable tbody');
+ 	if (!tbody) return;
+ 	const maxRowsInput = document.getElementById('biasMultiMaxRows');
+ 	const maxLevelInput = document.getElementById('biasMultiMaxLevel');
+ 	let maxRows = maxRowsInput ? parseInt(maxRowsInput.value,10) : 400;
+ 	if (!Number.isFinite(maxRows) || maxRows < 10) maxRows = 400;
+ 	let capLevel = maxLevelInput ? parseInt(maxLevelInput.value,10) : 0;
+ 	if (!Number.isFinite(capLevel) || capLevel < 0) capLevel = 0;
+ 	const upto = capLevel === 0 ? k : Math.min(capLevel, k);
+ 	tbody.innerHTML = '';
+ 	const seen = new Set();
+ 	let rowCount = 0;
+ 	let lastLevelExpectation = 0;
+ 	for (let m = 1; m <= upto; m++) {
+ 		lastLevelExpectation = 0;
+ 		for (let r = 0; r <= m; r++) {
+ 			if (rowCount >= maxRows) break;
+ 			const mult = binomial(m, r);
+ 			const prob = Math.pow(p, r) * Math.pow(1 - p, m - r);
+ 			const biasClass = r / m;
+ 			const mass = mult * prob; // probability mass of class
+ 			const contrib = biasClass * mass;
+ 			lastLevelExpectation += contrib;
+ 			const key = prob.toPrecision(12);
+ 			const isNew = !seen.has(key);
+ 			if (isNew) seen.add(key);
+ 			const tr = document.createElement('tr');
+ 			if (isNew) tr.className = 'row-ok';
+ 			tr.innerHTML = `<td>${m}</td><td>${r}</td><td>${mult}</td>`+
+ 				`<td>${prob.toExponential(3)}</td>`+
+ 				`<td>${biasClass.toFixed(4)}</td>`+
+ 				`<td>${Math.abs(biasClass - p).toExponential(2)}</td>`+
+ 				`<td>${mass.toExponential(3)}</td>`+
+ 				`<td>${contrib.toExponential(3)}</td>`+
+ 				`<td>${isNew ? 'New' : ''}</td>`;
+ 			tbody.appendChild(tr);
+ 			rowCount++;
+ 		}
+ 		if (rowCount >= maxRows) break;
+ 	}
+ 	const expCell = document.getElementById('biasMultiExpectation');
+ 	if (expCell) expCell.textContent = lastLevelExpectation.toFixed(6);
+ 	const distinctCell = document.getElementById('biasMultiDistinctCount');
+ 	if (distinctCell) distinctCell.textContent = `${seen.size} distinct probs`;
+ 	const summary = document.getElementById('biasMultiSummary');
+ 	if (summary) summary.textContent = `Levels shown: 1..${upto} • Rows: ${rowCount} / ${maxRows} • Distinct probabilities: ${seen.size}`;
+}
+
+function buildPrefixBiasTable(N, k, bN) {
+ 	const tbody = document.querySelector('#biasPrefixTable tbody');
+ 	if (!tbody) return;
+ 	tbody.innerHTML = '';
+ 	const bin = N.toString(2);
+ 	let prevPop = 0;
+ 	for (let m = 1; m <= k; m++) {
+ 		const prefixBin = bin.slice(0, m);
+ 		const val = parseInt(prefixBin, 2);
+ 		const bp = val / (2 ** m);
+ 		const pc = prefixBin.split('').reduce((a,c)=>a+(c==='1'?1:0),0);
+ 		const deltaPop = pc - prevPop; prevPop = pc;
+ 		const density = pc / m;
+ 		const tr = document.createElement('tr');
+ 		if (m === k) tr.className = 'row-ok';
+ 		tr.innerHTML = `<td>${m}</td><td>${prefixBin}</td><td>${val}</td>`+
+ 			`<td>${bp.toFixed(6)}</td>`+
+ 			`<td>${pc}</td>`+
+ 			`<td>${deltaPop}</td>`+
+ 			`<td>${density.toFixed(4)}</td>`+
+ 			`<td>${Math.abs(density - bN).toExponential(2)}</td>`+
+ 			`<td>${Math.abs(bp - bN).toExponential(2)}</td>`;
+ 		tbody.appendChild(tr);
+ 	}
+ 	const finalPop = document.getElementById('biasPrefixFinalPop');
+ 	if (finalPop) finalPop.textContent = `${prevPop}`;
+ 	const finalDensity = document.getElementById('biasPrefixFinalDensity');
+ 	if (finalDensity) finalDensity.textContent = (prevPop / k).toFixed(6);
+ 	const biasCheck = document.getElementById('biasPrefixBiasCheck');
+ 	if (biasCheck) biasCheck.textContent = `b_N=${bN.toFixed(6)}`;
+}
+
+function buildBiasChains(N, k, bN, force=false) {
+ 	const tbody = document.querySelector('#biasChainTable tbody');
+ 	if (!tbody) return;
+ 	if (!force && tbody.children.length) return; // avoid recompute unless requested
+ 	tbody.innerHTML='';
+ 	// Derive prime factorization quickly using existing factorization routine
+ 	const { factors } = factorIntegerWithSteps(N);
+ 	// Build list of atomic factors (primes repeated by exponent)
+ 	const atoms = [];
+ 	for (const [p,e] of factors) for (let i=0;i<e;i++) atoms.push(p);
+ 	// Generate chains by grouping atoms in order (simple heuristic) and also individual primes
+ 	const maxChainsInput = document.getElementById('biasChainMax');
+ 	let maxChains = maxChainsInput ? parseInt(maxChainsInput.value,10) : 40;
+ 	if (!Number.isFinite(maxChains) || maxChains<1) maxChains=40;
+ 	const maxLenInput = document.getElementById('biasChainMaxLen');
+ 	let maxLen = maxLenInput ? parseInt(maxLenInput.value,10) : 8;
+ 	if (!Number.isFinite(maxLen) || maxLen<2) maxLen=8;
+ 	const chains = new Set();
+ 	const results = [];
+ 	// Helper to record chain
+ 	function record(chain) {
+ 		const key = chain.slice().sort((a,b)=>a-b).join('x');
+ 		if (chains.has(key)) return;
+ 		chains.add(key);
+ 		// skip trivial single-factor chain
+ 		if (chain.length===1) return;
+ 		const bitSum = chain.reduce((s,x)=>s+bitLength(x),0);
+ 		if (bitSum>k) return;
+ 		if (bitSum===k) {
+ 			const biasProd = chain.reduce((acc,x)=> acc * (x / (2 ** bitLength(x))),1);
+ 			results.push({ chain: chain.slice(), bitSum, biasProd, delta: biasProd - bN });
+ 		}
+ 	}
+ 	// Start with individual primes (atoms)
+ 	for (const p of atoms) record([p]);
+ 	// Simple DFS combining contiguous atoms
+ 	function dfs(startIdx, current, prod) {
+ 		if (results.length >= maxChains) return;
+ 		if (startIdx === atoms.length) { record(current); return; }
+ 		for (let i = startIdx; i < atoms.length && i < startIdx + maxLen; i++) {
+ 			prod *= atoms[i];
+ 			current.push(atoms[i]);
+ 			record(current);
+ 			dfs(i+1, current, prod);
+ 			current.pop();
+ 			prod /= atoms[i];
+ 			if (results.length >= maxChains) break;
+ 		}
+ 	}
+ 	dfs(0, [], 1);
+ 	results.sort((a,b)=> Math.abs(a.delta)-Math.abs(b.delta));
+ 	let exactCount=0; const distinctFactors=new Set();
+ 	results.slice(0, maxChains).forEach((r,idx)=>{
+ 		const match = Math.abs(r.delta) < 1e-12;
+ 		if (match) exactCount++;
+ 		r.chain.forEach(f=>distinctFactors.add(f));
+ 		const tr = document.createElement('tr');
+ 		tr.className = match ? 'row-ok' : '';
+ 		tr.innerHTML = `<td>${idx+1}</td>`+
+ 			`<td>${r.chain.join('·')}</td>`+
+ 			`<td>${r.chain.map(f=>bitLength(f)).join('+')}</td>`+
+ 			`<td>${r.bitSum}</td>`+
+ 			`<td>${r.biasProd.toFixed(8)}</td>`+
+ 			`<td>${match ? '0' : r.delta.toExponential(2)}</td>`+
+ 			`<td>${match ? 'Yes' : ''}</td>`;
+ 		tbody.appendChild(tr);
+ 	});
+ 	const exactCell = document.getElementById('biasChainExactCount');
+ 	if (exactCell) exactCell.textContent = exactCount;
+ 	const distinctCell = document.getElementById('biasChainDistinctFactors');
+ 	if (distinctCell) distinctCell.textContent = `${distinctFactors.size} distinct atoms used`;
+ 	const status = document.getElementById('biasChainStatus');
+ 	if (status) status.textContent = `Chains: ${results.length} (showing ≤ ${maxChains})`;
 }
