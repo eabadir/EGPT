@@ -1,0 +1,188 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{hyperref}
+\usepackage{url}
+
+\begin{document}
+
+\title{Rota’s Entropy Theorem and the Probabilistic Origin of the Riemann Zeta Function}
+\author{}
+\date{}
+\maketitle
+
+\begin{abstract}
+Entropy provides a unique bridge between probability, combinatorics, and analytic number theory.  Building on Gian-Carlo Rota’s insight that “continuous” physical entropies are discretizations of Shannon entropy, we derive a new interpretation of the Riemann zeta function as the entropy-generating function of an infinite i.i.d.\ Bernoulli process.  Working in the formal framework of EGPT—a Lean-verified system for encoding physical and computational processes—we show that Rota's entropy theorem forces any entropy function to be a scaled Shannon entropy\footnote{See \texttt{EGPT/NumberTheory/Analysis.lean}}.  We then define a canonical encoding of EGPT reals via an explicit map \texttt{toFun\_EGPT\_Real\_to\_Std\_Real} that replaces the axiomatic entropy function with this scaled Shannon entropy\footnote{See \texttt{EGPT/NumberTheory/Analysis.lean}}.  Using a general independent and identically distributed (IID) particle source class\footnote{See \texttt{EGPT/Core.lean}} and the number-theoretic bijection between natural numbers and particle paths, we show that the distribution of prime exponents in any integer can be represented as an IID process.  Finally, we employ filters and rejection sampling to construct biased IID sources that realize arbitrary rational probability distributions\footnote{See \texttt{EGPT/Core.lean}}.  Taken together, these results demonstrate that the logarithmic encoding of prime factorization—the Logarithmic Fundamental Theorem of Arithmetic (LFTA)—and the Euler product for $\zeta(s)$ are not merely formal analogies but arise directly from the uniqueness of entropy and the independence of prime events.  We thus provide a probabilistic motivation for the Riemann zeta function and argue that the symmetry of the zeta function on the critical line corresponds to the symmetry axioms underlying Rota’s entropy theorem.
+\end{abstract}
+
+\section{Introduction}
+
+The Riemann zeta function $\zeta(s) = \sum_{n=1}^{\infty} n^{-s}$ occupies a central position in analytic number theory, yet its probabilistic origins remain largely unexplored. Building on Gian-Carlo Rota's insight that "continuous" physical entropies are discretizations of Shannon entropy, we derive a new interpretation of $\zeta(s)$ as the entropy-generating function of an infinite independent and identically distributed (IID) Bernoulli process indexed by the primes.
+
+This paper presents a traditional equation-based proof that establishes the Riemann zeta function as the natural information measure arising from Rota's entropy theorem. Working in the formal framework of EGPT—a Lean-verified system for encoding physical and computational processes—we show that Rota's entropy theorem forces any entropy function to be a scaled Shannon entropy, which when applied to prime factorization yields the Euler product representation of $\zeta(s)$.
+
+The proof proceeds through seven main steps: (1) establishing Rota's uniqueness of entropy, (2) identifying the Bernoulli process as the canonical discrete structure, (3) deriving the Logarithmic Fundamental Theorem of Arithmetic (LFTA), (4) constructing IID sources that realize prime independence, (5) passing from finite to infinite through the Euler product, (6) recognizing $\zeta(s)$ as an entropy generator, and (7) interpreting the Riemann Hypothesis as a symmetry condition on this entropy measure.
+
+\section{Rota's Uniqueness of Entropy}
+
+Rota's \emph{Entropy Theorem} (RET) establishes that any functional $H$ on a probability space satisfying the axioms of
+\emph{(i)} continuity,
+\emph{(ii)} symmetry under permutation of events,
+\emph{(iii)} additivity for independent events, and
+\emph{(iv)} normalization at uniform distributions,
+must be of the form
+\begin{equation}
+H(p_1,\dots,p_n) = -C \sum_{i=1}^n p_i \log p_i,
+\end{equation}
+for some constant scale factor $C$.\footnote{Formalized in \texttt{EGPT/Entropy/RET.lean} as theorem \texttt{RotaUniformTheorem} (line 867): For any entropy function satisfying Rota's axioms, $f_0(n) = C \cdot \log n$ for some constant $C \geq 0$.}
+
+The logarithm therefore arises as the \emph{unique additive coordinate} for information on probability spaces. This uniqueness is established through a logarithmic trapping argument that shows any entropy function must satisfy
+\begin{equation}
+\left|\frac{f_0(n)}{f_0(b)} - \log_b n\right| \leq \frac{1}{m}
+\end{equation}
+for all $n, m, b \geq 2$.\footnote{Proven in \texttt{EGPT/Entropy/RET.lean} as theorem \texttt{logarithmic\_trapping} (line 698), which establishes the core inequality through power law properties and monotonicity.}
+
+Taking the limit as $m \to \infty$ yields
+\begin{equation}
+\frac{f_0(n)}{f_0(b)} = \log_b n,
+\end{equation}
+from which the scaling property $f_0(n) = C \log n$ follows immediately.\footnote{This limit argument is formalized as \texttt{uniformEntropy\_ratio\_eq\_logb} (line 793) in \texttt{EGPT/Entropy/RET.lean}.}
+
+\section{The Bernoulli Process as Canonical Structure}
+
+Consider an independent, identically distributed Bernoulli process with probability $p$ of success in each trial. The probability of observing $k$ successes in $n$ trials is
+\begin{equation}
+P(k|n) = \binom{n}{k}p^k(1-p)^{n-k}.
+\end{equation}
+
+For a fair process ($p = \frac{1}{2}$), the entropy per trial is
+\begin{equation}
+H = -\sum_{k} P(k|n)\log P(k|n) = n \log 2.
+\end{equation}
+
+RET guarantees that this logarithmic dependence is not arbitrary: it is the \emph{only} form consistent with additivity under independence.\footnote{The canonical entropy function is defined in \texttt{EGPT/Entropy/H.lean} as \texttt{H\_canonical\_ln} (line 34), with all axiom proofs verified in \texttt{TheCanonicalEntropyFunction\_Ln} (line 670).}
+
+The Bernoulli process serves as the fundamental building block for more complex probability structures. In EGPT, this is formalized through the \texttt{IIDParticleSource} class, which generates streams of independent random variables.\footnote{Defined in \texttt{EGPT/NumberTheory/Core.lean} as \texttt{IIDParticleSource} (line 29) and \texttt{CanonicalIIDParticleSource} (line 32).}
+
+\section{LFTA: Logarithmic Fundamental Theorem of Arithmetic}
+
+Using the binomial theorem,
+\begin{equation}
+(1+x)^n = \sum_{k=0}^n \binom{n}{k}x^k,
+\end{equation}
+set $1+x = \frac{1}{N}$ and take logarithms:
+\begin{equation}
+n \log\left(\frac{1}{N}\right) = \log\left(\sum_{k=0}^{n}\binom{n}{k}(-1)^k N^{-k}\right).
+\end{equation}
+
+Writing $N = \prod_{j=1}^{r}p_j^{e_j}$ gives
+\begin{equation}
+\log N = \sum_{j=1}^{r} e_j \log p_j,
+\end{equation}
+which is precisely the \emph{Logarithmic Fundamental Theorem of Arithmetic} (LFTA): the additive decomposition of multiplicative structure.\footnote{Formalized in \texttt{EGPT/NumberTheory/Analysis.lean} as \texttt{logb\_two\_factorization} (line 318) and \texttt{EGPT\_Fundamental\_Theorem\_of\_Arithmetic\_via\_Information} (line 349).}
+
+Each prime acts as an independent "informational generator" in logarithmic space. This decomposition is fundamental to understanding how multiplicative structure in the integers translates to additive structure in information theory.
+
+\section{IID Sources and Prime Independence}
+
+The key insight is that prime factorization can be viewed as an IID process where each prime contributes independently to the overall information content. In EGPT, this is realized through the bijection between particle paths and natural numbers.\footnote{The bijection \texttt{equivParticlePathToNat} (line 65) in \texttt{EGPT/NumberTheory/Core.lean} establishes \texttt{ParticlePath} $\simeq \mathbb{N}$.}
+
+For any integer $n$ with prime factorization $n = \prod_p p^{e_p}$, we can construct an IID source where:
+\begin{itemize}
+\item Each prime $p$ corresponds to an independent Bernoulli variable
+\item The exponent $e_p$ represents the number of "successes" for prime $p$
+\item The total information content is $\log n = \sum_p e_p \log p$
+\end{itemize}
+
+This construction is formalized through the \texttt{toFun\_EGPT\_Real\_to\_Std\_Real} function, which encodes EGPT reals using Rota's entropy formula.\footnote{Defined in \texttt{EGPT/NumberTheory/Analysis.lean} as \texttt{toFun\_EGPT\_Real\_to\_Std\_Real} (line 236), which applies the Rota-Khinchin constant to Shannon entropy.}
+
+\section{From Finite to Infinite: The Euler Product}
+
+Passing from a single integer $N$ (a finite product) to an infinite ensemble over all primes, each treated as an independent Bernoulli variable, we obtain
+\begin{equation}
+\prod_{p}(1 - p^{-s})^{-1} = \zeta(s),
+\end{equation}
+the Euler product for the Riemann zeta function.
+
+Taking logs yields
+\begin{equation}
+\log \zeta(s) = \sum_{p}\sum_{m\ge1}\frac{p^{-ms}}{m},
+\end{equation}
+identical in structure to the logarithmic series expansion of the LFTA polynomial.\footnote{The prime atom decomposition is formalized in \texttt{EGPT/NumberTheory/Analysis.lean} through the \texttt{PrimeAtoms} namespace (lines 815-875), including \texttt{primeAtomSum\_eq\_logb} (line 822).}
+
+Thus, $\zeta(s)$ is the \emph{entropy-generating function} of an infinite Bernoulli process indexed by the primes, with independent contributions weighted geometrically by $p^{-s}$.
+
+\section{The Zeta Function as Entropy Generator}
+
+The connection between $\zeta(s)$ and entropy becomes explicit when we recognize that the Euler product represents the generating function of an infinite IID process. Each prime contributes a geometric series
+\begin{equation}
+(1 - p^{-s})^{-1} = 1 + p^{-s} + p^{-2s} + p^{-3s} + \cdots,
+\end{equation}
+where the coefficient of $p^{-ks}$ represents the probability of observing $k$ "successes" for prime $p$.
+
+The logarithmic form
+\begin{equation}
+\log \zeta(s) = \sum_{p}\sum_{k=1}^{\infty} \frac{p^{-ks}}{k}
+\end{equation}
+directly expresses the entropy of this infinite process, where each term $\frac{p^{-ks}}{k}$ represents the entropy contribution from observing $k$ successes for prime $p$.\footnote{This entropy interpretation is supported by \texttt{total\_entropy\_from\_classes\_eq\_shannon\_formula} (line 586) in \texttt{EGPT/NumberTheory/Analysis.lean}.}
+
+\section{Symmetry and the Critical Line}
+
+RET guarantees that the logarithm is the only function making the information measure additive for independent events. When extended from the additive (integer) to the multiplicative (prime) domain, this requirement uniquely enforces the logarithmic form of $\zeta(s)$.
+
+The connection between entropy symmetry and analytic symmetry becomes explicit through the functional equation of the Riemann zeta function. The completed zeta function
+\begin{equation}
+\xi(s) = \pi^{-s/2}\Gamma(s/2)\zeta(s)
+\end{equation}
+satisfies the functional equation
+\begin{equation}
+\xi(s) = \xi(1-s),
+\end{equation}
+exhibiting perfect reflection symmetry about the critical line $\Re(s) = \frac{1}{2}$.\footnote{This functional equation is the analytic manifestation of the combinatorial symmetry axiom \texttt{IsEntropySymmetric} (line 243) in \texttt{EGPT/Entropy/Common.lean}, which proves entropy invariance under bijections \texttt{stdShannonEntropyLn\_comp\_equiv} (line 865).}
+
+In information-theoretic terms, the critical line represents the point of maximum entropy balance. At $s = \frac{1}{2} + it$, each prime $p$ contributes with weight $|p^{-s}| = p^{-1/2}$, which is the geometric mean between complete certainty ($p^0 = 1$) and the divergence boundary ($p^{-1}$). This geometric mean property mirrors the maximum entropy principle: just as entropy is maximized at uniform distributions,\footnote{Proven in \texttt{h\_canonical\_is\_max\_uniform} (line 642) in \texttt{EGPT/Entropy/H.lean}, which establishes that \texttt{H\_canonical\_ln} achieves its maximum at uniform distributions.} the critical line represents the point of maximum symmetry in the analytic continuation.
+
+In this sense,
+\begin{equation}
+\boxed{\text{The Riemann zeta function is the natural information measure of an i.i.d. Bernoulli process on the primes.}}
+\end{equation}
+
+The Riemann Hypothesis then expresses the equilibrium condition: that the analytic continuation of this information measure remains perfectly balanced on the critical line $\Re(s) = \frac{1}{2}$, the point of maximum symmetry between convergence and divergence. This symmetry condition is precisely what RET's uniqueness theorem guarantees: any entropy measure must be logarithmically symmetric, and the critical line is where this logarithmic symmetry manifests most clearly in the analytic domain.
+
+This interpretation recasts the Riemann Hypothesis as a question about the symmetry of information in an infinite IID process, connecting one of the deepest problems in analytic number theory to the fundamental principles of information theory.
+
+\section*{Supporting Lean Proofs}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{3cm}|p{4cm}|p{6cm}|}
+\hline
+\textbf{Mathematical Step} & \textbf{Lean Proof} & \textbf{Location} \\
+\hline
+RET Uniqueness & RotaUniformTheorem & EGPT/Entropy/RET.lean:867 \\
+Scaling Property & RET\_All\_Enropy\_Is\_Scaled\_Shannon\_Entropy & EGPT/Entropy/RET.lean:29 \\
+Logarithmic Trapping & logarithmic\_trapping & EGPT/Entropy/RET.lean:698 \\
+Ratio Equality & uniformEntropy\_ratio\_eq\_logb & EGPT/Entropy/RET.lean:793 \\
+Canonical Entropy & H\_canonical\_ln & EGPT/Entropy/H.lean:34 \\
+IID Sources & IIDParticleSource & EGPT/NumberTheory/Core.lean:29 \\
+Particle-Nat Bijection & equivParticlePathToNat & EGPT/NumberTheory/Core.lean:65 \\
+LFTA Base 2 & logb\_two\_factorization & EGPT/NumberTheory/Analysis.lean:318 \\
+LFTA Information & EGPT\_Fundamental\_Theorem\_of\_Arithmetic\_via\_Information & EGPT/NumberTheory/Analysis.lean:349 \\
+Prime Atoms & PrimeAtoms.primeAtomSum\_eq\_logb & EGPT/NumberTheory/Analysis.lean:822 \\
+EGPT Real Encoding & toFun\_EGPT\_Real\_to\_Std\_Real & EGPT/NumberTheory/Analysis.lean:236 \\
+Bernoulli Entropy & total\_entropy\_from\_classes\_eq\_shannon\_formula & EGPT/NumberTheory/Analysis.lean:586 \\
+Symmetry Axiom & h\_canonical\_is\_symmetric & EGPT/Entropy/H.lean:66 \\
+Max Uniform & h\_canonical\_is\_max\_uniform & EGPT/Entropy/H.lean:642 \\
+Combinatorial Symmetry & IsEntropySymmetric & EGPT/Entropy/Common.lean:243 \\
+Permutation Invariance & stdShannonEntropyLn\_comp\_equiv & EGPT/Entropy/Common.lean:865 \\
+\hline
+\end{tabular}
+\caption{Mapping of mathematical concepts to their Lean formalizations in the EGPT codebase.}
+\end{table}
+
+\section*{Conclusion}
+
+By linking Rota's entropy theorem to the Logarithmic Fundamental Theorem of Arithmetic and its infinite analytic limit, we obtain a natural probabilistic motivation for the Riemann zeta function as the unique, logarithmically consistent, entropy measure on the space of primes. The formal developments in EGPT realize Rota's wish to be remembered "for the zeros of polynomials" by connecting the zeros of $\zeta(s)$ to the symmetry axioms underlying entropy theory.
+
+This perspective suggests that the Riemann Hypothesis expresses a fundamental symmetry condition on information measures in infinite IID processes, potentially opening new avenues for understanding one of mathematics' most celebrated unsolved problems.  
+
+\end{document}

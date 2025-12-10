@@ -1,5 +1,5 @@
 ### The Challenge: Given a simple gambling problem and its proven solution, can you figure out the "code" that makes it work?
-[The source materials for Prof's Rota's class including his unpublished text book and my class notes can be found here. It was an interesting way to learn quantum mechanics in two weeks using no calculus, only coin-flips and counting balls into boxes.](https://drive.google.com/drive/folders/1cK6YWFedjypI89gtRJbE8Gr4GWxUTQ52?usp=drive_link):
+[The source materials for Prof's Rota's class including his unpublished text book and my class notes can be found here. It was an interesting way to learn quantum mechanics in two weeks using no calculus, only coin-flips and counting balls into boxes.](https://drive.google.com/drive/folders/1cK6YWFedjypI89gtRJbE8Gr4GWxUTQ52?usp=drive_link)
 
 Over thirty years ago, I was introduced to the problem which has become my life's work. In my Introduction to Probability class (18.315) taught by the late Prof. Gian-Carlo Rota, I was presented with a simple, but unsolveable, gambling riddle along with its seemingly simple fully deriveable solution - just use a series of coin-flips. Rota formalized and unified the hardest problem in science (entropy) and showed Claude Shannon's Coding Theorem is the solution. That is, if you can figure out the "code" that makes this work, you will have solved the hardest problems in mathematics and science, but no one ever has before. That said, anyone can solve this problem, it requires no special math skills, just a willingness to think differently about how the world works. To help you out, I've provided the solution in an accessible "no math" alegorical story about a young auditor who solves a seemingly impossible accounting problem using the same principles. 
 
@@ -35,7 +35,7 @@ Anna was a peculiar choice. Her dual degree was a strange cocktail: Mathematics 
 
 The plant was a monument to scale, an Amazon depot that had seemingly eaten all the other Amazon depots. The owner, a man with the weary eyes of someone who’s seen too much, greeted them. "You can look at anything," he said, "but you cannot look at everything. My process is my own."
 
-The data was overwhelming. Individual package tracking was impossible. The data was overwhelming. Individual package tracking was impossible. All they had were aggregated totals from sensor arrays, rolled up into what the plant called "Planks." These Planks were the finest grain of data available, yet they felt like trying to understand the ocean by measuring a single drop.
+The data was overwhelming. Individual package tracking was impossible. All they had were aggregated totals from sensor arrays, rolled up into what the plant called "Planks." These Planks were the finest grain of data available, yet they felt like trying to understand the ocean by measuring a single drop.
 
 The team spent a week reviewing the logs of the plant’s infamous "experiments"—stress tests designed by outside experts to break the system. 
 

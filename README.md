@@ -1,6 +1,4 @@
 
-
-
 # EGPT: A Formal Framework and Constructive Proof of P=NP
 
 ## Table of Contents
@@ -201,6 +199,8 @@ The EGPT framework thus asserts that this is not a coincidence but a formal cons
     -   `H.lean`: Defines the canonical Shannon entropy function (`H_canonical_ln`) and provides `sorry`-free proofs that it satisfies all of Rota's axioms.
 -   `EGPT/Constraints.lean`: Defines the data structures for CNF formulas (`SyntacticCNF_EGPT`) and the canonical form (`CanonicalCNF`).
 -   `EGPT/Complexity/`: The P vs. NP formalization.
+    -   `Core.lean`: Minimal complexity definitions used in proofs (`IsPolynomialEGPT`, `PathToConstraint`).
+    -   `Physics.lean`: The physical model (stochastic random walks) - unused in P=NP proof.
     -   `Tableau.lean`: Defines the physical certificate (`SatisfyingTableau`) and the P-solver (`constructSatisfyingTableau`).
     -   `PPNP.lean`: Defines the complexity classes `P_EGPT` and `NP_EGPT` and contains the final theorem `P_eq_NP_EGPT`.
 -   `docs/`: Contains the original unpublished manuscript by Gian-Carlo Rota for context.
