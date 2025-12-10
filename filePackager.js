@@ -7,6 +7,9 @@ const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
 
+// Filenames to ignore (case-insensitive compare)
+const IGNORED_FILENAMES = new Set(['.ds_store']);
+
 // Create readline interface for user input
 const rl = readline.createInterface({
   input: process.stdin,
@@ -19,6 +22,15 @@ const readFileContent = (filePathObj) => {
   if (!filePathObj.includeFile) {
     return null;
   }
+
+  // Skip ignored filenames explicitly included
+  try {
+    const base = path.basename(filePathObj.path).toLowerCase();
+    if (IGNORED_FILENAMES.has(base)) {
+      console.log(`Skipping ignored file: ${filePathObj.path}`);
+      return null;
+    }
+  } catch (_) { /* noop */ }
 
   const absolutePath = path.resolve(__dirname, filePathObj.path);
   
@@ -112,6 +124,12 @@ const walkDirectory = async (dirPath, basePath, isInteractive, defaultOutputFile
     const fullPath = path.join(dirPath, file);
     const relativePath = path.join(basePath, file);
     const stat = fs.statSync(fullPath);
+
+    // Skip ignored filenames
+    if (IGNORED_FILENAMES.has(file.toLowerCase())) {
+      console.log(`Skipping ignored file: ${relativePath}`);
+      continue;
+    }
     
     if (stat.isDirectory()) {
       if (isInteractive) {
@@ -322,6 +340,12 @@ const processDirectory = (absoluteDirPath, relativeDirPath, outputFile, excluded
       // Check if this file is in the excluded paths
       if (excludedPaths.has(absoluteFilePath)) {
         console.log(`Skipping excluded file: ${relativeFilePath}`);
+        continue;
+      }
+
+      // Skip ignored filenames
+      if (IGNORED_FILENAMES.has(file.toLowerCase())) {
+        console.log(`Skipping ignored file: ${relativeFilePath}`);
         continue;
       }
       
