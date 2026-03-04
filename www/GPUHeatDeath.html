@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floating Point Erosion Visualizer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        .canvas-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background: #1e293b;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #334155;
+        }
+        canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        .tooltip {
+            position: absolute;
+            background: rgba(15, 23, 42, 0.9);
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            pointer-events: none;
+            display: none;
+            border: 1px solid #475569;
+            z-index: 10;
+        }
+        input[type=range] {
+            accent-color: #38bdf8;
+        }
+        .stat-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid #334155;
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="max-w-6xl mx-auto">
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold mb-2 text-white">The Erosion of Information</h1>
+            <p class="text-slate-400">
+                Visualizing rounding errors across different scales of computing power. 
+                <span class="text-sky-400 font-medium ml-1">Powered by analytical exponential decay modeling.</span>
+            </p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+            <!-- Controls -->
+            <div class="lg:col-span-5 bg-slate-800 p-4 rounded-lg border border-slate-700 space-y-6">
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Bits of Precision ($x_0 = 1 - 2^{-bits}$)</label>
+                    <div class="flex items-center gap-4">
+                        <button id="decBits" class="bg-slate-700 hover:bg-slate-600 px-3 py-1 rounded text-white font-bold transition-colors">-</button>
+                        <input type="range" id="bitsSlider" min="1" max="53" value="53" class="flex-grow h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer">
+                        <button id="incBits" class="bg-slate-700 hover:bg-slate-600 px-3 py-1 rounded text-white font-bold transition-colors">+</button>
+                        <div class="text-xl font-mono text-sky-400 w-12 text-center" id="bitsDisplay">53</div>
+                    </div>
+                    <div class="text-[10px] text-slate-500 mt-2 font-mono truncate" id="x0ValueDisplay">x₀ = 0.9999999999999999</div>
+                </div>
+
+                <div class="pt-4 border-t border-slate-700">
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Processor Power (Operations per Second)</label>
+                    <select id="processorSelect" class="w-full bg-slate-900 border border-slate-600 rounded px-3 py-2 text-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-500">
+                        <option value="1000000000">Cheap CPU (1 Billion OPS / 1 GHz)</option>
+                        <option value="35000000000000">iPhone (35 Trillion OPS / 35 TeraFLOPS)</option>
+                        <option value="2000000000000000">Nvidia GPU (2,000 Trillion OPS / 2 PetaFLOPS)</option>
+                        <option value="1000000000000000000">Super Computer (1 Million Trillion OPS / 1 ExaFLOP)</option>
+                    </select>
+                </div>
+
+                <div class="pt-4 border-t border-slate-700">
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Simulation Duration (Seconds)</label>
+                    <div class="flex items-center gap-4">
+                        <button id="decSec" class="bg-slate-700 hover:bg-slate-600 px-3 py-1 rounded text-white font-bold transition-colors">-</button>
+                        <input type="number" id="secInput" value="1" min="1" class="flex-grow bg-slate-900 border border-slate-600 rounded px-3 py-1 text-emerald-400 font-mono focus:outline-none">
+                        <button id="incSec" class="bg-slate-700 hover:bg-slate-600 px-3 py-1 rounded text-white font-bold transition-colors">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard -->
+            <div class="lg:col-span-4 bg-slate-800 p-4 rounded-lg border border-slate-700 flex flex-col justify-between">
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Total Operations Tracked</label>
+                    <div class="text-3xl font-mono text-emerald-400" id="totalOpsDisplay">1 Billion</div>
+                    <div class="text-xs text-slate-500 font-mono mt-1" id="exactOpsDisplay">1,000,000,000 exact ops</div>
+                </div>
+                <div class="flex gap-2 mt-4">
+                    <button id="runBtn" class="flex-1 bg-sky-600 hover:bg-sky-500 text-white py-2 rounded font-bold transition-all shadow-lg active:scale-95">
+                        Run Simulation
+                    </button>
+                    <button id="seekBtn" class="flex-1 border border-amber-500/50 hover:bg-amber-500/10 text-amber-400 py-2 rounded font-bold transition-all">
+                        Seek 1% Floor
+                    </button>
+                </div>
+            </div>
+
+            <div class="lg:col-span-3 bg-slate-800 p-4 rounded-lg border border-slate-700">
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Engine Status</label>
+                <div id="statusText" class="text-sm text-slate-300 h-full flex flex-col justify-center gap-2">
+                    <span class="italic">Ready for next run...</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="canvas-container shadow-2xl mb-6">
+            <div id="tooltip" class="tooltip"></div>
+            <canvas id="vizCanvas"></canvas>
+        </div>
+
+        <div id="milestones" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <!-- Dynamic Milestones -->
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('vizCanvas');
+        const ctx = canvas.getContext('2d');
+        const tooltip = document.getElementById('tooltip');
+        const runBtn = document.getElementById('runBtn');
+        const seekBtn = document.getElementById('seekBtn');
+        const statusText = document.getElementById('statusText');
+        const bitsSlider = document.getElementById('bitsSlider');
+        const bitsDisplay = document.getElementById('bitsDisplay');
+        const x0ValueDisplay = document.getElementById('x0ValueDisplay');
+        const secInput = document.getElementById('secInput');
+        const totalOpsDisplay = document.getElementById('totalOpsDisplay');
+        const exactOpsDisplay = document.getElementById('exactOpsDisplay');
+        const milestoneContainer = document.getElementById('milestones');
+        const processorSelect = document.getElementById('processorSelect');
+
+        let data = [];
+        let milestones = { onePercent: null, zeroOnePercent: null };
+        let baseOPS = 1_000_000_000;
+        let currentTotalCycles = baseOPS;
+        const SAMPLES = 2000;
+
+        // Formats numbers into human-readable strings (e.g. 41.48 Quadrillion)
+        function formatLargeNumber(num) {
+            if (num === null || !isFinite(num)) return 'Not reached';
+            if (num === 0) return '0';
+            
+            const suffixes = ["", "Thousand", "Million", "Billion", "Trillion", "Quadrillion", "Quintillion", "Sextillion", "Septillion", "Octillion"];
+            const tier = Math.max(0, Math.floor(Math.log10(Math.abs(num)) / 3));
+            
+            if (tier === 0) return Math.floor(num).toLocaleString();
+            if (tier < suffixes.length) {
+                return (num / Math.pow(10, tier * 3)).toFixed(2) + ' ' + suffixes[tier];
+            }
+            return num.toExponential(3);
+        }
+
+        function formatTime(cycles) {
+            if (cycles === 0) return '0 s';
+            const totalSeconds = cycles / baseOPS;
+            if (totalSeconds < 0.000001) return `${(totalSeconds * 1000000000).toFixed(1)} ns`;
+            if (totalSeconds < 0.001) return `${(totalSeconds * 1000000).toFixed(1)} μs`;
+            if (totalSeconds < 1) return `${(totalSeconds * 1000).toFixed(2)} ms`;
+            if (totalSeconds < 60) return `${totalSeconds.toFixed(2)} s`;
+            if (totalSeconds < 3600) return `${(totalSeconds/60).toFixed(2)} m`;
+            if (totalSeconds < 86400) return `${(totalSeconds/3600).toFixed(2)} h`;
+            if (totalSeconds < 31536000) return `${(totalSeconds/86400).toFixed(2)} d`;
+            return `${(totalSeconds/31536000).toFixed(2)} yrs`;
+        }
+
+        function updateUIState() {
+            const bits = parseInt(bitsSlider.value);
+            const x0 = 1 - Math.pow(2, -bits);
+            const seconds = parseFloat(secInput.value) || 1;
+            baseOPS = parseFloat(processorSelect.value);
+            currentTotalCycles = seconds * baseOPS;
+            
+            bitsDisplay.innerText = bits;
+            x0ValueDisplay.innerText = `x₀ = ${x0.toFixed(20).replace(/\.?0+$/, "")}`;
+            
+            totalOpsDisplay.innerText = formatLargeNumber(currentTotalCycles) + " ops";
+            exactOpsDisplay.innerText = currentTotalCycles.toLocaleString(undefined, {maximumFractionDigits: 0}) + " exact ops";
+        }
+
+        function initCanvas() {
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.parentElement.getBoundingClientRect();
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.scale(dpr, dpr);
+        }
+
+        function runSimulation(isSeekMode = false) {
+            statusText.innerHTML = `<span class="text-sky-400">Computing analytical model...</span>`;
+            
+            const bits = parseInt(bitsSlider.value);
+            const epsilon = Math.pow(2, -bits);
+            const x0 = 1 - epsilon;
+            
+            // Math.log1p gives an incredibly precise natural log for (1 - epsilon)
+            // This represents the theoretical "perfect" exponential decay without drift.
+            const exactLogX0 = Math.log1p(-epsilon); 
+
+            // 1. Measure Empirical Drift Rate (Simulate steps to capture JS float rounding bias)
+            // We do a mini-simulation to capture the specific hardware rounding behavior
+            const maxSafeSteps = Math.floor(Math.log(1e-50) / exactLogX0);
+            const testSteps = Math.max(1, Math.min(1_000_000, maxSafeSteps));
+            
+            let simX = 1.0;
+            for (let i = 0; i < testSteps; i++) {
+                simX *= x0;
+            }
+
+            // Extract the "Real" exponential decay rate that includes the systematic rounding drift
+            let realDecayRate = exactLogX0;
+            if (simX > 0) {
+                realDecayRate = Math.log(simX) / testSteps;
+            }
+
+            // 2. Adjust target cycle scale if in Seek Mode based on the real formula
+            if (isSeekMode) {
+                // e^(cycles * rate) = 0.01 => cycles = ln(0.01) / rate
+                currentTotalCycles = Math.log(0.01) / realDecayRate;
+            } else {
+                currentTotalCycles = (parseFloat(secInput.value) || 1) * baseOPS;
+            }
+            
+            totalOpsDisplay.innerText = formatLargeNumber(currentTotalCycles) + " ops";
+            exactOpsDisplay.innerText = currentTotalCycles.toLocaleString(undefined, {maximumFractionDigits: 0}) + " exact ops";
+
+            // 3. Generate Analytical Interpolated Graph (Instantly generates the visualization)
+            data = [];
+            const stepSize = currentTotalCycles / SAMPLES;
+            
+            for (let i = 0; i <= SAMPLES; i++) {
+                const cycle = i * stepSize;
+                const theory = Math.exp(cycle * exactLogX0);
+                const real = Math.exp(cycle * realDecayRate);
+                
+                data.push({ 
+                    x: cycle, 
+                    y: Math.max(0, real), 
+                    theory: Math.max(0, theory) 
+                });
+            }
+
+            // 4. Exact Analytical Milestones
+            milestones.onePercent = Math.log(0.01) / realDecayRate;
+            milestones.zeroOnePercent = Math.log(0.0001) / realDecayRate;
+
+            statusText.innerHTML = `
+                <span class="text-emerald-400 font-bold">Instantly Solved</span>
+                <span class="text-xs text-slate-400">using continuous exponential interpolation.</span>
+            `;
+
+            updateMilestoneUI();
+            draw();
+        }
+
+        function updateMilestoneUI() {
+            milestoneContainer.innerHTML = '';
+            const createCard = (label, cycle, color) => {
+                const isReached = cycle !== null && isFinite(cycle);
+                const card = document.createElement('div');
+                card.className = `bg-slate-800/50 p-4 rounded-lg border-l-4 border-${color}-500 flex justify-between items-center`;
+                card.innerHTML = `
+                    <div>
+                        <div class="text-xs text-slate-500 uppercase font-bold">${label} Milestone</div>
+                        <div class="text-lg font-mono text-white" title="${isReached ? cycle.toLocaleString() : ''}">${formatLargeNumber(cycle)}</div>
+                        <div class="text-[10px] text-${color}-400 font-bold">${isReached ? 'Time: ' + formatTime(cycle) : ''}</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-[10px] text-slate-500">Signal</div>
+                        <div class="text-xs text-${color}-400 font-bold">${label}</div>
+                    </div>
+                `;
+                return card;
+            };
+            milestoneContainer.appendChild(createCard('1%', milestones.onePercent, 'yellow'));
+            milestoneContainer.appendChild(createCard('0.01%', milestones.zeroOnePercent, 'red'));
+            
+            const durationCard = document.createElement('div');
+            durationCard.className = `bg-slate-800/50 p-4 rounded-lg border-l-4 border-sky-500`;
+            durationCard.innerHTML = `
+                <div class="text-xs text-slate-500 uppercase font-bold">Total Window</div>
+                <div class="text-lg font-mono text-white">${formatTime(currentTotalCycles)}</div>
+                <div class="text-[10px] text-sky-400 font-bold">Scope rendered in graph</div>
+            `;
+            milestoneContainer.appendChild(durationCard);
+        }
+
+        function draw() {
+            if (data.length === 0) return;
+            const w = canvas.width / (window.devicePixelRatio || 1);
+            const h = canvas.height / (window.devicePixelRatio || 1);
+            const padding = 60;
+            const chartW = w - padding * 2;
+            const chartH = h - padding * 2;
+
+            ctx.clearRect(0, 0, w, h);
+
+            // X-Axis (Vertical Grid Lines & Ticks)
+            ctx.beginPath();
+            ctx.strokeStyle = '#1e293b'; // Faint vertical lines
+            ctx.fillStyle = '#64748b';
+            ctx.font = '10px monospace';
+            ctx.textAlign = 'center';
+            for(let i=0; i<=5; i++) {
+                const vx = padding + (chartW * i / 5);
+                const cycleAtTick = currentTotalCycles * (i / 5);
+                
+                // Grid line
+                ctx.moveTo(vx, padding);
+                ctx.lineTo(vx, h - padding);
+                
+                // Label & tick mark
+                ctx.fillText(formatTime(cycleAtTick), vx, h - padding + 20);
+                ctx.fillRect(vx - 0.5, h - padding, 1, 5); // tick
+            }
+            ctx.stroke();
+
+            // Y-Axis (Horizontal Grid Lines & Ticks)
+            ctx.beginPath();
+            ctx.strokeStyle = '#334155';
+            ctx.textAlign = 'right';
+            for(let i=0; i<=5; i++) {
+                const y = padding + (chartH * i / 5);
+                ctx.moveTo(padding, y); 
+                ctx.lineTo(w - padding, y);
+                ctx.fillText((1 - (i/5)).toFixed(1), padding - 10, y + 4);
+            }
+            ctx.stroke();
+
+            // Lines mapping
+            const getX = (val) => padding + (val / currentTotalCycles) * chartW;
+            const getY = (val) => h - padding - (val * chartH);
+
+            // Ideal Line
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+            ctx.setLineDash([4, 4]);
+            data.forEach((d, i) => {
+                const vx = getX(d.x);
+                const vy = getY(d.theory);
+                if (i === 0) ctx.moveTo(vx, vy); else ctx.lineTo(vx, vy);
+            });
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Actual neon line
+            const grad = ctx.createLinearGradient(padding, 0, w - padding, 0);
+            grad.addColorStop(0, '#38bdf8'); grad.addColorStop(1, '#818cf8');
+            ctx.beginPath();
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = 3;
+            ctx.shadowBlur = 8; ctx.shadowColor = 'rgba(56, 189, 248, 0.4)';
+            data.forEach((d, i) => {
+                const vx = getX(d.x);
+                const vy = getY(d.y);
+                if (i === 0) ctx.moveTo(vx, vy); else ctx.lineTo(vx, vy);
+            });
+            ctx.stroke();
+            ctx.shadowBlur = 0;
+
+            // Markers
+            if (milestones.onePercent && milestones.onePercent <= currentTotalCycles) {
+                const mx = getX(milestones.onePercent);
+                ctx.strokeStyle = '#eab308';
+                ctx.beginPath(); ctx.moveTo(mx, padding); ctx.lineTo(mx, h - padding); ctx.stroke();
+            }
+
+            ctx.fillStyle = '#94a3b8';
+            ctx.font = '12px sans-serif';
+            ctx.textAlign = 'left';
+            ctx.fillText('Magnitude', padding, padding - 15);
+        }
+
+        // Handlers
+        [bitsSlider, secInput, processorSelect].forEach(el => {
+            el.addEventListener('input', updateUIState);
+        });
+
+        processorSelect.addEventListener('change', () => runSimulation(false));
+
+        incBits.onclick = () => { bitsSlider.value = Math.min(53, parseInt(bitsSlider.value)+1); updateUIState(); };
+        decBits.onclick = () => { bitsSlider.value = Math.max(1, parseInt(bitsSlider.value)-1); updateUIState(); };
+        incSec.onclick = () => { secInput.value = parseInt(secInput.value)+1; updateUIState(); };
+        decSec.onclick = () => { secInput.value = Math.max(1, parseInt(secInput.value)-1); updateUIState(); };
+
+        runBtn.onclick = () => runSimulation(false);
+        seekBtn.onclick = () => runSimulation(true);
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (data.length === 0) return;
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const padding = 60;
+            const chartW = rect.width - padding * 2;
+            let ratio = (mouseX - padding) / chartW;
+            if (ratio < 0 || ratio > 1) { tooltip.style.display = 'none'; return; }
+            
+            const cycle = ratio * currentTotalCycles;
+            const point = data[Math.round(ratio * (data.length-1))];
+            
+            if (point) {
+                tooltip.style.display = 'block';
+                tooltip.style.left = (e.clientX - rect.left + 15) + 'px';
+                tooltip.style.top = (e.clientY - rect.top - 40) + 'px';
+                tooltip.innerHTML = `
+                    <div class="font-bold text-sky-400">${formatTime(point.x)}</div>
+                    <div class="text-[10px] text-slate-500">Cycle ${formatLargeNumber(point.x)}</div>
+                    <div class="mt-1">Mag: ${point.y.toExponential(4)}</div>
+                `;
+            }
+        });
+
+        window.addEventListener('resize', () => { initCanvas(); draw(); });
+        initCanvas();
+        updateUIState();
+        runSimulation();
+    </script>
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EGPT Single Number Entropy Uniformity Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Base styles from EGPTNumberExplorer.html and EntropyUniformity.html */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0; padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh; color: #333;
+        }
+        .container {
+            max-width: 1200px; margin: 0 auto; background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px; padding: 30px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        h1 { text-align: center; color: #2c3e50; margin-bottom: 10px; font-size: 2.5em; }
+        .subtitle { text-align: center; color: #7f8c8d; margin-bottom: 30px; font-size: 1.2em; }
+        
+        /* Input section styling - inspired by EGPTNumberExplorer.html */
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        
+        #number-input {
+            flex-grow: 1;
+            padding: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+        }
+        
+        #analyze-btn {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        #analyze-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        #analyze-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* Status and error message styling */
+        #status {
+            text-align: center;
+            font-style: italic;
+            min-height: 1.2em;
+            margin: 15px 0;
+        }
+        
+        .status-info { color: #7f8c8d; }
+        .status-success { color: #27ae60; font-weight: bold; }
+        .status-warning { color: #f39c12; font-weight: bold; }
+        .status-error { color: #e74c3c; font-weight: bold; }
+        .status-processing { color: #3498db; font-weight: bold; }
+        
+        .error-message {
+            background: #ffe6e6;
+            color: #c0392b;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #e74c3c;
+            display: none;
+        }
+        
+        /* Results section styling */
+        .results-section {
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .results-section.show {
+            display: block;
+        }
+        
+        /* Stats grid styling */
+        .stats-summary {
+            margin: 30px 0;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Chart styling */
+        .chart-wrapper {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+            margin-bottom: 30px;
+        }
+        
+        .chart-title {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 400px;
+        }
+        
+        /* Data table styling */
+        .data-table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+            margin-bottom: 30px;
+        }
+        
+        .table-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        th {
+            background: #f8f9fa;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        /* Number type indicator */
+        .number-type {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .number-type.prime {
+            background: #e8f5e8;
+            color: #27ae60;
+        }
+        
+        .number-type.composite {
+            background: #fdf2e9;
+            color: #e67e22;
+        }
+        
+        .number-type.unknown {
+            background: #eef2f7;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>EGPT Single Number Entropy Analysis</h1>
+        <p class="subtitle">Deep dive into informational entropy distribution within a single number using Canonical Math</p>
+        
+        <div class="input-group">
+            <input type="text" id="number-input" placeholder="Enter a number to analyze (e.g., 2147483647)" value="2147483647">
+            <button id="analyze-btn">Analyze Number</button>
+        </div>
+        
+        <div id="status" class="status-info">Enter a number and click Analyze to begin</div>
+        
+        <div class="error-message" id="error-message"></div>
+        
+        <div class="results-section" id="results-section">
+            <div class="stats-summary">
+                <div class="stats-grid" id="stats-grid">
+                    <!-- Stats will be dynamically inserted here -->
+                </div>
+            </div>
+            
+            <div class="chart-wrapper">
+                <div class="chart-title">Entropy Deviation Pattern</div>
+                <div class="chart-container"><canvas id="deviationChart"></canvas></div>
+            </div>
+            
+            <div class="chart-wrapper">
+                <div class="chart-title">Linear Partition Entropy Values</div>
+                <div class="chart-container"><canvas id="entropyChart"></canvas></div>
+            </div>
+            
+            <div class="data-table">
+                <div class="table-title">Analysis Details</div>
+                <table id="details-table">
+                    <thead>
+                        <tr>
+                            <th>Partition</th>
+                            <th>Size</th>
+                            <th>Entropy H(size)</th>
+                            <th>Deviation from Mean</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import the enhanced explorer with single number support -->
+    <script type="module">
+        import { SingleNumberEntropyExplorer } from './js/EntropyComparisonExplorer.js';
+        
+        console.log("🎓 EGPT SINGLE NUMBER ENTROPY UNIFORMITY ANALYSIS");
+        console.log("📐 Vector/Scalar Paradigm: EGPTNumber = Vector, BigInt = Scalar");
+        console.log("🎯 Single Number Focus: Deep entropy analysis of individual numbers");
+        
+        // Initialize the Single Number Entropy Explorer
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                new SingleNumberEntropyExplorer();
+                console.log("✅ Single Number Entropy Explorer initialized successfully");
+            } catch (error) {
+                console.error("❌ Failed to initialize Single Number Entropy Explorer:", error);
+                document.getElementById('error-message').textContent = `Initialization Error: ${error.message}`;
+                document.getElementById('error-message').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

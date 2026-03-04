@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>EGPT Fractal Wave (Cellular Automata)</title>
+	<script src="https://cdn.jsdelivr.net/npm/p5@2.0.4/lib/p5.min.js"></script>
+	<style>
+		body {
+			display: flex;
+			font-family: monospace;
+			background-color: #111;
+			color: #eee;
+			margin: 0;
+			padding: 20px;
+		}
+		#canvas-container {
+			border-right: 2px solid #555;
+			padding-right: 20px;
+			margin-right: 20px;
+		}
+		#info-panel {
+			display: flex;
+			flex-direction: column;
+			width: 340px;
+		}
+		h2 { margin-top: 0; }
+		ul { list-style-type: none; padding-left: 0; }
+		li {
+			padding: 4px;
+			margin-bottom: 2px;
+			background-color: #222;
+		}
+		.prime-pyramid {
+			color: gold;
+			font-weight: bold;
+		}
+		#control-button {
+			padding: 10px 20px;
+			font-size: 16px;
+			font-family: monospace;
+			background-color: #444;
+			color: #eee;
+			border: 2px solid #666;
+			cursor: pointer;
+			margin: 10px 0;
+			border-radius: 5px;
+		}
+		#control-button:hover { background-color: #555; }
+		.hint { font-size: 12px; margin: 5px 0; color: #999; }
+		.metrics { font-size: 12px; color: #bbb; margin-top: 6px; }
+	</style>
+	<script>
+		// Expose controls for the button
+		function toggleSimulation() { if (window.toggleFractalWave) window.toggleFractalWave(); }
+		function restartSimulation() { if (window.restartFractalWave) window.restartFractalWave(); }
+	</script>
+    
+	<script defer src="js/EGPTFractalWave.js"></script>
+</head>
+<body>
+	<div id="canvas-container"></div>
+	<div id="info-panel">
+		<h2>EGPT Fractal Wave (CA)</h2>
+		<button id="control-button" onclick="toggleSimulation()">Stop</button>
+		<div class="hint">Press 'R' to restart</div>
+		<div id="status">Initializing…</div>
+		<div class="metrics" id="metrics"></div>
+		<h3>Spawned Waves (Primes)</h3>
+		<ul id="prime-list"></ul>
+	</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pyramids of EGPT Fractal</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
+    <style>
+        body { 
+            display: flex; 
+            font-family: monospace; 
+            background-color: #111; 
+            color: #eee;
+            margin: 0;
+            padding: 20px;
+        }
+        #canvas-container {
+            border-right: 2px solid #555;
+            padding-right: 20px;
+            margin-right: 20px;
+        }
+        #info-panel {
+            display: flex;
+            flex-direction: column;
+        }
+        h2 { margin-top: 0; }
+        ul { list-style-type: none; padding-left: 0; }
+        li { 
+            padding: 4px; 
+            margin-bottom: 2px;
+            background-color: #222;
+        }
+        .prime-pyramid {
+            color: gold;
+            font-weight: bold;
+        }
+        #control-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-family: monospace;
+            background-color: #444;
+            color: #eee;
+            border: 2px solid #666;
+            cursor: pointer;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        #control-button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas-container"></div>
+    <div id="info-panel">
+        <h2>Pyramids of EGPT</h2>
+        <button id="control-button" onclick="toggleSimulation()">Stop</button>
+        <div id="status">Generating Pyramid 2...</div>
+        <div style="font-size: 12px; margin: 5px 0; color: #999;">
+            Press 'R' key to completely restart simulation
+        </div>
+        <h3>Prime Pyramids of the Pharaoh:</h3>
+        <ul id="prime-list"></ul>
+    </div>
+    <script src="js/EGPTfractal.js"></script>
+</body>
+</html>

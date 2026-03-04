@@ -1,0 +1,5 @@
+{
+  "name": "The Address is the Map Visualizer",
+  "description": "An interactive application to visualize the 'Address is the Map' concept from the P=NP proof. It demonstrates how a one-dimensional address (a natural number) can deterministically map to a two-dimensional Cartesian coordinate and its shortest path, using a square spiral analogy.",
+  "requestFramePermissions": []
+}

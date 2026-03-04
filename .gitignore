@@ -1,7 +1,21 @@
-/.lake
+# Lean build caches
+.lake/
+
+# Temp/working directory
 temp/
+
+# LaTeX artifacts
 *.gz
 *.out
 *.fls
 *.aux
 *.log
+
+# Node.js
+**/node_modules/
+**/dist/
+**/build/
+
+# macOS
+.DS_Store
+**/.DS_Store

@@ -1,0 +1,13 @@
+{
+  "15": "qs;time=500;baseCount=64;baseMax=2048;rwidth=4;rmult=2;B=128;B2=1024",
+  "21": "qs;time=500;baseCount=64;baseMax=2048;rwidth=4;rmult=2;B=128;B2=1024",
+  "35": "qs;time=500;baseCount=64;baseMax=2048;rwidth=4;rmult=2;B=128;B2=1024",
+  "77": "qs;time=500;baseCount=64;baseMax=2048;rwidth=4;rmult=2;B=128;B2=1024",
+  "143": "qs;time=1000;baseCount=128;baseMax=4096;rwidth=6;rmult=2;B=256;B2=2048",
+  "221": "qs;time=800;baseCount=96;baseMax=4096;rwidth=6;rmult=2;B=256;B2=2048",
+  "1073": "qs;time=1200;baseCount=128;baseMax=4096;rwidth=6;rmult=2;B=256;B2=2048",
+  "8633": "qs;time=1500;baseCount=256;baseMax=8192;rwidth=8;rmult=3;B=512;B2=4096",
+  "16777207": "qs;time=3000;baseCount=512;baseMax=16384;rwidth=10;rmult=3;B=1024;B2=4096",
+  "3430144373": "qs;time=4000;baseCount=512;baseMax=32768;rwidth=10;rmult=3;B=1024;B2=4096",
+  "549755813701": "qs;time=5000;baseCount=512;baseMax=32768;rwidth=10;rmult=3;B=2048;B2=8192"
+}

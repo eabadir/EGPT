@@ -1,0 +1,55 @@
+\contentsline {part}{I\hspace {1em}Beforehand}{2}{part.1}%
+\contentsline {section}{60 Pages ... In 60 Seconds!}{3}{section*.2}%
+\contentsline {section}{Foreword: The Mathematician \& His Lost Theorem}{5}{section*.2}%
+\contentsline {section}{Preface: Computing The Universe}{8}{section*.2}%
+\contentsline {part}{II\hspace {1em}The Entropy Game}{9}{part.2}%
+\contentsline {section}{Introduction}{10}{section*.3}%
+\contentsline {subsection}{What Game Do The Gods Play?}{11}{section*.3}%
+\contentsline {subsection}{Introduction To Probability \& Combinatorics, Rota's MIT 18.313 For Dummies}{14}{table.caption.4}%
+\contentsline {subsubsection}{Every Mathematician Has Only A Few Tricks}{14}{table.caption.4}%
+\contentsline {subsection}{A Diamond In The Sand: An Entropy-Based Search}{15}{table.caption.4}%
+\contentsline {subsection}{The Rules of the Game: Sudoku, Color, \& Light}{16}{table.caption.4}%
+\contentsline {section}{Derivation of Physics As NP-Complete At Steady State (Large N)}{16}{table.caption.4}%
+\contentsline {subsection}{Roadmap For Formal Derivation}{17}{section*.5}%
+\contentsline {subsection}{Sudoku as a Color Labeling Problem}{18}{Item.5}%
+\contentsline {subsection}{Map One, Map Them All: Blackbody Radiation To Sudoku To NP-Complete}{19}{figure.caption.6}%
+\contentsline {paragraph}{Bus Station Analogy (\textquotedblleft Quanta\textquotedblright ):}{19}{paragraph*.7}%
+\contentsline {paragraph}{Sudoku = Blackbody Departure Logistics}{19}{paragraph*.8}%
+\contentsline {subsection}{Formal Reduction: Blackbody Bus Station to EXACT COVER}{22}{figure.caption.10}%
+\contentsline {section}{From Blackbody To All Entropy: Rota's Entropy Theorem}{23}{figure.caption.10}%
+\contentsline {subsection}{All Entropy = Blackbody = NP Complete for Large N: Rota's Entropy Theorem}{23}{section*.11}%
+\contentsline {paragraph}{Why Does This Matter?}{25}{paragraph*.12}%
+\contentsline {subsection}{Shannon's Coding Theorem and the $O(n \log n)$ Solution}{25}{paragraph*.12}%
+\contentsline {subsection}{The Essence of Shannon's Coding Theorem}{25}{paragraph*.12}%
+\contentsline {subsection}{Applying Shannon's Coding to Rota's Entropy}{26}{theorem.1}%
+\contentsline {paragraph}{Connecting to a Discrete Random Variable.}{26}{paragraph*.13}%
+\contentsline {paragraph}{An Existence Proof, Not a Construction Manual.}{27}{paragraph*.14}%
+\contentsline {section}{Discussion: Large-$N$ Physics and Being ``Forced to Do Good''}{27}{paragraph*.14}%
+\contentsline {paragraph}{Errors at Small $n$ as Security.}{29}{paragraph*.16}%
+\contentsline {paragraph}{Encryption as a Feature, Not a Bug.}{29}{paragraph*.17}%
+\contentsline {section}{Afterword: A Great Teacher And Giver of Tricks}{31}{table.caption.18}%
+\contentsline {part}{III\hspace {1em}Addendum: Supplementary Mathematical Proofs \& Physics Derivations}{32}{part.3}%
+\contentsline {section}{\numberline {I}Rota's Entropy Theorem: Proof and Implications}{33}{section.0.1}%
+\contentsline {paragraph}{Proof of Rota's Entropy Theorem}{33}{paragraph*.19}%
+\contentsline {paragraph}{Entropy Property 1:}{33}{paragraph*.20}%
+\contentsline {paragraph}{Entropy Property 2:}{33}{paragraph*.21}%
+\contentsline {paragraph}{Entropy Property 3:}{33}{paragraph*.22}%
+\contentsline {paragraph}{Entropy Property 4:}{34}{paragraph*.23}%
+\contentsline {paragraph}{Entropy Property 5:}{34}{paragraph*.24}%
+\contentsline {paragraph}{Proof:}{34}{paragraph*.25}%
+\contentsline {section}{Quantum Gravity: Resolution of The EPR Paradox \& The Double Slit Experiment}{36}{paragraph*.25}%
+\contentsline {subsubsection}{NB: On the Linearity of Paths vs. Linear "Betting Odds" in the Double Slit Experiment}{36}{paragraph*.25}%
+\contentsline {subsection}{Formal Proof: Quantum Gravity Completes Quantum Mechanics \& Resolves EPR Paradox}{37}{Item.8}%
+\contentsline {subsection}{Discussion: Intuition of Quantum Gravity Completing Quantum Mechanics}{39}{Item.23}%
+\contentsline {section}{Derivation: Planck's Law Under Quantum Gravity}{39}{Item.23}%
+\contentsline {subsection}{Failed Correspondence, Or, "Calculus: The Wrong Tool For The Job"}{39}{section*.26}%
+\contentsline {subsection}{Combinatorics \& The Three-Body Problem}{40}{section*.26}%
+\contentsline {subsection}{A Change In Perspective: Discrete \& Divisible Quanta}{41}{section*.26}%
+\contentsline {subsection}{A Blackbody Thought Experiment: The Blackbody Bus Station}{42}{section*.26}%
+\contentsline {subsection}{Derivation of Planck's Law \& Strange Attractors}{43}{section*.26}%
+\contentsline {section}{There is Nothing Without Attraction: Scale-Invariant Attractive Force}{49}{Item.30}%
+\contentsline {subsection}{Unifying the Fundamental Forces Through Scale Invariance}{49}{section*.27}%
+\contentsline {subsubsection}{Perceived Strength and Frame Hierarchy}{50}{section*.27}%
+\contentsline {subsubsection}{A Loose Mathematical Formalization}{50}{section*.27}%
+\contentsline {subsubsection}{Comparison to Known Forces}{50}{section*.27}%
+\contentsline {section}{Conclusion}{51}{section*.27}%

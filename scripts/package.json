@@ -1,0 +1,11 @@
+{
+  "name": "@egpt/scripts",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Build utilities for the EGPT mono-repo",
+  "scripts": {
+    "build:report": "node build_report.js",
+    "tex:md": "node tex-to-md.js",
+    "package": "node filePackager.js"
+  }
+}
