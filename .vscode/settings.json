@@ -1,0 +1,5 @@
+{
+  "lean4.envPathExtensions": [
+    "${workspaceFolder}/Lean"
+  ]
+}
