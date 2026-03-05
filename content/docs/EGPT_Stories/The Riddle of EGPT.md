@@ -187,10 +187,10 @@ The `constructSatisfyingTableau` function deterministically walks every address 
 *   **Lean Citation:** `EGPT/Complexity/PPNP.lean`
     *   `theorem L_SAT_in_P` proves that this deterministic, polynomial-time construction places SAT in the P class.
 
-The final step is the collapse: both `P_EGPT` and `NP_EGPT` are defined by the identical property — the existence of a polynomially-bounded `SatisfyingTableau`. The distinction between non-deterministic "guessing" (NP) and deterministic construction (P) vanishes because in information space, defining the problem has already defined the solution.
+The final step is the collapse: both `P` and `NP` are defined by the identical property — the existence of a polynomially-bounded `SatisfyingTableau`. The distinction between non-deterministic "guessing" (NP) and deterministic construction (P) vanishes because in information space, defining the problem has already defined the solution.
 
 *   **Lean Citation:** `EGPT/Complexity/PPNP.lean`
-    *   `theorem P_eq_NP_EGPT : P_EGPT = NP_EGPT` — proven by `Iff.rfl`, reflexivity of logical equivalence, because the definitions are syntactically identical.
+    *   `theorem P_eq_NP : P = NP` — proven by `Iff.rfl`, reflexivity of logical equivalence, because the definitions are syntactically identical.
 
 The final proof appears trivial only because the information space has already done the heavy lifting. When every element is informationally primitive and every address is a path, there is nothing left to "search" for — the CNF's addresses are the paths to its solution. The grin of the Cheshire cat is the universal truth of informational equivalence: in any computable universe, there is no fundamental difference between a hard search and an easy construction.
 

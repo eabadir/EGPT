@@ -36,7 +36,7 @@ This transport also allows us to change the base of the logarithm in the entropy
 without re-writing all the axiom proofs which were more easily
 done in nats.
 -/
-theorem RET_All_Enropy_Is_Scaled_Shannon_Entropy (ef : EntropyFunction) (C : ℝ) (hC_pos : 0 < C) :
+theorem RET_All_Entropy_Is_Scaled_Shannon_Entropy (ef : EntropyFunction) (C : ℝ) (hC_pos : 0 < C) :
     HasRotaEntropyProperties (fun p => (C * (ef.H_func p : ℝ)).toNNReal) :=
   let C_nn : NNReal := C.toNNReal
   have hC_nn_pos : 0 < C_nn := by

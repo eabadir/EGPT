@@ -11,7 +11,6 @@ import EGPT.Complexity.Core
 import EGPT.Complexity.Tableau
 import EGPT.Complexity.PPNP
 import EGPT.Complexity.UTM
-import EGPT.Complexity.Physics
 -- Entropy
 import EGPT.Entropy.Common
 import EGPT.Entropy.RET
@@ -21,4 +20,7 @@ import EGPT.Physics.Common
 import EGPT.Physics.PhysicsDist
 import EGPT.Physics.UniformSystems
 import EGPT.Physics.BoseEinstein
+import EGPT.Physics.FermiDirac
+import EGPT.Physics.MaxwellBoltzmann
 import EGPT.Physics.PhotonicCA
+import EGPT.Physics.RealityIsComputation

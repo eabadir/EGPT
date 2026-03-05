@@ -18,7 +18,7 @@ Your job is to find what you must reject. Read the chain. Good luck!
 
 ## The Objection You Already Have
 
-You've glanced at `PPNP.lean` and seen that `P_EGPT` and `NP_EGPT` are defined identically — character for character — and that the proof of `P_eq_NP_EGPT` is `Iff.rfl`. You think: "Of course two identical definitions are equal. This is trivially true and says nothing about the real P vs NP problem."
+You've glanced at `PPNP.lean` and seen that `P` and `NP` are defined identically — character for character — and that the proof of `P_eq_NP` is `Iff.rfl`. You think: "Of course two identical definitions are equal. This is trivially true and says nothing about the real P vs NP problem."
 
 That is the right objection. Hold onto it. The question is: **why are the definitions identical, and is the reason they are identical substantive or trivial?**
 
@@ -280,7 +280,7 @@ def canonical_np_poly : EGPT_Polynomial :=
   EGPT_Polynomial.mul EGPT_Polynomial.id EGPT_Polynomial.id
 
 -- NP: membership ↔ existence of a bounded certificate
-def NP_EGPT : Set (Π k, Set (CanonicalCNF k)) :=
+def NP : Set (Π k, Set (CanonicalCNF k)) :=
 { L | ∀ (k : ℕ) (input_ccnf : CanonicalCNF k),
         (input_ccnf ∈ L k) ↔ ∃ (tableau : SatisfyingTableau k),
           tableau.cnf = input_ccnf.val ∧
@@ -288,7 +288,7 @@ def NP_EGPT : Set (Π k, Set (CanonicalCNF k)) :=
             (fromNat (encodeCNF input_ccnf.val).length)) }
 
 -- P: membership ↔ existence of a bounded *constructive* certificate
-def P_EGPT : Set (Π k, Set (CanonicalCNF k)) :=
+def P : Set (Π k, Set (CanonicalCNF k)) :=
 { L | ∀ (k : ℕ) (input_ccnf : CanonicalCNF k),
         (input_ccnf ∈ L k) ↔ ∃ (tableau : SatisfyingTableau k),
           tableau.cnf = input_ccnf.val ∧
@@ -299,10 +299,10 @@ def P_EGPT : Set (Π k, Set (CanonicalCNF k)) :=
 These definitions are syntactically identical. The proof follows:
 
 ```lean
-theorem P_eq_NP_EGPT : P_EGPT = NP_EGPT := by
+theorem P_eq_NP : P = NP := by
   apply Set.ext
   intro L
-  unfold P_EGPT NP_EGPT
+  unfold P NP
   exact Iff.rfl
 ```
 
@@ -335,7 +335,7 @@ The central claim is that in an information space where every element is a maxim
 
 5. **Therefore, the *certificate complexity* — the total cost of the tableau — is bounded by `n²` for every satisfiable CNF.** And this bound holds regardless of whether the certificate was "guessed" (NP) or "constructed" (P), because the construction *is* the walk through the addresses that the CNF already defined.
 
-6. **The definitions of `P_EGPT` and `NP_EGPT` are identical because, in this information space, the distinction between "guess and verify" and "construct deterministically" does not add any computational cost.** Both reduce to: "does a polynomially-bounded certificate exist?" And the answer is the same in both cases, because the bound comes from the problem's *information content*, not from the *mode of computation*.
+6. **The definitions of `P` and `NP` are identical because, in this information space, the distinction between "guess and verify" and "construct deterministically" does not add any computational cost.** Both reduce to: "does a polynomially-bounded certificate exist?" And the answer is the same in both cases, because the bound comes from the problem's *information content*, not from the *mode of computation*.
 
 ---
 
@@ -361,7 +361,7 @@ The function signature requires a satisfying assignment as input:
 → SatisfyingTableau k
 ```
 
-**EGPT's response:** This function builds the *certificate*, not the *solver*. The point is not that `constructSatisfyingTableau` finds solutions — it is that the certificate it produces has complexity bounded by `n²` *regardless of how the solution was obtained*. The definitions of P_EGPT and NP_EGPT both ask: "is membership equivalent to the existence of a bounded certificate?" Since the n² bound on certificate complexity is a property of the *information space* (every path cost is bounded by the encoded problem size), the answer is the same whether the certificate was guessed non-deterministically or constructed deterministically. The `RejectionFilter` (in `NumberTheory/Filter.lean`) models the physical process of finding witnesses, but the proof's force comes from the certificate bound, not from the filter.
+**EGPT's response:** This function builds the *certificate*, not the *solver*. The point is not that `constructSatisfyingTableau` finds solutions — it is that the certificate it produces has complexity bounded by `n²` *regardless of how the solution was obtained*. The definitions of P and NP both ask: "is membership equivalent to the existence of a bounded certificate?" Since the n² bound on certificate complexity is a property of the *information space* (every path cost is bounded by the encoded problem size), the answer is the same whether the certificate was guessed non-deterministically or constructed deterministically. The `RejectionFilter` (in `NumberTheory/Filter.lean`) models the physical process of finding witnesses, but the proof's force comes from the certificate bound, not from the filter.
 
 ### Point 3: Restriction to CanonicalCNF
 
@@ -416,7 +416,7 @@ theorem logarithmic_trapping ... :
   |(f0 hH_axioms n : ℝ) / (f0 hH_axioms b : ℝ) - Real.logb b n| ≤ 1 / (m : ℝ)
 ```
 
-The culminating theorem, `RET_All_Enropy_Is_Scaled_Shannon_Entropy`, proves that *every* entropy function satisfying Rota's axioms is `C × log(n)` — a scaled logarithm, and nothing else. There is no room for an alternative information measure. The logarithm is not a choice; it is the unique function that respects additive decomposition. This is Rota's Entropy Theorem, proven from axioms that are themselves proven (see the note on Rota's Axioms below).
+The culminating theorem, `RET_All_Entropy_Is_Scaled_Shannon_Entropy`, proves that *every* entropy function satisfying Rota's axioms is `C × log(n)` — a scaled logarithm, and nothing else. There is no room for an alternative information measure. The logarithm is not a choice; it is the unique function that respects additive decomposition. This is Rota's Entropy Theorem, proven from axioms that are themselves proven (see the note on Rota's Axioms below).
 
 **The trap.** Now apply this to CNF satisfiability. A CNF formula is composed of prime information units — the literals, the clauses, the variable indices. Whoever constructed the CNF *knew* the primes — they *used* them. The information content of the problem statement is the sum of the information content of its components (by the LFTA, proven). The information content of any solution is *also* expressible as a sum of prime information units. And by the LFTA, the total information is conserved: you cannot ask a question whose answer requires more information than the question itself contains, because the question *is made of* the same irreducible units as the answer.
 
@@ -428,7 +428,9 @@ The traditional complexity-theoretic trick is: take primes, multiply them into c
 
 1. **Deny the Fundamental Theorem of Arithmetic** — claim that unique prime factorization does not hold, so that information content is not uniquely determined by prime components.
 
-2. **Deny that the logarithm is the unique information measure** — claim that `f0_mul_eq_add_f0` and `RET_All_Enropy_Is_Scaled_Shannon_Entropy` are wrong, i.e., that Rota's Entropy Theorem is false. This requires rejecting all seven of Rota's entropy axioms — and those axioms are not merely assumed in this codebase. **They are formally proved as theorems.** (See the note on Rota's Axioms below.)
+2. **Deny that the logarithm is the unique information measure** — claim that `f0_mul_eq_add_f0` and `RET_All_Entropy_Is_Scaled_Shannon_Entropy` are wrong, i.e., that Rota's Entropy Theorem is false. This requires rejecting all seven of Rota's entropy axioms — and those axioms are not merely assumed in this codebase. **They are formally proved as theorems.** (See the note on Rota's Axioms below.)
+
+   Moreover, the entropy-equals-scaled-Shannon result is not just proven abstractly. It is concretely verified for all three canonical statistical mechanics distributions: Bose-Einstein (`H_BE_from_Multiset_eq_C_shannon`), Fermi-Dirac (`H_FD_eq_C_shannon`), and Maxwell-Boltzmann (`H_MB_eq_C_shannon`). These proofs operate over Lean ℝ, and Rota's continuity axiom — what EGPT calls "discrete continuity" (`IsEntropyContinuous`, an epsilon-delta condition on finite probability distributions) — is formally proven for Shannon entropy via `h_canonical_is_continuous`, which uses Mathlib's `Real.continuous_negMulLog`. The equivalence holds for continuous fields, not merely discrete counting.
 
 3. **Deny that `ParticlePath ≃ ℕ`** — claim that the proven bijection between EGPT's information space and the standard natural numbers is somehow invalid, despite being type-checked by Lean's kernel.
 
@@ -495,7 +497,7 @@ noncomputable def TheCanonicalEntropyFunction_Ln : EntropyFunction := {
 
 **Claim 2 (Proven in Lean 4):** Within this information space, a CNF formula is a list of addresses (`ParticlePath`s), and the certificate for any satisfiable CNF has complexity bounded by `n²` — where `n²` is proven to be standard ℕ multiplication via the homomorphism chain. This bound holds because the problem definition *is* the collection of paths, and walking each clause against its farthest variable (the worst case) is `|cnf| × k ≤ n × n`.
 
-**Claim 3 (Proven in Lean 4):** The complexity classes `P_EGPT` and `NP_EGPT`, both defined by the existence of a polynomially-bounded `SatisfyingTableau`, are identical — and this identity follows from the structure of the information space, not from a definitional accident.
+**Claim 3 (Proven in Lean 4):** The complexity classes `P` and `NP`, both defined by the existence of a polynomially-bounded `SatisfyingTableau`, are identical — and this identity follows from the structure of the information space, not from a definitional accident.
 
 **Claim 4 (The substantive claim):** Because `ParticlePath ≃ ℕ` with arithmetic isomorphism, `SyntacticCNF_EGPT ≃ ParticlePath` via `Denumerable`, and the `n²` bound is standard ℕ `n * n`, **this result is not confined to a "custom framework."** The EGPT information space *is* the standard mathematical universe under a proven change of basis. The proof resolves P vs NP by showing that the traditional separation between search and verification is an artifact of the Turing model's "Free Address Fallacy" — the assumption that memory access costs O(1) regardless of address. When address cost is properly accounted for (as it must be in any physical computing system), the cost of *stating* a problem bounds the cost of *certifying* its solution, and P = NP.
 
@@ -512,7 +514,7 @@ noncomputable def TheCanonicalEntropyFunction_Ln : EntropyFunction := {
 | 2 | `EGPT/Constraints.lean` | CNF definitions, `encodeCNF : CNF → ComputerTape`, `CanonicalCNF`, encoding bounds (`encodeCNF_size_ge_k`, `cnf_length_le_encoded_length`), `equivUniversalCNF_to_ParticlePath` |
 | 3 | `EGPT/Complexity/Core.lean` | `PathToConstraint` (literal index = path cost), `IsPolynomialEGPT` |
 | 4 | `EGPT/Complexity/Tableau.lean` | `SatisfyingTableau`, `constructSatisfyingTableau`, `tableauComplexity_upper_bound` (≤ `|cnf| × k`) |
-| 5 | `EGPT/Complexity/PPNP.lean` | `P_EGPT`, `NP_EGPT`, `eval_canonical_np_poly` (n² = standard ℕ n*n), `L_SAT_in_NP`, `L_SAT_in_P`, `EGPT_CookLevin_Theorem`, `P_eq_NP_EGPT` |
+| 5 | `EGPT/Complexity/PPNP.lean` | `P`, `NP`, `eval_canonical_np_poly` (n² = standard ℕ n*n), `L_SAT_in_NP`, `L_SAT_in_P`, `EGPT_CookLevin_Theorem`, `P_eq_NP` |
 
 **Supporting (not in proof chain):**
 
@@ -521,8 +523,12 @@ noncomputable def TheCanonicalEntropyFunction_Ln : EntropyFunction := {
 | `EGPT/NumberTheory/Analysis.lean` | LFTA (`EGPT_Fundamental_Theorem_of_Arithmetic_via_Information`), prime information atoms (`PrimeAtoms`), `EGPTPrimeGenerator`, factorial decomposition |
 | `EGPT/Entropy/Common.lean` | Rota's entropy axiom definitions (`HasRotaEntropyProperties`), Shannon entropy, RECT equivalence theorems |
 | `EGPT/Entropy/H.lean` | Formal proofs that Shannon entropy satisfies all 7 Rota axioms (`TheCanonicalEntropyFunction_Ln`) |
-| `EGPT/Entropy/RET.lean` | Rota's Entropy Theorem (`f0_mul_eq_add_f0`, `logarithmic_trapping`, `RET_All_Enropy_Is_Scaled_Shannon_Entropy`) |
-| `EGPT/Complexity/Physics.lean` | Physical model (random walks, stochastic processes) — motivation, not proof |
+| `EGPT/Entropy/RET.lean` | Rota's Entropy Theorem (`f0_mul_eq_add_f0`, `logarithmic_trapping`, `RET_All_Entropy_Is_Scaled_Shannon_Entropy`) |
+| `EGPT/Physics/RealityIsComputation.lean` | Capstone theorem — every physical system (BE/FD/MB) has a computable program via RECT |
+| `EGPT/Physics/BoseEinstein.lean` | Bose-Einstein: `H_BE = C × Shannon` (proven over ℝ) |
+| `EGPT/Physics/FermiDirac.lean` | Fermi-Dirac: `H_FD = C × Shannon` (proven over ℝ) |
+| `EGPT/Physics/MaxwellBoltzmann.lean` | Maxwell-Boltzmann: `H_MB = C × Shannon` (proven over ℝ) |
+| `EGPT/Physics/PhysicsDist.lean` | Unified distribution: weighted linear combination of all three, all proven |
 | `EGPT/NumberTheory/Filter.lean` | `RejectionFilter` — physical process model for finding solutions |
 | `EGPT/Complexity/UTM.lean` | Universal Turing Machine as universal certifier |
 

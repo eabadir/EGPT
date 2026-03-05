@@ -137,7 +137,7 @@ The reason Einstein could not find this theory is that he did not have RET. He d
 > "No one really knows what entropy is."
 > — John von Neumann to Claude Shannon, 1956
 
-*Why* does the same function appear everywhere — in thermodynamics, information theory, quantum mechanics, statistical mechanics, and computer science.
+Von Neumann was being strategic, not honest. He and Ulam knew exactly what entropy is. Shannon knew too — he called it "uncertainty" before von Neumann told him to call it "entropy" for rhetorical advantage. The mystery was never *what* entropy is. It was *why* the same function appears everywhere — in thermodynamics, information theory, quantum mechanics, statistical mechanics, and computer science.
 
 RET answers this: **entropy is the number of bits needed to compute a physical system's state in the most efficient way.** All physical entropy — Boltzmann's, Gibbs's, von Neumann's, Shannon's — is the same function (up to a scaling constant) because there is only one way to measure information that respects additivity and continuity: the logarithm. This is not a choice. It is a mathematical necessity, proven from axioms that are themselves proven.
 

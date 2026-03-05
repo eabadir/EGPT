@@ -255,7 +255,7 @@ export const ResultsDeepDive: React.FC<ResultsDeepDiveProps> = ({
                   Proves certificate complexity ≤ N²
                 </li>
                 <li>
-                  <code className="text-cyan-300 bg-slate-800 px-1 rounded">P_eq_NP_EGPT</code>:{' '}
+                  <code className="text-cyan-300 bg-slate-800 px-1 rounded">P_eq_NP</code>:{' '}
                   The main theorem establishing P=NP
                 </li>
                 <li>

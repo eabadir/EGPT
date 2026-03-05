@@ -10,10 +10,10 @@ open EGPT.Complexity EGPT.Constraints EGPT.Physics.PCA EGPT.Entropy.Common EGPT.
 
 
 /--
-**The EGPT Complexity Class P (`P_EGPT`)**
+**The EGPT Complexity Class P (`P`)**
 
 This definition formalizes the class P within the EGPT framework. A language `L`
-is in `P_EGPT` if its membership can be decided by a deterministic, polynomial-time
+is in `P` if its membership can be decided by a deterministic, polynomial-time
 procedure.
 
 In EGPT, this procedure is the **construction and verification of a proof certificate**.
@@ -23,12 +23,12 @@ in the size of the input. The deterministic "algorithm" is the process of buildi
 and checking this certificate, a process whose runtime is tied to the certificate's
 (polynomial) size.
 
-This definition intentionally mirrors `NP_EGPT`. The core EGPT thesis is that
+This definition intentionally mirrors `NP`. The core EGPT thesis is that
 the non-deterministic "guess" of a certificate (NP) is replaced by the deterministic
 *construction* of the certificate (P), and since the certificate's complexity is
 polynomially bounded in both cases, the classes are equivalent.
 -/
-def P_EGPT : Set (Π k, Set (CanonicalCNF k)) :=
+def P : Set (Π k, Set (CanonicalCNF k)) :=
 { L | ∀ (k : ℕ) (input_ccnf : CanonicalCNF k),
         (input_ccnf ∈ L k) ↔ ∃ (tableau : SatisfyingTableau k),
           tableau.cnf = input_ccnf.val ∧
@@ -39,7 +39,7 @@ def P_EGPT : Set (Π k, Set (CanonicalCNF k)) :=
 -- [Existing code for L_SAT_in_NP theorem...]
 
 /--
-**Theorem: `L_SAT_Canonical` is in the `P_EGPT` Class.**
+**Theorem: `L_SAT_Canonical` is in the `P` Class.**
 
 This theorem proves that the language of all satisfiable canonical CNF formulas
 is a member of our P class. The proof is constructive. For any satisfiable
@@ -48,10 +48,10 @@ instance, we can deterministically construct a `SatisfyingTableau` using the
 deterministically generated certificate is bounded by the universal `n²` polynomial.
 -/
 theorem L_SAT_in_P :
-  (L_SAT_Canonical : Π k, Set (CanonicalCNF k)) ∈ P_EGPT :=
+  (L_SAT_Canonical : Π k, Set (CanonicalCNF k)) ∈ P :=
 by
   -- Unfold the definition of the P class.
-  unfold P_EGPT
+  unfold P
   -- Now introduce the universal quantifiers
   intro k input_ccnf
 
@@ -108,8 +108,8 @@ by
 This theorem proves that the complexity classes P and NP, as defined within
 the EGPT framework, are identical.
 
-The proof is a direct consequence of our foundational definitions. Both `P_EGPT`
-and `NP_EGPT` are defined by the same core property: the existence of
+The proof is a direct consequence of our foundational definitions. Both `P`
+and `NP` are defined by the same core property: the existence of
 a polynomially-bounded, verifiable certificate (`SatisfyingTableau`). The
 distinction between a non-deterministic "guess" (NP) and a deterministic
 "construction" (P) collapses, because in EGPT, if a solution exists, its
@@ -122,13 +122,13 @@ Therefore, the sets of languages defining each class are proven to be the same.
 /--
 **Theorem: P equals NP in the EGPT framework.**
 -/
-theorem P_eq_NP_EGPT : P_EGPT = NP_EGPT := by
+theorem P_eq_NP : P = NP := by
   -- To prove two sets are equal, we prove they have the same elements.
-  -- This is equivalent to proving `L ∈ P_EGPT ↔ L ∈ NP_EGPT` for any language L.
+  -- This is equivalent to proving `L ∈ P ↔ L ∈ NP` for any language L.
   apply Set.ext
   intro L
   -- Unfold the definitions of both complexity classes.
-  unfold P_EGPT NP_EGPT
+  unfold P NP
   -- The definitions are now syntactically identical. The goal is of the form `A ↔ A`.
   -- `Iff.rfl` proves this reflexively.
   exact Iff.rfl

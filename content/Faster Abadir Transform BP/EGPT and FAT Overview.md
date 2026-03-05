@@ -1,4 +1,6 @@
 # EGPT: The Constructive Foundation for Deterministic Physics, Maximal Information Efficiency, and the Future of Algorithmic Intelligence
+> " Philosophers are needed today more than ever to tell the AI engineers some unpleasant truths. The philosopher's role has always been that of stating facts that may have been on everybody's mind but that no one dared state clearly. Eventually, engineers will reluctantly acknowledge that what the philosopher says is the truth, but they will then get rid of the philosopher."
+[\- Gian-Carlo Rota, ](http://giancarlorota.org/essays/rotasharp.html)
 
 ## Introduction
 

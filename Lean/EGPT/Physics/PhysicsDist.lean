@@ -15,6 +15,8 @@ import EGPT.Physics.Common
 import EGPT.Entropy.RET
 import EGPT.Physics.UniformSystems
 import EGPT.Physics.BoseEinstein
+import EGPT.Physics.FermiDirac
+import EGPT.Physics.MaxwellBoltzmann
 
 namespace EGPT.Physics.PhysicsDist
 
@@ -26,6 +28,8 @@ open EGPT.Entropy.Common
 open EGPT.Physics.Common
 open EGPT.Physics.UniformSystems
 open EGPT.Physics.BE
+open EGPT.Physics.FD
+open EGPT.Physics.MB
 
 /-! # Formalizing "Physics Distribution" To Mean A Combinatorial State Spaces, Or, Counting Problem Under Constraints
 
@@ -80,13 +84,9 @@ noncomputable def entropy_of_stat_system (type : StatSystemType) (params : Syste
     -- Using EGPT.Physics.Common.H_physical_system directly
     (EGPT.Physics.Common.H_physical_system (EGPT.Physics.UniformSystems.p_UD_fin params.N params.M) : ℝ)
   | StatSystemType.FermiDirac =>
-    -- Placeholder: Assume similar structure for FD
-    -- (EGPT.Physics.Common.H_physical_system (EGPT.Physics.FermiDirac.p_FD_fin params.N params.M) : ℝ)
-    0 -- Placeholder value
+    (EGPT.Physics.Common.H_physical_system (EGPT.Physics.FD.p_FD_fin params.N params.M) : ℝ)
   | StatSystemType.MaxwellBoltzmann =>
-    -- Placeholder: Assume similar structure for MB
-    -- (EGPT.Physics.Common.H_physical_system (EGPT.Physics.MaxwellBoltzmann.p_MB_fin params.N params.M) : ℝ)
-    0 -- Placeholder value
+    (EGPT.Physics.Common.H_physical_system (EGPT.Physics.MB.p_MB_fin params.N params.M) : ℝ)
 
 /--
 Calculates the standard Shannon entropy (ln-based) of a given statistical system's
@@ -99,11 +99,9 @@ noncomputable def shannon_entropy_of_stat_system (type : StatSystemType) (params
   | StatSystemType.BoseEinstein =>
     stdShannonEntropyLn (EGPT.Physics.UniformSystems.p_UD_fin params.N params.M)
   | StatSystemType.FermiDirac =>
-    -- Placeholder: stdShannonEntropyLn (EGPT.Physics.FermiDirac.p_FD_fin params.N params.M)
-    0 -- Placeholder value
+    stdShannonEntropyLn (EGPT.Physics.FD.p_FD_fin params.N params.M)
   | StatSystemType.MaxwellBoltzmann =>
-    -- Placeholder: stdShannonEntropyLn (EGPT.Physics.MaxwellBoltzmann.p_MB_fin params.N params.M)
-    0 -- Placeholder value
+    stdShannonEntropyLn (EGPT.Physics.MB.p_MB_fin params.N params.M)
 
 /--
 Theorem: The axiomatic entropy of a Bose-Einstein system is C_axiom * its Shannon entropy.
@@ -125,9 +123,28 @@ theorem entropy_BE_eq_C_shannon (params : SystemParams)
   --    `axiomatic_entropy_of_stat_system` now directly uses `EGPT.Physics.Common.H_physical_system`.
   exact H_BE_from_Multiset_eq_C_shannon params.N params.M h_domain_valid
 
--- Similar theorems for FD and MB would be:
--- theorem axiomatic_entropy_FD_eq_C_shannon ...
--- theorem axiomatic_entropy_MB_eq_C_shannon ...
+/--
+Theorem: The axiomatic entropy of a Fermi-Dirac system is C_axiom * its Shannon entropy.
+Note: FD requires `M ≤ N` (at most one particle per box), which is stronger than
+the general domain validity condition `N ≠ 0 ∨ M = 0`.
+-/
+theorem entropy_FD_eq_C_shannon (params : SystemParams)
+    (_h_domain_valid : params.N ≠ 0 ∨ params.M = 0)
+    (h_fd : params.M ≤ params.N) :
+    entropy_of_stat_system StatSystemType.FermiDirac params _h_domain_valid =
+    C_axiom_val * shannon_entropy_of_stat_system StatSystemType.FermiDirac params _h_domain_valid := by
+  simp only [entropy_of_stat_system, shannon_entropy_of_stat_system]
+  exact H_FD_eq_C_shannon params.N params.M h_fd
+
+/--
+Theorem: The axiomatic entropy of a Maxwell-Boltzmann system is C_axiom * its Shannon entropy.
+-/
+theorem entropy_MB_eq_C_shannon (params : SystemParams)
+    (h_domain_valid : params.N ≠ 0 ∨ params.M = 0) :
+    entropy_of_stat_system StatSystemType.MaxwellBoltzmann params h_domain_valid =
+    C_axiom_val * shannon_entropy_of_stat_system StatSystemType.MaxwellBoltzmann params h_domain_valid := by
+  simp only [entropy_of_stat_system, shannon_entropy_of_stat_system]
+  exact H_MB_eq_C_shannon params.N params.M h_domain_valid
 
 
 -- Structure to hold weights for each system type.
@@ -180,41 +197,15 @@ generalized C * Shannon form.
 theorem H_physics_dist_linear_combination_eq_generalized_C_Shannon
     (weights : SystemWeights)
     (params_BE : SystemParams) (h_valid_BE : params_BE.N ≠ 0 ∨ params_BE.M = 0)
-    (params_FD : SystemParams) (h_valid_FD : params_FD.N ≠ 0 ∨ params_FD.M = 0) -- Placeholder proofs/params
-    (params_MB : SystemParams) (h_valid_MB : params_MB.N ≠ 0 ∨ params_MB.M = 0) -- Placeholder proofs/params
+    (params_FD : SystemParams) (h_valid_FD : params_FD.N ≠ 0 ∨ params_FD.M = 0)
+    (h_fd : params_FD.M ≤ params_FD.N)
+    (params_MB : SystemParams) (h_valid_MB : params_MB.N ≠ 0 ∨ params_MB.M = 0)
     : H_physics_dist_linear_combination weights params_BE h_valid_BE params_FD h_valid_FD params_MB h_valid_MB =
       generalized_PhysicsDist_C_times_Shannon weights params_BE h_valid_BE params_FD h_valid_FD params_MB h_valid_MB := by
-  -- 1. Unfold definitions
   simp only [H_physics_dist_linear_combination, generalized_PhysicsDist_C_times_Shannon]
-
-  -- 2. Rewrite each axiomatic_entropy_of_stat_system term using its _eq_C_shannon theorem
   rw [entropy_BE_eq_C_shannon params_BE h_valid_BE]
-  -- When FD and MB are done, add their rewrites:
-  -- rw [axiomatic_entropy_FD_eq_C_shannon params_FD h_valid_FD] -- Assuming this theorem exists
-  -- rw [axiomatic_entropy_MB_eq_C_shannon params_MB h_valid_MB] -- Assuming this theorem exists
-
-  -- For now, with FD/MB axiomatic entropies being 0 (placeholders in `entropy_of_stat_system`),
-  -- and their Shannon entropies also 0 (placeholders in `shannon_entropy_of_stat_system`),
-  -- the FD and MB terms will simplify to 0 = C_axiom_val * 0.
-  -- Let's make this explicit for the current state:
-  simp only [entropy_of_stat_system, shannon_entropy_of_stat_system]
-  -- This will resolve the match statements for FD and MB to 0.
-  -- The goal becomes:
-  -- (↑weights.w_BE) * (C_axiom_val * shannon_entropy_of_stat_system StatSystemType.BoseEinstein params_BE h_valid_BE) +
-  -- (↑weights.w_FD) * 0 +
-  -- (↑weights.w_MB) * 0 =
-  -- C_axiom_val * (
-  --   (↑weights.w_BE) * shannon_entropy_of_stat_system StatSystemType.BoseEinstein params_BE h_valid_BE +
-  --   (↑weights.w_FD) * 0 +
-  --   (↑weights.w_MB) * 0
-  -- )
-  simp only [mul_zero, add_zero] -- Clean up the zero terms
-
-  -- The goal is now:
-  -- (↑weights.w_BE) * (C_axiom_val * shannon_entropy_of_stat_system StatSystemType.BoseEinstein params_BE h_valid_BE) =
-  -- C_axiom_val * ((↑weights.w_BE) * shannon_entropy_of_stat_system StatSystemType.BoseEinstein params_BE h_valid_BE)
-
-  -- This is true by associativity and commutativity of multiplication for Reals.
+  rw [entropy_FD_eq_C_shannon params_FD h_valid_FD h_fd]
+  rw [entropy_MB_eq_C_shannon params_MB h_valid_MB]
   ring
 
 -- In EGPT.Physics.PhysicsDist

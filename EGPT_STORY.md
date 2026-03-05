@@ -151,9 +151,9 @@ The EGPT proof of P=NP follows these constructive steps. (For a complete audit o
    - Prove `tableauComplexity_upper_bound`: total cost ≤ |clauses| × |variables|
 
 4. **Prove P=NP via definitional identity** (`EGPT/Complexity/PPNP.lean`)
-   - Define `P_EGPT` and `NP_EGPT` using identical mathematical structures
+   - Define `P` and `NP` using identical mathematical structures
    - Prove Cook-Levin (`EGPT_CookLevin_Theorem`) to validate non-triviality
-   - Prove `P_eq_NP_EGPT` using `Iff.rfl` — the definitions are syntactically the same
+   - Prove `P_eq_NP` using `Iff.rfl` — the definitions are syntactically the same
 
 **Separately** (not in the proof chain but independently important):
 
@@ -168,7 +168,7 @@ The EGPT proof of P=NP follows these constructive steps. (For a complete audit o
 The EGPT codebase rigorously distinguishes between the **physical model** that motivates the theory and the **logical definitions** used in the formal proof.
 
 ### 1. The Physical Model (Not Used in Proof)
-- `EGPT/Complexity/Physics.lean` — Stochastic random walks (`NDTM_A_run`, `advance_state`, `potential_next_state`), solution space characterization (`construct_solution_filter`)
+- `EGPT/Physics/RealityIsComputation.lean` — Capstone theorem: every physical system (BE/FD/MB) has a computable program via RECT
 - `EGPT/Physics/` — Physical system models and distributions
 - `EGPT/Complexity/UTM.lean` — Universal Turing Machine construction (uses `RejectionFilter`)
 - `EGPT/NumberTheory/Filter.lean` — `RejectionFilter`, probability distributions, rejection sampling
@@ -182,7 +182,7 @@ The complete proof chain requires exactly these files:
 - `EGPT/Constraints.lean` — CNF syntax, evaluation, `CanonicalCNF`, `encodeCNF`
 - `EGPT/Complexity/Core.lean` — `PathToConstraint`, `IsPolynomialEGPT`
 - `EGPT/Complexity/Tableau.lean` — `SatisfyingTableau`, `constructSatisfyingTableau`, complexity bound
-- `EGPT/Complexity/PPNP.lean` — `P_EGPT`, `NP_EGPT`, Cook-Levin, `P_eq_NP_EGPT`
+- `EGPT/Complexity/PPNP.lean` — `P`, `NP`, Cook-Levin, `P_eq_NP`
 
 ### 3. The Entropy Formalization (Independent Proof)
 - `EGPT/Entropy/Common.lean` — Rota's entropy axioms (`HasRotaEntropyProperties`)
@@ -407,7 +407,7 @@ lemma eval_canonical_np_poly (n : ℕ) :
 
 **NP Class Definition** (lines 79-85):
 ```lean
-def NP_EGPT : Set (Π k, Set (CanonicalCNF k)) :=
+def NP : Set (Π k, Set (CanonicalCNF k)) :=
 { L | ∀ (k : ℕ) (input_ccnf : CanonicalCNF k),
         (input_ccnf ∈ L k) ↔ ∃ (tableau : SatisfyingTableau k),
           tableau.cnf = input_ccnf.val ∧
@@ -417,7 +417,7 @@ def NP_EGPT : Set (Π k, Set (CanonicalCNF k)) :=
 
 **P Class Definition** (lines 281-287):
 ```lean
-def P_EGPT : Set (Π k, Set (CanonicalCNF k)) :=
+def P : Set (Π k, Set (CanonicalCNF k)) :=
 { L | ∀ (k : ℕ) (input_ccnf : CanonicalCNF k),
         (input_ccnf ∈ L k) ↔ ∃ (tableau : SatisfyingTableau k),
           tableau.cnf = input_ccnf.val ∧
@@ -436,7 +436,7 @@ The Cook-Levin theorem proves that SAT is NP-complete, validating that the compl
 **SAT in NP** (lines 95-149):
 ```lean
 theorem L_SAT_in_NP :
-  (L_SAT_Canonical : Π k, Set (CanonicalCNF k)) ∈ NP_EGPT
+  (L_SAT_Canonical : Π k, Set (CanonicalCNF k)) ∈ NP
 ```
 
 The proof constructs a `SatisfyingTableau` from any satisfying assignment and shows its complexity is bounded by n² via the chain: `complexity ≤ cnf.length * k ≤ n * n = n²`.
@@ -444,16 +444,16 @@ The proof constructs a `SatisfyingTableau` from any satisfying assignment and sh
 **SAT is NP-Hard** (lines 158-201):
 ```lean
 theorem L_SAT_in_NP_Hard :
-  ∀ (L' : Π k, Set (CanonicalCNF k)), L' ∈ NP_EGPT →
+  ∀ (L' : Π k, Set (CanonicalCNF k)), L' ∈ NP →
     ∃ (f : (ucnf : Σ k, CanonicalCNF k) → CanonicalCNF ucnf.1), ...
 ```
 
-The reduction is the identity function — since both `NP_EGPT` and `L_SAT_Canonical` are defined against the same universal polynomial bound, every language in NP is trivially reducible to SAT.
+The reduction is the identity function — since both `NP` and `L_SAT_Canonical` are defined against the same universal polynomial bound, every language in NP is trivially reducible to SAT.
 
 **NP-Completeness** (lines 227-257):
 ```lean
 def IsNPComplete (L : Π k, Set (CanonicalCNF k)) : Prop :=
-  (L ∈ NP_EGPT) ∧ (∀ L' ∈ NP_EGPT, ∃ f, ... polynomial reduction ...)
+  (L ∈ NP) ∧ (∀ L' ∈ NP, ∃ f, ... polynomial reduction ...)
 
 theorem EGPT_CookLevin_Theorem : IsNPComplete L_SAT_Canonical := by
   constructor
@@ -477,10 +477,10 @@ The proof of P=NP in EGPT is remarkably simple: the definitions of P and NP are 
 
 **The P=NP Theorem** (lines 375-384):
 ```lean
-theorem P_eq_NP_EGPT : P_EGPT = NP_EGPT := by
+theorem P_eq_NP : P = NP := by
   apply Set.ext
   intro L
-  unfold P_EGPT NP_EGPT
+  unfold P NP
   exact Iff.rfl
 ```
 
@@ -518,13 +518,13 @@ The "address is the map" principle means that in an information space, computati
 
 ## Key Files Reference
 
-**Proof-Path Files** (required for `P_eq_NP_EGPT`):
+**Proof-Path Files** (required for `P_eq_NP`):
 - `EGPT/Core.lean` — `ParticlePath`, `ComputerTape`, `PathCompress_AllTrue`
 - `EGPT/NumberTheory/Core.lean` — Bijections (`toNat`/`fromNat`/`equivParticlePathToNat`), arithmetic (`add_ParticlePath`/`mul_ParticlePath`), `EGPT_Polynomial`
 - `EGPT/Constraints.lean` — `Literal_EGPT`, `Clause_EGPT`, `SyntacticCNF_EGPT`, `CanonicalCNF`, `evalCNF`, `encodeCNF`, encoding size bounds
 - `EGPT/Complexity/Core.lean` — `PathToConstraint`, `IsPolynomialEGPT`, `IsBoundedByEGPT_Polynomial`
 - `EGPT/Complexity/Tableau.lean` — `SatisfyingTableau`, `constructSatisfyingTableau`, `tableauComplexity_upper_bound`
-- `EGPT/Complexity/PPNP.lean` — `P_EGPT`, `NP_EGPT`, `L_SAT_Canonical`, `IsNPComplete`, Cook-Levin, `P_eq_NP_EGPT`
+- `EGPT/Complexity/PPNP.lean` — `P`, `NP`, `L_SAT_Canonical`, `IsNPComplete`, Cook-Levin, `P_eq_NP`
 
 **Entropy Theory** (independent proof, not in proof chain):
 - `EGPT/Entropy/Common.lean` — Rota's entropy axioms (`HasRotaEntropyProperties`)
@@ -532,10 +532,10 @@ The "address is the map" principle means that in an information space, computati
 - `EGPT/Entropy/RET.lean` — Rota's Entropy Theorem (`RotaUniformTheorem_formula_with_C_constant`)
 
 **Physical Model** (motivation/semantics, not in proof chain):
-- `EGPT/Complexity/Physics.lean` — Stochastic random walks (`NDTM_A_run`), solution space characterization
+- `EGPT/Physics/RealityIsComputation.lean` — Capstone theorem: every physical system has a computable program via RECT
 - `EGPT/Complexity/UTM.lean` — Universal Turing Machine construction
 - `EGPT/NumberTheory/Filter.lean` — `RejectionFilter`, probability distributions
-- `EGPT/Physics/` — Physical system models (Bose-Einstein, photonic CA, etc.)
+- `EGPT/Physics/` — Physical system models (Bose-Einstein, Fermi-Dirac, Maxwell-Boltzmann, photonic CA) — all three canonical distributions have formal `H = C × Shannon` proofs over ℝ with proven continuity axiom
 
 ---
 

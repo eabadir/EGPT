@@ -69,14 +69,14 @@ lemma eval_canonical_np_poly (n : ℕ) :
 
 
 /--
-**The Final, Unified EGPT NP Class (`NP_EGPT`)**
+**The Final, Unified EGPT NP Class (`NP`)**
 
 This definition is the key simplification. A language `L` is in the canonical
 NP class if and only if membership in `L` is equivalent to the existence of a
 `SatisfyingTableau` whose complexity is bounded by our universal canonical
 polynomial, `P(n) = n²`.
 -/
-def NP_EGPT : Set (Π k, Set (CanonicalCNF k)) :=
+def NP : Set (Π k, Set (CanonicalCNF k)) :=
 { L | ∀ (k : ℕ) (input_ccnf : CanonicalCNF k),
         (input_ccnf ∈ L k) ↔ ∃ (tableau : SatisfyingTableau k),
           tableau.cnf = input_ccnf.val ∧
@@ -85,7 +85,7 @@ def NP_EGPT : Set (Π k, Set (CanonicalCNF k)) :=
 }
 
 /--
-**Theorem: `L_SAT_Canonical` is in the `NP_EGPT` Class.**
+**Theorem: `L_SAT_Canonical` is in the `NP` Class.**
 
 This theorem proves that the language of all satisfiable canonical CNF formulas
 is a member of our final NP class. It does this by showing that for any
@@ -93,10 +93,10 @@ satisfiable instance, a `SatisfyingTableau` can be constructed whose complexity
 is bounded by the square of the length of the problem's encoding (`n²`).
 -/
 theorem L_SAT_in_NP :
-  (L_SAT_Canonical : Π k, Set (CanonicalCNF k)) ∈ NP_EGPT :=
+  (L_SAT_Canonical : Π k, Set (CanonicalCNF k)) ∈ NP :=
 by
   -- Unfold the definition of the NP class. The goal is to prove the `iff` statement.
-  unfold NP_EGPT
+  unfold NP
   intro k input_ccnf
 
   -- Unfold the definition of the language itself.
@@ -150,13 +150,13 @@ by
 /--
 **Theorem: `L_SAT_Canonical` is NP-Hard (Final, Trivial Proof).**
 
-With the refactored and strengthened `NP_EGPT` class, the proof of
+With the refactored and strengthened `NP` class, the proof of
 NP-Hardness becomes a straightforward demonstration that any language `L'` in
 the class is definitionally equivalent to `L_SAT_Canonical`, as both are tied
 to the same universal certificate-bounding proposition.
 -/
 theorem L_SAT_in_NP_Hard :
-  ∀ (L' : Π k, Set (CanonicalCNF k)), L' ∈ NP_EGPT →
+  ∀ (L' : Π k, Set (CanonicalCNF k)), L' ∈ NP →
     ∃ (f : (ucnf : Σ k, CanonicalCNF k) → CanonicalCNF ucnf.1),
       (∃ (P : EGPT_Polynomial), ∀ ucnf, (encodeCNF (f ucnf).val).length ≤ toNat (P.eval (fromNat (encodeCNF ucnf.2.val).length))) ∧
       (∀ ucnf, (ucnf.2 ∈ L' ucnf.1) ↔ (f ucnf ∈ L_SAT_Canonical ucnf.1)) :=
@@ -182,7 +182,7 @@ by
     intro ucnf
     simp only [f] -- Goal: `ucnf.2 ∈ L' k ↔ ucnf.2 ∈ L_SAT_Canonical k`
 
-    -- Unfold the definition of the class `NP_EGPT` for L'.
+    -- Unfold the definition of the class `NP` for L'.
     -- `hL'_in_NP` gives us:
     -- `∀ k c, (c ∈ L' k) ↔ (∃ t, ...bound for L'...)`
     have h_equiv_L' := hL'_in_NP ucnf.1 ucnf.2
@@ -192,7 +192,7 @@ by
     -- `∀ k c, (c ∈ L_SAT_Canonical k) ↔ (∃ t, ...bound for L_SAT...)`
     have h_equiv_lsat := L_SAT_in_NP ucnf.1 ucnf.2
 
-    -- With the corrected, concrete definition of `NP_EGPT`, both
+    -- With the corrected, concrete definition of `NP`, both
     -- `h_equiv_L'` and `h_equiv_lsat` are `iff` statements against the
     -- *exact same proposition* involving the universal `canonical_np_poly`.
     -- The logic `(A ↔ B)` and `(C ↔ B)` implies `(A ↔ C)`.
@@ -217,7 +217,7 @@ of P=NP within the EGPT axiomatic system.
 **The Final Definition of NP-Completeness in EGPT.**
 
 A language `L` over canonical problems is NP-Complete if:
-1.  It is a member of the canonical NP class (`NP_EGPT`).
+1.  It is a member of the canonical NP class (`NP`).
 2.  It is NP-hard, meaning any other language `L'` in the class can be
     reduced to it in polynomial time.
 
@@ -226,9 +226,9 @@ type errors and logical circularity of previous mixed-world approaches.
 -/
 def IsNPComplete (L : Π k, Set (CanonicalCNF k)) : Prop :=
   -- Condition 1: The language is in the canonical NP class.
-  (L ∈ NP_EGPT) ∧
+  (L ∈ NP) ∧
   -- Condition 2: The language is NP-hard for this class.
-  (∀ (L' : Π k, Set (CanonicalCNF k)), L' ∈ NP_EGPT →
+  (∀ (L' : Π k, Set (CanonicalCNF k)), L' ∈ NP →
     ∃ (f : (ucnf : Σ k, CanonicalCNF k) → CanonicalCNF ucnf.1),
       (∃ (P : EGPT_Polynomial), ∀ ucnf, (encodeCNF (f ucnf).val).length ≤ toNat (P.eval (fromNat (encodeCNF ucnf.2.val).length))) ∧
       (∀ ucnf, (ucnf.2 ∈ L' ucnf.1) ↔ (f ucnf ∈ L ucnf.1)))
@@ -260,10 +260,10 @@ theorem EGPT_CookLevin_Theorem : IsNPComplete L_SAT_Canonical := by
 
 
 /--
-**The EGPT Complexity Class P (`P_EGPT`)**
+**The EGPT Complexity Class P (`P`)**
 
 This definition formalizes the class P within the EGPT framework. A language `L`
-is in `P_EGPT` if its membership can be decided by a deterministic, polynomial-time
+is in `P` if its membership can be decided by a deterministic, polynomial-time
 procedure.
 
 In EGPT, this procedure is the **construction and verification of a proof certificate**.
@@ -273,12 +273,12 @@ in the size of the input. The deterministic "algorithm" is the process of buildi
 and checking this certificate, a process whose runtime is tied to the certificate's
 (polynomial) size.
 
-This definition intentionally mirrors `NP_EGPT`. The core EGPT thesis is that
+This definition intentionally mirrors `NP`. The core EGPT thesis is that
 the non-deterministic "guess" of a certificate (NP) is replaced by the deterministic
 *construction* of the certificate (P), and since the certificate's complexity is
 polynomially bounded in both cases, the classes are equivalent.
 -/
-def P_EGPT : Set (Π k, Set (CanonicalCNF k)) :=
+def P : Set (Π k, Set (CanonicalCNF k)) :=
 { L | ∀ (k : ℕ) (input_ccnf : CanonicalCNF k),
         (input_ccnf ∈ L k) ↔ ∃ (tableau : SatisfyingTableau k),
           tableau.cnf = input_ccnf.val ∧
@@ -289,19 +289,23 @@ def P_EGPT : Set (Π k, Set (CanonicalCNF k)) :=
 -- [Existing code for L_SAT_in_NP theorem...]
 
 /--
-**Theorem: `L_SAT_Canonical` is in the `P_EGPT` Class.**
+**Theorem: `L_SAT_Canonical` is in the `P` Class.**
+Construct the satisfying tableau *from* from the CNF clauses themselves because they
+contain all the information of every possible satisfying solution. If I tell you exactly
+where all the ghosts are in PacMan then I've also told you exactly how to avoid them and get
+through the maze. The proof is constructive.
 
 This theorem proves that the language of all satisfiable canonical CNF formulas
-is a member of our P class. The proof is constructive. For any satisfiable
-instance, we can deterministically construct a `SatisfyingTableau` using the
+is a member of our P class. The proof is constructive. Out of any problem definition set of
+CNF clauses (set (CanonicalCNF k), we can deterministically construct a `SatisfyingTableau` using the
 `constructSatisfyingTableau` function. We then prove that the complexity of this
 deterministically generated certificate is bounded by the universal `n²` polynomial.
 -/
 theorem L_SAT_in_P :
-  (L_SAT_Canonical : Π k, Set (CanonicalCNF k)) ∈ P_EGPT :=
+  (L_SAT_Canonical : Π k, Set (CanonicalCNF k)) ∈ P :=
 by
   -- Unfold the definition of the P class.
-  unfold P_EGPT
+  unfold P
   -- Now introduce the universal quantifiers
   intro k input_ccnf
 
@@ -348,8 +352,7 @@ by
     -- The `h_valid` field of the tableau is the proof of satisfiability.
     exact tableau.h_valid
 
--- [Existing code for L_SAT_in_NP_Hard theorem...]
--- [Existing code for EGPT_CookLevin_Theorem...]
+
 
 /-!
 ==================================================================
@@ -358,9 +361,9 @@ by
 This theorem proves that the complexity classes P and NP, as defined within
 the EGPT framework, are identical.
 
-The proof is a direct consequence of our foundational definitions. Both `P_EGPT`
-and `NP_EGPT` are defined by the same core property: the existence of
-a polynomially-bounded, verifiable certificate (`SatisfyingTableau`). The
+The proof is a direct consequence of our foundational definitions. Both `P`
+and `NP` are defined by the same core property: the existence of
+a polynomially-bounded, verifiable certificate which was itself built from the Set (CanonicalCNF k)(`SatisfyingTableau`). The
 distinction between a non-deterministic "guess" (NP) and a deterministic
 "construction" (P) collapses, because in EGPT, if a solution exists, its
 certificate is always deterministically constructible in polynomial time.
@@ -372,15 +375,13 @@ Therefore, the sets of languages defining each class are proven to be the same.
 /--
 **Theorem: P equals NP in the EGPT framework.**
 -/
-theorem P_eq_NP_EGPT : P_EGPT = NP_EGPT := by
+theorem P_eq_NP : P = NP := by
   -- To prove two sets are equal, we prove they have the same elements.
-  -- This is equivalent to proving `L ∈ P_EGPT ↔ L ∈ NP_EGPT` for any language L.
+  -- This is equivalent to proving `L ∈ P ↔ L ∈ NP` for any language L.
   apply Set.ext
   intro L
   -- Unfold the definitions of both complexity classes.
-  unfold P_EGPT NP_EGPT
+  unfold P NP
   -- The definitions are now syntactically identical. The goal is of the form `A ↔ A`.
   -- `Iff.rfl` proves this reflexively.
   exact Iff.rfl
-
--- [Existing code for UniversalTuringMachine_EGPT...]

@@ -38,7 +38,7 @@ The EGPT proof of P=NP follows six constructive steps:
    - Show that constructing certificates is deterministic and polynomial-time
 
 6. **Prove P=NP via constructive identity** (`EGPT/Complexity/PPNP.lean`)
-   - Define `P_EGPT` and `NP_EGPT` using identical mathematical structures
+   - Define `P` and `NP` using identical mathematical structures
    - Prove they are definitionally equal using `Iff.rfl`
 
 ---
@@ -47,13 +47,13 @@ The EGPT proof of P=NP follows six constructive steps:
 
 The EGPT codebase is structured to rigorously distinguish between the **physical model** that motivates the theory and the **logical definitions** used in the formal proof.
 
-### 1. The Physical Model (`EGPT/Complexity/Physics.lean`)
-This module contains the "physics" of the EGPT universe:
-*   **Stochastic Random Walks**: The `NDTM_A_run` function models a non-deterministic machine as a particle performing a random walk.
-*   **Time Evolution**: Functions like `advance_state` and `potential_next_state` simulate the memoryless Markov process of particle movement.
-*   **The Magic Solver**: `construct_solution_filter` is a theoretical tool that characterizes the entire solution space.
+### 1. The Physical Model (`EGPT/Physics/`)
+The `Physics/` directory contains the physical grounding of EGPT, including:
+*   **`RealityIsComputation.lean`** — Capstone theorem: every physical system (BE/FD/MB) has a computable program whose complexity equals ⌈entropy⌉, proved by composing `RECT_Entropy_to_Program` with `entropy_of_stat_system`.
+*   **`BoseEinstein.lean`, `FermiDirac.lean`, `MaxwellBoltzmann.lean`** — All three canonical distributions proven `H = C × Shannon` over Lean ℝ.
+*   **`PhysicsDist.lean`** — Unified distribution framework and `entropy_of_stat_system`.
 
-**Crucially, none of this code is used in the formal proof of P=NP.** It serves as the physical intuition/model ("semantics") that grounds the formal complexity definitions ("syntax").
+**None of this code is used in the formal proof of P=NP.** It serves as the physical intuition/model ("semantics") that grounds the formal complexity definitions ("syntax").
 
 ### 2. The Formal Proof Logic (`EGPT/Complexity/Core.lean`, `Tableau.lean`, `PPNP.lean`)
 The formal proof relies on a much leaner set of definitions:
@@ -183,7 +183,7 @@ def evalCNF {k : ℕ} (cnf : SyntacticCNF_EGPT k) (assignment : Vector Bool k) :
   cnf.all (fun clause => evalClause clause assignment)
 ```
 
-(Note: The physical simulation functions `advance_state` and `NDTM_A_run`, previously located in `EGPT/Complexity/Core.lean`, have been moved to `EGPT/Complexity/Physics.lean` as they are part of the model but not the formal proof.)
+(Note: Physical simulation functions are not part of the formal proof chain. The physics-computation bridge is now in `EGPT/Physics/RealityIsComputation.lean`.)
 
 ### 3.4 The Satisfying Tableau: NP Certificates
 
@@ -257,7 +257,7 @@ lemma eval_canonical_np_poly (n : ℕ) :
 
 **NP Class Definition** (lines 79-85):
 ```lean
-def NP_EGPT : Set (Π k, Set (CanonicalCNF k)) :=
+def NP : Set (Π k, Set (CanonicalCNF k)) :=
 { L | ∀ (k : ℕ) (input_ccnf : CanonicalCNF k),
         (input_ccnf ∈ L k) ↔ ∃ (tableau : SatisfyingTableau k),
           tableau.cnf = input_ccnf.val ∧
@@ -267,7 +267,7 @@ def NP_EGPT : Set (Π k, Set (CanonicalCNF k)) :=
 
 **P Class Definition** (lines 281-287):
 ```lean
-def P_EGPT : Set (Π k, Set (CanonicalCNF k)) :=
+def P : Set (Π k, Set (CanonicalCNF k)) :=
 { L | ∀ (k : ℕ) (input_ccnf : CanonicalCNF k),
         (input_ccnf ∈ L k) ↔ ∃ (tableau : SatisfyingTableau k),
           tableau.cnf = input_ccnf.val ∧
@@ -286,8 +286,8 @@ The Cook-Levin theorem proves that SAT is NP-complete within the EGPT framework.
 **SAT in NP** (lines 95-149):
 ```lean
 theorem L_SAT_in_NP :
-  (L_SAT_Canonical : Π k, Set (CanonicalCNF k)) ∈ NP_EGPT := by
-  unfold NP_EGPT
+  (L_SAT_Canonical : Π k, Set (CanonicalCNF k)) ∈ NP := by
+  unfold NP
   intro k input_ccnf
   unfold L_SAT_Canonical
   apply Iff.intro
@@ -317,7 +317,7 @@ theorem L_SAT_in_NP :
 **SAT is NP-Hard** (lines 158-201):
 ```lean
 theorem L_SAT_in_NP_Hard :
-  ∀ (L' : Π k, Set (CanonicalCNF k)), L' ∈ NP_EGPT →
+  ∀ (L' : Π k, Set (CanonicalCNF k)), L' ∈ NP →
     ∃ (f : (ucnf : Σ k, CanonicalCNF k) → CanonicalCNF ucnf.1),
       (∃ (P : EGPT_Polynomial), ∀ ucnf, (encodeCNF (f ucnf).val).length ≤ toNat (P.eval (fromNat (encodeCNF ucnf.2.val).length))) ∧
       (∀ ucnf, (ucnf.2 ∈ L' ucnf.1) ↔ (f ucnf ∈ L_SAT_Canonical ucnf.1)) := by
@@ -331,8 +331,8 @@ theorem L_SAT_in_NP_Hard :
 **NP-Completeness Definition** (lines 227-234):
 ```lean
 def IsNPComplete (L : Π k, Set (CanonicalCNF k)) : Prop :=
-  (L ∈ NP_EGPT) ∧
-  (∀ (L' : Π k, Set (CanonicalCNF k)), L' ∈ NP_EGPT →
+  (L ∈ NP) ∧
+  (∀ (L' : Π k, Set (CanonicalCNF k)), L' ∈ NP →
     ∃ (f : (ucnf : Σ k, CanonicalCNF k) → CanonicalCNF ucnf.1),
       (∃ (P : EGPT_Polynomial), ∀ ucnf, (encodeCNF (f ucnf).val).length ≤ toNat (P.eval (fromNat (encodeCNF ucnf.2.val).length))) ∧
       (∀ ucnf, (ucnf.2 ∈ L' ucnf.1) ↔ (f ucnf ∈ L ucnf.1)))
@@ -352,7 +352,7 @@ theorem EGPT_CookLevin_Theorem : IsNPComplete L_SAT_Canonical := by
 
 The proof of P=NP in EGPT is remarkably simple: the definitions of P and NP are identical.
 
-**The Key Insight**: Compare the definitions of `P_EGPT` (lines 281-287) and `NP_EGPT` (lines 79-85). They are syntactically identical:
+**The Key Insight**: Compare the definitions of `P` (lines 281-287) and `NP` (lines 79-85). They are syntactically identical:
 
 ```lean
 -- Both definitions require:
@@ -364,10 +364,10 @@ The proof of P=NP in EGPT is remarkably simple: the definitions of P and NP are 
 
 **The P=NP Theorem** (lines 375-384):
 ```lean
-theorem P_eq_NP_EGPT : P_EGPT = NP_EGPT := by
+theorem P_eq_NP : P = NP := by
   apply Set.ext
   intro L
-  unfold P_EGPT NP_EGPT
+  unfold P NP
   exact Iff.rfl
 ```
 
@@ -424,8 +424,8 @@ The "address is the map" principle means that computational complexity is fundam
 - `EGPT/Complexity/UTM.lean` - Universal Turing Machine construction
 
 **Physical Model (Unused in Proof)**:
-- `EGPT/Complexity/Physics.lean` - Stochastic random walks and physics simulation (`NDTM_A_run`)
-- `EGPT/Physics/` - Physical system models and distributions
+- `EGPT/Physics/RealityIsComputation.lean` - Capstone: every physical system has a computable program via RECT
+- `EGPT/Physics/` - Physical system models: Bose-Einstein, Fermi-Dirac, Maxwell-Boltzmann (all three with proven `H = C × Shannon` over ℝ), photonic CA
 
 ---
 

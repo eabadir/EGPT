@@ -37,7 +37,7 @@ This paper makes the following contributions:
 
 2. A formal reconstruction of the standard mathematical universe (ℕ, ℤ, ℚ, ℝ) from `List Bool` with proven bijections, arithmetic isomorphisms, and matching Beth number cardinalities — establishing that EGPT's information space *is* the standard mathematical universe under a change of basis.
 
-3. A machine-verified proof of Rota's Entropy Theorem from first principles: all seven of Rota's entropy axioms are proved as theorems for Shannon entropy, and the uniqueness result (`RET_All_Enropy_Is_Scaled_Shannon_Entropy`) follows — the logarithm is the unique information measure.
+3. A machine-verified proof of Rota's Entropy Theorem from first principles: all seven of Rota's entropy axioms are proved as theorems for Shannon entropy, and the uniqueness result (`RET_All_Entropy_Is_Scaled_Shannon_Entropy`) follows — the logarithm is the unique information measure.
 
 4. The Logarithmic Fundamental Theorem of Arithmetic (LFTA), proven directly: `log₂(n) = Σ ν_p(n)·log₂(p)`, establishing that information is conserved under composition.
 
@@ -47,7 +47,7 @@ This paper makes the following contributions:
 
 ### 1.2 Structure
 
-Section 2 presents the type-theoretic foundations: the `List Bool` primitive, the `IIDParticleSource`, the chain of bijections to standard mathematical objects, and the SCT → RECT → `IID_Source_to_Program` chain. Section 3 develops the constraint encoding and the information-cost model. Section 4 proves the n² certificate complexity bound. Section 5 presents the formal definitions of P_EGPT and NP_EGPT and the proof of their equality. Section 6 develops the information-theoretic foundation — Rota's Entropy Theorem, the LFTA, and information conservation — that makes the result inevitable. Section 7 addresses anticipated objections. Section 8 discusses implications.
+Section 2 presents the type-theoretic foundations: the `List Bool` primitive, the `IIDParticleSource`, the chain of bijections to standard mathematical objects, and the SCT → RECT → `IID_Source_to_Program` chain. Section 3 develops the constraint encoding and the information-cost model. Section 4 proves the n² certificate complexity bound. Section 5 presents the formal definitions of P and NP and the proof of their equality. Section 6 develops the information-theoretic foundation — Rota's Entropy Theorem, the LFTA, and information conservation — that makes the result inevitable. Section 7 addresses anticipated objections. Section 8 discusses implications.
 
 ---
 
@@ -271,14 +271,14 @@ This is not a custom n² in some alien number system. It is `n * n` over Lean's 
 Both complexity classes use the same structure — membership is equivalent to the existence of a polynomially-bounded `SatisfyingTableau`:
 
 ```lean
-def NP_EGPT : Set (Π k, Set (CanonicalCNF k)) :=
+def NP : Set (Π k, Set (CanonicalCNF k)) :=
 { L | ∀ (k : ℕ) (input_ccnf : CanonicalCNF k),
         (input_ccnf ∈ L k) ↔ ∃ (tableau : SatisfyingTableau k),
           tableau.cnf = input_ccnf.val ∧
           tableau.complexity ≤ toNat (canonical_np_poly.eval
             (fromNat (encodeCNF input_ccnf.val).length)) }
 
-def P_EGPT : Set (Π k, Set (CanonicalCNF k)) :=
+def P : Set (Π k, Set (CanonicalCNF k)) :=
 { L | ∀ (k : ℕ) (input_ccnf : CanonicalCNF k),
         (input_ccnf ∈ L k) ↔ ∃ (tableau : SatisfyingTableau k),
           tableau.cnf = input_ccnf.val ∧
@@ -291,10 +291,10 @@ These definitions are syntactically identical.
 ### 5.2 The Proof
 
 ```lean
-theorem P_eq_NP_EGPT : P_EGPT = NP_EGPT := by
+theorem P_eq_NP : P = NP := by
   apply Set.ext
   intro L
-  unfold P_EGPT NP_EGPT
+  unfold P NP
   exact Iff.rfl
 ```
 
@@ -302,10 +302,10 @@ theorem P_eq_NP_EGPT : P_EGPT = NP_EGPT := by
 
 The proof chain also establishes:
 
-- **`L_SAT_in_NP`**: SAT is in NP_EGPT.
-- **`L_SAT_in_P`**: SAT is in P_EGPT.
+- **`L_SAT_in_NP`**: SAT is in NP.
+- **`L_SAT_in_P`**: SAT is in P.
 - **`EGPT_CookLevin_Theorem`**: SAT is NP-complete within the framework.
-- **`P_eq_NP_EGPT`**: P_EGPT = NP_EGPT.
+- **`P_eq_NP`**: P = NP.
 
 ### 5.4 Why the Definitions Are Identical
 
@@ -355,7 +355,7 @@ theorem logarithmic_trapping ... :
 
 **Uniqueness (the generalized result):**
 ```lean
-theorem RET_All_Enropy_Is_Scaled_Shannon_Entropy (ef : EntropyFunction) (C : ℝ) (hC_pos : 0 < C) :
+theorem RET_All_Entropy_Is_Scaled_Shannon_Entropy (ef : EntropyFunction) (C : ℝ) (hC_pos : 0 < C) :
     HasRotaEntropyProperties (fun p => (C * (ef.H_func p : ℝ)).toNNReal)
 ```
 
@@ -414,11 +414,11 @@ The traditional complexity-theoretic intuition — that "hiding" structure by mu
 
 ### 7.1 "The definitions are identical, so the proof is trivial"
 
-The proof *is* syntactically simple. The substance lies in the 77 theorems that precede it: the `ParticlePath ≃ ℕ` bijection, the arithmetic isomorphisms, the encoding bounds, the tableau complexity bound, the Cook-Levin theorem within the framework, and the information-theoretic foundation. The identity of P_EGPT and NP_EGPT is a *consequence* of properly accounting for information cost, not a definitional accident.
+The proof *is* syntactically simple. The substance lies in the 77 theorems that precede it: the `ParticlePath ≃ ℕ` bijection, the arithmetic isomorphisms, the encoding bounds, the tableau complexity bound, the Cook-Levin theorem within the framework, and the information-theoretic foundation. The identity of P and NP is a *consequence* of properly accounting for information cost, not a definitional accident.
 
 ### 7.2 "constructSatisfyingTableau takes a proven solution as input"
 
-Correct. The function builds the *certificate*, not the *solver*. The point is not that `constructSatisfyingTableau` finds solutions — it is that the certificate it produces has complexity bounded by n² regardless of how the solution was obtained. The definitions of P_EGPT and NP_EGPT both ask: "is membership equivalent to the existence of a bounded certificate?" Since the n² bound is a property of the information space, the answer is the same whether the certificate was guessed non-deterministically or constructed deterministically.
+Correct. The function builds the *certificate*, not the *solver*. The point is not that `constructSatisfyingTableau` finds solutions — it is that the certificate it produces has complexity bounded by n² regardless of how the solution was obtained. The definitions of P and NP both ask: "is membership equivalent to the existence of a bounded certificate?" Since the n² bound is a property of the information space, the answer is the same whether the certificate was guessed non-deterministically or constructed deterministically.
 
 ### 7.3 "EGPT's complexity classes don't capture the standard ones"
 
@@ -530,7 +530,7 @@ Willsch, D., Willsch, M., Jin, F., De Raedt, H., & Michielsen, K. (2023). Large-
 | 2 | `EGPT/Constraints.lean` | `encodeCNF`, `encodeCNF_size_ge_k`, `cnf_length_le_encoded_length`, `evalCNF_normalize_eq_evalCNF` |
 | 3 | `EGPT/Complexity/Core.lean` | `PathToConstraint`, `IsPolynomialEGPT` |
 | 4 | `EGPT/Complexity/Tableau.lean` | `constructSatisfyingTableau`, `tableauComplexity_upper_bound` |
-| 5 | `EGPT/Complexity/PPNP.lean` | `P_EGPT`, `NP_EGPT`, `eval_canonical_np_poly`, `EGPT_CookLevin_Theorem`, `P_eq_NP_EGPT` |
+| 5 | `EGPT/Complexity/PPNP.lean` | `P`, `NP`, `eval_canonical_np_poly`, `EGPT_CookLevin_Theorem`, `P_eq_NP` |
 
 ## Appendix B: Information-Theoretic Foundation
 
@@ -538,7 +538,7 @@ Willsch, D., Willsch, M., Jin, F., De Raedt, H., & Michielsen, K. (2023). Large-
 |------|-------------|
 | `EGPT/Entropy/Common.lean` | `HasRotaEntropyProperties`, `ShannonEntropyOfDist`, `SCT_Source_to_Entropy`, `RECT_Entropy_to_Program`, `IID_Source_to_Program`, `program_source_complexity_matches` |
 | `EGPT/Entropy/H.lean` | 7 axiom proofs, `TheCanonicalEntropyFunction_Ln` |
-| `EGPT/Entropy/RET.lean` | `f0_mul_eq_add_f0`, `logarithmic_trapping`, `RET_All_Enropy_Is_Scaled_Shannon_Entropy` |
+| `EGPT/Entropy/RET.lean` | `f0_mul_eq_add_f0`, `logarithmic_trapping`, `RET_All_Entropy_Is_Scaled_Shannon_Entropy` |
 | `EGPT/NumberTheory/Analysis.lean` | `EGPT_Fundamental_Theorem_of_Arithmetic_via_Information`, `PrimeAtoms`, `EGPTPrimeGenerator` |
 
 ## Appendix C: Extended Results

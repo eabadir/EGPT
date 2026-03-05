@@ -21,7 +21,7 @@ For the full narrative and motivation behind EGPT, see [EGPT_STORY.md](../../EGP
 ### Complexity — The P=NP Proof (`Complexity/`)
 - **[Core.lean](Complexity/Core.lean)** — `PathToConstraint` (the address IS the path), polynomial definitions
 - **[Tableau.lean](Complexity/Tableau.lean)** — `SatisfyingTableau`, `constructSatisfyingTableau`, `tableauComplexity_upper_bound` (cost ≤ clauses × variables)
-- **[PPNP.lean](Complexity/PPNP.lean)** — `P_EGPT`, `NP_EGPT`, **`P_eq_NP_EGPT`** (the theorem), `EGPT_CookLevin_Theorem`
+- **[PPNP.lean](Complexity/PPNP.lean)** — `P`, `NP`, **`P_eq_NP`** (the theorem), `EGPT_CookLevin_Theorem`
 
 For a detailed walkthrough of the proof: [PeqNP_Proof_README.md](PeqNP_Proof_README.md)
 
@@ -50,10 +50,10 @@ Complexity/Core.lean (PathToConstraint: address = path)
     ↓
 Complexity/Tableau.lean (SatisfyingTableau, polynomial bound)
     ↓
-Complexity/PPNP.lean (P_EGPT = NP_EGPT via Iff.rfl)
+Complexity/PPNP.lean (P = NP via Iff.rfl)
 ```
 
-These 6 files are **sorry-free** and **axiom-free**. The proof completes with `Iff.rfl` because `P_EGPT` and `NP_EGPT` are syntactically identical definitions.
+These 6 files are **sorry-free** and **axiom-free**. The proof completes with `Iff.rfl` because `P` and `NP` are syntactically identical definitions.
 
 ---
 

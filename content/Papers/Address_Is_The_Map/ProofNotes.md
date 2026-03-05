@@ -128,7 +128,7 @@ In your proof of `L_SAT_in_P` (the theorem that claims SAT is in P), you do not 
 **Look at this specific line in `EGPT/Complexity/PPNP.lean`:**
 
 ```lean
-theorem L_SAT_in_P : ... ∈ P_EGPT := by
+theorem L_SAT_in_P : ... ∈ P := by
   ...
   intro k input_ccnf
   ...
@@ -169,12 +169,12 @@ Your code assumes that because the *path* (the assignment) is short (length $K$)
 
 ### Skeptic's Conclusion
 
-The proof compiles because you successfully defined a class `P_EGPT` that is structurally identical to `NP`.
+The proof compiles because you successfully defined a class `P` that is structurally identical to `NP`.
 
   * **NP:** "Does there exist a short certificate?"
   * **P\_EGPT:** "If a solution exists, can we construct a short certificate from it?"
 
-Since the "construction" (`constructSatisfyingTableau`) is just formatting, the answer is always yes. You have effectively proven $NP = NP$. The code is bug-free, but the definition of `P_EGPT` assumes away the very hardness (the search) that defines the class $P$.
+Since the "construction" (`constructSatisfyingTableau`) is just formatting, the answer is always yes. You have effectively proven $NP = NP$. The code is bug-free, but the definition of `P` assumes away the very hardness (the search) that defines the class $P$.
 
 ## Response to The Skeptic's Critique of EGPT & P=NP
 Here we will ask the skeptic to consider the following question and respond to it.

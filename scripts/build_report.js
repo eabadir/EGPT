@@ -22,6 +22,17 @@ const BUILTIN_AXIOMS = new Set(['propext', 'Classical.choice', 'Quot.sound']);
 
 // Section metadata matching build_report.lean's #print axioms order
 const SECTIONS = [
+  // ── Reality Is Computation (capstone) ─────────────────────────
+  {
+    title: 'Reality Is Computation — Capstone Theorem',
+    description: 'Every physical system (BE/FD/MB) has a computable program whose complexity equals ⌈entropy⌉. Composes RECT with the three canonical distribution proofs over Lean ℝ.',
+    file: 'EGPT/Physics/RealityIsComputation.lean',
+    theorems: [
+      'EGPT.Physics.RealityIsComputation.RealityIsComputation\'',
+      'EGPT.Physics.RealityIsComputation.RealityIsComputation',
+      'EGPT.Physics.RealityIsComputation.ContinuousFieldsAreComputation',
+    ],
+  },
   // ── Number Theory ─────────────────────────────────────────────
   {
     title: 'Number Theory — Core: ParticlePath ↔ ℕ Bijection & Arithmetic',
@@ -56,7 +67,7 @@ const SECTIONS = [
     description: 'Information-theoretic reformulation of the Fundamental Theorem of Arithmetic via entropy decomposition.',
     file: 'EGPT/NumberTheory/Analysis.lean',
     theorems: [
-      'RET_All_Enropy_Is_Scaled_Shannon_Entropy',
+      'RET_All_Entropy_Is_Scaled_Shannon_Entropy',
       'EGPT_Fundamental_Theorem_of_Arithmetic_via_Information',
       'EGPT_Fundamental_Theorem_of_Arithmetic_via_Entropy_Bits',
       'total_entropy_from_classes_eq_shannon_formula',
@@ -142,17 +153,17 @@ const SECTIONS = [
   },
   {
     title: 'Complexity — P = NP Proof Chain',
-    description: 'The complete constructive proof that P = NP within the EGPT framework.',
+    description: 'The complete constructive proof that P = NP, using standard names (P, NP) over Lean\'s native type hierarchy.',
     file: 'EGPT/Complexity/PPNP.lean',
     theorems: [
       'EGPT.Complexity.PPNP.L_SAT_Canonical',
-      'EGPT.Complexity.PPNP.NP_EGPT',
-      'EGPT.Complexity.PPNP.P_EGPT',
+      'EGPT.Complexity.PPNP.NP',
+      'EGPT.Complexity.PPNP.P',
       'EGPT.Complexity.PPNP.L_SAT_in_NP',
       'EGPT.Complexity.PPNP.L_SAT_in_P',
       'EGPT.Complexity.PPNP.L_SAT_in_NP_Hard',
       'EGPT.Complexity.PPNP.EGPT_CookLevin_Theorem',
-      'EGPT.Complexity.PPNP.P_eq_NP_EGPT',
+      'EGPT.Complexity.PPNP.P_eq_NP',
     ],
   },
   {

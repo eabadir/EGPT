@@ -1,8 +1,8 @@
 # EGPT Build Verification Report
 
-> Generated: 2026-03-04 06:09:41 UTC  
+> Generated: 2026-03-04 21:23:55 UTC  
 > Toolchain: `leanprover/lean4:v4.21.0-rc3`  
-> Elapsed: 16.1s
+> Elapsed: 18.2s
 
 | Check | Result |
 |-------|--------|
@@ -10,11 +10,23 @@
 | `lake build PPNP` | PASS |
 | sorry-free | PASS |
 | No custom axioms | PASS |
-| Theorems verified | **78** |
+| Theorems verified | **81** |
 
-**Verdict: PASS** — All 78 theorems are sorry-free and use only Lean's built-in axioms.
+**Verdict: PASS** — All 81 theorems are sorry-free and use only Lean's built-in axioms.
 
 ---
+
+## Reality Is Computation — Capstone Theorem
+
+Every physical system (BE/FD/MB) has a computable program whose complexity equals ⌈entropy⌉. Composes RECT with the three canonical distribution proofs over Lean ℝ.
+
+Source: [`EGPT/Physics/RealityIsComputation.lean`](EGPT/Physics/RealityIsComputation.lean)
+
+| Theorem | Axioms | Status |
+|---------|--------|--------|
+| `RealityIsComputation'` | `propext`, `Classical.choice`, `Quot.sound` | OK |
+| `RealityIsComputation` | `propext`, `Classical.choice`, `Quot.sound` | OK |
+| `ContinuousFieldsAreComputation` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 
 ## Number Theory — Core: ParticlePath ↔ ℕ Bijection & Arithmetic
 
@@ -56,7 +68,7 @@ Source: [`EGPT/NumberTheory/Analysis.lean`](EGPT/NumberTheory/Analysis.lean)
 
 | Theorem | Axioms | Status |
 |---------|--------|--------|
-| `RET_All_Enropy_Is_Scaled_Shannon_Entropy` | `propext`, `Classical.choice`, `Quot.sound` | OK |
+| `RET_All_Entropy_Is_Scaled_Shannon_Entropy` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 | `EGPT_Fundamental_Theorem_of_Arithmetic_via_Information` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 | `EGPT_Fundamental_Theorem_of_Arithmetic_via_Entropy_Bits` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 | `total_entropy_from_classes_eq_shannon_formula` | `propext`, `Classical.choice`, `Quot.sound` | OK |
@@ -148,20 +160,20 @@ Source: [`EGPT/Complexity/Tableau.lean`](EGPT/Complexity/Tableau.lean)
 
 ## Complexity — P = NP Proof Chain
 
-The complete constructive proof that P = NP within the EGPT framework.
+The complete constructive proof that P = NP, using standard names (P, NP) over Lean's native type hierarchy.
 
 Source: [`EGPT/Complexity/PPNP.lean`](EGPT/Complexity/PPNP.lean)
 
 | Theorem | Axioms | Status |
 |---------|--------|--------|
 | `L_SAT_Canonical` | `propext` | OK |
-| `NP_EGPT` | `propext` | OK |
-| `P_EGPT` | `propext` | OK |
+| `NP` | `propext` | OK |
+| `P` | `propext` | OK |
 | `L_SAT_in_NP` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 | `L_SAT_in_P` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 | `L_SAT_in_NP_Hard` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 | `EGPT_CookLevin_Theorem` | `propext`, `Classical.choice`, `Quot.sound` | OK |
-| `P_eq_NP_EGPT` | `propext`, `Quot.sound` | OK |
+| `P_eq_NP` | `propext`, `Quot.sound` | OK |
 
 ## Complexity — UTM: Universal Turing Machine Certifier
 

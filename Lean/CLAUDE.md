@@ -24,16 +24,16 @@ EGPT/
 ├── Complexity/                    # *** THE P=NP PROOF CHAIN ***
 │   ├── Core.lean                  # PathToConstraint, polynomial definitions
 │   ├── Tableau.lean               # SatisfyingTableau, constructSatisfyingTableau, complexity bounds
-│   ├── PPNP.lean                  # P_EGPT, NP_EGPT, P_eq_NP_EGPT, Cook-Levin theorem
-│   ├── Physics.lean               # Physical model (NOT used in proof — semantics only)
+│   ├── PPNP.lean                  # P, NP, P_eq_NP, Cook-Levin theorem
 │   └── UTM.lean                   # Universal Turing Machine (NOT used in proof)
 ├── Entropy/                       # *** INDEPENDENT PROOF — not in P=NP chain ***
 │   ├── Common.lean                # Rota's 5 entropy axioms (HasRotaEntropyProperties)
 │   ├── H.lean                     # Entropy function definitions
 │   └── RET.lean                   # Rota's Entropy Theorem (RotaUniformTheorem_formula_with_C_constant)
 ├── Physics/                       # Physical models (motivation, NOT used in proof)
-│   ├── Common.lean, BoseEinstein.lean, PhotonicCA.lean
-│   ├── PhysicsDist.lean, UniformSystems.lean
+│   ├── Common.lean, BoseEinstein.lean, FermiDirac.lean, MaxwellBoltzmann.lean
+│   ├── PhysicsDist.lean, UniformSystems.lean, PhotonicCA.lean
+│   ├── RealityIsComputation.lean  # RealityIsComputation — capstone: physics systems have computable programs
 └── Deprecated/                    # Earlier proof attempts (archived)
 
 PPNP/                              # Development workspace
@@ -55,7 +55,7 @@ PPNP/                              # Development workspace
 
    Do NOT introduce `sorry`, `axiom`, or `native_decide` into these files.
 
-2. **Physics is semantics, not syntax.** `Physics.lean` and the `Physics/` directory provide physical motivation. They are NEVER imported by the proof chain. Keep it that way.
+2. **Physics is semantics, not syntax.** The `Physics/` directory (including `RealityIsComputation.lean`) provides the physics-computation bridge and physical motivation. It is NEVER imported by the proof chain. Keep it that way. All three canonical distributions (BE/FD/MB) have formal `H = C × Shannon` proofs over Lean ℝ, with Rota's continuity axiom ("discrete continuity") proven — not assumed.
 
 3. **Entropy is independent.** The `Entropy/` module formalizes Rota's Entropy Theorem as a separate, information-theoretic proof. It has `sorry`s because it takes Rota's axioms as foundations. It is NOT used in the constructive P=NP chain.
 
@@ -68,8 +68,8 @@ PPNP/                              # Development workspace
 | `SatisfyingTableau` | `Complexity/Tableau.lean` | Certificate type for CNF satisfiability |
 | `constructSatisfyingTableau` | `Complexity/Tableau.lean` | Deterministic certificate construction |
 | `tableauComplexity_upper_bound` | `Complexity/Tableau.lean` | Cost ≤ clauses × variables |
-| `P_EGPT` / `NP_EGPT` | `Complexity/PPNP.lean` | Complexity class definitions (identical) |
-| `P_eq_NP_EGPT` | `Complexity/PPNP.lean` | **The P = NP theorem** |
+| `P` / `NP` | `Complexity/PPNP.lean` | Complexity class definitions (identical) |
+| `P_eq_NP` | `Complexity/PPNP.lean` | **The P = NP theorem** |
 | `EGPT_CookLevin_Theorem` | `Complexity/PPNP.lean` | SAT is NP-Complete |
 
 ## Documentation

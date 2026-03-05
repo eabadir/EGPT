@@ -16,6 +16,13 @@ A clean run (exit code 0) with no `sorry` in the output confirms:
 -/
 
 -- ═══════════════════════════════════════════════════════════════
+-- Physics/RealityIsComputation: Reality Is Computation (capstone)
+-- ═══════════════════════════════════════════════════════════════
+#print axioms EGPT.Physics.RealityIsComputation.RealityIsComputation'
+#print axioms EGPT.Physics.RealityIsComputation.RealityIsComputation
+#print axioms EGPT.Physics.RealityIsComputation.ContinuousFieldsAreComputation
+
+-- ═══════════════════════════════════════════════════════════════
 -- NumberTheory/Core: ParticlePath ↔ ℕ bijection & arithmetic
 -- ═══════════════════════════════════════════════════════════════
 #print axioms EGPT.NumberTheory.Core.equivParticlePathToNat
@@ -40,7 +47,7 @@ A clean run (exit code 0) with no `sorry` in the output confirms:
 -- ═══════════════════════════════════════════════════════════════
 -- NumberTheory/Analysis: Fundamental Theorem of Arithmetic (EGPT)
 -- ═══════════════════════════════════════════════════════════════
-#print axioms RET_All_Enropy_Is_Scaled_Shannon_Entropy
+#print axioms RET_All_Entropy_Is_Scaled_Shannon_Entropy
 #print axioms EGPT_Fundamental_Theorem_of_Arithmetic_via_Information
 #print axioms EGPT_Fundamental_Theorem_of_Arithmetic_via_Entropy_Bits
 #print axioms total_entropy_from_classes_eq_shannon_formula
@@ -109,13 +116,13 @@ A clean run (exit code 0) with no `sorry` in the output confirms:
 -- Complexity/PPNP: P = NP proof chain
 -- ═══════════════════════════════════════════════════════════════
 #print axioms EGPT.Complexity.PPNP.L_SAT_Canonical
-#print axioms EGPT.Complexity.PPNP.NP_EGPT
-#print axioms EGPT.Complexity.PPNP.P_EGPT
+#print axioms EGPT.Complexity.PPNP.NP
+#print axioms EGPT.Complexity.PPNP.P
 #print axioms EGPT.Complexity.PPNP.L_SAT_in_NP
 #print axioms EGPT.Complexity.PPNP.L_SAT_in_P
 #print axioms EGPT.Complexity.PPNP.L_SAT_in_NP_Hard
 #print axioms EGPT.Complexity.PPNP.EGPT_CookLevin_Theorem
-#print axioms EGPT.Complexity.PPNP.P_eq_NP_EGPT
+#print axioms EGPT.Complexity.PPNP.P_eq_NP
 
 -- ═══════════════════════════════════════════════════════════════
 -- Complexity/UTM: Universal Turing Machine certifier

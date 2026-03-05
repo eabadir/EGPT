@@ -22,7 +22,7 @@ This transport also allows us to change the base of the logarithm in the entropy
 without re-writing all the axiom proofs which were more easily
 done in nats.
 -/
-theorem RET_All_Enropy_Is_Scaled_Shannon_Entropy (ef : EntropyFunction) (C : ℝ) (hC_pos : 0 < C) :
+theorem RET_All_Entropy_Is_Scaled_Shannon_Entropy (ef : EntropyFunction) (C : ℝ) (hC_pos : 0 < C) :
     HasRotaEntropyProperties (fun p => (C * (ef.H_func p : ℝ)).toNNReal) :=
   let C_nn : NNReal := C.toNNReal
   have hC_nn_pos : 0 < C_nn := by
@@ -187,14 +187,6 @@ theorem RET_All_Enropy_Is_Scaled_Shannon_Entropy (ef : EntropyFunction) (C : ℝ
   }
 
 
-
-
-/--
-The canonical entropy function for computer science is the standard Shannon
-Entropy measured in **bits** (using log base 2).
--/
-noncomputable def H_canonical_log2 {α : Type} [Fintype α] (p : α → NNReal) : NNReal :=
-  ((stdShannonEntropyLn p) / Real.log 2).toNNReal
 
 /--
 **Theorem:** For the canonical base-2 Shannon entropy function (`H_canonical_log2`),

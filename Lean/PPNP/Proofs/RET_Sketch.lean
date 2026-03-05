@@ -13,7 +13,7 @@ Information on the proper way to contribute would be greatly appreciated especia
 b) Why This Form of the Theorem?
 The full RET is a bidirectional statement: (1)  Rota's Uniqueness of Entropy (RUE) theorem proves any function H satisfying the axioms must be of the form C * H_shannon, and (2) any function of the form C * H_shannon (for C > 0) must satisfy the axioms.
 
-The MVP provided here, RET_All_Enropy_Is_Scaled_Shannon_Entropy, recaps the second, "transport" direction and is chosen because of the stunning generalizability of the result **ALL ENTROPY, INCLUDING CONTINUOUS ENTROPY, IS SCALED SHANNON ENTROPY**. Both Rota's original proof and the Lean formalization use a truly beautiful logarithmic trapping argument to establish this.
+The MVP provided here, RET_All_Entropy_Is_Scaled_Shannon_Entropy, recaps the second, "transport" direction and is chosen because of the stunning generalizability of the result **ALL ENTROPY, INCLUDING CONTINUOUS ENTROPY, IS SCALED SHANNON ENTROPY**. Both Rota's original proof and the Lean formalization use a truly beautiful logarithmic trapping argument to establish this.
 
 The stunning takeaway is that **any real-valued function** that satisfies these fundamental, intuitive properties must be a scaled version of Shannon entropy. This implies that, from an informational perspective, any such real-valued function can be viewed as originating from an underlying normalized probability distribution. The theorem provides a universal lens through which all well-behaved real-valued functions can be understood as measures of information, bridging the discrete and the continuous and establishing entropy as a foundational concept not just for probability theory, but for all of mathematical analysis.
 
@@ -98,7 +98,7 @@ This transport also allows us to change the base of the logarithm in the entropy
 without re-writing all the axiom proofs which were more easily
 done in nats.
 -/
-theorem RET_All_Enropy_Is_Scaled_Shannon_Entropy (ef : EntropyFunction) (C : ℝ) (hC_pos : 0 < C) :
+theorem RET_All_Entropy_Is_Scaled_Shannon_Entropy (ef : EntropyFunction) (C : ℝ) (hC_pos : 0 < C) :
     HasRotaEntropyProperties (fun p => (C * (ef.H_func p : ℝ)).toNNReal) :=
   -- To prove a structure, we provide a proof for each of its fields.
   {

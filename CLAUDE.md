@@ -21,7 +21,7 @@ Central principle: **"The address is the map."** In an information space where e
 - **Lean proof chain must stay sorry-free and axiom-free.** The 6-file P=NP proof chain (see `Lean/CLAUDE.md`) has no `sorry` and no custom axioms. Do not introduce them.
 - **EGPTMath is pedagogical.** It is intentionally unoptimized to teach how continuous math becomes discrete.
 - **FAT is proprietary.** The Faster Abadir Transform's optimized implementation is NOT in this repo. Only educational/pedagogical variants exist in `EGPTMath/FAT/`.
-- **Physics is motivation, not proof.** `Lean/EGPT/Physics/` and `Lean/EGPT/Complexity/Physics.lean` provide physical grounding but are NOT imported by the formal proof chain.
+- **Physics is motivation, not proof.** `Lean/EGPT/Physics/` (including `RealityIsComputation.lean`) provides physical grounding but is NOT imported by the formal proof chain.
 
 ## Build & Test
 
@@ -40,7 +40,7 @@ open www/EGPTNumberUniformity.html
 
 - `EGPT_STORY.md` — Full narrative exposition (the original README, 46KB)
 - `Lean/EGPT/PeqNP_Proof_README.md` — Detailed P=NP proof walkthrough
-- `Lean/EGPT/Complexity/PPNP.lean` — The `P_eq_NP_EGPT` theorem
+- `Lean/EGPT/Complexity/PPNP.lean` — The `P_eq_NP` theorem
 - `Lean/EGPT/NumberTheory/Core.lean` — ParticlePath ↔ ℕ bijection
 - `content/pyFRAQTL/FRAQTL_WhitePaper.md` — FRAQTL factorization algorithm
 

@@ -55,13 +55,13 @@ This section redefines complexity theory in physical terms, directly addressing 
 This section presents the final, formal argument, demonstrating the equivalence of the P and NP complexity classes within EGPT.
 * **4.1. The Canonical Representation:** To make complexity comparisons unambiguous, all problem instances are first "compiled" into a unique, sorted canonical form. This is a provably efficient, polynomial-time reduction.
 * **Lean Citation:** `CanonicalCNF` and `normalizeCNF` in `EGPT/Constraints.lean`.
-* **4.2. The NP Class in EGPT:** A language is in `NP_EGPT` if a "yes" instance is certified by the **mere existence** of a polynomially-bounded `SatisfyingTableau`.
-* **Lean Citation:** The definition of `NP_EGPT` and the proof `L_SAT_in_NP` in `EGPT/Complexity/PPNP.lean`. This proves `L_SAT_Canonical` is in NP.
-* **4.3. The P Class in EGPT:** A language is in `P_EGPT` if a "yes" instance is certified by the **deterministic construction** of a polynomially-bounded `SatisfyingTableau`.
-* **Lean Citation:** The definition of `P_EGPT` and the proof `L_SAT_in_P` in `EGPT/Complexity/PPNP.lean`. This proof uses the constructive function `constructSatisfyingTableau` as the deterministic algorithm, which relies on the `PathToConstraint` insight.
+* **4.2. The NP Class in EGPT:** A language is in `NP` if a "yes" instance is certified by the **mere existence** of a polynomially-bounded `SatisfyingTableau`.
+* **Lean Citation:** The definition of `NP` and the proof `L_SAT_in_NP` in `EGPT/Complexity/PPNP.lean`. This proves `L_SAT_Canonical` is in NP.
+* **4.3. The P Class in EGPT:** A language is in `P` if a "yes" instance is certified by the **deterministic construction** of a polynomially-bounded `SatisfyingTableau`.
+* **Lean Citation:** The definition of `P` and the proof `L_SAT_in_P` in `EGPT/Complexity/PPNP.lean`. This proof uses the constructive function `constructSatisfyingTableau` as the deterministic algorithm, which relies on the `PathToConstraint` insight.
 * **4.4. The Equivalence Theorem: P = NP**
 * **The Non-Trivial Foundation of a Trivial Proof:** The final theorem is a one-line proof by reflexivity (`Iff.rfl`).
-* **Lean Citation:** `theorem P_eq_NP_EGPT : P_EGPT = NP_EGPT` in `EGPT/Complexity/PPNP.lean`.
+* **Lean Citation:** `theorem P_eq_NP : P = NP` in `EGPT/Complexity/PPNP.lean`.
 * **Explanation:** This is not a trivial proof of `A ↔ A`. It is the culmination of the entire framework. The hard work was done in the preceding theorems (`L_SAT_in_NP` and `L_SAT_in_P`), which proved that the propositions defining the two classes are, in fact, the same. We proved that if a polynomially-bounded certificate *can exist* (NP), our deterministic `constructSatisfyingTableau` algorithm *can always build it* in polynomial time (P). The two classes, built from different conceptual starting points (existence vs. construction), are proven to be the same set of languages.
 ### **5. The Prime-Factorial Nature of Information (The Deeper Result)**
 This section explores the more profound consequence of the EGPT framework: the deep connection between information, prime numbers, and computation.
