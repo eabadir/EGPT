@@ -1,0 +1,117 @@
+{
+  "meta": {
+    "project": "EGPT",
+    "total_theorems": 85,
+    "total_files": 23,
+    "sorry_count": 0,
+    "custom_axioms": 0,
+    "lean_axioms": ["propext", "Quot.sound", "Classical.choice"]
+  },
+  "core_identity": "ParticlePath = ComputerTape = RandomWalkPath = List Bool",
+  "chains": {
+    "p_eq_np": {
+      "description": "The P=NP proof chain. 6 files, sorry-free, axiom-free.",
+      "files": [
+        "EGPT/Basic.lean",
+        "EGPT/Core.lean",
+        "EGPT/NumberTheory/Core.lean",
+        "EGPT/Constraints.lean",
+        "EGPT/Complexity/Core.lean",
+        "EGPT/Complexity/Tableau.lean",
+        "EGPT/Complexity/PPNP.lean"
+      ],
+      "capstone_theorem": "P_eq_NP"
+    },
+    "entropy": {
+      "description": "Rota's Entropy Theorem. Independent proof that all entropy = C * Shannon.",
+      "files": [
+        "EGPT/Entropy/Common.lean",
+        "EGPT/Entropy/RET.lean",
+        "EGPT/Entropy/H.lean"
+      ],
+      "capstone_theorem": "RotaUniformTheorem"
+    },
+    "physics": {
+      "description": "Physical motivation. NOT imported by proof chain.",
+      "files": [
+        "EGPT/Physics/Common.lean",
+        "EGPT/Physics/UniformSystems.lean",
+        "EGPT/Physics/BoseEinstein.lean",
+        "EGPT/Physics/FermiDirac.lean",
+        "EGPT/Physics/MaxwellBoltzmann.lean",
+        "EGPT/Physics/PhysicsDist.lean",
+        "EGPT/Physics/PhotonicCA.lean",
+        "EGPT/Physics/RealityIsComputation.lean"
+      ],
+      "capstone_theorem": "RealityIsComputation"
+    },
+    "number_theory_extensions": {
+      "description": "Extensions to core number theory. Not part of P=NP proof chain.",
+      "files": [
+        "EGPT/NumberTheory/Filter.lean",
+        "EGPT/NumberTheory/ContinuumHypothesis.lean",
+        "EGPT/NumberTheory/Analysis.lean"
+      ],
+      "capstone_theorem": "EGPT_ContinuumHypothesis"
+    }
+  },
+  "nodes": [
+    {"id": "Mathlib", "type": "dependency", "file": null},
+    {"id": "Basic", "type": "proof", "file": "EGPT/Basic.lean", "theorems": [], "chain": "p_eq_np"},
+    {"id": "Core", "type": "proof", "file": "EGPT/Core.lean", "theorems": ["ParticlePath", "ComputerTape", "PathCompress_AllTrue", "IIDParticleSource"], "chain": "p_eq_np"},
+    {"id": "NumberTheory.Core", "type": "proof", "file": "EGPT/NumberTheory/Core.lean", "theorems": ["equivParticlePathToNat", "cardinal_of_egpt_level", "EGPT_Polynomial"], "chain": "p_eq_np"},
+    {"id": "Constraints", "type": "proof", "file": "EGPT/Constraints.lean", "theorems": ["encodeCNF_size_ge_k", "evalCNF_normalize_eq_evalCNF", "CanonicalCNF"], "chain": "p_eq_np"},
+    {"id": "Complexity.Core", "type": "proof", "file": "EGPT/Complexity/Core.lean", "theorems": ["PathToConstraint", "IsPolynomialEGPT"], "chain": "p_eq_np"},
+    {"id": "Complexity.Tableau", "type": "proof", "file": "EGPT/Complexity/Tableau.lean", "theorems": ["constructSatisfyingTableau", "tableauComplexity_upper_bound"], "chain": "p_eq_np"},
+    {"id": "Complexity.PPNP", "type": "proof", "file": "EGPT/Complexity/PPNP.lean", "theorems": ["P_eq_NP", "EGPT_CookLevin_Theorem", "L_SAT_in_NP", "L_SAT_in_P"], "chain": "p_eq_np"},
+    {"id": "Entropy.Common", "type": "proof", "file": "EGPT/Entropy/Common.lean", "theorems": ["rect_program_for_dist", "RECT_Entropy_to_Program", "IID_Source_to_Program"], "chain": "entropy"},
+    {"id": "Entropy.RET", "type": "proof", "file": "EGPT/Entropy/RET.lean", "theorems": ["RotaUniformTheorem", "uniformEntropy_power_law"], "chain": "entropy"},
+    {"id": "Entropy.H", "type": "proof", "file": "EGPT/Entropy/H.lean", "theorems": ["entropy_of_fair_coin_is_one_bit", "TheCanonicalEntropyFunction_Ln"], "chain": "entropy"},
+    {"id": "Physics.Common", "type": "proof", "file": "EGPT/Physics/Common.lean", "theorems": ["H_physical_system"], "chain": "physics"},
+    {"id": "Physics.UniformSystems", "type": "proof", "file": "EGPT/Physics/UniformSystems.lean", "theorems": ["H_physical_system_is_rota_uniform"], "chain": "physics"},
+    {"id": "Physics.BoseEinstein", "type": "proof", "file": "EGPT/Physics/BoseEinstein.lean", "theorems": ["H_BE_from_Multiset_eq_C_shannon"], "chain": "physics"},
+    {"id": "Physics.FermiDirac", "type": "proof", "file": "EGPT/Physics/FermiDirac.lean", "theorems": ["H_FD_eq_C_shannon"], "chain": "physics"},
+    {"id": "Physics.MaxwellBoltzmann", "type": "proof", "file": "EGPT/Physics/MaxwellBoltzmann.lean", "theorems": ["H_MB_eq_C_shannon"], "chain": "physics"},
+    {"id": "Physics.PhysicsDist", "type": "proof", "file": "EGPT/Physics/PhysicsDist.lean", "theorems": ["H_physics_dist_linear_combination_eq_generalized_C_Shannon"], "chain": "physics"},
+    {"id": "Physics.PhotonicCA", "type": "proof", "file": "EGPT/Physics/PhotonicCA.lean", "theorems": ["be_system_has_equivalent_program"], "chain": "physics"},
+    {"id": "Physics.RealityIsComputation", "type": "proof", "file": "EGPT/Physics/RealityIsComputation.lean", "theorems": ["RealityIsComputation", "ContinuousFieldsAreComputation"], "chain": "physics"},
+    {"id": "NumberTheory.ContinuumHypothesis", "type": "proof", "file": "EGPT/NumberTheory/ContinuumHypothesis.lean", "theorems": ["EGPT_ContinuumHypothesis", "EGPT_GeneralizedContinuumHypothesis"], "chain": "number_theory_extensions"},
+    {"id": "NumberTheory.Filter", "type": "proof", "file": "EGPT/NumberTheory/Filter.lean", "theorems": ["distOfRejectionFilter", "eventsPMF"], "chain": "number_theory_extensions"},
+    {"id": "NumberTheory.Analysis", "type": "proof", "file": "EGPT/NumberTheory/Analysis.lean", "theorems": ["EGPT_Fundamental_Theorem_of_Arithmetic_via_Information"], "chain": "number_theory_extensions"},
+    {"id": "Complexity.UTM", "type": "proof", "file": "EGPT/Complexity/UTM.lean", "theorems": ["UniversalTuringMachine_EGPT"], "chain": "complexity_extensions"},
+    {"id": "Complexity.Physics", "type": "proof", "file": "EGPT/Complexity/Physics.lean", "theorems": ["constrainedSystem_equiv_SAT"], "chain": "complexity_extensions"}
+  ],
+  "edges": [
+    {"from": "Mathlib", "to": "Basic", "type": "proof_dependency"},
+    {"from": "Mathlib", "to": "Core", "type": "proof_dependency"},
+    {"from": "Core", "to": "NumberTheory.Core", "type": "proof_dependency"},
+    {"from": "NumberTheory.Core", "to": "Constraints", "type": "proof_dependency"},
+    {"from": "Constraints", "to": "Complexity.Core", "type": "proof_dependency"},
+    {"from": "Complexity.Core", "to": "Complexity.Tableau", "type": "proof_dependency"},
+    {"from": "Complexity.Tableau", "to": "Complexity.PPNP", "type": "proof_dependency"},
+    {"from": "Entropy.Common", "to": "Complexity.Tableau", "type": "type_import_only"},
+    {"from": "Physics.PhysicsDist", "to": "Complexity.Tableau", "type": "type_import_only"},
+    {"from": "Entropy.Common", "to": "Complexity.PPNP", "type": "type_import_only"},
+    {"from": "Physics.PhysicsDist", "to": "Complexity.PPNP", "type": "type_import_only"},
+    {"from": "Core", "to": "Entropy.Common", "type": "proof_dependency"},
+    {"from": "Complexity.Core", "to": "Entropy.Common", "type": "type_import_only"},
+    {"from": "Entropy.Common", "to": "Entropy.RET", "type": "proof_dependency"},
+    {"from": "Entropy.Common", "to": "Entropy.H", "type": "proof_dependency"},
+    {"from": "Complexity.PPNP", "to": "Entropy.H", "type": "type_import_only"},
+    {"from": "Physics.PhotonicCA", "to": "Entropy.H", "type": "type_import_only"},
+    {"from": "Physics.Common", "to": "Physics.UniformSystems", "type": "proof_dependency"},
+    {"from": "Physics.UniformSystems", "to": "Physics.BoseEinstein", "type": "proof_dependency"},
+    {"from": "Physics.UniformSystems", "to": "Physics.FermiDirac", "type": "proof_dependency"},
+    {"from": "Physics.UniformSystems", "to": "Physics.MaxwellBoltzmann", "type": "proof_dependency"},
+    {"from": "Physics.BoseEinstein", "to": "Physics.PhysicsDist", "type": "proof_dependency"},
+    {"from": "Physics.FermiDirac", "to": "Physics.PhysicsDist", "type": "proof_dependency"},
+    {"from": "Physics.MaxwellBoltzmann", "to": "Physics.PhysicsDist", "type": "proof_dependency"},
+    {"from": "Physics.PhysicsDist", "to": "Physics.PhotonicCA", "type": "proof_dependency"},
+    {"from": "Physics.PhotonicCA", "to": "Physics.RealityIsComputation", "type": "proof_dependency"},
+    {"from": "NumberTheory.Core", "to": "NumberTheory.ContinuumHypothesis", "type": "proof_dependency"},
+    {"from": "NumberTheory.Core", "to": "NumberTheory.Filter", "type": "proof_dependency"},
+    {"from": "Constraints", "to": "NumberTheory.Filter", "type": "proof_dependency"},
+    {"from": "Complexity.Tableau", "to": "Complexity.UTM", "type": "proof_dependency"},
+    {"from": "NumberTheory.Filter", "to": "Complexity.UTM", "type": "proof_dependency"}
+  ]
+}
