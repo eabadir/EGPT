@@ -1,16 +1,22 @@
 # EGPT — Electronic Graph Paper Theory
 
-> A constructive, machine-verified proof that P = NP, built from first principles
-> using physically motivated, fully computable number theory derived from random
-> walks. 85 Lean 4 theorems. No sorry. No custom axioms. Integer-only arithmetic.
-> Central principle: "The address is the map."
+> A constructive, machine-verified proof that P = NP and a working integer-only math
+> library (EGPTMath) that replaces FLOPs with IOPs — answering the question: how do
+> you scale AI without cooking the planet? 85 Lean 4 theorems. No sorry. No custom
+> axioms. 157 EGPTMath tests, 100% pass. Central principle: "The address is the map."
 
 Raw access base: https://raw.githubusercontent.com/eabadir/EGPT/main/
 
-## Core Claim
+## Core Claims
 
-P = NP, proven constructively in Lean 4 by showing that in a maximally compressed
-information space (ParticlePath ≃ ℕ), defining a problem is defining its solution.
+**The proof:** P = NP, proven constructively in Lean 4 by showing that in a maximally
+compressed information space (ParticlePath ≃ ℕ), defining a problem is defining its solution.
+
+**The implementation:** EGPTMath is the integer-only math library that turns the proof
+into practice. All arithmetic uses IOPs (Integer Operations), not FLOPs. No floating point,
+no error accumulation. The FAT (Faster Abadir Transform) demonstrates classical computation
+of the Quantum Fourier Transform — pedagogical variants ship in this repo; the optimized
+FAT benchmarks ~1.277 billion x faster than 2,048 GPUs on a single 1.2 GHz core.
 
 ## Documentation
 
@@ -20,6 +26,8 @@ information space (ParticlePath ≃ ℕ), defining a problem is defining its sol
 - [P=NP Proof Walkthrough](https://github.com/eabadir/EGPT/blob/main/Lean/EGPT/PeqNP_Proof_README.md): Detailed mathematical exposition
 - [Proof Validation Report](https://github.com/eabadir/EGPT/blob/main/Lean/EGPT_PROOFS_VALIDATION.md): 85 theorems with full axiom inventory
 - [Proof Dependency Graph](https://github.com/eabadir/EGPT/blob/main/Lean/PROOF_DEPENDENCIES.md): Import chains, theorem counts, isolation guarantees
+- [Proof Graph (Mermaid)](https://github.com/eabadir/EGPT/blob/main/docs/PROOF_GRAPH.md): Visual dependency DAG with Mermaid diagrams
+- [Proof Graph (JSON)](https://github.com/eabadir/EGPT/blob/main/docs/proof_graph.json): Machine-readable dependency graph for programmatic ingestion
 - [EGPT Story](https://github.com/eabadir/EGPT/blob/main/EGPT_STORY.md): Full narrative exposition (accessible, picture-based)
 - [Academic Paper](https://github.com/eabadir/EGPT/blob/main/EGPT_Paper.md): Formal paper version
 - [Rota's Entropy Theorem Guide](https://github.com/eabadir/EGPT/blob/main/RET_README.md): Dedicated RET walkthrough

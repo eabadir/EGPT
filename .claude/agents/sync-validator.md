@@ -55,11 +55,22 @@ Spot-check file paths referenced in `Lean/CLAUDE.md` and root `CLAUDE.md` to ens
 ### 8. Physics Import Isolation
 Verify that no file in the proof chain (`Lean/EGPT/Complexity/`, `Lean/EGPT/Core.lean`, `Lean/EGPT/Constraints.lean`, `Lean/EGPT/NumberTheory/Core.lean`) imports from `EGPT.Physics`.
 
-### 9. AI Navigation Files Exist
+### 9. AI Navigation Files Exist and Routing Chain Intact
 Verify these files exist:
 - `/AGENTS.md`
 - `/llms.txt`
+- `/sitemap.xml`
 - `/Lean/PROOF_DEPENDENCIES.md`
+- `/docs/PROOF_GRAPH.md`
+- `/docs/proof_graph.json`
+- `/.claude/agents/` (7 agent files)
+
+Verify the routing chain:
+- `README.md` line 1 contains links to `llms.txt`, `sitemap.xml`, `.claude/agents/`
+- `README.md` line 2 contains the raw access base URL `https://raw.githubusercontent.com/eabadir/EGPT/main/`
+- `llms.txt` contains raw access base URL and links to all 7 agent files
+- `AGENTS.md` contains "Specialist Agent Instructions" table linking all 7 agent files
+- `sitemap.xml` includes `.claude/agents/` files (regenerate with `node scripts/generate_sitemap.js` if missing)
 
 ### 10. AGENTS.md Consistency
 - Theorem count in `AGENTS.md` matches `Lean/EGPT_PROOFS_VALIDATION.md`
@@ -70,6 +81,18 @@ Verify these files exist:
 - File list matches actual `.lean` files under `Lean/EGPT/`
 - Theorem counts per file match validation report
 - Import statements in dependency graph match actual `import` lines in source
+
+### 12. Sitemap Freshness
+- Run `node scripts/generate_sitemap.js` and compare output to existing `sitemap.xml`
+- If they differ, the sitemap is stale — flag for regeneration before push
+- Verify new files added in the current session appear in the sitemap
+
+### 13. Proof Graph Files Consistency
+Verify `docs/PROOF_GRAPH.md` and `docs/proof_graph.json` exist and are consistent:
+- `docs/proof_graph.json` `meta.total_theorems` matches `Lean/EGPT_PROOFS_VALIDATION.md`
+- `docs/proof_graph.json` node list covers all `.lean` files in `Lean/PROOF_DEPENDENCIES.md`
+- `docs/PROOF_GRAPH.md` header theorem count matches validation report
+- Both files are referenced in `CLAUDE.md`, `AGENTS.md`, `llms.txt`, and `README.md`
 
 ## Output Format
 
@@ -86,6 +109,7 @@ Report results as a structured checklist:
 - [x] CLAUDE.md files: PASS (5/5 exist)
 - [ ] File path validity: FAIL — `Lean/EGPT/EGPTOverview.md` referenced in CLAUDE.md but not found
 - [x] Physics isolation: PASS
+- [x] AI routing chain: PASS (README→llms.txt→agents, raw base URL present)
 
 ### Remediation Needed
 1. Fix or remove reference to `Lean/EGPT/EGPTOverview.md` in Lean/CLAUDE.md

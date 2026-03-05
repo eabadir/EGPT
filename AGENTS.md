@@ -1,13 +1,14 @@
 # EGPT — Agent Instructions
 
-> Electronic Graph Paper Theory (EGPT) — a constructive, machine-verified proof that P = NP,
-> built from first principles using physically motivated, fully computable number theory
-> derived from random walks. 85 Lean 4 theorems. No `sorry`. No custom axioms.
-> Integer-only arithmetic throughout. Central principle: **"The address is the map."**
+> Electronic Graph Paper Theory (EGPT) — a constructive, machine-verified proof that P = NP
+> and a working integer-only math library (EGPTMath) that replaces FLOPs with IOPs.
+> 85 Lean 4 theorems. No `sorry`. No custom axioms. 157 EGPTMath tests, 100% pass.
+> The proof says scalable AI is possible. EGPTMath and FAT show how.
+> Central principle: **"The address is the map."**
 
 ## Your Role
 
-You are working in a mathematical proof repository. Your primary obligation is to **never break the proof chain**. When in doubt, verify with `cd Lean && lake build`.
+You are working in a repository with two equally important layers: **formal proofs** (Lean 4) and a **working integer-only math library** (EGPTMath/FAT) that demonstrates the proofs in practice. The proof chain answers "is it possible?" — EGPTMath answers "how do you build it?" Your primary obligations are to **never break the proof chain** and **never introduce floating point into EGPTMath**. When in doubt, verify with `cd Lean && lake build` and `cd EGPTMath && node test/EGPTTestSuite.js`.
 
 ## Critical Invariants — Never Violate
 
@@ -29,8 +30,9 @@ You are working in a mathematical proof repository. Your primary obligation is t
 
 | Directory | Purpose | Detailed Instructions |
 |-----------|---------|----------------------|
-| [`Lean/`](Lean/) | Formal Lean 4 proofs (85 theorems) | [`Lean/CLAUDE.md`](Lean/CLAUDE.md) |
-| [`EGPTMath/`](EGPTMath/) | Pedagogical JS integer math library (157 tests) | [`EGPTMath/CLAUDE.md`](EGPTMath/CLAUDE.md) |
+| [`EGPTMath/`](EGPTMath/) | Integer-only math library — FLOPs become IOPs. Exact arithmetic, no error accumulation. 157 tests. | [`EGPTMath/CLAUDE.md`](EGPTMath/CLAUDE.md) |
+| [`EGPTMath/FAT/`](EGPTMath/FAT/) | Faster Abadir Transform (pedagogical) — integer-only FFT/QFT. Classical QFT at O((log k)^3). | [`EGPTMath/FAT/README.md`](EGPTMath/FAT/README.md) |
+| [`Lean/`](Lean/) | Formal Lean 4 proofs (85 theorems, sorry-free, axiom-free) | [`Lean/CLAUDE.md`](Lean/CLAUDE.md) |
 | [`content/`](content/) | Papers, books, reference docs, pyFRAQTL SDK | [`content/CLAUDE.md`](content/CLAUDE.md) |
 | [`www/`](www/) | Interactive browser demos and visualizers | [`www/CLAUDE.md`](www/CLAUDE.md) |
 | [`scripts/`](scripts/) | Build utilities (LaTeX-to-Markdown, validation report) | — |
@@ -51,6 +53,9 @@ open www/EGPTNumberUniformity.html
 
 # Regenerate proof validation report
 cd Lean && node ../scripts/build_report.js
+
+# Before pushing to main — regenerate sitemap
+node scripts/generate_sitemap.js
 ```
 
 ## Proof Dependency Graph
@@ -94,20 +99,28 @@ EGPT/Physics/Common.lean → UniformSystems → {BoseEinstein, FermiDirac, Maxwe
 
 For the full detailed dependency graph with per-file theorem inventories, see [`Lean/PROOF_DEPENDENCIES.md`](Lean/PROOF_DEPENDENCIES.md).
 
+For Mermaid diagrams and a machine-readable JSON graph, see [`docs/PROOF_GRAPH.md`](docs/PROOF_GRAPH.md) and [`docs/proof_graph.json`](docs/proof_graph.json).
+
 ## Key Entry Points
 
 | If you want to... | Start here |
 |--------------------|------------|
+| **Working implementations (the practical answer to scalable AI)** | |
+| See integer-only math in action | [`EGPTMath/README.md`](EGPTMath/README.md) — FLOPs become IOPs, 157 tests |
+| Understand how unlimited precision works | [`EGPTMath/EGPTMath_Developer_Guide.md`](EGPTMath/EGPTMath_Developer_Guide.md) |
+| See integer-only FFT/QFT (FAT) | [`EGPTMath/FAT/README.md`](EGPTMath/FAT/README.md) — classical QFT, no floats |
+| Run the test suite | `cd EGPTMath && node test/EGPTTestSuite.js` (157 tests) |
+| See the FRAQTL factorization algorithm | [`content/pyFRAQTL/FRAQTL_WhitePaper.md`](content/pyFRAQTL/FRAQTL_WhitePaper.md) |
+| **Formal proofs (why it works)** | |
 | Understand the P=NP proof | [`Lean/EGPT/PeqNP_Proof_README.md`](Lean/EGPT/PeqNP_Proof_README.md) |
 | Audit the proof chain step-by-step | [`SKEPTICS_GUIDE.md`](SKEPTICS_GUIDE.md) |
 | See all 85 theorems with axiom inventory | [`Lean/EGPT_PROOFS_VALIDATION.md`](Lean/EGPT_PROOFS_VALIDATION.md) |
 | Read the full dependency graph | [`Lean/PROOF_DEPENDENCIES.md`](Lean/PROOF_DEPENDENCIES.md) |
+| See the Mermaid proof DAG | [`docs/PROOF_GRAPH.md`](docs/PROOF_GRAPH.md) |
+| Ingest the graph programmatically | [`docs/proof_graph.json`](docs/proof_graph.json) |
+| **Narrative and context** | |
 | Understand the narrative and philosophy | [`EGPT_STORY.md`](EGPT_STORY.md) |
 | Read the academic paper | [`EGPT_Paper.md`](EGPT_Paper.md) |
-| See the theory as runnable JS code | [`EGPTMath/README.md`](EGPTMath/README.md) — pedagogical integer math library |
-| Run the JS integer math test suite | `cd EGPTMath && node test/EGPTTestSuite.js` (157 tests) |
-| See integer-only FFT/QFT (FAT) | [`EGPTMath/FAT/README.md`](EGPTMath/FAT/README.md) — pedagogical Cooley-Tukey with no floats |
-| See the FRAQTL factorization algorithm | [`content/pyFRAQTL/FRAQTL_WhitePaper.md`](content/pyFRAQTL/FRAQTL_WhitePaper.md) |
 | Explore interactive demos | [`www/`](www/) — open HTML files directly |
 
 ## EGPTMath — The Theory as Runnable Code

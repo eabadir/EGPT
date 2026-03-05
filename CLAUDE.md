@@ -1,6 +1,6 @@
 # EGPT Mono-Repo
 
-Electronic Graph Paper Theory (EGPT) — a constructive proof that P = NP, built from first principles using physically motivated, fully computable number theory derived from random walks.
+Electronic Graph Paper Theory (EGPT) — a constructive proof that P = NP and a working integer-only math library (EGPTMath) that turns FLOPs into IOPs, answering the question: how do you scale AI without cooking the planet? Built from first principles using physically motivated, fully computable number theory derived from random walks.
 
 Central principle: **"The address is the map."** In an information space where every element is maximally compressed, defining a problem is defining its solution.
 
@@ -9,7 +9,8 @@ Central principle: **"The address is the map."** In an information space where e
 | Directory | Purpose | CLAUDE.md |
 |-----------|---------|-----------|
 | `Lean/` | Formal Lean 4 proofs (P=NP, Rota Entropy Theorem, number theory) | [`Lean/CLAUDE.md`](Lean/CLAUDE.md) |
-| `EGPTMath/` | Pedagogical JavaScript integer math library (FLOPs → IOPs) | [`EGPTMath/CLAUDE.md`](EGPTMath/CLAUDE.md) |
+| `EGPTMath/` | Integer-only math library — the practical answer to scalable AI. Replaces FLOPs with IOPs: exact arithmetic, no error accumulation, 157 tests. | [`EGPTMath/CLAUDE.md`](EGPTMath/CLAUDE.md) |
+| `EGPTMath/FAT/` | Faster Abadir Transform (pedagogical) — integer-only FFT/QFT. Demonstrates classical QFT at O((log k)^3). Optimized FAT is proprietary. | [`EGPTMath/FAT/README.md`](EGPTMath/FAT/README.md) |
 | `content/` | Papers, books, reference docs, pyFRAQTL SDK | [`content/CLAUDE.md`](content/CLAUDE.md) |
 | `www/` | Interactive browser demos and visualizers | [`www/CLAUDE.md`](www/CLAUDE.md) |
 | `scripts/` | Build utilities (LaTeX-to-Markdown, file packager for AI indexing) | — |
@@ -19,8 +20,8 @@ Central principle: **"The address is the map."** In an information space where e
 - **No floating point.** Everything is integer operations (IOPs, not FLOPs). This is the core thesis.
 - **"Address is the map"** is the central principle across all code and proofs.
 - **Lean proof chain must stay sorry-free and axiom-free.** The 6-file P=NP proof chain (see `Lean/CLAUDE.md`) has no `sorry` and no custom axioms. Do not introduce them.
-- **EGPTMath is pedagogical.** It is intentionally unoptimized to teach how continuous math becomes discrete.
-- **FAT is proprietary.** The Faster Abadir Transform's optimized implementation is NOT in this repo. Only educational/pedagogical variants exist in `EGPTMath/FAT/`.
+- **EGPTMath is the practical deliverable.** It is the integer-only math library that demonstrates scalable AI is possible — FLOPs become IOPs, exact arithmetic with no error accumulation. It is intentionally unoptimized for clarity, but the architecture (PPF encoding, integer FFT, lossless round-trips) is the real-world answer to the AI energy question.
+- **FAT is proprietary.** The Faster Abadir Transform's optimized implementation is NOT in this repo. Only educational/pedagogical variants exist in `EGPTMath/FAT/`. The pedagogical FAT already demonstrates classical QFT — the optimized version is what benchmarks ~1.277 billion x faster than 2,048 GPUs.
 - **Physics is motivation, not proof.** `Lean/EGPT/Physics/` (including `RealityIsComputation.lean`) provides physical grounding but is NOT imported by the formal proof chain.
 
 ## Build & Test
@@ -34,15 +35,29 @@ cd EGPTMath && npm install && node test/EGPTTestSuite.js
 
 # Web demos — no build step, open HTML files directly
 open www/EGPTNumberUniformity.html
+
+# Before pushing to main — regenerate sitemap
+node scripts/generate_sitemap.js
 ```
 
 ## Key Files
 
-- `EGPT_STORY.md` — Full narrative exposition (the original README, 46KB)
-- `Lean/EGPT/PeqNP_Proof_README.md` — Detailed P=NP proof walkthrough
+### Working Implementations (the practical answer)
+- `EGPTMath/EGPTMath.js` — Integer-only vector algebra engine (~6800 lines, 157 tests)
+- `EGPTMath/EGPTNumber.js` — PPF number representation: lossless Shannon coding, ParticlePath ↔ ℕ in JS
+- `EGPTMath/FAT/EGPTFAT.js` — Pedagogical FAT: integer-only FFT/QFT (Cooley-Tukey, no floats)
+- `EGPTMath/EGPTMath_Developer_Guide.md` — How unlimited precision works in information space
+
+### Formal Proofs
 - `Lean/EGPT/Complexity/PPNP.lean` — The `P_eq_NP` theorem
 - `Lean/EGPT/NumberTheory/Core.lean` — ParticlePath ↔ ℕ bijection, Beth hierarchy
 - `Lean/EGPT/NumberTheory/ContinuumHypothesis.lean` — CH & GCH decidable in EGPT (Hilbert #1)
+- `Lean/EGPT/PeqNP_Proof_README.md` — Detailed P=NP proof walkthrough
+
+### Documentation & Navigation
+- `EGPT_STORY.md` — Full narrative exposition (the original README, 46KB)
+- `docs/PROOF_GRAPH.md` — Theorem dependency DAG with Mermaid diagrams (AI-optimized)
+- `docs/proof_graph.json` — Machine-readable proof dependency graph (JSON)
 - `content/pyFRAQTL/FRAQTL_WhitePaper.md` — FRAQTL factorization algorithm
 
 ## Agent Team
@@ -71,6 +86,8 @@ Tool-agnostic AI navigation files complement this Claude-specific guide:
 - [`AGENTS.md`](AGENTS.md) — For Cursor, GitHub Copilot, and generic AI agents
 - [`llms.txt`](llms.txt) — Lightweight entry point (llms.txt standard)
 - [`Lean/PROOF_DEPENDENCIES.md`](Lean/PROOF_DEPENDENCIES.md) — Full proof dependency graph with theorem inventory
+- [`docs/PROOF_GRAPH.md`](docs/PROOF_GRAPH.md) — Mermaid diagrams of theorem dependency DAG
+- [`docs/proof_graph.json`](docs/proof_graph.json) — Machine-readable dependency graph (JSON)
 
 ## License
 

@@ -1,10 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/.claude/agents/content-author.md</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/.claude/agents/demo-builder.md</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/.claude/agents/doc-writer.md</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/.claude/agents/egpt-orchestrator.md</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/.claude/agents/js-engineer.md</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/.claude/agents/lean-prover.md</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/.claude/agents/sync-validator.md</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/.vscode/launch.json</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/.vscode/settings.json</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/.vscode/tasks.json</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/AGENTS.md</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/CLAUDE.md</loc>
     <lastmod>2026-03-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/DeSciX_Community_License_v1.pdf</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/EGPTMath/CLAUDE.md</loc>
@@ -28,19 +100,19 @@
     <loc>https://github.com/eabadir/EGPT/blob/main/EGPTMath/EGPTMath.js</loc>
     <lastmod>2026-03-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/EGPTMath/EGPTMath_Developer_Guide.md</loc>
     <lastmod>2026-03-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/EGPTMath/EGPTNumber.js</loc>
     <lastmod>2026-03-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/EGPTMath/EGPTPolynomial.js</loc>
@@ -58,7 +130,7 @@
     <loc>https://github.com/eabadir/EGPT/blob/main/EGPTMath/FAT/EGPTFAT.js</loc>
     <lastmod>2026-03-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/EGPTMath/FAT/EGPTFATFormatters.js</loc>
@@ -115,10 +187,10 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://github.com/eabadir/EGPT/blob/main/EGPTMath/FAT/test/benchmark_PurePPF_vs_Canonical.js</loc>
+    <loc>https://github.com/eabadir/EGPT/blob/main/EGPTMath/FAT/README.md</loc>
     <lastmod>2026-03-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/EGPTMath/FAT/test/test_EGPTFAT_Canonical.js</loc>
@@ -159,8 +231,8 @@
   <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/EGPTMath/README.md</loc>
     <lastmod>2026-03-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/EGPTMath/TheoremTests/EQFT_Binary_Split_Proof.js</loc>
@@ -229,13 +301,13 @@
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://github.com/eabadir/EGPT/blob/main/EGPT_Paper.md</loc>
+    <loc>https://github.com/eabadir/EGPT/blob/main/EGPT_STORY.md</loc>
     <lastmod>2026-03-05</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://github.com/eabadir/EGPT/blob/main/EGPT_STORY.md</loc>
+    <loc>https://github.com/eabadir/EGPT/blob/main/LICENSE</loc>
     <lastmod>2026-03-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -269,6 +341,12 @@
     <lastmod>2026-03-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/Lean/EGPT/Complexity/Physics.lean</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/Lean/EGPT/Complexity/Tableau.lean</loc>
@@ -329,6 +407,12 @@
     <lastmod>2026-03-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/Lean/EGPT/NumberTheory/ContinuumHypothesis.lean</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/Lean/EGPT/NumberTheory/Core.lean</loc>
@@ -433,6 +517,12 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/Lean/PROOF_DEPENDENCIES.md</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/Lean/build_report.lean</loc>
     <lastmod>2026-03-05</lastmod>
     <changefreq>monthly</changefreq>
@@ -452,12 +542,6 @@
   </url>
   <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/RET_README.md</loc>
-    <lastmod>2026-03-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://github.com/eabadir/EGPT/blob/main/RET_README_DRAFT.md</loc>
     <lastmod>2026-03-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -673,6 +757,24 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/content/Notes/ENIAC and El Capitan.md</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/content/Notes/Monte Carlo and AI.md</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/content/Notes/Precision Loss.md</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/content/Papers/Address_Is_The_Map/Address_Is_The_Map.pdf</loc>
     <lastmod>2026-03-05</lastmod>
     <changefreq>yearly</changefreq>
@@ -680,6 +782,18 @@
   </url>
   <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/content/Papers/Address_Is_The_Map/ProofNotes.md</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/content/Papers/ContinuumHypothesis/ContinuumHypothesis.pdf</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/content/Papers/EGPT_PeqNP/PeqNP_QED.md</loc>
     <lastmod>2026-03-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -746,6 +860,12 @@
   </url>
   <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/content/docs/EGPT_Stories/Everything In EGPT Is A Pyramid.md</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/content/docs/EGPT_Stories/Story of Nile Deriving Gravity.md</loc>
     <lastmod>2026-03-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -871,10 +991,34 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/content/pyFRAQTL/No Q-Day Threat.md</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/content/pyFRAQTL/mathematics-11-04222-v2.pdf</loc>
     <lastmod>2026-03-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/docs/PROOF_GRAPH.md</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/docs/proof_graph.json</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/llms.txt</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/scripts/build_report.js</loc>
@@ -889,10 +1033,22 @@
     <priority>0.4</priority>
   </url>
   <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/scripts/generate_sitemap.js</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/scripts/tex-to-md.js</loc>
     <lastmod>2026-03-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/sitemap.xml</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
   </url>
   <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/www/CLAUDE.md</loc>
@@ -961,6 +1117,12 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/data/qft-presets.json</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/www/js/EGPTCharting.js</loc>
     <lastmod>2026-03-05</lastmod>
     <changefreq>monthly</changefreq>
@@ -1015,9 +1177,27 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/the-address-is-the-map-visualizer/generated-problems.json</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/www/the-address-is-the-map-visualizer/index.html</loc>
     <lastmod>2026-03-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/the-address-is-the-map-visualizer/metadata.json</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/the-address-is-the-map-visualizer/tsconfig.json</loc>
+    <lastmod>2026-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
   </url>
 </urlset>

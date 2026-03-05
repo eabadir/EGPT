@@ -1,4 +1,5 @@
 **AI Navigation** — [llms.txt](llms.txt) | [sitemap.xml](sitemap.xml) | [.claude/agents/](.claude/agents/)
+Raw: https://raw.githubusercontent.com/eabadir/EGPT/main/
 
 # Electronic Graph Paper Theory (EGPT): Consciousness, the Universe, and Everything
 - *The Question:* How far can we scale AI?
@@ -31,10 +32,15 @@ About 30,000 lines of math proofs and computer code that proves five ideas from 
 
 Or start with the full walk-through: [Skeptic's Guide](SKEPTICS_GUIDE.md)
 
+### Proof Structure
+
+See [`docs/PROOF_GRAPH.md`](docs/PROOF_GRAPH.md) for the logical dependency graph of the EGPT theorems (Mermaid diagrams + [`proof_graph.json`](docs/proof_graph.json) for machine consumption).
+
 ### For AI Agents
 
 - [`AGENTS.md`](AGENTS.md) — Navigation, build commands, proof dependency graph
 - [`llms.txt`](llms.txt) — Lightweight project summary with links
+- [`docs/PROOF_GRAPH.md`](docs/PROOF_GRAPH.md) — Theorem dependency DAG with Mermaid diagrams
 - Per-directory detailed instructions: [`Lean/CLAUDE.md`](Lean/CLAUDE.md), [`EGPTMath/CLAUDE.md`](EGPTMath/CLAUDE.md), [`content/CLAUDE.md`](content/CLAUDE.md), [`www/CLAUDE.md`](www/CLAUDE.md)
 
 ## Back for more?

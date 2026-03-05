@@ -22,12 +22,20 @@ const OUTPUT = path.join(REPO_ROOT, 'sitemap.xml');
 const BASE = 'https://github.com/eabadir/EGPT/blob/main';
 
 // Extensions / exact filenames to include
-const INCLUDE_EXT = new Set(['.md', '.lean', '.js', '.html', '.txt', '.pdf']);
+const INCLUDE_EXT = new Set(['.md', '.lean', '.js', '.html', '.txt', '.pdf', '.json']);
 const INCLUDE_EXACT = new Set([
   'LICENSE',
   'AGENTS.md',
   'llms.txt',
   'sitemap.xml',
+]);
+
+// Files to always exclude (even if extension matches)
+const EXCLUDE_EXACT = new Set([
+  'package.json',
+  'package-lock.json',
+  'lake-manifest.json',
+  'lean-toolchain',
 ]);
 
 // Directories to skip entirely
@@ -68,15 +76,17 @@ const PRIORITY_RULES = [
   { pattern: /PeqNP_Proof_README\.md$/, priority: '0.8', freq: 'monthly' },
   { pattern: /EGPT_PROOFS_VALIDATION\.md$/, priority: '0.8', freq: 'monthly' },
   { pattern: /PROOF_DEPENDENCIES\.md$/, priority: '0.7', freq: 'monthly' },
+  { pattern: /^docs\/PROOF_GRAPH\.md$/, priority: '0.8', freq: 'monthly' },
+  { pattern: /^docs\/proof_graph\.json$/, priority: '0.7', freq: 'monthly' },
   { pattern: /CLAUDE\.md$/, priority: '0.6', freq: 'monthly' },
-  { pattern: /EGPTMath\/README\.md$/, priority: '0.8', freq: 'monthly' },
-  { pattern: /EGPTMath\/FAT\/README\.md$/, priority: '0.8', freq: 'monthly' },
-  { pattern: /EGPTMath_Developer_Guide\.md$/, priority: '0.7', freq: 'monthly' },
+  { pattern: /EGPTMath\/README\.md$/, priority: '0.9', freq: 'weekly' },
+  { pattern: /EGPTMath\/FAT\/README\.md$/, priority: '0.9', freq: 'weekly' },
+  { pattern: /EGPTMath_Developer_Guide\.md$/, priority: '0.8', freq: 'monthly' },
   { pattern: /\.lean$/, priority: '0.5', freq: 'monthly' },
   { pattern: /\.md$/, priority: '0.5', freq: 'monthly' },
-  { pattern: /EGPTMath\.js$/, priority: '0.7', freq: 'monthly' },
-  { pattern: /EGPTNumber\.js$/, priority: '0.7', freq: 'monthly' },
-  { pattern: /EGPTFAT\.js$/, priority: '0.7', freq: 'monthly' },
+  { pattern: /EGPTMath\.js$/, priority: '0.8', freq: 'monthly' },
+  { pattern: /EGPTNumber\.js$/, priority: '0.8', freq: 'monthly' },
+  { pattern: /EGPTFAT\.js$/, priority: '0.8', freq: 'monthly' },
   { pattern: /EGPTFAT_PurePPF\.js$/, priority: '0.6', freq: 'monthly' },
   { pattern: /EGPTFAT_TypeSafe\.js$/, priority: '0.6', freq: 'monthly' },
   { pattern: /\.js$/, priority: '0.4', freq: 'monthly' },
@@ -90,6 +100,8 @@ function shouldInclude(file) {
   for (const dir of SKIP_DIRS) {
     if (file.startsWith(dir)) return false;
   }
+  // Skip excluded filenames
+  if (EXCLUDE_EXACT.has(path.basename(file))) return false;
   // Include by exact name
   if (INCLUDE_EXACT.has(path.basename(file))) return true;
   // Include by extension
