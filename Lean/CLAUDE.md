@@ -19,6 +19,7 @@ EGPT/
 ├── Constraints.lean               # CNF formulas, Literal_EGPT, CanonicalCNF, encodeCNF
 ├── NumberTheory/
 │   ├── Core.lean                  # ParticlePath ↔ ℕ bijection, arithmetic, EGPT_Polynomial
+│   ├── ContinuumHypothesis.lean   # CH & GCH decidable in EGPT (beth staircase has no gaps)
 │   ├── Analysis.lean              # Analytical properties
 │   └── Filter.lean                # Rejection filters, probability distributions
 ├── Complexity/                    # *** THE P=NP PROOF CHAIN ***
@@ -71,6 +72,8 @@ PPNP/                              # Development workspace
 | `P` / `NP` | `Complexity/PPNP.lean` | Complexity class definitions (identical) |
 | `P_eq_NP` | `Complexity/PPNP.lean` | **The P = NP theorem** |
 | `EGPT_CookLevin_Theorem` | `Complexity/PPNP.lean` | SAT is NP-Complete |
+| `EGPT_ContinuumHypothesis` | `NumberTheory/ContinuumHypothesis.lean` | CH decidable & true (Hilbert #1) |
+| `EGPT_GeneralizedContinuumHypothesis` | `NumberTheory/ContinuumHypothesis.lean` | GCH: no gap between consecutive beth levels |
 
 ## Documentation
 

@@ -49,7 +49,7 @@ export const Chat: React.FC<ChatProps> = ({ onClose }) => {
         setLoading(true);
         setError('');
 
-        const apiKey = "AIzaSyCMxQOlueV-3yy2PhVBDLqTn-0L91Aw9C8";
+        const apiKey = "YOUR_API_KEY";
         const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
 
         try {

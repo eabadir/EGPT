@@ -1,22 +1,41 @@
+**AI Navigation** — [llms.txt](llms.txt) | [sitemap.xml](sitemap.xml) | [.claude/agents/](.claude/agents/)
+
 # Electronic Graph Paper Theory (EGPT): Consciousness, the Universe, and Everything
 - *The Question:* How far can we scale AI?
 - *The Problem:* AI datacenters already consume the energy of small nations. The brain does the same work on 20 watts — the energy of a small light bulb. Can we scale AI without cooking the planet?
 - *The Goal:* A working computing architecture as efficient as the brain, grounded in a rigorous mathematical proof of why that efficiency is possible.
-- *The Solution:* Random walks. This repository contains the formal proofs — 81 machine-verified theorems — showing that computation, physics, and information theory are the same thing, and that the brain's "low-precision statistical" approach is not a limitation but the optimal architecture.
+- *The Solution:* Random walks. This repository contains the formal proofs — 85 machine-verified theorems — showing that computation, physics, and information theory are the same thing, and that the brain's "low-precision statistical" approach is not a limitation but the optimal architecture.
 
 ## What This Repository Contains
-About 30,000 lines of math proofs and computer code that proves three ideas from three men who knew each other and each changed history — and one from the man who carried forward their torch and, in so doing, will change history again:
+About 30,000 lines of math proofs and computer code that proves five ideas from five people — three who knew each other and each changed history, one who carried forward their torch, and one who found the flaw in the foundation everyone else was standing on:
 
 1. **Ulam's idea** — the Centimeter-Gram-Second (CGS) system of physical units can be reconstructed from a random walk (see "Physics for Mathematicians" in *Science, Computers, and People*, Ulam 1986, edited posthumously by Gian-Carlo Rota; recounted in Rota's *Indiscrete Thoughts*, 1997).
 2. **Von Neumann's idea** — an ultra-efficient AI computer can be built that operates like the brain: statistically, not arithmetically (see *The Computer and the Brain*, von Neumann 1958, posthumous).
 3. **Einstein's idea** — all of modern physics can be derived from a purely algebraic, discrete theory (see letter to Michele Besso, 1954; *The Meaning of Relativity*, 5th ed., 1956, posthumous).
 4. **Rota's idea** — if truth is the record of what actually happened in reality, then entropy is the record of truth. Entropy always adds up — it is the unique measure that does — and any amount of it can be efficiently coded into a finite program. This is Rota's Entropy Theorem (RET): the proof that the logarithm is the only function satisfying all seven axioms of information, and therefore that physics, computation, and information theory share the same mathematical foundation (see Rota's unpublished 400-page manuscript, taught at MIT 1970s–1999; formalized here in Lean 4).
+5. **Abadir's idea** — Cantor's diagonalization argument makes a hidden assumption: it allows non-unique representations. In an information space where every element is maximally compressed (the Fundamental Theorem of Arithmetic), all combinations are already accounted for. The Continuum Hypothesis is not independent of mathematics — it is decidable, because the EGPT hierarchy, which is bijective with the standard mathematical universe (ℕ, ℤ, ℚ, ℝ), collapses all infinities onto ℕ via the Beth staircase. Hilbert's First Problem, resolved. ([`ContinuumHypothesis.lean`](Lean/EGPT/NumberTheory/ContinuumHypothesis.lean))
 
-- **Lean Proofs: P_eq_NP, RealityIsComputation, ContinuousFieldsAreComputation** — fully constructive and proven bijectively equivalent to the standard mathematical universe (ℕ, ℤ, ℚ, ℝ) with matching Beth cardinalities and isomorphic arithmetic, 81 machine-verified theorems build the chain from number theory through entropy through complexity through physics. No `sorry`, no custom axioms.
+- **Lean Proofs: P_eq_NP, RealityIsComputation, ContinuousFieldsAreComputation, ContinuumHypothesis** — fully constructive and proven bijectively equivalent to the standard mathematical universe (ℕ, ℤ, ℚ, ℝ) with matching Beth cardinalities and isomorphic arithmetic, 85 machine-verified theorems build the chain from number theory through entropy through complexity through physics. No `sorry`, no custom axioms.
 - **EGPTMath** — A pedagogical integer-only math library that turns FLOPs into IOPs. 157 tests, 100% pass rate.
 - **Faster Abadir Transform (FAT)** — Public benchmark: Quantum Fourier Transform on a 1.2 GHz CPU, 768 MB RAM single thread — ~1.277 billion× faster than 2,048-GPU ShorGPU supercomputer.
 
-**Skeptical? Start here: [Skeptic's Guide](SKEPTICS_GUIDE.md)** — a step-by-step walk-through of the entire proof chain.
+**Skeptical?** Good. Pick the idea that bothers you most:
+
+| Claim | Entry Point | Key Proof |
+|-------|-------------|-----------|
+| Ulam: Numbers are random walks | [EGPT Number Theory](Lean/EGPT/NumberTheory/Core.lean) | `ParticlePath ≃ ℕ` bijection |
+| Von Neumann: The brain is right, arithmetic is wrong | [P = NP Proof](Lean/EGPT/Complexity/PPNP.lean) | `P_eq_NP` via `Iff.rfl` |
+| Einstein: Continuous fields are discrete | [Reality Is Computation](Lean/EGPT/Physics/RealityIsComputation.lean) | `ContinuousFieldsAreComputation` |
+| Rota: All entropy is Shannon entropy | [Rota's Entropy Theorem](Lean/EGPT/Entropy/RET.lean) | `RET_All_Entropy_Is_Scaled_Shannon_Entropy` |
+| Abadir: The Continuum Hypothesis is decidable | [CH Proof](Lean/EGPT/NumberTheory/ContinuumHypothesis.lean) | `EGPT_ContinuumHypothesis` |
+
+Or start with the full walk-through: [Skeptic's Guide](SKEPTICS_GUIDE.md)
+
+### For AI Agents
+
+- [`AGENTS.md`](AGENTS.md) — Navigation, build commands, proof dependency graph
+- [`llms.txt`](llms.txt) — Lightweight project summary with links
+- Per-directory detailed instructions: [`Lean/CLAUDE.md`](Lean/CLAUDE.md), [`EGPTMath/CLAUDE.md`](EGPTMath/CLAUDE.md), [`content/CLAUDE.md`](content/CLAUDE.md), [`www/CLAUDE.md`](www/CLAUDE.md)
 
 ## Back for more?
 If you are able, or willing, to slog through 30,000 lines of code without understanding the highlevel then, by all means, do your thing and get back to it. I just can't do that. 
@@ -87,7 +106,7 @@ The proof chain runs from the ground up — deriving numbers from a physical ran
 
 - **Wave-Particle Duality Disproved** — Bose-Einstein statistics are fully explained by deterministic classical particle paths. No wave-particle duality required. ([`WaveParticleDualityDisproved.lean`](Lean/PPNP/Proofs/WaveParticleDualityDisproved.lean))
 
-All [81 theorems, sorry-free, no custom axioms](Lean/EGPT_PROOFS_VALIDATION.md) — only Lean's three built-in axioms (`propext`, `Quot.sound`, `Classical.choice`).
+All [85 theorems, sorry-free, no custom axioms](Lean/EGPT_PROOFS_VALIDATION.md) — only Lean's three built-in axioms (`propext`, `Quot.sound`, `Classical.choice`).
 
 ---
 
@@ -172,7 +191,7 @@ The chain from random walks to computable consciousness:
 | [**SKEPTICS_GUIDE.md**](SKEPTICS_GUIDE.md) | Step-by-step audited proof chain walk-through |
 | [**EGPT_STORY.md**](EGPT_STORY.md) | The full narrative — knowledge passed from von Neumann → Ulam → Rota |
 | [**Lean/EGPT/PeqNP_Proof_README.md**](Lean/EGPT/PeqNP_Proof_README.md) | Detailed P=NP proof walkthrough |
-| [**Lean/EGPT_PROOFS_VALIDATION.md**](Lean/EGPT_PROOFS_VALIDATION.md) | Build verification: 81 theorems, sorry-free, axiom inventory |
+| [**Lean/EGPT_PROOFS_VALIDATION.md**](Lean/EGPT_PROOFS_VALIDATION.md) | Build verification: 85 theorems, sorry-free, axiom inventory |
 
 ---
 
@@ -220,7 +239,7 @@ cd EGPTMath && npm install && node test/EGPTTestSuite.js
 open www/EGPTNumberUniformity.html
 ```
 
-81 theorems. No `sorry`. No custom axioms. Every step machine-verified by Lean's kernel.
+85 theorems. No `sorry`. No custom axioms. Every step machine-verified by Lean's kernel.
 
 ---
 
@@ -260,11 +279,17 @@ The intellectual lineage of this work runs through three people who knew each ot
 
 I'm Essam Abadir. Rota was my professor at MIT. The knowledge passed from von Neumann to Ulam, from Ulam to Rota, and from Rota to his students. To be upfront: they answered most of these questions before I was born. I was lucky enough to be handed the answers.
 
-My contribution was finding the flaw in the foundation everyone else was standing on.
+My contribution was finding the flaw in the foundation everyone else was standing on: Cantor's diagonalization argument makes a hidden assumption — it allows non-unique representations. In an information space where every element is maximally compressed, the "new" number Cantor constructs is already accounted for. This insight, formalized as the EGPT Beth staircase, makes the Continuum Hypothesis decidable — Hilbert's First Problem, resolved. The full argument and machine-verified proof are in [`ContinuumHypothesis.lean`](Lean/EGPT/NumberTheory/ContinuumHypothesis.lean).
 
-Cantor's diagonalization — the proof that the real numbers are "uncountably" larger than the natural numbers — works by constructing a new real number that differs from every number on a list. The argument is so elegant it has been treated as unassailable for over a century. But it makes a hidden assumption: it allows non-unique symbols in the set. The number 45 and the number 90 are treated as distinct codes, but if you respect the Fundamental Theorem of Arithmetic — the unique prime factorization that is the "Shannon coding" of numbers — then 45 is {3,3,5} and 90 is {2,3,3,5}. Neither introduces a new symbol. Every composite is just a rearrangement of primes that are already in the alphabet. Cantor's diagonal construction builds "new" numbers from combinations of existing ones, but in an information space where every element is maximally compressed, all such combinations are already accounted for. There is nothing new to construct.
+The EGPT hierarchy is not a restricted subsystem — it is bijective with the standard mathematical universe:
 
-You can see this directly in the code. `ParticlePath` in `Core.lean` is defined as a maximally compressed `List Bool` — all `true`, length equals value. There is no redundant information; every path is informationally primitive. The same property carries through the entire hierarchy: `ChargedParticlePath ≃ ℤ`, `ParticleHistoryPMF ≃ ℚ`, `ParticleFuturePDF ≃ ℝ`. When you build number theory in this space, there is no gap between defining a problem and solving it. The "exponential blowup" between search and verification is an artifact of a redundant representation, not a property of the mathematics. Remove the redundancy, and the blowup vanishes.
+- `ParticlePath ≃ ℕ` — cardinality beth 0
+- `ChargedParticlePath ≃ ℤ` — cardinality beth 0
+- `ParticleHistoryPMF ≃ ℚ` — cardinality beth 0
+- `ParticleFuturePDF ≃ ℝ` — cardinality beth 1
+- `Nat_L n` — cardinality beth n, for all n : ℕ
+
+Every type lives at some level with cardinality `beth n`. Since there is no natural number between `k` and `k + 1`, there is no cardinality between consecutive beth levels. All infinities collapse onto ℕ. The Continuum Hypothesis and the Generalized Continuum Hypothesis are both decidably true.
 
 It took me 35 years after Rota's class to see it clearly. The Lean formalization is the proof that the insight is correct. The FAT benchmark is the proof that it matters in practice.
 
@@ -274,4 +299,7 @@ For the full story: **[EGPT_STORY.md](EGPT_STORY.md)**
 
 ## License
 
-Community source under the [DeSciX Community Agreement](content/Papers/). Working with this code is a job offer, not a handout.
+Community source under the [DeSciX Community License Membership Agreement (DCMA)](DeSciX_Community_License_v1.pdf) v1.0.
+See [LICENSE](LICENSE) for a summary of key terms.
+
+Open inside the DeSciX Community, value-return outside. Working with this code is a job offer, not a handout.

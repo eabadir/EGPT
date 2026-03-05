@@ -385,3 +385,9 @@ theorem P_eq_NP : P = NP := by
   -- The definitions are now syntactically identical. The goal is of the form `A ↔ A`.
   -- `Iff.rfl` proves this reflexively.
   exact Iff.rfl
+
+-- EGPT — Electronic Graph Paper Theory
+-- Copyright (C) 2026 Essam Abadir
+-- Licensed under the DeSciX Community Source Code License (DCSL) v1.0.
+-- See LICENSE and DeSciX_Community_License_v1.pdf in the repository root.
+-- Provided WITHOUT ANY WARRANTY. See the DCSL for details.

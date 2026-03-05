@@ -122,3 +122,9 @@ theorem ContinuousFieldsAreComputation (_ef : EGPT.Entropy.RET.EntropyFunction) 
   exact RECT_Entropy_to_Program H_value
 
 end EGPT.Physics.RealityIsComputation
+
+-- EGPT — Electronic Graph Paper Theory
+-- Copyright (C) 2026 Essam Abadir
+-- Licensed under the DeSciX Community Source Code License (DCSL) v1.0.
+-- See LICENSE and DeSciX_Community_License_v1.pdf in the repository root.
+-- Provided WITHOUT ANY WARRANTY. See the DCSL for details.

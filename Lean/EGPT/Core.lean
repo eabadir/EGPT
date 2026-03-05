@@ -79,3 +79,9 @@ def ComputerInstruction := Bool
 /-- A sequence of choices/instructions forming the "program" or "path description".
     This is conceptually the Turing Machine's input tape. -/
 def ComputerTape := List ComputerInstruction
+
+-- EGPT — Electronic Graph Paper Theory
+-- Copyright (C) 2026 Essam Abadir
+-- Licensed under the DeSciX Community Source Code License (DCSL) v1.0.
+-- See LICENSE and DeSciX_Community_License_v1.pdf in the repository root.
+-- Provided WITHOUT ANY WARRANTY. See the DCSL for details.

@@ -51,6 +51,17 @@ const SECTIONS = [
     ],
   },
   {
+    title: 'Number Theory — Continuum Hypothesis: CH & GCH Decidable (Hilbert #1)',
+    description: 'The Continuum Hypothesis and Generalized CH are decidable and true. The EGPT beth staircase (Nat_L n with cardinality beth n) is bijective with the standard mathematical universe and has no gaps between consecutive cardinalities.',
+    file: 'EGPT/NumberTheory/ContinuumHypothesis.lean',
+    theorems: [
+      'EGPT.NumberTheory.ContinuumHypothesis.EGPT_cardinality_is_beth',
+      'EGPT.NumberTheory.ContinuumHypothesis.EGPT_ContinuumHypothesis',
+      'EGPT.NumberTheory.ContinuumHypothesis.EGPT_GeneralizedContinuumHypothesis',
+      'EGPT.NumberTheory.ContinuumHypothesis.EGPT_all_infinities_indexed_by_Nat',
+    ],
+  },
+  {
     title: 'Number Theory — Filter: RejectionFilter & Probability',
     description: 'The rejection filter mechanism that carves solution spaces from constraint satisfaction problems.',
     file: 'EGPT/NumberTheory/Filter.lean',

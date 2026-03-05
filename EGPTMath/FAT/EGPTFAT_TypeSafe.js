@@ -2,7 +2,11 @@
 // TYPE-SAFE FAT INTERFACE: Preventing Domain Confusion
 // =============================================================================
 
-import { EQFT_CANONICAL, IEQFT_CANONICAL, isPowerOfTwo } from './EGPTFAT.js';
+import { fat as EQFT_CANONICAL, ifat as IEQFT_CANONICAL } from './EGPTFAT.js';
+
+function isPowerOfTwo(n) {
+    return n > 0 && (n & (n - 1)) === 0;
+}
 import { 
     TimeDomainSignal, 
     FrequencyDomainSpectrum,

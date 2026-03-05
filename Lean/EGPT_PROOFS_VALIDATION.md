@@ -1,8 +1,8 @@
 # EGPT Build Verification Report
 
-> Generated: 2026-03-04 21:23:55 UTC  
+> Generated: 2026-03-05 19:58:47 UTC  
 > Toolchain: `leanprover/lean4:v4.21.0-rc3`  
-> Elapsed: 18.2s
+> Elapsed: 18.1s
 
 | Check | Result |
 |-------|--------|
@@ -10,9 +10,9 @@
 | `lake build PPNP` | PASS |
 | sorry-free | PASS |
 | No custom axioms | PASS |
-| Theorems verified | **81** |
+| Theorems verified | **85** |
 
-**Verdict: PASS** — All 81 theorems are sorry-free and use only Lean's built-in axioms.
+**Verdict: PASS** — All 85 theorems are sorry-free and use only Lean's built-in axioms.
 
 ---
 
@@ -45,6 +45,19 @@ Source: [`EGPT/NumberTheory/Core.lean`](EGPT/NumberTheory/Core.lean)
 | `toNat_mul_ParticlePath` | `propext` | OK |
 | `eval` | `propext` | OK |
 | `cardinal_of_egpt_level` | `propext`, `Classical.choice`, `Quot.sound` | OK |
+
+## Number Theory — Continuum Hypothesis: CH & GCH Decidable (Hilbert #1)
+
+The Continuum Hypothesis and Generalized CH are decidable and true. The EGPT beth staircase (Nat_L n with cardinality beth n) is bijective with the standard mathematical universe and has no gaps between consecutive cardinalities.
+
+Source: [`EGPT/NumberTheory/ContinuumHypothesis.lean`](EGPT/NumberTheory/ContinuumHypothesis.lean)
+
+| Theorem | Axioms | Status |
+|---------|--------|--------|
+| `EGPT_cardinality_is_beth` | `propext`, `Classical.choice`, `Quot.sound` | OK |
+| `EGPT_ContinuumHypothesis` | `propext`, `Classical.choice`, `Quot.sound` | OK |
+| `EGPT_GeneralizedContinuumHypothesis` | `propext`, `Classical.choice`, `Quot.sound` | OK |
+| `EGPT_all_infinities_indexed_by_Nat` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 
 ## Number Theory — Filter: RejectionFilter & Probability
 

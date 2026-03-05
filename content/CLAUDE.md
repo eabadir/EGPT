@@ -12,6 +12,7 @@ LaTeX source and PDFs of research papers:
 - `RET_Paper/` — Rota's Entropy Theorem original proof
 - `Without_Attraction_There_Is_Nothing/` — Physics applications, Feynman diagrams
 - `Entropy Game/` — Entropy-based game theory
+- `ContinuumHypothesis/` — The Continuum Hypothesis Is Decidable (Hilbert's First Problem)
 - `Derivation of Gravity from Random Walks - Nile Abadir.pdf` — Gravity from stochastic processes
 
 ### `Books/`

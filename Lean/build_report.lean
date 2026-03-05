@@ -36,6 +36,14 @@ A clean run (exit code 0) with no `sorry` in the output confirms:
 #print axioms EGPT.NumberTheory.Core.cardinal_of_egpt_level
 
 -- ═══════════════════════════════════════════════════════════════
+-- NumberTheory/ContinuumHypothesis: CH & GCH Decidable (Hilbert #1)
+-- ═══════════════════════════════════════════════════════════════
+#print axioms EGPT.NumberTheory.ContinuumHypothesis.EGPT_cardinality_is_beth
+#print axioms EGPT.NumberTheory.ContinuumHypothesis.EGPT_ContinuumHypothesis
+#print axioms EGPT.NumberTheory.ContinuumHypothesis.EGPT_GeneralizedContinuumHypothesis
+#print axioms EGPT.NumberTheory.ContinuumHypothesis.EGPT_all_infinities_indexed_by_Nat
+
+-- ═══════════════════════════════════════════════════════════════
 -- NumberTheory/Filter: RejectionFilter & probability
 -- ═══════════════════════════════════════════════════════════════
 #print axioms EGPT.NumberTheory.Filter.RejectionFilter.get_witness

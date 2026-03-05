@@ -4,6 +4,7 @@ import EGPT.Basic
 import EGPT.Constraints
 -- Number Theory
 import EGPT.NumberTheory.Core
+import EGPT.NumberTheory.ContinuumHypothesis
 import EGPT.NumberTheory.Filter
 import EGPT.NumberTheory.Analysis
 -- Complexity

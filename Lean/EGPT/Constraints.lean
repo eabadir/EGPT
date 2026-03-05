@@ -905,3 +905,9 @@ by
   -- Now the goal is: List.length (encodeClause (List.mergeSort c literal_le_bool)) = List.length (encodeClause c)
   apply encodeClause_length_is_perm_invariant
   exact List.mergeSort_perm c _
+
+-- EGPT — Electronic Graph Paper Theory
+-- Copyright (C) 2026 Essam Abadir
+-- Licensed under the DeSciX Community Source Code License (DCSL) v1.0.
+-- See LICENSE and DeSciX_Community_License_v1.pdf in the repository root.
+-- Provided WITHOUT ANY WARRANTY. See the DCSL for details.

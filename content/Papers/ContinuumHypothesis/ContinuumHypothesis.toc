@@ -1,0 +1,28 @@
+\contentsline {section}{\numberline {I}Introduction: The Flaw in the Foundation}{1}{section.0.1}%
+\contentsline {section}{\numberline {II}Background: The Independence of CH}{2}{section.0.2}%
+\contentsline {subsection}{\numberline {A}Cantor's Theorem (1891)}{2}{subsection.0.2.1}%
+\contentsline {subsection}{\numberline {B}G\"odel's Consistency (1940)}{2}{subsection.0.2.2}%
+\contentsline {subsection}{\numberline {C}Cohen's Independence (1963)}{2}{subsection.0.2.3}%
+\contentsline {subsection}{\numberline {D}The Standard Conclusion}{2}{subsection.0.2.4}%
+\contentsline {subsection}{\numberline {E}Where the Independence Comes From}{2}{subsection.0.2.5}%
+\contentsline {section}{\numberline {III}The EGPT Number Hierarchy}{2}{section.0.3}%
+\contentsline {subsection}{\numberline {A}ParticlePath: The Atom of Number}{3}{subsection.0.3.1}%
+\contentsline {subsection}{\numberline {B}The Full Hierarchy}{3}{subsection.0.3.2}%
+\contentsline {subsection}{\numberline {C}The InterLevel Operator and the Beth Staircase}{3}{subsection.0.3.3}%
+\contentsline {section}{\numberline {IV}Resolution of the Continuum Hypothesis}{4}{section.0.4}%
+\contentsline {subsection}{\numberline {A}The Key Observation}{4}{subsection.0.4.1}%
+\contentsline {subsection}{\numberline {B}CH Is Decidably True}{4}{subsection.0.4.2}%
+\contentsline {subsection}{\numberline {C}GCH Is Decidably True}{4}{subsection.0.4.3}%
+\contentsline {subsection}{\numberline {D}All Infinities Collapse Onto $\mathbb {N}$}{4}{subsection.0.4.4}%
+\contentsline {section}{\numberline {V}Why the Independence Dissolves}{4}{section.0.5}%
+\contentsline {subsection}{\numberline {A}The Source of Independence in ZFC}{4}{subsection.0.5.1}%
+\contentsline {subsection}{\numberline {B}Why EGPT Eliminates the Freedom}{5}{subsection.0.5.2}%
+\contentsline {subsection}{\numberline {C}Cantor's Diagonalization Revisited}{5}{subsection.0.5.3}%
+\contentsline {section}{\numberline {VI}The Lean 4 Formalization}{5}{section.0.6}%
+\contentsline {subsection}{\numberline {A}Axiom Inventory}{5}{subsection.0.6.1}%
+\contentsline {subsection}{\numberline {B}Decidability}{6}{subsection.0.6.2}%
+\contentsline {section}{\numberline {VII}Implications}{6}{section.0.7}%
+\contentsline {subsection}{\numberline {A}Hilbert's First Problem}{6}{subsection.0.7.1}%
+\contentsline {subsection}{\numberline {B}Set-Theoretic Pluralism}{6}{subsection.0.7.2}%
+\contentsline {subsection}{\numberline {C}The Address Is the Map}{6}{subsection.0.7.3}%
+\contentsline {section}{\numberline {VIII}Conclusion}{6}{section.0.8}%

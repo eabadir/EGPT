@@ -1649,3 +1649,9 @@ theorem H_canonical_uniform_eq_C_shannon
   -- Need stdShannonEntropyLn p_unif_k = Real.log k
   rw [stdShannonEntropyLn_canonicalUniform_eq_log_k k hk_pos]
   -- Goal is now an identity: C * log k = C * log k
+
+-- EGPT — Electronic Graph Paper Theory
+-- Copyright (C) 2026 Essam Abadir
+-- Licensed under the DeSciX Community Source Code License (DCSL) v1.0.
+-- See LICENSE and DeSciX_Community_License_v1.pdf in the repository root.
+-- Provided WITHOUT ANY WARRANTY. See the DCSL for details.

@@ -41,9 +41,37 @@ open www/EGPTNumberUniformity.html
 - `EGPT_STORY.md` — Full narrative exposition (the original README, 46KB)
 - `Lean/EGPT/PeqNP_Proof_README.md` — Detailed P=NP proof walkthrough
 - `Lean/EGPT/Complexity/PPNP.lean` — The `P_eq_NP` theorem
-- `Lean/EGPT/NumberTheory/Core.lean` — ParticlePath ↔ ℕ bijection
+- `Lean/EGPT/NumberTheory/Core.lean` — ParticlePath ↔ ℕ bijection, Beth hierarchy
+- `Lean/EGPT/NumberTheory/ContinuumHypothesis.lean` — CH & GCH decidable in EGPT (Hilbert #1)
 - `content/pyFRAQTL/FRAQTL_WhitePaper.md` — FRAQTL factorization algorithm
+
+## Agent Team
+
+Seven specialized agents in `.claude/agents/` keep the repo layers synchronized:
+
+| Agent | Model | Role |
+|-------|-------|------|
+| `@egpt-orchestrator` | opus | Assesses cross-layer sync needs, delegates to specialists. Never edits directly. |
+| `@lean-prover` | opus | Writes and verifies Lean 4 proofs. Guards proof chain invariants. |
+| `@js-engineer` | sonnet | Translates Lean concepts into pedagogical JS in EGPTMath. |
+| `@doc-writer` | sonnet | Maintains CLAUDE.md, README, proof walkthroughs, and narratives. |
+| `@demo-builder` | sonnet | Creates interactive browser demos in www/. |
+| `@content-author` | sonnet | Drafts papers, whitepapers, and story-form narratives in content/. |
+| `@sync-validator` | haiku | Validates cross-layer consistency (theorem counts, test counts, file paths). |
+
+**IMPORTANT — Orchestrator Usage**:
+- **Proactively invoke `@egpt-orchestrator`** when work is conceptually significant enough to merit reflection across multiple layers — e.g., a new Lean proof (like decidability of the Continuum Hypothesis) should cascade into papers, documentation, JS demonstrations, and potentially web demos. If a result would be noteworthy in an academic or educational context, the orchestrator should assess which layers need to reflect it.
+- **Always consult `@egpt-orchestrator` during planning.** Before designing an implementation approach for any non-trivial task, invoke the orchestrator to assess cross-layer impact and identify which specialists should be involved.
+- **After completing work** that modifies files across layers (Lean proofs, EGPTMath code, documentation, web demos, or content), invoke `@egpt-orchestrator` to assess what downstream updates are needed.
+- For quick consistency checks, invoke `@sync-validator` directly.
+
+## AI Navigation
+
+Tool-agnostic AI navigation files complement this Claude-specific guide:
+- [`AGENTS.md`](AGENTS.md) — For Cursor, GitHub Copilot, and generic AI agents
+- [`llms.txt`](llms.txt) — Lightweight entry point (llms.txt standard)
+- [`Lean/PROOF_DEPENDENCIES.md`](Lean/PROOF_DEPENDENCIES.md) — Full proof dependency graph with theorem inventory
 
 ## License
 
-DeSciX (Decentralized Science) Community Agreement. Community source — transparent ideas, shared IP.
+[DeSciX Community License Membership Agreement (DCMA)](DeSciX_Community_License_v1.pdf) v1.0 — community source, open inside the DeSciX Community, value-return outside. See [LICENSE](LICENSE) for key terms. Non-members receive no license of any kind.
