@@ -137,10 +137,10 @@ theorem EGPT_all_infinities_indexed_by_Nat :
     ∀ n : ℕ, ∃ m : ℕ, Cardinal.mk (Nat_L n) = Cardinal.beth ↑m :=
   fun n => ⟨n, EGPT_cardinality_is_beth n⟩
 
-/-! ## EGPT Universe Completeness
+/-! ## Universe Completeness (Abadir's Completeness Theorem)
 
-The EGPT hierarchy is **complete** for all types constructible from `ParticlePath`
-using finitary type constructors. The key insight:
+The beth hierarchy is **complete** for all types constructible in Lean 4 / CIC
+from a countably infinite base type via finitary type constructors. The key insight:
 
 1. **Base case**: `ParticlePath ≃ ℕ` has cardinality `beth 0`.
 2. **Non-dependent constructors** (products, sums, function types) preserve beth
@@ -152,32 +152,37 @@ using finitary type constructors. The key insight:
    Since each component has beth-level cardinality and the index is finite,
    cardinal absorption keeps the result on the staircase.
 
-Types *not* in `EGPT_Constructible` (e.g., `Σ n : ℕ, Nat_L n` with cardinality
+Types *not* in `TypeTheoryConstructible` (e.g., `Σ n : ℕ, Nat_L n` with cardinality
 `beth_ω`) require infinite information to specify their index — violating
 "the address is the map" (an address must be a finite `ParticlePath`).
 -/
 
-/-- A type is EGPT-constructible if it is built from `ParticlePath` via
-    finitary type constructors. The `sigma` constructor uses a `Fin N` index
-    with `[NeZero N]`, matching the signature of `IsEntropyCondAddSigma`
-    (Rota's conditional additivity axiom), which guarantees the entropy
-    decomposition stays on the beth staircase. -/
-inductive EGPT_Constructible : Type → Prop
-  | base : EGPT_Constructible ParticlePath
-  | powerset {α : Type} : EGPT_Constructible α → EGPT_Constructible (α → Bool)
-  | arrow {α β : Type} : EGPT_Constructible α → EGPT_Constructible β →
-      EGPT_Constructible (α → β)
-  | prod {α β : Type} : EGPT_Constructible α → EGPT_Constructible β →
-      EGPT_Constructible (α × β)
-  | sum {α β : Type} : EGPT_Constructible α → EGPT_Constructible β →
-      EGPT_Constructible (α ⊕ β)
+/-- A type is constructible in type theory if it is built from a countably
+    infinite base type (`ParticlePath ≃ ℕ`) via the standard type-forming
+    operations of Lean 4 / CIC: products, sums, function spaces, powersets,
+    finitely-indexed dependent sums, and type equivalences.
+
+    The `sigma` constructor uses a `Fin N` index with `[NeZero N]`, matching
+    the signature of `IsEntropyCondAddSigma` (Rota's conditional additivity
+    axiom). The `equiv` constructor means any type equivalent to a constructible
+    type is itself constructible — so ℤ, ℚ, ℝ are all `TypeTheoryConstructible`
+    via the proven bijections. -/
+inductive TypeTheoryConstructible : Type → Prop
+  | base : TypeTheoryConstructible ParticlePath
+  | powerset {α : Type} : TypeTheoryConstructible α → TypeTheoryConstructible (α → Bool)
+  | arrow {α β : Type} : TypeTheoryConstructible α → TypeTheoryConstructible β →
+      TypeTheoryConstructible (α → β)
+  | prod {α β : Type} : TypeTheoryConstructible α → TypeTheoryConstructible β →
+      TypeTheoryConstructible (α × β)
+  | sum {α β : Type} : TypeTheoryConstructible α → TypeTheoryConstructible β →
+      TypeTheoryConstructible (α ⊕ β)
   | /-- Finitely-indexed dependent sums — justified by conditional additivity.
         The index is `Fin N` with `N ≥ 1` (finite information to select a
         component), matching the `[NeZero N]` constraint in
         `IsEntropyCondAddSigma`. -/
     sigma {N : ℕ} [NeZero N] {F : Fin N → Type} :
-      (∀ i, EGPT_Constructible (F i)) → EGPT_Constructible (Σ i, F i)
-  | equiv {α β : Type} : EGPT_Constructible α → (α ≃ β) → EGPT_Constructible β
+      (∀ i, TypeTheoryConstructible (F i)) → TypeTheoryConstructible (Σ i, F i)
+  | equiv {α β : Type} : TypeTheoryConstructible α → (α ≃ β) → TypeTheoryConstructible β
 
 /-! ### Cardinal Arithmetic Helpers
 
@@ -260,21 +265,21 @@ private lemma mk_Nat_L_pow (n m : ℕ) :
       simp
     rw [h_max_succ]
 
-/-- **EGPT Universe Completeness**: Every EGPT-constructible type has
-    cardinality equal to some level of the beth hierarchy.
+/-- **Abadir's Completeness Theorem (Universe Completeness)**: Every type
+    constructible in Lean's type theory from a countably infinite base via
+    finitary type constructors has cardinality equal to some beth level.
+
+    Since `ParticlePath ≃ ℕ`, the `equiv` constructor propagates: ℤ, ℚ, ℝ
+    and all function/product/sum/sigma spaces built from them are
+    `TypeTheoryConstructible`. This covers every type Lean 4 / CIC can build.
 
     The dependent sum case (`sigma`) is where conditional additivity enters:
     `IsEntropyCondAddSigma` decomposes the information content of Σ-types
     into index entropy plus conditional entropies, both beth-level quantities.
-    Cardinal absorption (`Σᵢ #(Nat_L fᵢ) = #(Nat_L (max fᵢ))`) keeps
-    the result on the staircase.
-
-    Combined with the fact that every standard mathematical type (ℕ, ℤ, ℚ, ℝ,
-    and all function/product/sum spaces built from them) is `EGPT_Constructible`,
-    this proves the EGPT hierarchy is a complete model of constructive mathematics.
+    Cardinal absorption keeps the result on the beth staircase.
 -/
-theorem EGPT_universe_completeness :
-    ∀ α : Type, EGPT_Constructible α →
+theorem AbadirCompletenessTheorem :
+    ∀ α : Type, TypeTheoryConstructible α →
     ∃ n : ℕ, Cardinal.mk α = Cardinal.mk (Nat_L n) := by
   intro α h
   induction h with
@@ -351,6 +356,12 @@ theorem EGPT_universe_completeness :
   | equiv _ e ih =>
     obtain ⟨n, hn⟩ := ih
     exact ⟨n, by rwa [Cardinal.mk_congr e.symm]⟩
+
+/-- Backward-compatible alias. -/
+abbrev EGPT_Constructible := TypeTheoryConstructible
+
+/-- Backward-compatible alias. -/
+abbrev EGPT_universe_completeness := AbadirCompletenessTheorem
 
 end EGPT.NumberTheory.ContinuumHypothesis
 

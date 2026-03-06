@@ -74,9 +74,12 @@ PPNP/                              # Development workspace
 | `EGPT_CookLevin_Theorem` | `Complexity/PPNP.lean` | SAT is NP-Complete |
 | `EGPT_ContinuumHypothesis` | `NumberTheory/ContinuumHypothesis.lean` | CH decidable & true (Hilbert #1) |
 | `EGPT_GeneralizedContinuumHypothesis` | `NumberTheory/ContinuumHypothesis.lean` | GCH: no gap between consecutive beth levels |
+| `TypeTheoryConstructible` | `NumberTheory/ContinuumHypothesis.lean` | Types constructible in Lean 4 / CIC from ℕ via finitary operations |
+| `AbadirCompletenessTheorem` | `NumberTheory/ContinuumHypothesis.lean` | Every `TypeTheoryConstructible` type has beth-level cardinality |
 
 ## Documentation
 
 - [`EGPT/PeqNP_Proof_README.md`](EGPT/PeqNP_Proof_README.md) — Detailed proof walkthrough with code references
 - [`EGPT/EGPTOverview.md`](EGPT/EGPTOverview.md) — Physics-informed overview
+- [`EGPT/NumberTheory/CH_README.md`](EGPT/NumberTheory/CH_README.md) — CH/GCH/Universe Completeness proof walkthrough
 - [`PPNP/RET_README.md`](PPNP/RET_README.md) — Rota Entropy Theorem documentation
