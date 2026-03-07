@@ -67,6 +67,18 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/CH_README.md</loc>
+    <lastmod>2026-03-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/CH_SKEPTICS_GUIDE.md</loc>
+    <lastmod>2026-03-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/CLAUDE.md</loc>
     <lastmod>2026-03-07</lastmod>
     <changefreq>monthly</changefreq>
@@ -119,6 +131,42 @@
     <lastmod>2026-03-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/EGPTMath/EGPT_TEST_RESULTS.md</loc>
+    <lastmod>2026-03-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/EGPTMath/EGPT_TEST_RESULTS_FFT.md</loc>
+    <lastmod>2026-03-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/EGPTMath/EGPT_TEST_RESULTS_Main.md</loc>
+    <lastmod>2026-03-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/EGPTMath/EGPT_TEST_RESULTS_PPFBijection.md</loc>
+    <lastmod>2026-03-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/EGPTMath/EGPT_TEST_RESULTS_Polynomial.md</loc>
+    <lastmod>2026-03-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/EGPTMath/EGPT_TEST_RESULTS_Topology.md</loc>
+    <lastmod>2026-03-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/EGPTMath/EGPTranscendental.js</loc>
@@ -181,16 +229,16 @@
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://github.com/eabadir/EGPT/blob/main/EGPTMath/FAT/FAT_TYPE_SAFETY.md</loc>
+    <loc>https://github.com/eabadir/EGPT/blob/main/EGPTMath/FAT/FAT_README.md</loc>
     <lastmod>2026-03-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://github.com/eabadir/EGPT/blob/main/EGPTMath/FAT/README.md</loc>
+    <loc>https://github.com/eabadir/EGPT/blob/main/EGPTMath/FAT/FAT_TYPE_SAFETY.md</loc>
     <lastmod>2026-03-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/EGPTMath/FAT/test/test_EGPTFAT_Canonical.js</loc>
@@ -305,6 +353,18 @@
     <lastmod>2026-03-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/IDEAS.md</loc>
+    <lastmod>2026-03-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/IDEAS_AUDIT_PLAN.md</loc>
+    <lastmod>2026-03-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/LICENSE</loc>
@@ -667,6 +727,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/content/Books/Rota/Indiscrete Thoughts.md</loc>
+    <lastmod>2026-03-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/content/Books/Rota/ReimannHypothesis Rota Draft/LeanOverview.md</loc>
     <lastmod>2026-03-07</lastmod>
     <changefreq>monthly</changefreq>
@@ -703,10 +769,10 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://github.com/eabadir/EGPT/blob/main/content/Books/Ulam/Science Computers And People.pdf</loc>
+    <loc>https://github.com/eabadir/EGPT/blob/main/content/Books/Ulam/Science Computers And People.md</loc>
     <lastmod>2026-03-07</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/content/Books/Von Neumann/0300181116_The Computer Brain.pdf</loc>
@@ -763,6 +829,12 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/content/Notes/Dialgonalization and Indexing.md</loc>
+    <lastmod>2026-03-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/content/Notes/ENIAC and El Capitan.md</loc>
     <lastmod>2026-03-07</lastmod>
     <changefreq>monthly</changefreq>
@@ -811,6 +883,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/content/Papers/Integer_Infinity_Tautology.md</loc>
+    <lastmod>2026-03-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/content/Papers/PPNP_Paper/PprobablyEqualsNP_formal.pdf</loc>
     <lastmod>2026-03-07</lastmod>
     <changefreq>yearly</changefreq>
@@ -829,7 +907,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://github.com/eabadir/EGPT/blob/main/content/SSG_History/Goedel Letter to Von Neumann.pdf</loc>
+    <loc>https://github.com/eabadir/EGPT/blob/main/content/SSG_History/Godel Letter to Von Neumann.pdf</loc>
     <lastmod>2026-03-07</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
@@ -1013,6 +1091,72 @@
     <lastmod>2026-03-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/docs/audit/content-audit.md</loc>
+    <lastmod>2026-03-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/docs/audit/cross-reference-validation.md</loc>
+    <lastmod>2026-03-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/docs/audit/demo-gap-proposals.md</loc>
+    <lastmod>2026-03-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/docs/audit/demos-audit.md</loc>
+    <lastmod>2026-03-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/docs/audit/do-this-first-verification.md</loc>
+    <lastmod>2026-03-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/docs/audit/egptmath-audit.md</loc>
+    <lastmod>2026-03-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/docs/audit/idea-connections.md</loc>
+    <lastmod>2026-03-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/docs/audit/lean-proof-audit.md</loc>
+    <lastmod>2026-03-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/docs/audit/navigation-audit.md</loc>
+    <lastmod>2026-03-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/docs/audit/phase2-validation.md</loc>
+    <lastmod>2026-03-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/docs/audit/phase4-final-validation.md</loc>
+    <lastmod>2026-03-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/docs/proof_graph.json</loc>
