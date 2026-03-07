@@ -88,3 +88,21 @@ EGPT/
 - Use mathlib4 tactics and lemmas when available
 - Document non-obvious proof steps with comments
 - Keep proofs as short and direct as possible — clarity over cleverness
+
+## Ideas Coverage
+
+This agent is responsible for the following ideas within the Lean proof layer:
+
+| Idea | Primary Artifacts | Cross-References |
+|------|------------------|-----------------|
+| **ID1** (Ulam — CGS from a random walk) | `Core.lean` (ParticlePath, RandomWalkPath), `NumberTheory/Core.lean` (ParticlePath ↔ ℕ bijection), `Complexity/Physics.lean` (constrained random walk model) | `EGPTMath/EGPTNumber.js` (PPF encoding mirrors ParticlePath), `content/Books/Ulam/Science Computers And People.md` |
+| **ID2** (Von Neumann — Statistical AI computer) | `Constraints.lean` (CNF encoding), `NumberTheory/Filter.lean` (rejection sampling), `Complexity/Core.lean` (polynomial defs), `Complexity/Tableau.lean` (certificate construction), `Complexity/PPNP.lean` (P=NP) | `EGPTMath/EGPTMath.js` (integer-only engine), `content/Books/Von Neumann/` |
+| **ID3** (Einstein — Algebraic discrete physics) | `Complexity/Physics.lean` (physical computation model), `Physics/Common.lean`, `Physics/BoseEinstein.lean`, `Physics/FermiDirac.lean`, `Physics/MaxwellBoltzmann.lean`, `Physics/PhysicsDist.lean`, `Physics/PhotonicCA.lean`, `Physics/RealityIsComputation.lean` | `EGPTMath/EGPTranscendental.js` (discrete trig), `www/EGPTFactalWave.html` |
+| **ID4** (Rota — Entropy is the record of truth) | `NumberTheory/Analysis.lean` (RET applied), `Entropy/Common.lean` (Rota axioms + RECT/SCT cycles), `Entropy/H.lean` (7 Rota axioms proven for Shannon), `Entropy/RET.lean` (monotonicity, conditional additivity), `Physics/PhysicsDist.lean` (entropy = C x Shannon) | `EGPTMath/EGPTMath.js` (RET Iron Law in JS), `content/Papers/RET_Paper/` |
+| **ID5** (Abadir — CH decidable / unique representations) | `NumberTheory/Core.lean` (ParticlePath ↔ ℕ bijection, Beth hierarchy), `NumberTheory/ContinuumHypothesis.lean` (CH, GCH, AbadirCompletenessTheorem) | `EGPTMath/EGPTNumber.js` (PPF bijection), `content/Papers/ContinuumHypothesis/` |
+
+### Ideas Workflow
+
+- When creating new Lean proofs, tag them with the relevant idea(s) from the ID1--ID5 framework in file-level comments.
+- When updating proofs, check if the change affects the `IDEAS.md` routing tables.
+- Reference `IDEAS.md` as the canonical routing document for mapping theorems to ideas.

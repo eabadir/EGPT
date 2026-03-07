@@ -62,3 +62,22 @@ Reference `GPUHeatDeath.html` and `RotaEntropy/RotaEntropyProperties.html` as ex
 - **Entropy uniformity**: H(p × q) = H(p) + H(q) visually
 - **"Address is the map"**: How defining an address defines the solution
 - **Photonic cellular automata**: Light-based computation models
+
+## Ideas Coverage
+
+This agent is responsible for the following ideas within the web demo layer:
+
+| Idea | Primary Artifacts | Cross-References |
+|------|------------------|-----------------|
+| **ID1** (Ulam — CGS from a random walk) | `www/EGPTFactalWave.html` + `www/js/EGPTFractalWave.js` (random-walk-like collision spawning) | `Lean/EGPT/Core.lean` (ParticlePath), `content/Books/Ulam/Science Computers And People.md` |
+| **ID2** (Von Neumann — Statistical AI computer) | `www/GPUHeatDeath.html` (floating-point failure visualizer) | `EGPTMath/EGPTMath.js` (integer-only engine), `content/Notes/Precision Loss.md` |
+| **ID3** (Einstein — Algebraic discrete physics) | `www/EGPTfractal.html` + `www/js/EGPTfractal.js` (prime-based fractal structure), `www/EGPTFactalWave.html` (photonic CA), `www/GPUHeatDeath.html` (discrete vs continuous) | `Lean/EGPT/Physics/RealityIsComputation.lean` |
+| **ID4** (Rota — Entropy is the record of truth) | `www/EGPTNumberUniformity.html` (single-number entropy), `www/EntropyUniformity.html` (comparative entropy), `www/RotaEntropy/RotaEntropyProperties.html` (Rota's 5 axioms), `www/RotaEntropy/TheGreatestDebate.html` (historical timeline), `www/RotaEntropy/EGPTPrimeShannonCodes.md` (factorization as Shannon codes) | `Lean/EGPT/Entropy/H.lean`, `content/Papers/RET_Paper/` |
+| **ID5** (Abadir — CH decidable / unique representations) | `www/EGPTNumberUniformity.html` (PPF encoding demo), `www/the-address-is-the-map-visualizer/` (P=NP test center, SAT solver) | `Lean/EGPT/NumberTheory/ContinuumHypothesis.lean`, `EGPTMath/EGPTNumber.js` |
+
+### Ideas Workflow
+
+- When creating new demos, tag them with the relevant idea(s) from the ID1--ID5 framework in the demo's inline documentation.
+- When updating demos, check if the change affects the `IDEAS.md` routing tables.
+- Reference `IDEAS.md` as the canonical routing document for mapping demos to ideas.
+- **Coverage gaps to prioritize:** ID1 (random walk to CGS) and ID2 (IOPs vs FLOPs side-by-side) have the weakest demo coverage.

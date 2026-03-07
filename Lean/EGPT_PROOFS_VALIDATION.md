@@ -1,6 +1,6 @@
 # EGPT Build Verification Report
 
-> Generated: 2026-03-05 19:58:47 UTC  
+> Generated: 2026-03-06 UTC  
 > Toolchain: `leanprover/lean4:v4.21.0-rc3`  
 > Elapsed: 18.1s
 
@@ -10,9 +10,9 @@
 | `lake build PPNP` | PASS |
 | sorry-free | PASS |
 | No custom axioms | PASS |
-| Theorems verified | **85** |
+| Theorems verified | **86** |
 
-**Verdict: PASS** — All 85 theorems are sorry-free and use only Lean's built-in axioms.
+**Verdict: PASS** — All 86 theorems are sorry-free and use only Lean's built-in axioms.
 
 ---
 
@@ -48,7 +48,7 @@ Source: [`EGPT/NumberTheory/Core.lean`](EGPT/NumberTheory/Core.lean)
 
 ## Number Theory — Continuum Hypothesis: CH & GCH Decidable (Hilbert #1)
 
-The Continuum Hypothesis and Generalized CH are decidable and true. The EGPT beth staircase (Nat_L n with cardinality beth n) is bijective with the standard mathematical universe and has no gaps between consecutive cardinalities.
+The Continuum Hypothesis and Generalized CH are decidable and true. The EGPT beth staircase (Nat_L n with cardinality beth n) is bijective with the standard mathematical universe and has no gaps between consecutive cardinalities. The Abadir Completeness Theorem proves every type constructible in Lean 4 / CIC from ℕ via finitary operations has beth-level cardinality.
 
 Source: [`EGPT/NumberTheory/ContinuumHypothesis.lean`](EGPT/NumberTheory/ContinuumHypothesis.lean)
 
@@ -58,6 +58,7 @@ Source: [`EGPT/NumberTheory/ContinuumHypothesis.lean`](EGPT/NumberTheory/Continu
 | `EGPT_ContinuumHypothesis` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 | `EGPT_GeneralizedContinuumHypothesis` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 | `EGPT_all_infinities_indexed_by_Nat` | `propext`, `Classical.choice`, `Quot.sound` | OK |
+| `AbadirCompletenessTheorem` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 
 ## Number Theory — Filter: RejectionFilter & Probability
 

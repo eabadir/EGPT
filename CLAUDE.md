@@ -10,7 +10,7 @@ Central principle: **"The address is the map."** In an information space where e
 |-----------|---------|-----------|
 | `Lean/` | Formal Lean 4 proofs (P=NP, Rota Entropy Theorem, number theory) | [`Lean/CLAUDE.md`](Lean/CLAUDE.md) |
 | `EGPTMath/` | Integer-only math library — the practical answer to scalable AI. Replaces FLOPs with IOPs: exact arithmetic, no error accumulation, 157 tests. | [`EGPTMath/CLAUDE.md`](EGPTMath/CLAUDE.md) |
-| `EGPTMath/FAT/` | Faster Abadir Transform (pedagogical) — integer-only FFT/QFT. Demonstrates classical QFT at O((log k)^3). Optimized FAT is proprietary. | [`EGPTMath/FAT/README.md`](EGPTMath/FAT/README.md) |
+| `EGPTMath/FAT/` | Faster Abadir Transform (pedagogical) — integer-only FFT/QFT. Demonstrates classical QFT at O((log k)^3). Optimized FAT is proprietary. | [`EGPTMath/FAT/FAT_README.md`](EGPTMath/FAT/FAT_README.md) |
 | `content/` | Papers, books, reference docs, pyFRAQTL SDK | [`content/CLAUDE.md`](content/CLAUDE.md) |
 | `www/` | Interactive browser demos and visualizers | [`www/CLAUDE.md`](www/CLAUDE.md) |
 | `scripts/` | Build utilities (LaTeX-to-Markdown, file packager for AI indexing) | — |
@@ -55,6 +55,7 @@ node scripts/generate_sitemap.js
 - `Lean/EGPT/PeqNP_Proof_README.md` — Detailed P=NP proof walkthrough
 
 ### Documentation & Navigation
+- `IDEAS.md` — Five foundational ideas (ID1-ID5), artifact maps, and "You might be looking for..." table
 - `EGPT_STORY.md` — Full narrative exposition (the original README, 46KB)
 - `docs/PROOF_GRAPH.md` — Theorem dependency DAG with Mermaid diagrams (AI-optimized)
 - `docs/proof_graph.json` — Machine-readable proof dependency graph (JSON)

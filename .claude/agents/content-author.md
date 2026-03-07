@@ -74,3 +74,22 @@ You'll typically be asked to:
 4. **Integer operations only** — FLOPs → IOPs. All of mathematics with whole numbers.
 
 Always update `content/CLAUDE.md` when adding new papers or directories.
+
+## Ideas Coverage
+
+This agent is responsible for the following ideas within the content layer:
+
+| Idea | Primary Artifacts | Cross-References |
+|------|------------------|-----------------|
+| **ID1** (Ulam — CGS from a random walk) | `Books/Ulam/Science Computers And People.md`, `Books/Rota/Indiscrete Thoughts.md` (Rota on Ulam), `Papers/Without_Attraction_There_Is_Nothing/` (Boltzmann ancestry), `docs/EGPT_Stories/Ulam And Von Neumann TOE.md`, `docs/EGPT_Stories/Story of Nile Deriving Gravity.md`, `Notes/ENIAC and El Capitan.md`, `Notes/Monte Carlo and AI.md` | `Lean/EGPT/Core.lean`, `EGPTMath/EGPTNumber.js` |
+| **ID2** (Von Neumann — Statistical AI computer) | `Books/Von Neumann/0300181116_The Computer Brain.pdf`, `Notes/Precision Loss.md`, `Notes/ENIAC and El Capitan.md`, `Notes/Monte Carlo and AI.md`, `Faster Abadir Transform BP/Executive_Summary.md`, `Faster Abadir Transform BP/Business_Plan.md`, `SSG_History/Godel Letter to Von Neumann.pdf` | `EGPTMath/EGPTMath.js`, `Lean/EGPT/Complexity/PPNP.lean` |
+| **ID3** (Einstein — Algebraic discrete physics) | `Papers/Without_Attraction_There_Is_Nothing/Without_Attraction_There_Is_Nothing.tex`, `SSG_History/Einstein Field_Theory.pdf`, `Papers/Entropy Game/TheEntropyGame.tex` | `Lean/EGPT/Physics/RealityIsComputation.lean`, `www/EGPTFactalWave.html` |
+| **ID4** (Rota — Entropy is the record of truth) | `Books/Rota/1992_Edition/ch8 - Entropy and Information.pdf`, `Books/Rota/Rota-Baclawski-Prob-Theory-79.pdf`, `Books/Rota/Rota_Entropy_Theorem/RET_Excerpt.tex`, `Papers/RET_Paper/`, `Papers/Address_Is_The_Map/`, `Papers/PPNP_Paper/`, `Papers/EGPT_PeqNP/PeqNP_QED.md`, `docs/EGPT_FTA.md`, `docs/EGPT_Stories/The Story of EGPT.md`, `docs/EGPT_Stories/An EGPT Story: The Impossible Audit.md`, `pyFRAQTL/FRAQTL_WhitePaper.md` | `Lean/EGPT/Entropy/H.lean`, `EGPTMath/EGPTMath.js` |
+| **ID5** (Abadir — CH decidable / unique representations) | `Papers/ContinuumHypothesis/ContinuumHypothesis.tex`, `Papers/Integer_Infinity_Tautology.md`, `Papers/AddressMap_And_Crypto/Structural_Security_Of_Crypto_When_PeqNP.tex`, `pyFRAQTL/No Q-Day Threat.md`, `Faster Abadir Transform BP/EGPT and FAT Overview.md` | `Lean/EGPT/NumberTheory/ContinuumHypothesis.lean`, `EGPTMath/EGPTNumber.js` |
+
+### Ideas Workflow
+
+- When creating new papers, stories, or whitepapers, tag them with the relevant idea(s) from the ID1--ID5 framework in the document's front matter or introduction.
+- When updating content artifacts, check if the change affects the `IDEAS.md` routing tables.
+- Reference `IDEAS.md` as the canonical routing document for mapping content to ideas.
+- **Coverage gap to prioritize:** ID3 (Einstein's algebraic discrete physics) is the weakest idea in the content layer -- no standalone focused document exists.

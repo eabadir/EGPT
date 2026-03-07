@@ -31,7 +31,7 @@ You are working in a repository with two equally important layers: **formal proo
 | Directory | Purpose | Detailed Instructions |
 |-----------|---------|----------------------|
 | [`EGPTMath/`](EGPTMath/) | Integer-only math library — FLOPs become IOPs. Exact arithmetic, no error accumulation. 157 tests. | [`EGPTMath/CLAUDE.md`](EGPTMath/CLAUDE.md) |
-| [`EGPTMath/FAT/`](EGPTMath/FAT/) | Faster Abadir Transform (pedagogical) — integer-only FFT/QFT. Classical QFT at O((log k)^3). | [`EGPTMath/FAT/README.md`](EGPTMath/FAT/README.md) |
+| [`EGPTMath/FAT/`](EGPTMath/FAT/) | Faster Abadir Transform (pedagogical) — integer-only FFT/QFT. Classical QFT at O((log k)^3). | [`EGPTMath/FAT/FAT_README.md`](EGPTMath/FAT/FAT_README.md) |
 | [`Lean/`](Lean/) | Formal Lean 4 proofs (85 theorems, sorry-free, axiom-free) | [`Lean/CLAUDE.md`](Lean/CLAUDE.md) |
 | [`content/`](content/) | Papers, books, reference docs, pyFRAQTL SDK | [`content/CLAUDE.md`](content/CLAUDE.md) |
 | [`www/`](www/) | Interactive browser demos and visualizers | [`www/CLAUDE.md`](www/CLAUDE.md) |
@@ -108,7 +108,7 @@ For Mermaid diagrams and a machine-readable JSON graph, see [`docs/PROOF_GRAPH.m
 | **Working implementations (the practical answer to scalable AI)** | |
 | See integer-only math in action | [`EGPTMath/README.md`](EGPTMath/README.md) — FLOPs become IOPs, 157 tests |
 | Understand how unlimited precision works | [`EGPTMath/EGPTMath_Developer_Guide.md`](EGPTMath/EGPTMath_Developer_Guide.md) |
-| See integer-only FFT/QFT (FAT) | [`EGPTMath/FAT/README.md`](EGPTMath/FAT/README.md) — classical QFT, no floats |
+| See integer-only FFT/QFT (FAT) | [`EGPTMath/FAT/FAT_README.md`](EGPTMath/FAT/FAT_README.md) — classical QFT, no floats |
 | Run the test suite | `cd EGPTMath && node test/EGPTTestSuite.js` (157 tests) |
 | See the FRAQTL factorization algorithm | [`content/pyFRAQTL/FRAQTL_WhitePaper.md`](content/pyFRAQTL/FRAQTL_WhitePaper.md) |
 | **Formal proofs (why it works)** | |
@@ -120,7 +120,8 @@ For Mermaid diagrams and a machine-readable JSON graph, see [`docs/PROOF_GRAPH.m
 | Ingest the graph programmatically | [`docs/proof_graph.json`](docs/proof_graph.json) |
 | **Narrative and context** | |
 | Understand the narrative and philosophy | [`EGPT_STORY.md`](EGPT_STORY.md) |
-| Read the academic paper | [`EGPT_Paper.md`](EGPT_Paper.md) |
+| Read the academic paper | [`content/Papers/EGPT_PeqNP/PeqNP_QED.md`](content/Papers/EGPT_PeqNP/PeqNP_QED.md) |
+| Five foundational ideas + artifact maps | [`IDEAS.md`](IDEAS.md) |
 | Explore interactive demos | [`www/`](www/) — open HTML files directly |
 
 ## EGPTMath — The Theory as Runnable Code
@@ -136,7 +137,7 @@ EGPTMath is the pedagogical JavaScript translation of the Lean 4 proofs. Every f
 | FFT as integer computation | FAT: Cooley-Tukey with exact rational twiddle factors | `EGPTMath/FAT/EGPTFAT.js` |
 | QFT on classical hardware | `qft`/`iqft` aliases using FAT pipeline | `EGPTMath/FAT/EGPTFAT.js` |
 
-The FAT variants in `EGPTMath/FAT/` demonstrate that the Quantum Fourier Transform is classically computable with integer-only arithmetic. These are pedagogical implementations — the optimized FAT is proprietary and not in this repo. See [`EGPTMath/FAT/README.md`](EGPTMath/FAT/README.md) for all variants, test results, and known limitations.
+The FAT variants in `EGPTMath/FAT/` demonstrate that the Quantum Fourier Transform is classically computable with integer-only arithmetic. These are pedagogical implementations — the optimized FAT is proprietary and not in this repo. See [`EGPTMath/FAT/FAT_README.md`](EGPTMath/FAT/FAT_README.md) for all variants, test results, and known limitations.
 
 ## Specialist Agent Instructions
 

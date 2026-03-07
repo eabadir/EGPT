@@ -7,6 +7,19 @@
 
 Raw access base: https://raw.githubusercontent.com/eabadir/EGPT/main/
 
+## Ideas Framework
+
+Five interlocking ideas from five authors across a century of mathematics, physics, and computation:
+
+- **ID1 -- Ulam:** CGS units reconstructed from a random walk (ParticlePath = List Bool)
+- **ID2 -- Von Neumann:** Statistical AI computer — IOPs replace FLOPs, no error accumulation
+- **ID3 -- Einstein:** Purely algebraic discrete physics — continuous fields are computable
+- **ID4 -- Rota:** Entropy is the unique information measure (RET: all entropy = C x Shannon)
+- **ID5 -- Abadir:** Cantor's diagonal assumes non-unique reps — CH is decidable (Hilbert #1)
+
+Full framework with artifact maps: [IDEAS.md](https://github.com/eabadir/EGPT/blob/main/IDEAS.md)
+Live QFT benchmark: [Google Colab](https://colab.research.google.com/drive/1LQLCHDNp9kCFgJXIzlitaVxuYiHRATXm)
+
 ## Core Claims
 
 **The proof:** P = NP, proven constructively in Lean 4 by showing that in a maximally
@@ -29,7 +42,7 @@ FAT benchmarks ~1.277 billion x faster than 2,048 GPUs on a single 1.2 GHz core.
 - [Proof Graph (Mermaid)](https://github.com/eabadir/EGPT/blob/main/docs/PROOF_GRAPH.md): Visual dependency DAG with Mermaid diagrams
 - [Proof Graph (JSON)](https://github.com/eabadir/EGPT/blob/main/docs/proof_graph.json): Machine-readable dependency graph for programmatic ingestion
 - [EGPT Story](https://github.com/eabadir/EGPT/blob/main/EGPT_STORY.md): Full narrative exposition (accessible, picture-based)
-- [Academic Paper](https://github.com/eabadir/EGPT/blob/main/EGPT_Paper.md): Formal paper version
+- [Academic Paper](https://github.com/eabadir/EGPT/blob/main/content/Papers/EGPT_PeqNP/PeqNP_QED.md): Formal paper version
 - [Rota's Entropy Theorem Guide](https://github.com/eabadir/EGPT/blob/main/RET_README.md): Dedicated RET walkthrough
 
 ## Source Code — Formal Proofs (Lean 4)
@@ -60,7 +73,7 @@ integer arithmetic — no floating point anywhere in the transform pipeline. Twi
 factors become exact rational coordinates on N-gon vertices. These are teaching
 implementations; the optimized FAT is proprietary and not in this repository.
 
-- [FAT overview](https://github.com/eabadir/EGPT/blob/main/EGPTMath/FAT/README.md): All variants, test results, what passes and what's known-limited
+- [FAT overview](https://github.com/eabadir/EGPT/blob/main/EGPTMath/FAT/FAT_README.md): All variants, test results, what passes and what's known-limited
 - [EGPTFAT.js](https://github.com/eabadir/EGPT/blob/main/EGPTMath/FAT/EGPTFAT.js): Canonical recursive Cooley-Tukey (integer-only)
 - [EGPTFAT_PurePPF.js](https://github.com/eabadir/EGPT/blob/main/EGPTMath/FAT/EGPTFAT_PurePPF.js): Native BigInt variant
 - [EGPTFAT_TypeSafe.js](https://github.com/eabadir/EGPT/blob/main/EGPTMath/FAT/EGPTFAT_TypeSafe.js): Domain-safe wrappers

@@ -52,7 +52,7 @@ For each change, determine downstream impacts:
 
 **EGPTMath/FAT file changed:**
 - MUST: `@js-engineer` run FAT test suite, verify no floating point introduced
-- MUST: `@doc-writer` update `EGPTMath/FAT/README.md` if variants or test results change
+- MUST: `@doc-writer` update `EGPTMath/FAT/FAT_README.md` if variants or test results change
 - MUST: Never expose optimized FAT — only pedagogical variants in this repo
 - ASSESS: If new FAT variant → `@demo-builder` create interactive FFT/QFT demo
 
@@ -91,6 +91,16 @@ For each change, determine downstream impacts:
 - MUST: `sitemap.xml` includes all discoverable files with priority tiers — regenerate via `node scripts/generate_sitemap.js`
 - MUST: `.claude/agents/` files are linked from `llms.txt`, `AGENTS.md`, and `README.md` header
 - ASSESS: If new agent added → update all three routing files and `scripts/generate_sitemap.js` priority rules
+
+**IDEAS.md changed:**
+- MUST: `@sync-validator` verify all links in IDEAS.md still resolve to existing files
+- MUST: `@sync-validator` verify all five ideas (ID1--ID5) are represented in every section
+- MUST: `@sync-validator` verify all 12 reading paths have valid file references
+- ASSESS: If routing tables changed significantly → `@doc-writer` check if `README.md` idea index needs updating
+
+**New artifact created (any layer):**
+- MUST: `@doc-writer` assess which idea(s) from ID1--ID5 it belongs to and update `IDEAS.md` if the artifact is significant
+- MUST: Specialist agent for the relevant layer updates its own "Ideas Coverage" table if the artifact is a primary expression of an idea
 
 **Pre-push / check-in to git:**
 - MUST: Regenerate sitemap — `node scripts/generate_sitemap.js`

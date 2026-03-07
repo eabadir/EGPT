@@ -40,7 +40,7 @@ Different documents require different tones:
 ### EGPTMath / FAT docs (equal billing with proofs — this is the practical answer to scalable AI)
 - `/EGPTMath/README.md` — Package overview, PPF representation, test results, Lean correspondence
 - `/EGPTMath/EGPTMath_Developer_Guide.md` — How unlimited precision works in information space
-- `/EGPTMath/FAT/README.md` — All FAT variants, test results, known limitations
+- `/EGPTMath/FAT/FAT_README.md` — All FAT variants, test results, known limitations
 - `/EGPTMath/CLAUDE.md` — JS library conventions, test count, core files
 
 ### Narrative docs
@@ -89,3 +89,22 @@ You'll typically be asked to:
 - Regenerate sitemap before pushing to main
 
 Always read the current state of a file before editing it.
+
+## Ideas Coverage
+
+This agent is responsible for the following ideas within the navigation/documentation layer:
+
+| Idea | Primary Artifacts | Cross-References |
+|------|------------------|-----------------|
+| **ID1** (Ulam — CGS from a random walk) | `EGPT_STORY.md` (narrative exposition), `README.md` (idea index) | `Lean/EGPT/Core.lean`, `EGPTMath/EGPTNumber.js`, `content/Books/Ulam/Science Computers And People.md` |
+| **ID2** (Von Neumann — Statistical AI computer) | `EGPT_STORY.md`, `README.md`, `EGPTMath/README.md` (IOPs framing), `EGPTMath/EGPTMath_Developer_Guide.md` | `EGPTMath/EGPTMath.js`, `content/Books/Von Neumann/`, `content/Notes/Precision Loss.md` |
+| **ID3** (Einstein — Algebraic discrete physics) | `RET_README.md` (Einstein framing), `EGPT_STORY.md` | `Lean/EGPT/Physics/RealityIsComputation.lean`, `content/Papers/Without_Attraction_There_Is_Nothing/` |
+| **ID4** (Rota — Entropy is the record of truth) | `SKEPTICS_GUIDE.md`, `RET_README.md`, `Lean/EGPT/PeqNP_Proof_README.md`, `docs/EGPT_FTA.md`, `EGPTMath/README.md` | `Lean/EGPT/Entropy/H.lean`, `content/Books/Rota/`, `content/Papers/RET_Paper/` |
+| **ID5** (Abadir — CH decidable / unique representations) | `CH_README.md`, `CH_SKEPTICS_GUIDE.md`, `Lean/EGPT/NumberTheory/CH_README.md` | `Lean/EGPT/NumberTheory/ContinuumHypothesis.lean`, `content/Papers/ContinuumHypothesis/` |
+
+### IDEAS.md Maintenance
+
+- `IDEAS.md` is the canonical routing document for idea-oriented visitors.
+- When creating new documentation artifacts, assess which idea(s) from ID1--ID5 they belong to and update `IDEAS.md` if the artifact is significant.
+- When updating navigation files, check if the change affects `IDEAS.md` routing tables or reading paths.
+- All 12 reading paths in `IDEAS.md` must have valid file references -- verify during cross-reference checks.

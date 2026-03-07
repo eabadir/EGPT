@@ -1,4 +1,4 @@
-**AI Navigation** — [llms.txt](llms.txt) | [sitemap.xml](sitemap.xml) | [.claude/agents/](.claude/agents/)
+**AI Navigation** — [IDEAS.md](IDEAS.md) | [llms.txt](llms.txt) | [sitemap.xml](sitemap.xml) | [.claude/agents/](.claude/agents/)
 Raw: https://raw.githubusercontent.com/eabadir/EGPT/main/
 
 # Electronic Graph Paper Theory (EGPT): Consciousness, the Universe, and Everything
@@ -10,11 +10,11 @@ Raw: https://raw.githubusercontent.com/eabadir/EGPT/main/
 ## What This Repository Contains
 About 30,000 lines of math proofs and computer code that proves five ideas from five people — three who knew each other and each changed history, one who carried forward their torch, and one who found the flaw in the foundation everyone else was standing on:
 
-1. **Ulam's idea** — the Centimeter-Gram-Second (CGS) system of physical units can be reconstructed from a random walk (see "Physics for Mathematicians" in *Science, Computers, and People*, Ulam 1986, edited posthumously by Gian-Carlo Rota; recounted in Rota's *Indiscrete Thoughts*, 1997).
-2. **Von Neumann's idea** — an ultra-efficient AI computer can be built that operates like the brain: statistically, not arithmetically (see *The Computer and the Brain*, von Neumann 1958, posthumous).
-3. **Einstein's idea** — all of modern physics can be derived from a purely algebraic, discrete theory (see letter to Michele Besso, 1954; *The Meaning of Relativity*, 5th ed., 1956, posthumous).
-4. **Rota's idea** — if truth is the record of what actually happened in reality, then entropy is the record of truth. Entropy always adds up — it is the unique measure that does — and any amount of it can be efficiently coded into a finite program. This is Rota's Entropy Theorem (RET): the proof that the logarithm is the only function satisfying all seven axioms of information, and therefore that physics, computation, and information theory share the same mathematical foundation (see Rota's unpublished 400-page manuscript, taught at MIT 1970s–1999; formalized here in Lean 4).
-5. **Abadir's idea** — Cantor's diagonalization argument makes a hidden assumption: it allows non-unique representations. In an information space where every element is maximally compressed (the Fundamental Theorem of Arithmetic), all combinations are already accounted for. The Continuum Hypothesis is not independent of mathematics — it is decidable, because the EGPT hierarchy, which is bijective with the standard mathematical universe (ℕ, ℤ, ℚ, ℝ), collapses all infinities onto ℕ via the Beth staircase. Hilbert's First Problem, resolved. ([`ContinuumHypothesis.lean`](Lean/EGPT/NumberTheory/ContinuumHypothesis.lean))
+1. **[Ulam's idea](IDEAS.md#id1----ulam-cgs-from-a-random-walk)** — the Centimeter-Gram-Second (CGS) system of physical units can be reconstructed from a random walk (see "Physics for Mathematicians" in *Science, Computers, and People*, Ulam 1986, edited posthumously by Gian-Carlo Rota; recounted in Rota's *Indiscrete Thoughts*, 1997).
+2. **[Von Neumann's idea](IDEAS.md#id2----von-neumann-the-statistical-ai-computer)** — an ultra-efficient AI computer can be built that operates like the brain: statistically, not arithmetically (see *The Computer and the Brain*, von Neumann 1958, posthumous).
+3. **[Einstein's idea](IDEAS.md#id3----einstein-algebraic-discrete-physics)** — all of modern physics can be derived from a purely algebraic, discrete theory (see letter to Michele Besso, 1954; *The Meaning of Relativity*, 5th ed., 1956, posthumous).
+4. **[Rota's idea](IDEAS.md#id4----rota-entropy-is-the-record-of-truth)** — if truth is the record of what actually happened in reality, then entropy is the record of truth. Entropy always adds up — it is the unique measure that does — and any amount of it can be efficiently coded into a finite program. This is Rota's Entropy Theorem (RET): the proof that the logarithm is the only function satisfying all seven axioms of information, and therefore that physics, computation, and information theory share the same mathematical foundation (see Rota's unpublished 400-page manuscript, taught at MIT 1970s–1999; formalized here in Lean 4).
+5. **[Abadir's idea](IDEAS.md#id5----abadir-ch-decidable--unique-representations)** — Cantor's diagonalization argument makes a hidden assumption: it allows non-unique representations. In an information space where every element is maximally compressed (the Fundamental Theorem of Arithmetic), all combinations are already accounted for. The Continuum Hypothesis is not independent of mathematics — it is decidable, because the EGPT hierarchy, which is bijective with the standard mathematical universe (ℕ, ℤ, ℚ, ℝ), collapses all infinities onto ℕ via the Beth staircase. Hilbert's First Problem, resolved. ([`ContinuumHypothesis.lean`](Lean/EGPT/NumberTheory/ContinuumHypothesis.lean))
 
 - **Lean Proofs: P_eq_NP, RealityIsComputation, ContinuousFieldsAreComputation, ContinuumHypothesis** — fully constructive and proven bijectively equivalent to the standard mathematical universe (ℕ, ℤ, ℚ, ℝ) with matching Beth cardinalities and isomorphic arithmetic, 85 machine-verified theorems build the chain from number theory through entropy through complexity through physics. No `sorry`, no custom axioms.
 - **EGPTMath** — A pedagogical integer-only math library that turns FLOPs into IOPs. 157 tests, 100% pass rate.
@@ -38,6 +38,7 @@ See [`docs/PROOF_GRAPH.md`](docs/PROOF_GRAPH.md) for the logical dependency grap
 
 ### For AI Agents
 
+- [`IDEAS.md`](IDEAS.md) — Five foundational ideas, artifact maps, and "You might be looking for..." table
 - [`AGENTS.md`](AGENTS.md) — Navigation, build commands, proof dependency graph
 - [`llms.txt`](llms.txt) — Lightweight project summary with links
 - [`docs/PROOF_GRAPH.md`](docs/PROOF_GRAPH.md) — Theorem dependency DAG with Mermaid diagrams

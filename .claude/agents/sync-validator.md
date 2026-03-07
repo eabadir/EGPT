@@ -94,6 +94,20 @@ Verify `docs/PROOF_GRAPH.md` and `docs/proof_graph.json` exist and are consisten
 - `docs/PROOF_GRAPH.md` header theorem count matches validation report
 - Both files are referenced in `CLAUDE.md`, `AGENTS.md`, `llms.txt`, and `README.md`
 
+### 14. IDEAS.md Link Integrity
+Verify that `IDEAS.md` exists at the repo root and that all file paths referenced in it resolve to actual files. Spot-check at least 10 paths from the routing tables and reading paths.
+
+### 15. IDEAS.md Idea Coverage
+Verify that all five ideas (ID1 Ulam, ID2 Von Neumann, ID3 Einstein, ID4 Rota, ID5 Abadir) appear in every major section of `IDEAS.md`:
+- The master routing table
+- Each layer's coverage table (Lean, EGPTMath, Content, Demos, Navigation)
+- The reading paths section
+
+No idea should be missing from any section.
+
+### 16. IDEAS.md Reading Path Validity
+Verify all 12 reading paths in `IDEAS.md` have valid file references. Each path should contain 4--6 steps, and every file reference in every step must resolve to an existing file.
+
 ## Output Format
 
 Report results as a structured checklist:

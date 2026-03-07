@@ -53,3 +53,21 @@ Use `sonnet`. JS implementation follows well-established patterns; sonnet provid
 - All math operations return integer or PPF results — never raw floats
 - Test files are self-contained and runnable individually
 - Follow the Shannon coding mindset: every number in its informationally unique form
+
+## Ideas Coverage
+
+This agent is responsible for the following ideas within the EGPTMath layer:
+
+| Idea | Primary Artifacts | Cross-References |
+|------|------------------|-----------------|
+| **ID1** (Ulam — CGS from a random walk) | `test/verify_ppf_bijection.js` (N-gon vertex mapping), `EGPTNumber.js` (`{N, offset}` encoding mirrors ParticlePath) | `Lean/EGPT/Core.lean` (ParticlePath), `content/Books/Ulam/Science Computers And People.md` |
+| **ID2** (Von Neumann — Statistical AI computer) | `EGPTMath.js` (integer algebra engine), `EGPTNumber.js` (BigInt arithmetic), `EGPTComplex.js` (integer complex ops), `EGPTranscendental.js` (integer trig/exp), `EGPTPolynomial.js`, `FAT/EGPTFAT.js` (integer FFT), `FAT/EGPTFAT_PurePPF.js`, all FAT variants, `test/EGPTTestSuite.js` (157 tests), all benchmarks | `Lean/EGPT/Complexity/PPNP.lean`, `content/Books/Von Neumann/` |
+| **ID3** (Einstein — Algebraic discrete physics) | `EGPTranscendental.js` (PI as rational phase, discrete trig), `FAT/EGPTFAT.js` (classical QFT), `test/EGPTTopologyTestSuite.js` (topology-native trig) | `Lean/EGPT/Physics/RealityIsComputation.lean`, `www/EGPTFactalWave.html` |
+| **ID4** (Rota — Entropy is the record of truth) | `EGPTMath.js` (H(p*q)=H(p)+H(q) Iron Law), `EGPTNumber.js` (log2-based PPF), `stat/EGPTStat.js` (entropy analysis), `utils/PipelineData.js` + `utils/SegmentManager.js` + `utils/discontinuityUtils.js` (entropy-based factorization), `test/test_conditional_entropy.js`, `theorems/EGPT_APH.js` (entropy-cliff primality) | `Lean/EGPT/Entropy/H.lean` (Rota axioms), `content/Papers/RET_Paper/` |
+| **ID5** (Abadir — CH decidable / unique representations) | `EGPTNumber.js` (PPF encoding = bijection), `test/verify_ppf_bijection.js` (direct demonstration), `FAT/EGPTFAT_PurePPF.js` (PPF at I/O boundaries) | `Lean/EGPT/NumberTheory/Core.lean` (formal bijection), `Lean/EGPT/NumberTheory/ContinuumHypothesis.lean` |
+
+### Ideas Workflow
+
+- When creating new EGPTMath modules or tests, tag them with the relevant idea(s) from the ID1--ID5 framework in file-level comments.
+- When updating artifacts, check if the change affects the `IDEAS.md` routing tables.
+- Reference `IDEAS.md` as the canonical routing document for mapping implementations to ideas.
