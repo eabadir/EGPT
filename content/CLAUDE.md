@@ -14,6 +14,9 @@ LaTeX source and PDFs of research papers:
 - `Entropy Game/` — Entropy-based game theory
 - `ContinuumHypothesis/` — The Continuum Hypothesis Is Decidable (Hilbert's First Problem)
 - `Derivation of Gravity from Random Walks - Nile Abadir.pdf` — Gravity from stochastic processes
+- `GravityPaper/` — Analytical derivation of Newton's law of gravitation and Coulomb's law from EGPT first principles (`GravityPaper.tex`). Random walks on a discrete lattice produce inverse-square force laws. Primary ideas: ID1, ID3, ID4.
+- `Quantum Computing vs Fractal Compression In a Chaotic Discontinuum.docx.md` — Foundational paper on Physics Computation Languages. Touches all five ideas (ID1-ID5). Establishes the theoretical framework connecting quantum computing to fractal compression in EGPT's discontinuous information space.
+- `Quantum Computing Fractal Compression In A Swarm Enviornment - Patent Application Background.md` — Patent application background document describing practical applications of EGPT principles in swarm computing environments. Primary ideas: ID2, ID3. Secondary: ID1, ID4, ID5.
 
 ### `Books/`
 Reference books (scanned/digital):

@@ -1,0 +1,221 @@
+p,
+input[type="range"] {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+body {
+  background-color: black !important;
+  color: #95a3ab;
+}
+
+.body-controls {
+  background-color: gray;
+  color: #95a3ab;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #273445;
+  position: absolute;
+  right: 0;
+  z-index: 1000;
+}
+
+.game-canvas {
+  background-color: black;
+  color: #95a3ab;
+  padding: 0px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+}
+
+.controls-panel {
+  background-color: gray;
+  color: #95a3ab;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #273445;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.GameControls {
+  background-color: darkgray;
+  color: #95a3ab;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #273445;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+
+/* General Card Styles (applies to both vertical and carousel cards) */
+.card,
+.carousel-item {
+  /* Target both card types */
+  width: 250px;
+  /* Set a fixed width */
+  height: 350px;
+  /* Set a fixed height */
+  margin: 10px;
+  overflow-y: scroll; 
+  /* Hide any content that overflows */
+  display: flex;
+  flex-direction: column;
+  /* Stack elements vertically */
+}
+
+.card-img-top,
+.carousel-item img {
+  /* Target images in both card types */
+  width: 100%;
+  height: 40%;
+  /* Or a fixed height if you prefer */
+  object-fit: cover;
+  /* Ensure image covers the area */
+}
+
+.card-body {
+  padding: 10px;
+  flex-grow: 1;
+  /* Allows card-body to take up remaining space */
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  margin-bottom: 0.5rem;
+  /* Add some spacing below the title */
+  text-overflow: ellipsis;
+}
+
+
+.card-text {
+  text-wrap:wrap;
+  word-break: break-word;
+  /* Handle long words */
+  hyphens: auto;
+  /* Optional: encourage hyphenation */
+  flex-grow: 1;
+  
+  overflow-y: scroll;    /* Add vertical scrollbar if content exceeds max-height */
+
+  /* Remove white-space: nowrap; */
+  /* Crucial: Allow text to wrap */
+  padding: 0 10px;
+  /* Keep the padding */
+}
+
+.interstitial-card {
+  width: 80% !important;
+  /* Or a specific width like 700px */
+  max-width: 900px;
+  /* Set a maximum width to prevent it from becoming too wide on large screens */
+  margin: 0 auto;
+  /* Center the card horizontally */
+}
+
+/* styles.css */
+#containerRowRight.collapse:not(.show) {
+  display: none;
+}
+
+/* CUSTOMIZE THE CAROUSEL
+-------------------------------------------------- */
+
+/* Carousel base class */
+.carousel {
+  margin-bottom: 4rem;
+}
+
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+  bottom: 3rem;
+  z-index: 10;
+}
+
+/* Declare heights because of positioning of img element */
+.carousel-item {
+  height: 32rem;
+}
+
+.carousel-item .card-text {
+  /* specifically target carousel text */
+  
+  padding: 0 10px;
+  /* Keep the padding */
+}
+
+.carousel-background {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.controls-card {
+  background-color: rgb(215, 24, 24);
+  color: #95a3ab;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #b6161c;
+  width: 100%; /* Ensure it takes up the full width */
+  z-index: 1000;
+}
+
+.controls-card-body {
+  background-color: rgb(29, 27, 27);
+  color: #fcfdfe !important;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #273445;
+  width: 100%;
+
+  z-index: 1000;
+}
+
+/* button styles are applied on top of Bootstrap styles */
+.controls-button {
+  background-color: #b6161c;
+  color: #fcfdfe;
+  padding: 2px 10px !important;
+  z-index: 1000;
+}
+
+.controls-group {
+  padding: 10px !important;
+  border-bottom: 1px solid rgb(51, 51, 53);
+}
+
+/* styles.css */
+#controlsPanelBody.collapse:not(.show),
+#controlsPanelFooter.collapse:not(.show) {
+  display: none;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.back-button {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+}
+
+/* .ControlsMenuButton  should include the following
+  'btn btn-primary btn-sm');
+      toggleButton.attribute('data-bs-toggle', 'collapse');
+      toggleButton.attribute('data-bs-target', '#containerRowRight');
+      toggleButton.attribute('aria-expanded', 'true'); */
+.ControlsMenuButton {
+  position: fixed;
+  top: 10px;
+  right: 100px;
+  z-index: 1000;
+}
+

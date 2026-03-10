@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <title>Physics: Electronic Graph Paper Theory</title>
+
+    <!-- EXPERIMENTAL: Include the following if you use the canvas snapshotting control -->
+    <!--script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js"></script-->
+
+    <!-- DEFAULT GAME CONTROLS & BOOTSTRAP: the default game controls are styled with Bootstrap, if you create your own, remove-->	
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- CHARTING: d3.js is used for the charting control (optional for data graphs) -->
+    <script src="js/d3.min.js"></script>
+
+    <!-- MANDATORY GRAPHICS RENDERING LIBRARIES-->
+    <!-- The following are the libraries used by the game engine -->
+    <script src="js/chroma.min.js"></script>
+    <script language="javascript" type="text/javascript" src="js/p5.min.js"></script>
+    <script language="javascript" type="text/javascript" src="js/p5.dom.min.js"></script>
+</head>
+<body>
+    <!-- DEFAULT GAME CONTROLS & BOOTSTRAP: the default game controls are styled with Bootstrap, if you create your own, remove-->	
+    <script src="js/bootstrap.bundle.min.js"></script>
+    
+    
+    <script language="javascript" type="text/javascript" src="js/engine/quadtree.js"></script>
+    
+    <!-- EGPT is the Fractal Physics Engine-->
+    <script language="javascript" type="text/javascript" src="js/engine/EGPTfraqtl.js"></script>
+    <!-- P5Renderer - standard consumer for simulation data -->
+    <script language="javascript" type="text/javascript" src="js/consumers/P5Renderer.js"></script>
+    <!-- EntropyGame - prebuilt convenience objects like planets and blackquanta for building experiments -->
+    
+    <script language="javascript" type="text/javascript" src="js/game/EntropyGame.js"></script>
+    <script language="javascript" type="text/javascript" src="js/game/GameControls.js"></script>
+    <script language="javascript" type="text/javascript" src="js/game/charting.js"></script>
+    <!-- Game Objects like particle guns and detector walls for EntropyGame to help easily build experiments -->
+    <script language="javascript" type="text/javascript" src="js/game/EntropyGameObjects.js"></script>
+    <!-- Simulation setup factories -->
+    <script language="javascript" type="text/javascript" src="js/simulation/setupBlackbody.js"></script>
+    <script language="javascript" type="text/javascript" src="js/simulation/setupParticleWalk.js"></script>
+    <script language="javascript" type="text/javascript" src="js/simulation/setupWaveInterference.js"></script>
+    <script language="javascript" type="text/javascript" src="js/simulation/setupOscillator.js"></script>
+    <script language="javascript" type="text/javascript" src="js/simulation/setupAtomicModel.js"></script>
+    <!-- Experiments for EntropyGame like the double slit experiment or general relativty in planetary motion-->
+    <script language="javascript" type="text/javascript" src="js/examples/tutorial/Experiments.js"></script>
+    <!-- GameCards For Presenting Experiments In the UI-->
+    <script language="javascript" type="text/javascript" src="js/examples/tutorial/GameCards.js"></script>
+    <!-- StartScreen for the UI to Display the GameCards-->
+    <script language="javascript" type="text/javascript" src="js/examples/tutorial/StartScreen.js"></script>
+    
+</body>
+</html>

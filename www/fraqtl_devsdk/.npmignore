@@ -1,0 +1,16 @@
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.cursor/
+
+# Build artifacts
+node_modules/
+output/
+simulation_data.json
+*.log
+
+# Test output
+*.json.gz

@@ -1,6 +1,7 @@
 # Content Directory Audit: Mapping to the Five Ideas
 
 **Date:** 2026-03-06
+**Updated:** 2026-03-09
 **Auditor:** @content-author
 
 ---
@@ -35,6 +36,9 @@
 | `Papers/ContinuumHypothesis/ContinuumHypothesis.tex/.pdf` | | | | `~` | `*` | Title: "The Continuum Hypothesis Is Decidable: Hilbert's First Problem Resolved via Constructive Number Theory." Core ID5 document -- proves CH and GCH in EGPT via Beth hierarchy. |
 | `Papers/EGPT_PeqNP/PeqNP_QED.md` | `~` | | | `*` | `*` | Markdown P=NP proof paper. 78 machine-verified theorems, sorry-free. Detailed walkthrough of EGPT foundations, ParticlePath bijection, Free Address Fallacy, certificate complexity bound. |
 | `Papers/Integer_Infinity_Tautology.md` | | | | | `*` | "Is there a whole number between 0 and 1?" argument for CH decidability. Diagonalization as relabeling. Fractional entropy vs. integral cardinality distinction. Pure ID5. |
+| `Papers/GravityPaper/GravityPaper.tex` | `*` | | `*` | `*` | | Analytical derivation of Newton's law of gravitation and Coulomb's law from EGPT first principles. Random walks on a discrete lattice produce inverse-square force laws. Directly demonstrates Ulam's CGS program (ID1), Einstein's algebraic discrete physics (ID3), and Rota's entropy as the measure of force (ID4). **Fills the ID3 content gap (no standalone discrete physics paper).** |
+| `Papers/Quantum Computing vs Fractal Compression In a Chaotic Discontinuum.docx.md` | `*` | `*` | `*` | `*` | `*` | Foundational paper on Physics Computation Languages. Touches all five ideas: random walks (ID1), statistical computing (ID2), discrete physics (ID3), entropy as foundation (ID4), and unique representations (ID5). Establishes the theoretical framework connecting quantum computing to fractal compression in EGPT's discontinuous information space. |
+| `Papers/Quantum Computing Fractal Compression In A Swarm Enviornment - Patent Application Background.md` | `~` | `*` | `*` | `~` | `~` | Patent application background document. Primary focus on statistical/swarm computing (ID2) and discrete physics (ID3). Secondary connections to random walks (ID1), entropy (ID4), and unique representations (ID5). Describes practical applications of EGPT principles in swarm computing environments. |
 
 ### Books/Rota/
 
@@ -194,6 +198,9 @@ For each document, the most relevant user roles (from the 12 personas):
 | **Papers/ContinuumHypothesis/** | MA, PE, CT | PM |
 | **Papers/EGPT_PeqNP/PeqNP_QED.md** | CT, PE, CS | MA |
 | **Papers/Integer_Infinity_Tautology.md** | MA, PM | CT |
+| **Papers/GravityPaper/** | PH, MA | CS, QC |
+| **Papers/Quantum Computing vs Fractal Compression...** | PH, QC, CT, MA | CS, AI, HW |
+| **Papers/Quantum Computing...Patent Background** | HW, AI, IP | CR, FI |
 | **pyFRAQTL/FRAQTL_WhitePaper.md** | QC, HW, AI | CR, CS |
 | **pyFRAQTL/pyFRAQTLsdk.py** | CS, QC, AI | HW |
 | **pyFRAQTL/No Q-Day Threat.md** | CR, QC, FI | IP |
@@ -227,7 +234,7 @@ For each document, the most relevant user roles (from the 12 personas):
 
 1. **`docs/EGPT_Stories/Everything In EGPT Is A Pyramid.md` is EMPTY.** The filename suggests a key pedagogical document about prime decomposition as pyramidal structure. This is a gap in the onboarding path. **Action: Write this story** -- it should explain PPF encoding, prime factorization as pyramid, and how primes are the "irreducible atoms" of information. Target: CS student, Mathematician.
 
-2. **No standalone "Einstein's Discrete Physics" document.** ID3 (Einstein's algebraic discrete physics) is referenced in `Without_Attraction_There_Is_Nothing` and `EGPT and FAT Overview`, but there is no focused document that extracts Einstein's key quotes and maps them to EGPT. **Action: Create `content/Papers/Einstein_Discrete_Physics/` or a dedicated note** collecting Einstein's "castle in the air" letter, 1917 Dallenbach letter, and 1905 papers, with EGPT commentary.
+2. **No standalone "Einstein's Discrete Physics" document.** ID3 (Einstein's algebraic discrete physics) is referenced in `Without_Attraction_There_Is_Nothing` and `EGPT and FAT Overview`, but there is no focused document that extracts Einstein's key quotes and maps them to EGPT. **Action: Create `content/Papers/Einstein_Discrete_Physics/` or a dedicated note** collecting Einstein's "castle in the air" letter, 1917 Dallenbach letter, and 1905 papers, with EGPT commentary. **Note (2026-03-09):** The new `GravityPaper.tex` partially addresses this gap by providing a standalone derivation of physical laws from EGPT, though it focuses on force laws rather than Einstein's philosophical arguments for discrete physics.
 
 3. **No onboarding document for the Quantum Computing Enthusiast.** The FAT -> QFT -> Shor's -> P=NP thread is spread across `FRAQTL_WhitePaper.md`, `No Q-Day Threat.md`, `Technical_Docs.md`, and various stories. **Action: Create a "QFT Without Qubits" reading guide** that sequences these documents for the QC persona.
 
@@ -249,11 +256,11 @@ For each document, the most relevant user roles (from the 12 personas):
 
 | Idea | Primary Documents | Secondary Documents | Coverage Assessment |
 |------|------------------|---------------------|---------------------|
-| **ID1** (Ulam/Random Walk) | `Books/Ulam/Science Computers And People.md`, `Without_Attraction`, `Story of Nile Deriving Gravity`, `ENIAC and El Capitan`, `Ulam And Von Neumann TOE` | `Indiscrete Thoughts.md`, `Background.md`, `Monte Carlo and AI.md`, `EGPT and FAT Overview.md` | **GOOD.** Well-covered through stories and original sources. The Ulam book transcription is a major asset. Could use a focused "Ulam's Program" extract. |
-| **ID2** (Von Neumann/Statistical AI) | `Books/Von Neumann/The Computer Brain.pdf`, `Precision Loss.md`, `ENIAC and El Capitan.md`, `Monte Carlo and AI.md` | `Ulam And Von Neumann TOE.md`, `Executive_Summary.md`, `Business_Plan.md`, `Godel Letter to Von Neumann.pdf` | **GOOD.** Key quotes extracted in `Precision Loss.md`. The book PDF is the primary source. The "AI is Monte Carlo" note brilliantly connects to modern practice. |
-| **ID3** (Einstein/Discrete Physics) | `Without_Attraction_There_Is_Nothing.tex`, `SSG_History/Einstein Field_Theory.pdf` | `EGPT and FAT Overview.md`, `Entropy Game` | **WEAK.** Einstein's idea is present but always embedded in larger papers. No standalone focused document. The Einstein PDF cannot be read without poppler. **Gap.** |
-| **ID4** (Rota/Entropy) | `Books/Rota/1992_Edition/ch8`, `RET_Paper/`, `Rota_Entropy_Theorem/RET_Excerpt`, `Rota-Baclawski-Prob-Theory-79.pdf`, `EGPT_FTA.md` | Nearly every document in the repo | **EXCELLENT.** ID4 is the best-covered idea. Rota's original textbook chapters, formal proofs, excerpts, and multiple derivative works all present. The entire 1992 textbook is available chapter by chapter. |
-| **ID5** (Abadir/CH/Unique Reps) | `ContinuumHypothesis/`, `Integer_Infinity_Tautology.md`, `PPNP_Paper/`, `PeqNP_QED.md`, `FRAQTL_WhitePaper.md` | `Address_Is_The_Map/`, `AddressMap_And_Crypto/`, `No Q-Day Threat.md` | **GOOD.** The CH paper and P=NP papers are thorough. The "Integer-Infinity Tautology" is a brilliant accessible piece. FRAQTL provides the working demonstration. |
+| **ID1** (Ulam/Random Walk) | `Books/Ulam/Science Computers And People.md`, `Without_Attraction`, `Story of Nile Deriving Gravity`, `ENIAC and El Capitan`, `Ulam And Von Neumann TOE`, `GravityPaper.tex` | `Indiscrete Thoughts.md`, `Background.md`, `Monte Carlo and AI.md`, `EGPT and FAT Overview.md`, `Quantum Computing...Patent Background` | **GOOD.** Well-covered through stories and original sources. The Ulam book transcription is a major asset. GravityPaper adds a formal derivation. Could use a focused "Ulam's Program" extract. |
+| **ID2** (Von Neumann/Statistical AI) | `Books/Von Neumann/The Computer Brain.pdf`, `Precision Loss.md`, `ENIAC and El Capitan.md`, `Monte Carlo and AI.md`, `Quantum Computing...Patent Background` | `Ulam And Von Neumann TOE.md`, `Executive_Summary.md`, `Business_Plan.md`, `Godel Letter to Von Neumann.pdf` | **GOOD.** Key quotes extracted in `Precision Loss.md`. The book PDF is the primary source. The "AI is Monte Carlo" note brilliantly connects to modern practice. Patent background adds swarm computing angle. |
+| **ID3** (Einstein/Discrete Physics) | `Without_Attraction_There_Is_Nothing.tex`, `SSG_History/Einstein Field_Theory.pdf`, `GravityPaper.tex`, `Quantum Computing vs Fractal Compression...` | `EGPT and FAT Overview.md`, `Entropy Game`, `Quantum Computing...Patent Background` | **MODERATE** (upgraded from Weak). GravityPaper provides the first standalone derivation of physical laws from EGPT discrete principles. The Quantum Computing foundational paper adds theoretical depth. Still benefits from a focused "Einstein's vision" extract document. |
+| **ID4** (Rota/Entropy) | `Books/Rota/1992_Edition/ch8`, `RET_Paper/`, `Rota_Entropy_Theorem/RET_Excerpt`, `Rota-Baclawski-Prob-Theory-79.pdf`, `EGPT_FTA.md`, `GravityPaper.tex`, `Quantum Computing vs Fractal Compression...` | Nearly every document in the repo | **EXCELLENT.** ID4 is the best-covered idea. Rota's original textbook chapters, formal proofs, excerpts, and multiple derivative works all present. The entire 1992 textbook is available chapter by chapter. |
+| **ID5** (Abadir/CH/Unique Reps) | `ContinuumHypothesis/`, `Integer_Infinity_Tautology.md`, `PPNP_Paper/`, `PeqNP_QED.md`, `FRAQTL_WhitePaper.md`, `Quantum Computing vs Fractal Compression...` | `Address_Is_The_Map/`, `AddressMap_And_Crypto/`, `No Q-Day Threat.md`, `Quantum Computing...Patent Background` | **GOOD.** The CH paper and P=NP papers are thorough. The "Integer-Infinity Tautology" is a brilliant accessible piece. FRAQTL provides the working demonstration. The foundational QC paper touches all five ideas including ID5. |
 
 ---
 
@@ -344,11 +351,11 @@ For each document, the most relevant user roles (from the 12 personas):
 | Step | Document | Why |
 |------|----------|-----|
 | 1 | `Papers/Without_Attraction_There_Is_Nothing/Without_Attraction...tex` | Planck's Law from discrete probability. Einstein vindicated. |
-| 2 | `docs/EGPT_Stories/Story of Nile Deriving Gravity.md` | Gravity and Coulomb's law from cellular automata. |
-| 3 | `Books/Ulam/Science Computers And People.md` | Ulam's "Physics for Mathematicians" program. |
-| 4 | `Books/Rota/Indiscrete Thoughts.md` | Rota on Ulam, von Neumann, and the "new unit in science." |
-| 5 | `SSG_History/Einstein Field_Theory.pdf` | Einstein's own words on field theory and discrete physics. |
-| 6 | `docs/archive/Entropy_Complexity_MVP.md` | RUE/RECT: computational disproof of wave-particle duality. |
+| 2 | `Papers/GravityPaper/GravityPaper.tex` | Analytical derivation of Newton's/Coulomb's law from EGPT random walks. |
+| 3 | `docs/EGPT_Stories/Story of Nile Deriving Gravity.md` | Gravity and Coulomb's law from cellular automata. |
+| 4 | `Books/Ulam/Science Computers And People.md` | Ulam's "Physics for Mathematicians" program. |
+| 5 | `Books/Rota/Indiscrete Thoughts.md` | Rota on Ulam, von Neumann, and the "new unit in science." |
+| 6 | `SSG_History/Einstein Field_Theory.pdf` | Einstein's own words on field theory and discrete physics. |
 
 ### Cryptographer
 
@@ -415,9 +422,9 @@ For each document, the most relevant user roles (from the 12 personas):
 
 | Metric | Count |
 |--------|-------|
-| Total files audited | ~85 (excluding build artifacts like .fdb_latexmk, .aux, .toc, .log) |
-| Markdown documents | 44 |
-| LaTeX source files | 10 |
+| Total files audited | ~88 (excluding build artifacts like .fdb_latexmk, .aux, .toc, .log) |
+| Markdown documents | 45 |
+| LaTeX source files | 11 |
 | PDF documents | 33 |
 | Python files | 1 |
 | Jupyter notebooks | 1 |
@@ -428,10 +435,10 @@ For each document, the most relevant user roles (from the 12 personas):
 
 | Idea | Primary | Secondary | Total Touches |
 |------|---------|-----------|---------------|
-| ID1 (Ulam) | 10 | 12 | 22 |
-| ID2 (Von Neumann) | 11 | 14 | 25 |
-| ID3 (Einstein) | 4 | 7 | 11 |
-| ID4 (Rota) | 35 | 12 | 47 |
-| ID5 (Abadir) | 16 | 10 | 26 |
+| ID1 (Ulam) | 11 | 13 | 24 |
+| ID2 (Von Neumann) | 12 | 14 | 26 |
+| ID3 (Einstein) | 7 | 8 | 15 |
+| ID4 (Rota) | 37 | 13 | 50 |
+| ID5 (Abadir) | 17 | 12 | 29 |
 
-**Observation:** ID4 (Rota/Entropy) dominates the corpus, which is appropriate since it is the theoretical foundation. ID3 (Einstein/Discrete Physics) is the most underrepresented and would benefit from dedicated documentation.
+**Observation:** ID4 (Rota/Entropy) dominates the corpus, which is appropriate since it is the theoretical foundation. ID3 (Einstein/Discrete Physics) was the most underrepresented but has been significantly strengthened by the GravityPaper and the Quantum Computing foundational papers. A standalone "Einstein's vision" extract document would complete the coverage.

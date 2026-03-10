@@ -26,6 +26,10 @@ This repository contains five interlocking ideas from five authors across a cent
 | Commercial implications / investment case | ID2 (Von Neumann) + ID5 (Abadir) | [content/Faster Abadir Transform BP/Executive_Summary.md](content/Faster%20Abadir%20Transform%20BP/Executive_Summary.md) |
 | The complete P=NP paper (readable) | ID5 (Abadir) + ID4 (Rota) | [content/Papers/EGPT_PeqNP/PeqNP_QED.md](content/Papers/EGPT_PeqNP/PeqNP_QED.md) |
 | "I just want to run something" | ID2 (Von Neumann) | Open [www/GPUHeatDeath.html](www/GPUHeatDeath.html) in a browser or `cd EGPTMath && node test/EGPTTestSuite.js` |
+| Emergent gravity / inverse-square laws | ID1 (Ulam) + ID3 (Einstein) | Open [www/GravitySim/](www/GravitySim/index.html) -- watch gravity emerge from random walks |
+| Double slit experiment explained | ID3 (Einstein) + ID1 (Ulam) | Open [www/fraqtl_devsdk/](www/fraqtl_devsdk/index.html) -- run the wave interference experiment |
+| Why quantum computing can't outperform classical | ID3 + ID2 + ID5 | Read [Quantum Computing vs Fractal Compression](content/Papers/Quantum%20Computing%20vs%20Fractal%20Compression%20In%20a%20Chaotic%20Discontinuum.docx.md) |
+| Physics simulation without differential equations | ID3 (Einstein) + ID1 (Ulam) | Open [www/fraqtl_devsdk/](www/fraqtl_devsdk/index.html) -- 5 experiments, zero force equations |
 | The full story from first principles | All five ideas | [EGPT_STORY.md](EGPT_STORY.md) |
 
 ---
@@ -50,6 +54,9 @@ In his unfinished essay "Physics for Mathematicians," Ulam proposed something ra
 | [www/EGPTFactalWave.html](www/EGPTFactalWave.html) -- Photonic CA with random walk spawning | Demo | CS student | CS student, Physicist |
 | [content/Books/Ulam/Science Computers And People.md](content/Books/Ulam/Science%20Computers%20And%20People.md) | Reading | | Physicist, Philosopher of mind |
 | [content/Books/Rota/Indiscrete Thoughts.md](content/Books/Rota/Indiscrete%20Thoughts.md) -- "Stan Ulam" chapter | Reading | | Physicist, Mathematician |
+| [GravitySim](www/GravitySim/index.html) -- Gravity from random walks | Demo | Physicist, CS student | Physicist, CS student, Founder/investor |
+| [FRAQTL DevSDK](www/fraqtl_devsdk/index.html) -- Particle walk experiment | Demo | CS student | CS student, Physicist, QC enthusiast |
+| [GravityPaper.tex](content/Papers/GravityPaper/GravityPaper.tex) -- Analytical derivation of inverse-square laws | Reading | | Physicist, Mathematician |
 
 #### Connections
 
@@ -77,6 +84,8 @@ On his deathbed in 1957, von Neumann completed a devastating diagnosis of his ow
 | [content/Notes/Precision Loss.md](content/Notes/Precision%20Loss.md) -- Key von Neumann quotes | Reading | | AI/ML engineer, Hardware engineer |
 | [content/Notes/Monte Carlo and AI.md](content/Notes/Monte%20Carlo%20and%20AI.md) -- "AI Is Monte Carlo" | Reading | | AI industry practitioner, AI/ML engineer |
 | [content/Notes/ENIAC and El Capitan.md](content/Notes/ENIAC%20and%20El%20Capitan.md) -- FLOPs vs IOPs history | Reading | | Hardware engineer, Founder/investor |
+| [FRAQTL DevSDK](www/fraqtl_devsdk/index.html) -- 5 physics experiments, zero floats | Demo+Code | CS student | AI/ML engineer, CS student, Hardware engineer |
+| [Patent Application Background](content/Papers/Quantum%20Computing%20Fractal%20Compression%20In%20A%20Swarm%20Enviornment%20-%20Patent%20Application%20Background.md) -- Commercial fractal compression architecture | Reading | | Founder/investor, Hardware engineer |
 
 #### Connections
 
@@ -104,8 +113,14 @@ Einstein spent his final years haunted by a suspicion he could not resolve. In h
 | [www/EGPTfractal.html](www/EGPTfractal.html) -- Discrete algebraic fractal growth | Demo | CS student | CS student, Physicist |
 | [www/RotaEntropy/TheGreatestDebate.html](www/RotaEntropy/TheGreatestDebate.html) -- 2,600-year timeline | Demo | | Philosopher of mind, Physicist |
 | [content/docs/EGPT_Stories/Story of Nile Deriving Gravity.md](content/docs/EGPT_Stories/Story%20of%20Nile%20Deriving%20Gravity.md) | Reading | | Physicist, CS student |
+| [GravitySim](www/GravitySim/index.html) -- Emergent Newton's law from random walks | Demo | Physicist | Physicist, CS student |
+| [FRAQTL DevSDK](www/fraqtl_devsdk/index.html) -- 5 experiments: gravity, double slit, blackbody, atoms, waves | Demo+Code | CS student | CS student, Physicist, QC enthusiast |
+| [GravityPaper.tex](content/Papers/GravityPaper/GravityPaper.tex) -- Analytical derivation: G and k_e as dimensional scaling factors | Reading | | Physicist, Mathematician |
+| [Quantum Computing vs Fractal Compression](content/Papers/Quantum%20Computing%20vs%20Fractal%20Compression%20In%20a%20Chaotic%20Discontinuum.docx.md) -- Physics Computation Languages, fractal compression >= quantum | Reading | | QC enthusiast, Physicist, Complexity theorist |
 
 #### Connections
+
+The GravitySim and FRAQTL DevSDK now provide the first computable emergent models for gravity, the double slit experiment, wave interference, blackbody radiation, and atomic structure -- no prior computable emergent model existed for any of these phenomena, let alone all of them from the same discrete framework. The GravityPaper provides the rigorous analytical derivation proving that G and k_e are not fundamental constants but dimensional scaling factors converting informational probability to force units.
 
 Einstein demanded a "purely algebraic theory" free from the continuum; Ulam proposed the random walk that provides exactly that discrete foundation (**ID1**). Einstein's conviction that reality is algebraic implies the correct computing architecture must also be algebraic and discrete -- which is precisely von Neumann's conclusion (**ID2**). Rota's entropy theorem provides the bridge from discrete information theory to continuous-looking physics that Einstein could not find: all three statistical mechanics distributions have entropy equal to C times Shannon entropy, captured by a single discrete measure (**ID4**). The proof that no intermediate cardinality exists between the integers and the reals -- that the Beth staircase is rigid and integer-stepped -- means Einstein's discrete physics is not merely possible but *necessary*: the mathematical universe itself is discrete at the level of the container (**ID5**).
 
@@ -132,6 +147,7 @@ Rota taught that "success in mathematics does not lie in solving problems but in
 | [www/EntropyUniformity.html](www/EntropyUniformity.html) -- Primes vs composites entropy | Demo | | Mathematician, Physicist |
 | [content/Books/Rota/1992_Edition/ch8 - Entropy and Information.pdf](content/Books/Rota/1992_Edition/ch8%20-%20Entropy%20and%20Information.pdf) -- The "entropy game" derivation | Reading | | Mathematician, Proof engineer |
 | [RET_README.md](RET_README.md) -- Rota Entropy Theorem walkthrough | Reading | Physicist | Physicist, Mathematician |
+| [GravityPaper.tex](content/Papers/GravityPaper/GravityPaper.tex) -- Rota-EGPT Equivalence: force = Shannon entropy | Reading | | Mathematician, Physicist |
 
 #### Connections
 
@@ -162,6 +178,7 @@ The central insight is embarrassingly simple: "Is there a whole number between 0
 | [content/Papers/EGPT_PeqNP/PeqNP_QED.md](content/Papers/EGPT_PeqNP/PeqNP_QED.md) -- Full P=NP paper (78 theorems, sorry-free) | Reading | Complexity theorist | Complexity theorist, Proof engineer |
 | [SKEPTICS_GUIDE.md](SKEPTICS_GUIDE.md) -- P=NP skeptic walkthrough | Reading | Complexity theorist | Complexity theorist, Mathematician |
 | [content/pyFRAQTL/FRAQTL_WhitePaper.md](content/pyFRAQTL/FRAQTL_WhitePaper.md) -- Classical QFT at O((log k)^3) | Reading | Cryptographer | Cryptographer, QC enthusiast |
+| [Quantum Computing vs Fractal Compression](content/Papers/Quantum%20Computing%20vs%20Fractal%20Compression%20In%20a%20Chaotic%20Discontinuum.docx.md) -- Formal proof: fractal compression >= quantum | Reading | | QC enthusiast, Complexity theorist |
 
 #### Connections
 
@@ -193,9 +210,10 @@ Ulam's random walk gives us `ParticlePath`, the data structure that makes P=NP p
 | Step | Action | Idea | What you learn |
 |------|--------|------|----------------|
 | 1 | Open [www/GPUHeatDeath.html](www/GPUHeatDeath.html) in a browser | ID2 | Why this project exists -- floating-point error is a real engineering problem. |
-| 2 | Open [www/EGPTNumberUniformity.html](www/EGPTNumberUniformity.html) in a browser | ID4 | Type any integer and see its entropy structure. The math is running live. |
-| 3 | Read [content/docs/EGPT_Stories/The Story of EGPT.md](content/docs/EGPT_Stories/The%20Story%20of%20EGPT.md) | All | Father-daughter conversation format. No prerequisites. Introduces ParticlePath, the Iron Rule (1+1=2), and the Manhattan grid analogy. |
-| 4 | Run `cd EGPTMath && npm install && node test/verify_ppf_bijection.js` | ID5 | See every natural number map to an N-gon vertex. The simplest runnable proof in the repo. |
+| 2 | Open [www/GravitySim/](www/GravitySim/index.html) in a browser | ID1, ID3 | Watch gravity emerge from random walks. Adjust mass and distance sliders to see the inverse-square law appear. |
+| 3 | Open [www/fraqtl_devsdk/](www/fraqtl_devsdk/index.html) -- try the experiments | ID3, ID1 | Five physics simulations (double slit, waves, blackbody, atoms) -- all running from the same discrete engine, zero force equations. Tinker with parameters. |
+| 4 | Read [content/docs/EGPT_Stories/The Story of EGPT.md](content/docs/EGPT_Stories/The%20Story%20of%20EGPT.md) | All | Father-daughter conversation format. No prerequisites. Introduces ParticlePath, the Iron Rule (1+1=2), and the Manhattan grid analogy. |
+| 5 | Run `cd EGPTMath && npm install && node test/verify_ppf_bijection.js` | ID5 | See every natural number map to an N-gon vertex. The simplest runnable proof in the repo. |
 | 5 | Run `cd EGPTMath && node test/EGPTTestSuite.js` | ID2 | See 157 tests pass. Read the test file to understand the API. |
 | 6 | Read [content/Papers/EGPT_PeqNP/PeqNP_QED.md](content/Papers/EGPT_PeqNP/PeqNP_QED.md) | ID5 | The P=NP proof in readable markdown. |
 
@@ -269,10 +287,11 @@ Ulam's random walk gives us `ParticlePath`, the data structure that makes P=NP p
 | Step | Action | Idea | What you learn |
 |------|--------|------|----------------|
 | 1 | Read [EGPT_STORY.md](EGPT_STORY.md) | All | The narrative arc from Ulam's random walk to "reality is computation." |
-| 2 | Read [content/docs/EGPT_Stories/Story of Nile Deriving Gravity.md](content/docs/EGPT_Stories/Story%20of%20Nile%20Deriving%20Gravity.md) | ID1, ID3 | Newton's gravity and Coulomb's law derived from cellular automata random walks. |
-| 3 | Read [Lean/EGPT/Physics/RealityIsComputation.lean](Lean/EGPT/Physics/RealityIsComputation.lean) | ID3 | One-line proof: every physical system has a computable program. |
-| 4 | Read [Lean/EGPT/Physics/PhysicsDist.lean](Lean/EGPT/Physics/PhysicsDist.lean) | ID3, ID4 | Bose-Einstein, Fermi-Dirac, Maxwell-Boltzmann unified: entropy = C x Shannon for all three. |
-| 5 | Read [RET_README.md](RET_README.md) | ID4, ID3 | How Rota's entropy theorem bridges information theory to physics. |
+| 2 | Open [www/GravitySim/](www/GravitySim/index.html) in a browser | ID1, ID3 | Watch gravity emerge from random walks in real time. First stochastic, non-field derivation of inverse-square laws. |
+| 3 | Open [www/fraqtl_devsdk/](www/fraqtl_devsdk/index.html) -- try all 5 experiments | ID3, ID1 | Double slit, wave interference, blackbody radiation, atomic model -- all from the same discrete framework, zero force equations. |
+| 4 | Read [content/Papers/GravityPaper/GravityPaper.tex](content/Papers/GravityPaper/GravityPaper.tex) | ID1, ID3, ID4 | Rigorous derivation: P(interaction) = (m1 m2)/(4r^2). G and k_e are dimensional scaling factors, not fundamental constants. |
+| 5 | Read [Lean/EGPT/Physics/RealityIsComputation.lean](Lean/EGPT/Physics/RealityIsComputation.lean) | ID3 | One-line proof: every physical system has a computable program. |
+| 6 | Read [Lean/EGPT/Physics/PhysicsDist.lean](Lean/EGPT/Physics/PhysicsDist.lean) | ID3, ID4 | Bose-Einstein, Fermi-Dirac, Maxwell-Boltzmann unified: entropy = C x Shannon for all three. |
 
 #### Quantum Computing Enthusiast
 
@@ -281,11 +300,11 @@ Ulam's random walk gives us `ParticlePath`, the data structure that makes P=NP p
 | Step | Action | Idea | What you learn |
 |------|--------|------|----------------|
 | 1 | Run the [QFT Benchmark on Google Colab](https://colab.research.google.com/drive/1LQLCHDNp9kCFgJXIzlitaVxuYiHRATXm) | ID2, ID5 | Classical integer-only QFT at O((log k)^3). See it run. |
-| 2 | Read [content/pyFRAQTL/FRAQTL_WhitePaper.md](content/pyFRAQTL/FRAQTL_WhitePaper.md) | ID5 | FRAQTL algorithm: detailed complexity analysis vs. quantum hardware. |
-| 3 | Read [EGPTMath/FAT/FAT_README.md](EGPTMath/FAT/FAT_README.md) | ID2 | FAT architecture: Cooley-Tukey with exact phase-space arithmetic, zero floats. |
-| 4 | Read [EGPTMath/FAT/EGPTFAT.js](EGPTMath/FAT/EGPTFAT.js) | ID2 | The canonical implementation: `qft`/`iqft` exports, twiddle tables from N-gon vertices. |
-| 5 | Read [Lean/EGPT/Physics/PhotonicCA.lean](Lean/EGPT/Physics/PhotonicCA.lean) | ID3 | Proof that Bose-Einstein systems have equivalent classical programs via RECT. |
-| 6 | Read [content/pyFRAQTL/No Q-Day Threat.md](content/pyFRAQTL/No%20Q-Day%20Threat.md) | ID5 | Why classical QFT does not break cryptography. |
+| 2 | Open [www/fraqtl_devsdk/](www/fraqtl_devsdk/index.html) -- wave interference experiment | ID3, ID1 | The double slit experiment running from discrete random walks. Answers Feynman's "impossible to explain" claim. |
+| 3 | Read [Quantum Computing vs Fractal Compression](content/Papers/Quantum%20Computing%20vs%20Fractal%20Compression%20In%20a%20Chaotic%20Discontinuum.docx.md) | ID3, ID2, ID5 | The foundational paper: formal proof that fractal compression >= quantum computing. Physics Computation Languages defined. |
+| 4 | Read [content/pyFRAQTL/FRAQTL_WhitePaper.md](content/pyFRAQTL/FRAQTL_WhitePaper.md) | ID5 | FRAQTL algorithm: detailed complexity analysis vs. quantum hardware. |
+| 5 | Read [EGPTMath/FAT/FAT_README.md](EGPTMath/FAT/FAT_README.md) | ID2 | FAT architecture: Cooley-Tukey with exact phase-space arithmetic, zero floats. |
+| 6 | Read [Lean/EGPT/Physics/PhotonicCA.lean](Lean/EGPT/Physics/PhotonicCA.lean) | ID3 | Proof that Bose-Einstein systems have equivalent classical programs via RECT. |
 
 #### Philosopher of Mind
 
@@ -309,6 +328,7 @@ Ulam's random walk gives us `ParticlePath`, the data structure that makes P=NP p
 | Step | Action | Idea | What you learn |
 |------|--------|------|----------------|
 | 1 | Run the [QFT Benchmark on Google Colab](https://colab.research.google.com/drive/1LQLCHDNp9kCFgJXIzlitaVxuYiHRATXm) | ID2 | The "1.277 billion x faster" claim, verified live. |
+| 1b | Open [www/GravitySim/](www/GravitySim/index.html) in a browser | ID1, ID3 | Watch gravity emerge from random walks -- no equations, no fields, just particles and statistics. The most intuitive demo of what EGPT does. |
 | 2 | Read [content/Faster Abadir Transform BP/Executive_Summary.md](content/Faster%20Abadir%20Transform%20BP/Executive_Summary.md) | ID2, ID5 | Business case: ARM-style licensing, $500M Series A. |
 | 3 | Read [content/Faster Abadir Transform BP/Market_Research.md](content/Faster%20Abadir%20Transform%20BP/Market_Research.md) | ID2 | $12.6T addressable market analysis. |
 | 4 | Open [www/GPUHeatDeath.html](www/GPUHeatDeath.html) in a browser | ID2 | The problem statement, made visceral: floating point erodes information at scale. |

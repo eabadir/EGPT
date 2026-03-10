@@ -1,0 +1,60 @@
+{
+  "name": "egpt-fraqtl-devsdk",
+  "version": "1.0.0",
+  "description": "Discrete fractal physics engine — no force calculations, physics emerges. Educational SDK with P5.js visualization and Node.js headless simulation.",
+  "main": "js/engine/engine.node.js",
+  "bin": {
+    "egpt-fraqtl-devsdk": "bin/cli.js"
+  },
+  "scripts": {
+    "test": "node js/engine/test_promotion.js",
+    "test:wave": "node js/engine/test_wave_interference.js",
+    "test:period": "node js/engine/test_wave_period.js",
+    "test:collision": "node js/engine/test_lo_collision.js",
+    "test:all": "node js/engine/test_promotion.js && node js/engine/test_wave_interference.js && node js/engine/test_wave_period.js",
+    "sim:particle": "node bin/cli.js --experiment=particle_walk --ticks=100",
+    "sim:wave": "node bin/cli.js --experiment=wave_interference --ticks=100",
+    "sim:blackbody": "node bin/cli.js --experiment=blackbody --ticks=100",
+    "sim:oscillator": "node bin/cli.js --experiment=oscillator --ticks=100",
+    "sim:atom": "node bin/cli.js --experiment=atomic_model --ticks=100"
+  },
+  "keywords": [
+    "physics",
+    "engine",
+    "simulation",
+    "fractal",
+    "cellular-automata",
+    "particle",
+    "quantum",
+    "wave-particle-duality",
+    "emergent",
+    "game-engine",
+    "egpt",
+    "discrete-physics"
+  ],
+  "author": "Essam Abadir",
+  "license": "SEE LICENSE IN docs/DeSciX_Community_License_v1.pdf",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eabadir/fraqtl.git",
+    "directory": "egpt_devsdk"
+  },
+  "homepage": "https://github.com/eabadir/fraqtl#readme",
+  "files": [
+    "js/",
+    "css/",
+    "images/",
+    "bin/",
+    "docs/",
+    ".claude/",
+    "index.html",
+    "run_simulation.js",
+    "README.md"
+  ],
+  "dependencies": {
+    "pngjs": "^7.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
