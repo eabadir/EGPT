@@ -30,6 +30,8 @@ This repository contains five interlocking ideas from five authors across a cent
 | Double slit experiment explained | ID3 (Einstein) + ID1 (Ulam) | Open [www/fraqtl_devsdk/](www/fraqtl_devsdk/index.html) -- run the wave interference experiment |
 | Why quantum computing can't outperform classical | ID3 + ID2 + ID5 | Read [Quantum Computing vs Fractal Compression](content/Papers/Quantum%20Computing%20vs%20Fractal%20Compression%20In%20a%20Chaotic%20Discontinuum.docx.md) |
 | Physics simulation without differential equations | ID3 (Einstein) + ID1 (Ulam) | Open [www/fraqtl_devsdk/](www/fraqtl_devsdk/index.html) -- 5 experiments, zero force equations |
+| The New Manhattan Project | All five ideas | [README.md — The New Manhattan Project](README.md#the-new-manhattan-project) |
+| The triumvirate: proof + paper + experiment | ID1 + ID3 | [README.md — Computational Experiments](README.md#computational-experiments-the-third-leg) |
 | The full story from first principles | All five ideas | [EGPT_STORY.md](EGPT_STORY.md) |
 
 ---

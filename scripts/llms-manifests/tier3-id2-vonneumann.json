@@ -1,0 +1,21 @@
+{
+  "tier": 3,
+  "outputFile": "llms-id2.txt",
+  "description": "ID2 (Von Neumann) — The Statistical AI Computer. Integer-only arithmetic, FLOPs→IOPs, FAT, EGPTMath as the working proof that von Neumann's vision is buildable.",
+  "header": "# EGPT — ID2: Von Neumann's Idea (The Statistical AI Computer)\n\n> An ultra-efficient computer operates statistically, not arithmetically.\n> This file contains all primary artifacts for Idea #2.\n> For the full framework: https://github.com/eabadir/EGPT/blob/main/IDEAS.md\n>\n> Key claim: Integer-only arithmetic (IOPs) replaces floating-point (FLOPs) with zero error accumulation.\n> Von Neumann diagnosed this in 'The Computer and the Brain' (1958, posthumous).\n> EGPTMath and FAT are the working implementations of his vision.\n> Live benchmark: https://colab.research.google.com/drive/1LQLCHDNp9kCFgJXIzlitaVxuYiHRATXm",
+  "files": [
+    { "path": "./EGPTMath/EGPTMath.js", "includeFile": true, "note": "Integer-only vector algebra engine (~6800 lines, 157 tests)" },
+    { "path": "./EGPTMath/EGPTNumber.js", "includeFile": true, "note": "PPF number representation — the statistical notation von Neumann envisioned" },
+    { "path": "./EGPTMath/EGPTMath_Developer_Guide.md", "includeFile": true, "note": "How unlimited precision works in information space" },
+    { "path": "./EGPTMath/FAT/EGPTFAT.js", "includeFile": true, "note": "Integer-only FFT/QFT (Cooley-Tukey, no floats)" },
+    { "path": "./EGPTMath/FAT/FAT_README.md", "includeFile": true, "note": "FAT architecture, variants, test results" },
+    { "path": "./EGPTMath/FAT/EGPTFAT_PurePPF.js", "includeFile": true, "note": "Native BigInt FAT variant" },
+    { "path": "./EGPTMath/FAT/EGPTFAT_TypeSafe.js", "includeFile": true, "note": "Domain-safe FAT wrappers" },
+    { "path": "./Lean/EGPT/Complexity/PPNP.lean", "includeFile": true, "note": "P_eq_NP — why statistical computation = deterministic computation" },
+    { "path": "./Lean/EGPT/Complexity/Tableau.lean", "includeFile": true, "note": "Certificate construction, polynomial cost bound" },
+    { "path": "./content/Notes/Precision Loss.md", "includeFile": true, "note": "Von Neumann's error accumulation diagnosis" },
+    { "path": "./content/Notes/Monte Carlo and AI.md", "includeFile": true, "note": "AI is Monte Carlo in disguise" },
+    { "path": "./content/Notes/ENIAC and El Capitan.md", "includeFile": true, "note": "FLOPs vs IOPs — the historical argument" },
+    { "path": "./content/pyFRAQTL/FRAQTL_WhitePaper.md", "includeFile": true, "note": "FRAQTL: classical QFT at O((log k)^3)" }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "tier": 3,
+  "outputFile": "llms-id5.txt",
+  "description": "ID5 (Abadir) — CH Decidable / Unique Representations. Cantor's diagonal assumes non-unique reps. The Beth staircase, P=NP, Hilbert's First Problem, FRAQTL factorization.",
+  "header": "# EGPT — ID5: Abadir's Idea (CH Decidable / Unique Representations)\n\n> In maximally compressed information space, Cantor's diagonal fails; all infinities collapse onto ℕ.\n> This file contains all primary artifacts for Idea #5.\n> For the full framework: https://github.com/eabadir/EGPT/blob/main/IDEAS.md\n>\n> Key claim: The Continuum Hypothesis is decidable because the EGPT hierarchy is bijective\n> with the standard mathematical universe and the Beth staircase is integer-stepped.\n> Hilbert's First Problem, resolved. P=NP is a corollary.",
+  "files": [
+    { "path": "./Lean/EGPT/NumberTheory/ContinuumHypothesis.lean", "includeFile": true, "note": "CH, GCH, AbadirCompletenessTheorem" },
+    { "path": "./Lean/EGPT/NumberTheory/Core.lean", "includeFile": true, "note": "ParticlePath-to-N bijection, Beth hierarchy" },
+    { "path": "./Lean/EGPT/Complexity/PPNP.lean", "includeFile": true, "note": "P_eq_NP theorem" },
+    { "path": "./Lean/EGPT/Complexity/Core.lean", "includeFile": true, "note": "Polynomial definitions, PathToConstraint" },
+    { "path": "./Lean/EGPT/Complexity/Tableau.lean", "includeFile": true, "note": "SatisfyingTableau, cost ≤ n²" },
+    { "path": "./Lean/EGPT/Constraints.lean", "includeFile": true, "note": "CNF formulas, Literal_EGPT, encodeCNF" },
+    { "path": "./CH_README.md", "includeFile": true, "note": "Continuum Hypothesis proof walkthrough" },
+    { "path": "./CH_SKEPTICS_GUIDE.md", "includeFile": true, "note": "CH skeptic's guide" },
+    { "path": "./SKEPTICS_GUIDE.md", "includeFile": true, "note": "P=NP skeptic's walkthrough" },
+    { "path": "./content/Papers/EGPT_PeqNP/PeqNP_QED.md", "includeFile": true, "note": "The P=NP paper (readable markdown)" },
+    { "path": "./content/Papers/Integer_Infinity_Tautology.md", "includeFile": true, "note": "'Is there a whole number between 0 and 1?'" },
+    { "path": "./content/pyFRAQTL/FRAQTL_WhitePaper.md", "includeFile": true, "note": "FRAQTL factorization at O((log k)^3)" },
+    { "path": "./content/pyFRAQTL/No Q-Day Threat.md", "includeFile": true, "note": "P=NP does not break cryptography" }
+  ]
+}

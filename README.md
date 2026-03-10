@@ -1,6 +1,12 @@
 **AI Navigation** — [IDEAS.md](IDEAS.md) | [llms.txt](llms.txt) | [sitemap.xml](sitemap.xml) | [.claude/agents/](.claude/agents/)
 Raw: https://raw.githubusercontent.com/eabadir/EGPT/main/
 
+Imagine there was an AI computer which ran on the power of a dim refrigerator lightbulb but out-performed the most massive of data centers? That computer exists and it is called the human brain.
+
+This project provides the foundation to build [John von Neumann's](IDEAS.md#id2----von-neumann-the-statistical-ai-computer) hyper-efficient AGI computing architecture laid out in "[The Computer & The Brain](content/docs/)". The contents of this repository show not only that it can be built but it provides working foundations to build it. You'll find [formalized machine checked proofs](Lean/EGPT_PROOFS_VALIDATION.md), [computational simulation derivations](www/GravitySim/index.html) of the [necessary physics](www/fraqtl_devsdk/index.html), and [working pedagogical code libraries](EGPTMath/).
+
+The computational approach was first ideated by [Stanislaw Ulam](IDEAS.md#id1----ulam-cgs-from-a-random-walk), then formalized and existentially proved by [Gian-Carlo Rota](IDEAS.md#id4----rota-entropy-is-the-record-of-truth), and now constructively extended by [Essam Abadir](IDEAS.md#id5----abadir-ch-decidable--unique-representations). The work is only beginning and you are invited to [join](#join-the-project).
+
 # Electronic Graph Paper Theory (EGPT): Consciousness, the Universe, and Everything
 - *The Question:* How far can we scale AI?
 - *The Problem:* AI datacenters already consume the energy of small nations. The brain does the same work on 20 watts — the energy of a small light bulb. Can we scale AI without cooking the planet?
@@ -169,6 +175,31 @@ For any valid Bose-Einstein system, there exists a deterministic `PathProgram` �
 
 ---
 
+## Computational Experiments: The Third Leg
+
+Most scientific claims rest on two legs: theory and observation. EGPT adds a third: **computational emergence** — running simulations where physical phenomena arise from first principles without being programmed in. No force equations. No wave functions. Just particles doing random walks on a discrete grid.
+
+This repository contains what we believe to be the first computationally emergent models of:
+
+| Phenomenon | Experiment | What Emerges |
+|-----------|------------|-------------|
+| **Gravity** | [GravitySim](www/GravitySim/index.html) | The inverse-square law falls out of random walk statistics. No Newton's law as input — it appears as output. |
+| **Double slit / wave interference** | [FRAQTL DevSDK](www/fraqtl_devsdk/index.html) | Interference patterns from discrete particles. No wave equation. Feynman said this was "impossible to explain in any classical way." |
+| **Blackbody radiation** | [FRAQTL DevSDK](www/fraqtl_devsdk/index.html) | Planck's distribution emerges from particle statistics. The phenomenon that launched quantum mechanics, derived classically. |
+| **Atomic structure** | [FRAQTL DevSDK](www/fraqtl_devsdk/index.html) | Electron shell structure from random walk confinement. No Schrödinger equation. |
+
+For each of these, the repository provides a **triumvirate** that no other framework offers for any one of them, let alone all four:
+
+1. **Formal proof** (Lean 4) — [`RealityIsComputation.lean`](Lean/EGPT/Physics/RealityIsComputation.lean) proves every physical system has an equivalent computable program. [`BoseEinstein.lean`](Lean/EGPT/Physics/BoseEinstein.lean), [`FermiDirac.lean`](Lean/EGPT/Physics/FermiDirac.lean), [`MaxwellBoltzmann.lean`](Lean/EGPT/Physics/MaxwellBoltzmann.lean) prove H = C × Shannon for all three statistical distributions.
+
+2. **Analytical derivation** — The [Gravity Paper](content/Papers/GravityPaper/GravityPaper.tex) derives P(interaction) = (m₁m₂)/(4r²) from first principles, proving that G and the Coulomb constant k_e are dimensional scaling factors, not fundamental constants.
+
+3. **Working computational experiment** — [GravitySim](www/GravitySim/index.html) and the [FRAQTL DevSDK](www/fraqtl_devsdk/index.html) let you watch it happen. Adjust parameters. See the physics emerge. No equations of motion anywhere in the code.
+
+The distinction matters: traditional physics simulations *input* the laws and watch consequences unfold. These experiments *derive* the laws from something more primitive. The inverse-square law is not programmed — it is discovered by the simulation, the same way it was discovered by observation.
+
+---
+
 ## Why This Matters: Von Neumann's Unfinished Blueprint
 
 Von Neumann's *The Computer and the Brain* identifies the central obstacle to computing consciousness: the brain uses a statistical message system operating at 2–3 decimal digits of precision. In a conventional von Neumann machine, floating-point errors accumulate as √N over N operations — after 10¹⁰ operations, precision of 10¹² is required just to maintain 10³ accuracy. The brain, with 10¹⁰ neurons firing at ~100 Hz, cannot possibly be doing this. Von Neumann concluded the brain's language is "not digital but statistical" and that it must be "essentially different" from mathematics as we know it.
@@ -280,7 +311,7 @@ The intellectual lineage of this work runs through three people who knew each ot
 
 **Stanislaw Ulam** (1909–1984), von Neumann's closest collaborator, invented the Monte Carlo method at Los Alamos and proposed — in his essay "Physics for Mathematicians" — that the CGS system of physical units could be reconstructed from a random walk. Not approximated. *Derived.* Distance is how far the particle walks. Time is how many steps it takes. Mass is the information content of its path. The essay was unpublished at his death; Rota edited it into Ulam's posthumous *Science, Computers, and People* (1986). EGPT's `IIDParticleSource` is the direct formalization of Ulam's random walk.
 
-**Gian-Carlo Rota** (1932–1999), Ulam's disciple at Los Alamos and later professor of applied mathematics and philosophy at MIT, edited Ulam's posthumous book, recounted Ulam's program in *Indiscrete Thoughts* (1997), and formalized the entropy theorem that unifies all of information theory. His unpublished 400+ page manuscript (available in [`content/docs/`](content/docs/)) contains the combinatorial proof that makes everything else in this repository possible — the proof that the logarithm is the unique information measure.
+**Gian-Carlo Rota** (1932–1999), Ulam's disciple at Los Alamos and later professor of applied mathematics and philosophy at MIT, edited Ulam's posthumous book, recounted Ulam's program in *Indiscrete Thoughts* (1997), and formalized the entropy theorem that unifies all of information theory. His unpublished 400+ page manuscript (available in [`content/docs/`](content/docs/)) contains the combinatorial proof that makes everything else in this repository possible — the proof that the logarithm is the unique information measure. That manuscript also laid out five great unsolved problems that Rota knew the text provided answers to. This repository contains machine-verified formalizations of those answers.
 
 ## About Me
 
@@ -301,6 +332,34 @@ Every type lives at some level with cardinality `beth n`. Since there is no natu
 It took me 35 years after Rota's class to see it clearly. The Lean formalization is the proof that the insight is correct. The FAT benchmark is the proof that it matters in practice.
 
 For the full story: **[EGPT_STORY.md](EGPT_STORY.md)**
+
+---
+
+## The New Manhattan Project
+
+The first Manhattan Project produced two things that changed the world: a new kind of physics (quantum simulation via Ulam's Monte Carlo method) and a new kind of computing (von Neumann's stored-program architecture / ENIAC). Both were built from blueprints that von Neumann and Ulam designed together at Los Alamos. Rota, as Ulam's disciple, spent the next four decades formalizing the mathematics behind that first revolution — and in doing so, laid the foundation for the next one.
+
+This repository is the blueprint for that next revolution. The objective is a new computing architecture for AI and physics that is vastly faster and more energy-efficient — the realization of von Neumann's final vision in *The Computer and the Brain*. The implications are as large as the first revolution:
+
+| First Manhattan Project | The New Manhattan Project |
+|------------------------|--------------------------|
+| Von Neumann architecture (ENIAC) | Integer-only statistical computing (FAT / IOPs) |
+| Monte Carlo simulation (Ulam) | P=NP hypercomputing (FRAQTL) |
+| Quantum physics as intractable | Quantum physics as classically computable |
+| Floating-point arithmetic | Integer-only arithmetic — no error accumulation |
+| 2,048 GPUs for one QFT | One 1.2 GHz CPU, ~1.277 billion× faster |
+
+Rota formalized the math behind the first Manhattan Project. In his unpublished textbook, he laid out five great unsolved problems that he knew the text provided answers to. This repository contains machine-verified formalizations of those answers — 85 Lean 4 theorems, the [computational experiments](www/GravitySim/index.html) that demonstrate them, and the [working code](EGPTMath/) that implements them.
+
+The first Manhattan Project's blueprints were classified. These are open. You're reading them.
+
+### Join the Project
+
+Rota told me in 1991 that there was probably room in his "department" because he wasn't sure there was anyone else in it. I'm not sure anyone joined after me. So today I invite you to join — not as a spectator, but as a builder.
+
+The proofs are done. The experiments work. What remains is engineering: bringing integer-only computing and FRAQTL into production systems, building the tools that replace floating-point AI infrastructure, and demonstrating to a skeptical world that von Neumann and Ulam were right all along.
+
+Pick your entry point from the [Ideas Framework](IDEAS.md), choose the role that fits you from the [reading paths](IDEAS.md#3-reading-paths-by-role), and start building.
 
 ---
 

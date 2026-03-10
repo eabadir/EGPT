@@ -1,0 +1,19 @@
+{
+  "tier": 3,
+  "outputFile": "llms-id3.txt",
+  "description": "ID3 (Einstein) — Algebraic Discrete Physics. All of modern physics derives from a purely algebraic, discrete theory. The Physics/ Lean module, computational experiments, and the triumvirate.",
+  "header": "# EGPT — ID3: Einstein's Idea (Algebraic Discrete Physics)\n\n> All of modern physics derives from a purely algebraic, discrete theory.\n> This file contains all primary artifacts for Idea #3.\n> For the full framework: https://github.com/eabadir/EGPT/blob/main/IDEAS.md\n>\n> Key claim: Continuous field theory can be replaced by discrete, integer-indexed computation.\n> Einstein suspected this ('letter to Besso, 1954') but died without the mathematical form.\n> EGPT provides it: RealityIsComputation.lean + GravitySim + FRAQTL DevSDK.\n> The triumvirate: formal proof + analytical paper + computational experiment.",
+  "files": [
+    { "path": "./Lean/EGPT/Physics/RealityIsComputation.lean", "includeFile": true, "note": "Every physical system is computable" },
+    { "path": "./Lean/EGPT/Physics/Common.lean", "includeFile": true, "note": "Physics common definitions" },
+    { "path": "./Lean/EGPT/Physics/UniformSystems.lean", "includeFile": true, "note": "Uniform systems framework" },
+    { "path": "./Lean/EGPT/Physics/BoseEinstein.lean", "includeFile": true, "note": "BE statistics: H = C × Shannon" },
+    { "path": "./Lean/EGPT/Physics/FermiDirac.lean", "includeFile": true, "note": "FD statistics: H = C × Shannon" },
+    { "path": "./Lean/EGPT/Physics/MaxwellBoltzmann.lean", "includeFile": true, "note": "MB statistics: H = C × Shannon" },
+    { "path": "./Lean/EGPT/Physics/PhysicsDist.lean", "includeFile": true, "note": "All three distributions unified" },
+    { "path": "./Lean/EGPT/Physics/PhotonicCA.lean", "includeFile": true, "note": "BE systems are classically computable via RECT" },
+    { "path": "./EGPTMath/EGPTranscendental.js", "includeFile": true, "note": "PI as rational phase, not transcendental — discrete algebra" },
+    { "path": "./content/Papers/GravityPaper/GravityPaper.tex", "includeFile": true, "note": "Analytical derivation: P(interaction) = m₁m₂/4r², G as dimensional scaling" },
+    { "path": "./content/docs/EGPT_Stories/Story of Nile Deriving Gravity.md", "includeFile": true, "note": "Narrative: deriving gravity from random walks" }
+  ]
+}

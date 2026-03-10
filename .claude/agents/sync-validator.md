@@ -87,17 +87,26 @@ Verify the routing chain:
 - If they differ, the sitemap is stale — flag for regeneration before push
 - Verify new files added in the current session appear in the sitemap
 
-### 13. Proof Graph Files Consistency
+### 13. llms Tier Files
+Verify the tiered llms system is complete and current:
+- `llms-full.txt` exists and is non-empty
+- `llms-id1.txt`, `llms-id2.txt`, `llms-id3.txt`, `llms-id4.txt`, `llms-id5.txt` all exist and are non-empty
+- `llms.txt` contains links to all tier files (search for "llms-full.txt", "llms-id1.txt", etc.)
+- Every file referenced in `scripts/llms-manifests/*.json` manifests actually exists on disk
+- Tier 2 file is under 500KB, each Tier 3 file is under 200KB
+- Run `node scripts/generate_llms.js` and verify no errors
+
+### 14. Proof Graph Files Consistency
 Verify `docs/PROOF_GRAPH.md` and `docs/proof_graph.json` exist and are consistent:
 - `docs/proof_graph.json` `meta.total_theorems` matches `Lean/EGPT_PROOFS_VALIDATION.md`
 - `docs/proof_graph.json` node list covers all `.lean` files in `Lean/PROOF_DEPENDENCIES.md`
 - `docs/PROOF_GRAPH.md` header theorem count matches validation report
 - Both files are referenced in `CLAUDE.md`, `AGENTS.md`, `llms.txt`, and `README.md`
 
-### 14. IDEAS.md Link Integrity
+### 15. IDEAS.md Link Integrity
 Verify that `IDEAS.md` exists at the repo root and that all file paths referenced in it resolve to actual files. Spot-check at least 10 paths from the routing tables and reading paths.
 
-### 15. IDEAS.md Idea Coverage
+### 16. IDEAS.md Idea Coverage
 Verify that all five ideas (ID1 Ulam, ID2 Von Neumann, ID3 Einstein, ID4 Rota, ID5 Abadir) appear in every major section of `IDEAS.md`:
 - The master routing table
 - Each layer's coverage table (Lean, EGPTMath, Content, Demos, Navigation)
@@ -105,7 +114,7 @@ Verify that all five ideas (ID1 Ulam, ID2 Von Neumann, ID3 Einstein, ID4 Rota, I
 
 No idea should be missing from any section.
 
-### 16. IDEAS.md Reading Path Validity
+### 17. IDEAS.md Reading Path Validity
 Verify all 12 reading paths in `IDEAS.md` have valid file references. Each path should contain 4--6 steps, and every file reference in every step must resolve to an existing file.
 
 ## Output Format

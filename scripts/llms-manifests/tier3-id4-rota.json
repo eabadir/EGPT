@@ -1,0 +1,15 @@
+{
+  "tier": 3,
+  "outputFile": "llms-id4.txt",
+  "description": "ID4 (Rota) — Entropy Is the Record of Truth. The logarithm is the unique measure. RET formalized in Lean 4. The bridge between physics and computation.",
+  "header": "# EGPT — ID4: Rota's Idea (Entropy Is the Record of Truth)\n\n> The logarithm is the unique measure; physics, computation, and information share one foundation.\n> This file contains all primary artifacts for Idea #4.\n> For the full framework: https://github.com/eabadir/EGPT/blob/main/IDEAS.md\n>\n> Key claim: All entropy functions satisfying 7 natural axioms are C × Shannon entropy.\n> Rota proved this in his unpublished 400-page MIT textbook (1970s-1999).\n> Formalized here in Lean 4: 7 axioms proven constructively for Shannon entropy.",
+  "files": [
+    { "path": "./Lean/EGPT/Entropy/Common.lean", "includeFile": true, "note": "HasRotaEntropyProperties, RECT, Shannon source coding" },
+    { "path": "./Lean/EGPT/Entropy/H.lean", "includeFile": true, "note": "7 Rota axioms proven for Shannon entropy" },
+    { "path": "./Lean/EGPT/Entropy/RET.lean", "includeFile": true, "note": "RET proof infrastructure — monotonicity, conditional additivity" },
+    { "path": "./Lean/EGPT/NumberTheory/Analysis.lean", "includeFile": true, "note": "Logarithmic FTA: log₂(n) = Σ ν_p(n)·log₂(p)" },
+    { "path": "./RET_README.md", "includeFile": true, "note": "Rota's Entropy Theorem dedicated walkthrough" },
+    { "path": "./content/Books/Rota/1992_Edition/ch8 - Entropy and Information.pdf", "includeFile": true, "note": "Rota's entropy derivation in his own words (PDF — will be skipped by generator)" },
+    { "path": "./content/docs/EGPT_Stories/An EGPT Story: The Impossible Audit.md", "includeFile": true, "note": "Allegory: physicist, mathematician, CS, auditor — Rota meets Goldratt" }
+  ]
+}

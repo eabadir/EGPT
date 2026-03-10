@@ -402,4 +402,144 @@ Output to: `docs/audit/phase4-final-validation.md`
 
 ---
 
+## Phase 5: Tiered llms.txt Generation — *after Phase 4 review*
+
+### Goal
+Generate a three-tier llms.txt system that serves AI crawlers and models at different depths of ingestion, using the filePackager-style manifest system and the idea-oriented structure from IDEAS.md.
+
+### The Three Tiers
+
+| Tier | File | Size | Contents | Who uses it |
+|------|------|------|----------|-------------|
+| 1 | `llms.txt` | ~120 lines | Lightweight index with links only | AI crawlers doing initial discovery. Hand-maintained. |
+| 2 | `llms-full.txt` | ~5K–15K lines | All navigation + explanation docs inlined | Models doing single-pass deep ingestion of the project. Generated. |
+| 3 | `llms-id[1-5].txt` | ~1K–8K each | Per-idea deep dives with source code | Models going deep on one idea. Generated. |
+
+### How It Works
+
+A new script `scripts/generate_llms.js` reads manifest files from `scripts/llms-manifests/` and generates the Tier 2 and Tier 3 files. Each manifest defines:
+- A header (preamble with project summary and links)
+- A list of files to inline (same format as filePackager.js manifests)
+- An output filename
+
+The generator:
+- Expands directories into individual files
+- Skips binary files (PDF, images, etc.)
+- Wraps each file in `# --- path ---` markdown headers
+- Prepends the tier-specific header
+
+**Tier 1 (`llms.txt`)** is hand-maintained — it's the lightweight index that links to everything else. It already exists and was updated in Phase 4.
+
+**Tier 2 (`llms-full.txt`)** inlines the entire navigation and explanation layer: IDEAS.md, README.md, AGENTS.md, all CLAUDE.md files, SKEPTICS_GUIDE.md, RET_README.md, CH_README.md, EGPT_STORY.md, proof validation reports, developer guides, the P=NP paper, and the FRAQTL whitepaper. No source code — that's Tier 3.
+
+**Tier 3 (`llms-id[1-5].txt`)** gives each idea its own package with the actual source code (Lean proofs, JS implementations) plus the relevant papers and narratives. The manifests are populated from the Phase 1 audit's primary (`●`) artifact mappings.
+
+### Existing Files
+
+The following have already been created:
+
+- `scripts/generate_llms.js` — The generator script
+- `scripts/llms-manifests/tier2-llms-full.json` — Tier 2 manifest (21 files)
+- `scripts/llms-manifests/tier3-id1-ulam.json` — ID1 manifest (6 files)
+- `scripts/llms-manifests/tier3-id2-vonneumann.json` — ID2 manifest (13 files)
+- `scripts/llms-manifests/tier3-id3-einstein.json` — ID3 manifest (11 files)
+- `scripts/llms-manifests/tier3-id4-rota.json` — ID4 manifest (6 files)
+- `scripts/llms-manifests/tier3-id5-abadir.json` — ID5 manifest (13 files)
+
+### Instructions for `@egpt-orchestrator`
+
+#### Task 1 → `@js-engineer`: Verify and Run Generator
+
+1. Read `scripts/generate_llms.js` and verify it handles edge cases (missing files, empty files, binary skip)
+2. Run `node scripts/generate_llms.js --dry-run` to verify all manifests resolve
+3. Run `node scripts/generate_llms.js` to generate all tier files
+4. Report the line count and size of each generated file
+
+Output: The generated `llms-full.txt` and `llms-id[1-5].txt` files at repo root.
+
+#### Task 2 → `@doc-writer`: Update llms.txt with Tier Links
+
+Update the hand-maintained `llms.txt` (Tier 1) to link to the generated tiers:
+
+Add a section after the header:
+```
+## Deep Context Files (Generated)
+
+For models that can ingest larger context, these files inline the full content:
+
+- llms-full.txt: Complete navigation and explanation layer (~X KB)
+- llms-id1.txt: ID1 (Ulam) — CGS from random walks, proofs + code
+- llms-id2.txt: ID2 (Von Neumann) — Statistical AI computer, EGPTMath + FAT
+- llms-id3.txt: ID3 (Einstein) — Algebraic discrete physics, Physics/ proofs + experiments
+- llms-id4.txt: ID4 (Rota) — Entropy theorem, Entropy/ proofs + axioms
+- llms-id5.txt: ID5 (Abadir) — CH decidable, P=NP, Complexity/ proofs + papers
+```
+
+Use the actual GitHub raw URLs so AI crawlers can follow the links.
+
+#### Task 3 → `@doc-writer`: Update Orchestrator Sync Matrix
+
+Add to the orchestrator's sync matrix (`@egpt-orchestrator`):
+
+```
+**Pre-push / check-in to git:**
+- MUST: Regenerate llms tier files — `node scripts/generate_llms.js`
+```
+
+And:
+
+```
+**llms manifest changed (scripts/llms-manifests/*.json):**
+- MUST: Regenerate llms tier files — `node scripts/generate_llms.js`
+- MUST: Verify generated files are not excessively large (Tier 2 < 500KB, Tier 3 < 200KB each)
+```
+
+#### Task 4 → `@doc-writer`: Update Sync Validator
+
+Add to `@sync-validator` checklist:
+
+```
+- llms-full.txt exists and is non-empty
+- llms-id[1-5].txt all exist and are non-empty
+- llms.txt links to all tier files
+- Every file referenced in a manifest actually exists on disk
+```
+
+#### Task 5 → `@content-author`: Review Tier 3 Manifests Against Audits
+
+Cross-check each Tier 3 manifest against the Phase 1 audits to ensure:
+1. Every `●` (primary) artifact from the audits is included in the correct idea's manifest
+2. No critical artifacts are missing from any tier
+3. The manifests don't include files that are purely secondary (`◐`) to the idea — those should only appear if they're essential for understanding
+
+Suggest any additions or removals.
+
+Output to: `docs/audit/llms-manifest-review.md`
+
+#### Task 6 → `@sync-validator`: Phase 5 Validation
+
+After all tasks complete:
+1. `llms-full.txt` exists and contains content from all 21 Tier 2 files
+2. `llms-id[1-5].txt` all exist and are non-empty
+3. `llms.txt` contains links to all tier files
+4. No manifest references files that don't exist
+5. Tier 2 file is under 500KB
+6. Each Tier 3 file is under 200KB
+7. Generator runs without errors: `node scripts/generate_llms.js`
+
+Output to: `docs/audit/phase5-validation.md`
+
+### Success Criteria for Phase 5
+
+- [ ] `llms-full.txt` generated and at repo root
+- [ ] `llms-id[1-5].txt` all generated and at repo root
+- [ ] `llms.txt` updated with links to all tier files
+- [ ] Orchestrator sync matrix includes llms regeneration in pre-push
+- [ ] Sync validator includes llms file checks
+- [ ] Tier 3 manifests cross-checked against Phase 1 audits
+- [ ] All file sizes within bounds
+- [ ] `@sync-validator` Phase 5 validation passes
+
+---
+
 *This plan is designed to be executed phase-by-phase with human review between each phase. Do not proceed to the next phase without explicit approval.*

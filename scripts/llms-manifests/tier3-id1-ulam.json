@@ -1,0 +1,14 @@
+{
+  "tier": 3,
+  "outputFile": "llms-id1.txt",
+  "description": "ID1 (Ulam) — CGS from a random walk. ParticlePath, random walks, Monte Carlo, physical units from pure mathematics. Includes Lean proofs, EGPTMath implementations, original author references, and demo source.",
+  "header": "# EGPT — ID1: Ulam's Idea (CGS from a Random Walk)\n\n> Physical units emerge from pure mathematics via random walks.\n> This file contains all primary artifacts for Idea #1.\n> For the full framework: https://github.com/eabadir/EGPT/blob/main/IDEAS.md\n>\n> Key claim: The Centimeter-Gram-Second system can be reconstructed from a random walk.\n> Ulam proposed this in 'Physics for Mathematicians' (pub. posthumously 1986, ed. Rota).\n> In EGPT, this becomes ParticlePath = List Bool = the foundation of all number theory.",
+  "files": [
+    { "path": "./Lean/EGPT/Core.lean", "includeFile": true, "note": "ParticlePath, ComputerTape, RandomWalkPath, IIDParticleSource" },
+    { "path": "./Lean/EGPT/NumberTheory/Core.lean", "includeFile": true, "note": "ParticlePath ≃ ℕ bijection, arithmetic homomorphisms" },
+    { "path": "./EGPTMath/EGPTNumber.js", "includeFile": true, "note": "PPF encoding — JS implementation of ParticlePath ↔ ℕ" },
+    { "path": "./content/Books/Ulam/Science Computers And People.md", "includeFile": true, "note": "Ulam's posthumous book — 'Physics for Mathematicians' essay" },
+    { "path": "./content/Books/Rota/Indiscrete Thoughts.md", "includeFile": true, "note": "Rota recounts Ulam's CGS program" },
+    { "path": "./content/Papers/GravityPaper/GravityPaper.tex", "includeFile": true, "note": "Analytical derivation: inverse-square law from random walks" }
+  ]
+}

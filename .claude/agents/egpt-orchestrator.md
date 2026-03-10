@@ -102,8 +102,13 @@ For each change, determine downstream impacts:
 - MUST: `@doc-writer` assess which idea(s) from ID1--ID5 it belongs to and update `IDEAS.md` if the artifact is significant
 - MUST: Specialist agent for the relevant layer updates its own "Ideas Coverage" table if the artifact is a primary expression of an idea
 
+**llms manifest changed (scripts/llms-manifests/*.json):**
+- MUST: Regenerate llms tier files — `node scripts/generate_llms.js`
+- MUST: Verify generated files are not excessively large (Tier 2 < 500KB, Tier 3 < 200KB each)
+
 **Pre-push / check-in to git:**
 - MUST: Regenerate sitemap — `node scripts/generate_sitemap.js`
+- MUST: Regenerate llms tier files — `node scripts/generate_llms.js`
 - MUST: `@sync-validator` run full cross-layer consistency check
 - MUST: Verify `sitemap.xml` includes any new files added in this session
 
