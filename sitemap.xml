@@ -793,6 +793,24 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/content/Class/18.313 Course Outline.md</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/content/Class/AI_Prompt.md</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/content/Class/Lecture 1 Brainstorm.md</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/content/Faster Abadir Transform BP/Business_Plan.md</loc>
     <lastmod>2026-03-10</lastmod>
     <changefreq>monthly</changefreq>
@@ -883,6 +901,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/content/Papers/GravityPaper/GravityPaper.pdf</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/content/Papers/Integer_Infinity_Tautology.md</loc>
     <lastmod>2026-03-10</lastmod>
     <changefreq>monthly</changefreq>
@@ -893,6 +917,18 @@
     <lastmod>2026-03-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/content/Papers/Quantum Computing Fractal Compression In A Swarm Enviornment - Patent Application Background.md</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/content/Papers/Quantum Computing vs Fractal Compression In a Chaotic Discontinuum.docx.md</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/content/Papers/RET_Paper/Rota_Entropy_Theorem_Original_Proof.pdf</loc>
@@ -1237,6 +1273,36 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/GravitySim/README.md</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/GravitySim/index.html</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/GravitySim/launch.json</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/GravitySim/read.md</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/GravitySim/sketch.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/www/RotaEntropy/EGPTPrimeShannonCodes.md</loc>
     <lastmod>2026-03-10</lastmod>
     <changefreq>monthly</changefreq>
@@ -1271,6 +1337,258 @@
     <lastmod>2026-03-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/.claude/CLAUDE.md</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/.claude/memory/agent-team.md</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/README.md</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/bin/cli.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/docs/COLLISION_SYSTEM_DESIGN.md</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/docs/DeSciX_Community_License_v1.pdf</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/docs/EGPT FRACTAL Programming Guide.md</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/docs/EGPT_DEVSDK_API_REFERENCE.md</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/docs/EGPT_DEVSDK_IMPLEMENTATION_GUIDE.md</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/docs/EGPT_SIMULATION_SCENARIOS.md</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/index.html</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/bootstrap.bundle.min.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/chroma.min.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/consumers/IConsumer.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/consumers/P5Renderer.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/d3.min.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/engine/EGPTfraqtl.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/engine/engine.node.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/engine/quadtree.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/engine/test_lo_collision.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/engine/test_promotion.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/engine/test_wave_diag.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/engine/test_wave_diag2.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/engine/test_wave_diag3.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/engine/test_wave_interference.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/engine/test_wave_period.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/examples/tutorial/Experiments.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/examples/tutorial/GameCards.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/examples/tutorial/StartScreen.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/game/EntropyGame.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/game/EntropyGameObjects.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/game/GameControls.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/game/charting.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/p5.dom.min.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/p5.min.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/simulation/setupAtomicModel.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/simulation/setupBlackbody.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/simulation/setupOscillator.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/simulation/setupParticleWalk.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/simulation/setupWaveInterference.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/js/user/HelloEGPT.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/www/fraqtl_devsdk/run_simulation.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
   </url>
   <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/www/js/EGPTCharting.js</loc>
