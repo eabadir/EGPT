@@ -44,8 +44,9 @@ Use `sonnet`. JS implementation follows well-established patterns; sonnet provid
 
 1. Run `cd EGPTMath && node test/EGPTTestSuite.js` — all tests must pass
 2. If test count changed, note it (the `@doc-writer` will update CLAUDE.md)
-3. If new concept implemented, add tests in appropriate test file or create new one
-4. If creating a theorem validation, put it in `TheoremTests/`
+3. If test count changed, update `EGPTMath/_meta.json` description
+4. If new concept implemented, add tests in appropriate test file or create new one
+5. If creating a theorem validation, put it in `TheoremTests/`
 
 ## Conventions
 

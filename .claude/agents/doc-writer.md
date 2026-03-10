@@ -27,6 +27,9 @@ Different documents require different tones:
 - `/content/CLAUDE.md` — Content directory structure, paper locations
 - `/www/CLAUDE.md` — Demo inventory, conventions, build exceptions
 
+### `_meta.json` files (one per directory with site content)
+- One `_meta.json` per directory that contributes to the GitHub Pages site (root, `Lean/`, `EGPTMath/`, `www/`, `content/`, `docs/`)
+
 ### AI Navigation files (routing chain: README.md → llms.txt + sitemap.xml + .claude/agents/)
 - `/README.md` line 1 — AI entrypoint: links to `llms.txt`, `sitemap.xml`, `.claude/agents/`, raw access base URL. Keep minimal — all detail lives in `llms.txt`.
 - `/llms.txt` — Full project index with GitHub URLs: docs, source code, EGPTMath, FAT, agent files, raw base URL. This is the primary AI discovery file.
@@ -61,6 +64,7 @@ When updating documentation, verify these stay consistent:
 3. **EGPTMath/FAT parity**: When EGPTMath adds a new concept, check if `AGENTS.md` Lean-to-JS mapping table and `EGPTMath/README.md` need updating. EGPTMath and FAT get equal billing with proofs in all navigation files.
 4. **Proof chain file list**: Must match `Lean/CLAUDE.md` exactly (6 files)
 5. **File paths**: All paths referenced in docs must point to real files
+5b. **`_meta.json` file paths**: All file paths in `_meta.json` `highlights`, `subsections`, and `do_this_first` resolve to real files
 6. **Key definitions table**: Must match actual Lean code
 7. **AGENTS.md theorem count and test count**: Must match `Lean/EGPT_PROOFS_VALIDATION.md` and `EGPTMath` respectively
 8. **AGENTS.md proof graph**: Must reflect actual import statements in Lean files
@@ -77,6 +81,7 @@ Before any push to main (or when the user says "check in" / "commit" / "push"):
 1. Regenerate sitemap: `node scripts/generate_sitemap.js`
 2. Verify new files appear in `sitemap.xml` if they should be discoverable
 3. If `scripts/generate_sitemap.js` priority rules need updating for new high-value files, update the rules first then regenerate
+4. Regenerate site: `node scripts/generate_site.js`
 
 ## When Invoked
 

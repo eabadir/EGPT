@@ -1,0 +1,45 @@
+{
+  "site": {
+    "title": "18.313 — Introduction To EGPT: The New Manhattan Project",
+    "subtitle": "Five Ideas. One Repository. A New Computing Architecture.",
+    "repo_url": "https://github.com/eabadir/EGPT",
+    "pages_url": "https://eabadir.github.io/EGPT",
+    "raw_url": "https://raw.githubusercontent.com/eabadir/EGPT/main"
+  },
+  "ideas": {
+    "ID1": { "label": "Ulam — CGS from a Random Walk", "color": "#2196F3", "short": "Random Walk" },
+    "ID2": { "label": "Von Neumann — The Statistical AI Computer", "color": "#4CAF50", "short": "IOPs" },
+    "ID3": { "label": "Einstein — Algebraic Discrete Physics", "color": "#FF9800", "short": "Discrete Physics" },
+    "ID4": { "label": "Rota — Entropy is the Record of Truth", "color": "#9C27B0", "short": "Entropy" },
+    "ID5": { "label": "Abadir — CH Decidable / Unique Representations", "color": "#F44336", "short": "Completeness" }
+  },
+  "personas": {
+    "ai-ml-engineer":      { "label": "AI/ML Engineer",           "group": "code-first" },
+    "cs-student":          { "label": "CS Student",               "group": "code-first" },
+    "hardware-engineer":   { "label": "Hardware Engineer",         "group": "code-first" },
+    "complexity-theorist": { "label": "Complexity Theorist",       "group": "theory-first" },
+    "proof-engineer":      { "label": "Proof Engineer",            "group": "theory-first" },
+    "mathematician":       { "label": "Mathematician",             "group": "theory-first" },
+    "qc-enthusiast":       { "label": "Quantum Computing Enthusiast", "group": "theory-first" },
+    "physicist":           { "label": "Physicist",                 "group": "science-first" },
+    "philosopher":         { "label": "Philosopher of Mind",       "group": "science-first" },
+    "founder-investor":    { "label": "Founder / Investor",        "group": "outcome-first" },
+    "ai-practitioner":     { "label": "AI Practitioner",           "group": "outcome-first" },
+    "cryptographer":       { "label": "Cryptographer",             "group": "theory-first" }
+  },
+  "modules": [
+    { "dir": "Lean",    "label": "Module 1: The Proof Chain",          "order": 1 },
+    { "dir": "EGPTMath","label": "Module 2: The Integer Math Library",  "order": 2 },
+    { "dir": "www",     "label": "Module 3: Code",                      "order": 3 },
+    { "dir": "content", "label": "Module 4: Papers & Stories",          "order": 4 },
+    { "dir": "docs",    "label": "Module 5: Navigation & Reference",    "order": 5 }
+  ],
+  "external_resources": [
+    {
+      "label": "QFT Benchmark (Google Colab)",
+      "url": "https://colab.research.google.com/drive/1LQLCHDNp9kCFgJXIzlitaVxuYiHRATXm",
+      "ideas": ["ID2", "ID5"],
+      "personas": ["qc-enthusiast", "ai-ml-engineer", "hardware-engineer"]
+    }
+  ]
+}

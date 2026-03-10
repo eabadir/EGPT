@@ -54,6 +54,7 @@ Reference `GPUHeatDeath.html` and `RotaEntropy/RotaEntropyProperties.html` as ex
 3. Include brief inline documentation explaining what the demo shows
 4. Ensure it works by opening directly in a browser (no server needed)
 5. Notify `@doc-writer` to update `www/CLAUDE.md` with the new demo
+6. Update `www/_meta.json` to include the new demo in `highlights` or `embed_demos`
 
 ## Key EGPT Concepts to Visualize
 

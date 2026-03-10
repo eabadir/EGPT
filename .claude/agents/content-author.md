@@ -65,6 +65,7 @@ You'll typically be asked to:
 - Write a story-form narrative for a new EGPT concept
 - Update the whitepaper when benchmarks or algorithms change
 - Cross-reference content with Lean proofs for accuracy
+- When adding new papers or stories, update `content/_meta.json` highlights and subsections
 
 ## Key Principles to Embody in All Content
 

@@ -1177,6 +1177,12 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/docs/audit/llms-manifest-review.md</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/docs/audit/navigation-audit.md</loc>
     <lastmod>2026-03-10</lastmod>
     <changefreq>monthly</changefreq>
@@ -1195,10 +1201,52 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/docs/audit/phase5-validation.md</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/docs/proof_graph.json</loc>
     <lastmod>2026-03-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/llms-full.txt</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/llms-id1.txt</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/llms-id2.txt</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/llms-id3.txt</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/llms-id4.txt</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/llms-id5.txt</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
   </url>
   <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/llms.txt</loc>
@@ -1219,10 +1267,52 @@
     <priority>0.4</priority>
   </url>
   <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/scripts/generate_llms.js</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/scripts/generate_sitemap.js</loc>
     <lastmod>2026-03-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/scripts/llms-manifests/tier2-llms-full.json</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/scripts/llms-manifests/tier3-id1-ulam.json</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/scripts/llms-manifests/tier3-id2-vonneumann.json</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/scripts/llms-manifests/tier3-id3-einstein.json</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/scripts/llms-manifests/tier3-id4-rota.json</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://github.com/eabadir/EGPT/blob/main/scripts/llms-manifests/tier3-id5-abadir.json</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
   </url>
   <url>
     <loc>https://github.com/eabadir/EGPT/blob/main/scripts/tex-to-md.js</loc>

@@ -1,0 +1,103 @@
+{
+  "title": "Papers, Books & Stories",
+  "module": "Module 4: Papers & Stories",
+  "description": "The written foundation of EGPT: formal papers on P=NP, the Continuum Hypothesis, Rota's Entropy Theorem, and algebraic gravity; reference books by Ulam, Von Neumann, and Rota; narrative expositions that make the ideas accessible; the FRAQTL white paper and Python SDK; and course lecture materials.",
+  "ideas": ["ID1", "ID2", "ID3", "ID4", "ID5"],
+  "primary_ideas": ["ID1", "ID4", "ID5"],
+  "do_this_first": {
+    "mathematician":       { "action": "Read the P=NP paper",                  "file": "Papers/EGPT_PeqNP/PeqNP_QED.md" },
+    "physicist":           { "action": "Read the Gravity paper",               "file": "Papers/GravityPaper/GravityPaper.pdf" },
+    "cryptographer":       { "action": "Read No Q-Day Threat",                 "file": "pyFRAQTL/No Q-Day Threat.md" },
+    "founder-investor":    { "action": "Read the Executive Summary",           "file": "Faster Abadir Transform BP/Executive_Summary.md" },
+    "philosopher":         { "action": "Read The Story of EGPT",               "file": "docs/EGPT_Stories/The Story of EGPT.md" },
+    "cs-student":          { "action": "Read Address Is The Map",              "file": "Papers/Address_Is_The_Map/Address_Is_The_Map.pdf" }
+  },
+  "highlights": [
+    { "file": "Papers/EGPT_PeqNP/PeqNP_QED.md",                              "label": "P = NP — the readable proof",                    "idea": "ID5" },
+    { "file": "pyFRAQTL/FRAQTL_WhitePaper.md",                                "label": "FRAQTL factorization white paper",                "idea": "ID1" },
+    { "file": "Papers/GravityPaper/GravityPaper.pdf",                          "label": "Algebraic discrete gravity",                      "idea": "ID3" },
+    { "file": "Papers/RET_Paper/Rota_Entropy_Theorem_Original_Proof.pdf",      "label": "Rota's Entropy Theorem — original proof",         "idea": "ID4" },
+    { "file": "docs/EGPT_Stories/The Story of EGPT.md",                        "label": "The Story of EGPT — narrative exposition",         "idea": "ID1" },
+    { "file": "Papers/ContinuumHypothesis/ContinuumHypothesis.pdf",            "label": "Continuum Hypothesis decided",                    "idea": "ID5" }
+  ],
+  "subsections": [
+    {
+      "title": "Core Papers",
+      "files": [
+        "Papers/EGPT_PeqNP/PeqNP_QED.md",
+        "Papers/PPNP_Paper/PprobablyEqualsNP_formal.pdf",
+        "Papers/ContinuumHypothesis/ContinuumHypothesis.pdf",
+        "Papers/RET_Paper/Rota_Entropy_Theorem_Original_Proof.pdf",
+        "Papers/Address_Is_The_Map/Address_Is_The_Map.pdf",
+        "Papers/GravityPaper/GravityPaper.pdf"
+      ]
+    },
+    {
+      "title": "Applied Papers",
+      "files": [
+        "Papers/Entropy Game/TheEntropyGame.pdf",
+        "Papers/Without_Attraction_There_Is_Nothing/Without_Attraction_There_Is_Nothing.tex",
+        "Papers/AddressMap_And_Crypto/Structural_Security_Of_Crypto_When_PeqNP.tex",
+        "Papers/Integer_Infinity_Tautology.md"
+      ]
+    },
+    {
+      "title": "FRAQTL & pyFRAQTL SDK",
+      "files": [
+        "pyFRAQTL/FRAQTL_WhitePaper.md",
+        "pyFRAQTL/FRAQTL_WhitePaper.ipynb",
+        "pyFRAQTL/pyFRAQTLsdk.py",
+        "pyFRAQTL/No Q-Day Threat.md"
+      ]
+    },
+    {
+      "title": "Books & Reference",
+      "files": [
+        "Books/Ulam/Science Computers And People.md",
+        "Books/Von Neumann/0300181116_The Computer Brain.pdf",
+        "Books/Rota/Indiscrete Thoughts.md",
+        "Books/Rota/Rota Bio, Math, and Philosophy.md"
+      ]
+    },
+    {
+      "title": "Stories & Narratives",
+      "files": [
+        "docs/EGPT_Stories/The Story of EGPT.md",
+        "docs/EGPT_Stories/The Riddle of EGPT.md",
+        "docs/EGPT_Stories/Everything In EGPT Is A Pyramid.md",
+        "docs/EGPT_Stories/Story of Nile Deriving Gravity.md",
+        "docs/EGPT_Stories/Ulam And Von Neumann TOE.md",
+        "docs/EGPT_Stories/An EGPT Story: The Impossible Audit.md"
+      ]
+    },
+    {
+      "title": "Course Materials",
+      "files": [
+        "Class/18.313 Course Outline.md",
+        "Class/AI_Prompt.md"
+      ]
+    },
+    {
+      "title": "Business & Strategy",
+      "files": [
+        "Faster Abadir Transform BP/Executive_Summary.md",
+        "Faster Abadir Transform BP/Business_Plan.md",
+        "Faster Abadir Transform BP/Market_Research.md",
+        "Faster Abadir Transform BP/Technical_Docs.md"
+      ]
+    },
+    {
+      "title": "Historical Sources",
+      "files": [
+        "SSG_History/Godel Letter to Von Neumann.pdf",
+        "SSG_History/The-Barrier-of-Meaning-Gian-Carlo-Rota.pdf",
+        "SSG_History/TheMathematician.pdf"
+      ]
+    }
+  ],
+  "related_reading": [
+    { "label": "IDEAS.md — Idea Map",           "file": "../IDEAS.md" },
+    { "label": "EGPT Story (root)",              "file": "../EGPT_STORY.md" },
+    { "label": "Proof Dependency Graph",         "file": "../docs/PROOF_GRAPH.md" }
+  ]
+}

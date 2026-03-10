@@ -1,0 +1,86 @@
+{
+  "title": "Interactive Demos & Visualizers",
+  "module": "Module 3: Interactive Demos",
+  "description": "Browser-based interactive demonstrations of EGPT concepts. See integer-only gravity simulation, entropy visualization, fractal wave patterns, and the FRAQTL factorization DevSDK — all running in your browser with no server required.",
+  "ideas": ["ID1", "ID2", "ID3", "ID4"],
+  "primary_ideas": ["ID1", "ID3", "ID4"],
+  "do_this_first": {
+    "cs-student":       { "action": "Launch GravitySim",                        "file": "GravitySim/index.html" },
+    "physicist":        { "action": "Explore the FRAQTL DevSDK",                "file": "fraqtl_devsdk/index.html" },
+    "qc-enthusiast":    { "action": "Run the QFT benchmark on Colab",           "file": null },
+    "ai-ml-engineer":   { "action": "See why GPUs waste energy",                "file": "GPUHeatDeath.html" },
+    "philosopher":      { "action": "Explore the Address-is-the-Map visualizer","file": "the-address-is-the-map-visualizer/index.html" }
+  },
+  "highlights": [
+    { "file": "GravitySim/index.html",                            "label": "Integer-only gravity simulation (p5.js)",          "idea": "ID3" },
+    { "file": "fraqtl_devsdk/index.html",                        "label": "FRAQTL factorization DevSDK",                      "idea": "ID1" },
+    { "file": "RotaEntropy/RotaEntropyProperties.html",           "label": "Rota Entropy Properties visualizer",               "idea": "ID4" },
+    { "file": "GPUHeatDeath.html",                                "label": "GPU Heat Death — why FLOPs cost energy",           "idea": "ID2" },
+    { "file": "the-address-is-the-map-visualizer/index.html",     "label": "The Address Is The Map — interactive visualizer",   "idea": "ID1" }
+  ],
+  "subsections": [
+    {
+      "title": "Gravity & Physics",
+      "files": [
+        "GravitySim/index.html",
+        "fraqtl_devsdk/index.html"
+      ]
+    },
+    {
+      "title": "Entropy",
+      "files": [
+        "RotaEntropy/index.html",
+        "RotaEntropy/RotaEntropyProperties.html",
+        "RotaEntropy/TheGreatestDebate.html",
+        "EntropyUniformity.html"
+      ]
+    },
+    {
+      "title": "Fractals & Waves",
+      "files": [
+        "EGPTFactalWave.html",
+        "EGPTfractal.html"
+      ]
+    },
+    {
+      "title": "Number Theory",
+      "files": [
+        "EGPTNumberUniformity.html"
+      ]
+    },
+    {
+      "title": "Conceptual Visualizers",
+      "files": [
+        "the-address-is-the-map-visualizer/index.html",
+        "GPUHeatDeath.html"
+      ]
+    }
+  ],
+  "embed_demos": [
+    {
+      "src": "GravitySim/index.html",
+      "label": "GravitySim — Integer-only gravity",
+      "height": 500
+    },
+    {
+      "src": "fraqtl_devsdk/index.html",
+      "label": "FRAQTL DevSDK — Factorization explorer",
+      "height": 600
+    },
+    {
+      "src": "RotaEntropy/RotaEntropyProperties.html",
+      "label": "Rota Entropy Properties",
+      "height": 500
+    },
+    {
+      "src": "GPUHeatDeath.html",
+      "label": "GPU Heat Death — FLOPs vs IOPs",
+      "height": 400
+    }
+  ],
+  "related_reading": [
+    { "label": "GravitySim README",            "file": "GravitySim/README.md" },
+    { "label": "FRAQTL DevSDK README",         "file": "fraqtl_devsdk/README.md" },
+    { "label": "Prime Shannon Codes",          "file": "RotaEntropy/EGPTPrimeShannonCodes.md" }
+  ]
+}

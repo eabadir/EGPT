@@ -117,6 +117,21 @@ No idea should be missing from any section.
 ### 17. IDEAS.md Reading Path Validity
 Verify all 12 reading paths in `IDEAS.md` have valid file references. Each path should contain 4--6 steps, and every file reference in every step must resolve to an existing file.
 
+### 18. `_meta.json` File Existence
+Verify `_meta.json` exists in: root, `Lean/`, `EGPTMath/`, `www/`, `content/`, `docs/`.
+
+### 19. `_meta.json` File Path Validity
+For each `_meta.json`, verify every file path in `highlights`, `subsections`, and `do_this_first` resolves to an actual file on disk.
+
+### 20. `_meta.json` ↔ `IDEAS.md` Consistency
+Verify that "Do This First" actions in `_meta.json` files match the corresponding "Do This First" columns in `IDEAS.md` artifact tables.
+
+### 21. Generated `index.html` Freshness
+Run `node scripts/generate_site.js --dry-run` and compare expected output list against existing `index.html` files.
+
+### 22. Site Assets Exist
+Verify `site-assets/style.css`, `site-assets/site.js`, and `site-assets/mermaid.min.js` exist and are non-empty.
+
 ## Output Format
 
 Report results as a structured checklist:

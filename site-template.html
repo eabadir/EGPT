@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{PAGE_TITLE}} — 18.313 EGPT</title>
+  <link rel="stylesheet" href="site-assets/style.css">
+  <link rel="stylesheet" href="site-assets/hljs-theme.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
+        <a class="sidebar-brand" href="#" data-home>18.313 EGPT</a>
+        <p class="sidebar-subtitle">The New Manhattan Project</p>
+      </div>
+      <nav class="tree-nav" id="tree-nav">
+        <!-- JS builds tree from SITE_DATA -->
+      </nav>
+      <div class="sidebar-footer">
+        <a href="https://github.com/eabadir/EGPT" target="_blank">GitHub</a>
+        <a href="llms.txt">llms.txt</a>
+        <a href="AGENTS.md">AGENTS.md</a>
+      </div>
+    </aside>
+    <main class="main-content" id="main-content">
+      <div class="content-toolbar" id="content-toolbar">
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu">☰</button>
+        <span class="content-breadcrumb" id="content-breadcrumb"></span>
+        <a class="content-github-link" id="content-github-link" href="#" target="_blank" title="View on GitHub">↗ GitHub</a>
+      </div>
+      <div class="landing" id="landing">
+        {{LANDING_CONTENT}}
+      </div>
+      <iframe class="content-iframe" id="content-iframe" sandbox="allow-scripts allow-same-origin allow-popups" style="display:none"></iframe>
+      <div class="content-rendered" id="content-rendered" style="display:none"></div>
+    </main>
+  </div>
+  <script>
+    window.SITE_DATA = {{SITE_DATA_JSON}};
+  </script>
+  <script src="site-assets/marked.min.js"></script>
+  <script src="site-assets/hljs.min.js"></script>
+  <script src="site-assets/mermaid.min.js"></script>
+  <script src="site-assets/site.js"></script>
+</body>
+</html>

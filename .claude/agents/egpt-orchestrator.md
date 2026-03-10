@@ -21,9 +21,9 @@ Run `git diff --name-only HEAD~1` (or read the user's description of what change
 | **Entropy** | `Lean/EGPT/Entropy/*.lean` |
 | **EGPTMath** | `EGPTMath/**` |
 | **Content** | `content/**` |
-| **Web demos** | `www/**` |
+| **Web demos** | `www/**`, `site-assets/` |
 | **Root docs** | `README.md`, `EGPT_STORY.md`, `CLAUDE.md` |
-| **AI navigation** | `AGENTS.md`, `llms.txt`, `sitemap.xml`, `.claude/agents/`, `Lean/PROOF_DEPENDENCIES.md`, `docs/PROOF_GRAPH.md`, `docs/proof_graph.json` |
+| **AI navigation** | `AGENTS.md`, `llms.txt`, `sitemap.xml`, `.claude/agents/`, `Lean/PROOF_DEPENDENCIES.md`, `docs/PROOF_GRAPH.md`, `docs/proof_graph.json`, `_meta.json`, generated `index.html` files |
 
 ### Step 2: Apply the Sync Matrix
 
@@ -84,6 +84,12 @@ For each change, determine downstream impacts:
 **New documentation file added (paper, whitepaper, story):**
 - ASSESS: `@doc-writer` add to `llms.txt` if it's a significant entry point
 
+**`_meta.json` changed:**
+- MUST: Regenerate site via `node scripts/generate_site.js`
+
+**New directory with content added:**
+- MUST: `@doc-writer` create `_meta.json` for new directory
+
 **AI navigation file changed (`llms.txt`, `AGENTS.md`, `sitemap.xml`, `.claude/agents/`):**
 - MUST: Keep the routing chain consistent: `README.md` header → `llms.txt` + `sitemap.xml` + `.claude/agents/`
 - MUST: `README.md` line 1 is the AI entrypoint — links to `llms.txt`, `sitemap.xml`, `.claude/agents/`, plus the raw access base URL
@@ -109,6 +115,7 @@ For each change, determine downstream impacts:
 **Pre-push / check-in to git:**
 - MUST: Regenerate sitemap — `node scripts/generate_sitemap.js`
 - MUST: Regenerate llms tier files — `node scripts/generate_llms.js`
+- MUST: Regenerate site — `node scripts/generate_site.js`
 - MUST: `@sync-validator` run full cross-layer consistency check
 - MUST: Verify `sitemap.xml` includes any new files added in this session
 

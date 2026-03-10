@@ -1,0 +1,47 @@
+{
+  "title": "Formal Proofs (Lean 4)",
+  "module": "Module 1: The Proof Chain",
+  "description": "Machine-verified theorems in Lean 4 with mathlib4. No sorry. No custom axioms. The constructive proof that P = NP, Rota's Entropy Theorem formalized, the Continuum Hypothesis decided, and algebraic discrete physics — all formally verified.",
+  "ideas": ["ID1", "ID2", "ID3", "ID4", "ID5"],
+  "primary_ideas": ["ID4", "ID5"],
+  "do_this_first": {
+    "proof-engineer":      { "action": "cd Lean && lake build",       "file": null },
+    "cs-student":          { "action": "Read the walkthrough",        "file": "EGPT/PeqNP_Proof_README.md" },
+    "mathematician":       { "action": "Read the CH proof",           "file": "EGPT/NumberTheory/ContinuumHypothesis.lean" },
+    "complexity-theorist": { "action": "Read PPNP.lean",              "file": "EGPT/Complexity/PPNP.lean" },
+    "physicist":           { "action": "Read RealityIsComputation",   "file": "EGPT/Physics/RealityIsComputation.lean" }
+  },
+  "highlights": [
+    { "file": "EGPT/Complexity/PPNP.lean",                    "label": "P = NP theorem",                   "idea": "ID5" },
+    { "file": "EGPT/NumberTheory/ContinuumHypothesis.lean",   "label": "Continuum Hypothesis decided",     "idea": "ID5" },
+    { "file": "EGPT/Entropy/RET.lean",                        "label": "Rota's Entropy Theorem",           "idea": "ID4" },
+    { "file": "EGPT/Core.lean",                               "label": "ParticlePath foundation",          "idea": "ID1" },
+    { "file": "EGPT/Physics/RealityIsComputation.lean",       "label": "Reality as computation",            "idea": "ID3" }
+  ],
+  "subsections": [
+    {
+      "title": "The P=NP Proof Chain (6 files, sorry-free)",
+      "files": [
+        "EGPT/Core.lean",
+        "EGPT/NumberTheory/Core.lean",
+        "EGPT/Constraints.lean",
+        "EGPT/Complexity/Core.lean",
+        "EGPT/Complexity/Tableau.lean",
+        "EGPT/Complexity/PPNP.lean"
+      ]
+    },
+    {
+      "title": "Entropy (Rota's Theorem)",
+      "files": ["EGPT/Entropy/Common.lean", "EGPT/Entropy/H.lean", "EGPT/Entropy/RET.lean"]
+    },
+    {
+      "title": "Physics (Motivation Only)",
+      "files": ["EGPT/Physics/RealityIsComputation.lean", "EGPT/Physics/Common.lean"]
+    }
+  ],
+  "related_reading": [
+    { "label": "Proof Walkthrough",           "file": "../SKEPTICS_GUIDE.md" },
+    { "label": "Proof Dependency Graph",       "file": "../docs/PROOF_GRAPH.md" },
+    { "label": "Proof Validation Report",      "file": "EGPT_PROOFS_VALIDATION.md" }
+  ]
+}

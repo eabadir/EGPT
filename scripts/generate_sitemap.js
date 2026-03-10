@@ -6,7 +6,8 @@
  * (docs, proofs, source, demos), and writes a standard sitemap.xml
  * to the repository root.
  *
- * Usage:  node scripts/generate_sitemap.js
+ * Usage:  node scripts/generate_sitemap.js          # GitHub blob URLs (default)
+ *         node scripts/generate_sitemap.js --pages  # Pages-relative URLs
  *
  * Run before publishing main to keep the sitemap current.
  */
@@ -17,6 +18,9 @@ const fs = require('fs');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
 const OUTPUT = path.join(REPO_ROOT, 'sitemap.xml');
+
+// --pages flag: emit Pages-relative URLs instead of GitHub blob URLs
+const PAGES_MODE = process.argv.includes('--pages');
 
 // GitHub base — blob for files, tree for directories
 const BASE = 'https://github.com/eabadir/EGPT/blob/main';
@@ -36,6 +40,8 @@ const EXCLUDE_EXACT = new Set([
   'package-lock.json',
   'lake-manifest.json',
   'lean-toolchain',
+  '_meta.json',
+  'site-template.html',
 ]);
 
 // Directories to skip entirely
@@ -50,6 +56,7 @@ const SKIP_DIRS = [
   'EGPTMath/benchmarks/',
   'EGPTMath/stat/',
   'EGPTMath/utils/',
+  'site-assets/',
 ];
 
 // Priority tiers — first match wins
@@ -123,6 +130,16 @@ function escapeXml(s) {
     .replace(/"/g, '&quot;').replace(/'/g, '&apos;');
 }
 
+// Generated index.html pages (only included in --pages mode)
+const PAGES_INDEX_FILES = [
+  './index.html',
+  './Lean/index.html',
+  './EGPTMath/index.html',
+  './www/index.html',
+  './content/index.html',
+  './docs/index.html',
+];
+
 // ---------- main ----------
 
 // Get all tracked files
@@ -139,9 +156,22 @@ let xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 `;
 
+// In --pages mode, add generated index.html entries first
+if (PAGES_MODE) {
+  for (const loc of PAGES_INDEX_FILES) {
+    xml += `  <url>
+    <loc>${escapeXml(loc)}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+`;
+  }
+}
+
 for (const file of files) {
   const { priority, changefreq } = getPriorityAndFreq(file);
-  const url = `${BASE}/${escapeXml(file)}`;
+  const url = PAGES_MODE ? `./${escapeXml(file)}` : `${BASE}/${escapeXml(file)}`;
   xml += `  <url>
     <loc>${url}</loc>
     <lastmod>${today}</lastmod>
@@ -155,4 +185,5 @@ xml += `</urlset>
 `;
 
 fs.writeFileSync(OUTPUT, xml);
-console.log(`sitemap.xml written with ${files.length} URLs → ${OUTPUT}`);
+const mode = PAGES_MODE ? ' (Pages mode)' : '';
+console.log(`sitemap.xml written with ${files.length + (PAGES_MODE ? PAGES_INDEX_FILES.length : 0)} URLs${mode} → ${OUTPUT}`);

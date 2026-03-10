@@ -1,0 +1,53 @@
+{
+  "title": "Navigation & Reference",
+  "module": "Module 5: Navigation & Reference",
+  "description": "The meta-layer: proof dependency graphs (Mermaid and JSON), audit reports validating cross-layer consistency, and navigation aids for both humans and AI agents. Start here to understand how the entire repository fits together.",
+  "ideas": ["ID1", "ID2", "ID3", "ID4", "ID5"],
+  "primary_ideas": ["ID4", "ID5"],
+  "do_this_first": {
+    "proof-engineer":      { "action": "Study the proof dependency DAG",        "file": "PROOF_GRAPH.md" },
+    "cs-student":          { "action": "Read the proof dependency graph",       "file": "PROOF_GRAPH.md" },
+    "complexity-theorist": { "action": "Read the machine-readable graph",       "file": "proof_graph.json" },
+    "ai-ml-engineer":      { "action": "Check audit reports for consistency",   "file": "audit/lean-proof-audit.md" }
+  },
+  "highlights": [
+    { "file": "PROOF_GRAPH.md",                         "label": "Theorem dependency DAG (Mermaid diagrams)",    "idea": "ID5" },
+    { "file": "proof_graph.json",                       "label": "Machine-readable proof dependency graph",      "idea": "ID5" },
+    { "file": "audit/lean-proof-audit.md",              "label": "Lean proof audit report",                      "idea": "ID4" },
+    { "file": "audit/cross-reference-validation.md",    "label": "Cross-reference validation",                   "idea": "ID5" }
+  ],
+  "subsections": [
+    {
+      "title": "Proof Dependency Graphs",
+      "files": [
+        "PROOF_GRAPH.md",
+        "proof_graph.json"
+      ]
+    },
+    {
+      "title": "Audit Reports",
+      "files": [
+        "audit/lean-proof-audit.md",
+        "audit/egptmath-audit.md",
+        "audit/demos-audit.md",
+        "audit/content-audit.md",
+        "audit/navigation-audit.md",
+        "audit/cross-reference-validation.md",
+        "audit/idea-connections.md",
+        "audit/do-this-first-verification.md",
+        "audit/demo-gap-proposals.md",
+        "audit/llms-manifest-review.md",
+        "audit/phase2-validation.md",
+        "audit/phase4-final-validation.md",
+        "audit/phase5-validation.md"
+      ]
+    }
+  ],
+  "related_reading": [
+    { "label": "IDEAS.md",                    "file": "../IDEAS.md" },
+    { "label": "AGENTS.md",                   "file": "../AGENTS.md" },
+    { "label": "llms.txt",                    "file": "../llms.txt" },
+    { "label": "SKEPTICS_GUIDE.md",           "file": "../SKEPTICS_GUIDE.md" },
+    { "label": "Lean PROOF_DEPENDENCIES.md",  "file": "../Lean/PROOF_DEPENDENCIES.md" }
+  ]
+}

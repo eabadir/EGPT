@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>18.313 — Introduction To EGPT: The New Manhattan Project — 18.313 EGPT</title>
+  <link rel="stylesheet" href="site-assets/style.css">
+  <link rel="stylesheet" href="site-assets/hljs-theme.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
+        <a class="sidebar-brand" href="#" data-home>18.313 EGPT</a>
+        <p class="sidebar-subtitle">The New Manhattan Project</p>
+      </div>
+      <nav class="tree-nav" id="tree-nav">
+        <!-- JS builds tree from SITE_DATA -->
+      </nav>
+      <div class="sidebar-footer">
+        <a href="https://github.com/eabadir/EGPT" target="_blank">GitHub</a>
+        <a href="llms.txt">llms.txt</a>
+        <a href="AGENTS.md">AGENTS.md</a>
+      </div>
+    </aside>
+    <main class="main-content" id="main-content">
+      <div class="content-toolbar" id="content-toolbar">
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu">☰</button>
+        <span class="content-breadcrumb" id="content-breadcrumb"></span>
+        <a class="content-github-link" id="content-github-link" href="#" target="_blank" title="View on GitHub">↗ GitHub</a>
+      </div>
+      <div class="landing" id="landing">
+        <div class="landing-hero">
+  <h1>18.313 &mdash; Introduction To EGPT</h1>
+  <h2>The New Manhattan Project</h2>
+  <p class="landing-subtitle">Five Ideas. One Repository. A New Computing Architecture.</p>
+</div>
+
+<section class="landing-section">
+  <h2>Five Ideas</h2>
+  <div class="module-grid">
+      <div class="module-card" data-idea="id1" style="border-top: 3px solid #2196F3">
+        <h3 class="module-card__title">ID1: Random Walk</h3>
+        <p class="module-card__desc">Ulam — CGS from a Random Walk</p>
+      </div>
+      <div class="module-card" data-idea="id2" style="border-top: 3px solid #4CAF50">
+        <h3 class="module-card__title">ID2: IOPs</h3>
+        <p class="module-card__desc">Von Neumann — The Statistical AI Computer</p>
+      </div>
+      <div class="module-card" data-idea="id3" style="border-top: 3px solid #FF9800">
+        <h3 class="module-card__title">ID3: Discrete Physics</h3>
+        <p class="module-card__desc">Einstein — Algebraic Discrete Physics</p>
+      </div>
+      <div class="module-card" data-idea="id4" style="border-top: 3px solid #9C27B0">
+        <h3 class="module-card__title">ID4: Entropy</h3>
+        <p class="module-card__desc">Rota — Entropy is the Record of Truth</p>
+      </div>
+      <div class="module-card" data-idea="id5" style="border-top: 3px solid #F44336">
+        <h3 class="module-card__title">ID5: Completeness</h3>
+        <p class="module-card__desc">Abadir — CH Decidable / Unique Representations</p>
+      </div>
+  </div>
+</section>
+
+<section class="landing-section">
+  <h2>Modules</h2>
+  <div class="module-grid">
+      <div class="module-card" data-idea="id4">
+        <h3 class="module-card__title">Module 1: The Proof Chain</h3>
+        <p class="module-card__desc">Formal Proofs (Lean 4) &mdash; Machine-verified theorems in Lean 4 with mathlib4. No sorry. No custom axioms. The constructive proof that P = NP, Rota&#39;s Entropy Theorem formalized, the Continuum Hypothesis decided, and algebraic discrete physics — all formally verified.</p>
+        <div class="module-card__badges">
+          <span class="idea-badge idea-badge--id4">ID4</span>
+          <span class="idea-badge idea-badge--id5">ID5</span>
+        </div>
+      </div>
+      <div class="module-card" data-idea="id2">
+        <h3 class="module-card__title">Module 2: The Integer Math Library</h3>
+        <p class="module-card__desc">EGPTMath — Integer-Only Mathematics &mdash; The practical answer to scalable AI. An integer-only math library that replaces floating-point operations (FLOPs) with integer operations (IOPs) — exact arithmetic with no error accumulation. Includes the PPF number representation, vector algebra, polynomial operations, and the pedagogical Faster Abadir Transform (integer-only FFT/QFT).</p>
+        <div class="module-card__badges">
+          <span class="idea-badge idea-badge--id2">ID2</span>
+        </div>
+      </div>
+      <div class="module-card" data-idea="id1">
+        <h3 class="module-card__title">Module 3: Code</h3>
+        <p class="module-card__desc">Interactive Demos &amp; Visualizers &mdash; Browser-based interactive demonstrations of EGPT concepts. See integer-only gravity simulation, entropy visualization, fractal wave patterns, and the FRAQTL factorization DevSDK — all running in your browser with no server required.</p>
+        <div class="module-card__badges">
+          <span class="idea-badge idea-badge--id1">ID1</span>
+          <span class="idea-badge idea-badge--id3">ID3</span>
+          <span class="idea-badge idea-badge--id4">ID4</span>
+        </div>
+      </div>
+      <div class="module-card" data-idea="id1">
+        <h3 class="module-card__title">Module 4: Papers &amp; Stories</h3>
+        <p class="module-card__desc">Papers, Books &amp; Stories &mdash; The written foundation of EGPT: formal papers on P=NP, the Continuum Hypothesis, Rota&#39;s Entropy Theorem, and algebraic gravity; reference books by Ulam, Von Neumann, and Rota; narrative expositions that make the ideas accessible; the FRAQTL white paper and Python SDK; and course lecture materials.</p>
+        <div class="module-card__badges">
+          <span class="idea-badge idea-badge--id1">ID1</span>
+          <span class="idea-badge idea-badge--id4">ID4</span>
+          <span class="idea-badge idea-badge--id5">ID5</span>
+        </div>
+      </div>
+      <div class="module-card" data-idea="id4">
+        <h3 class="module-card__title">Module 5: Navigation &amp; Reference</h3>
+        <p class="module-card__desc">Navigation &amp; Reference &mdash; The meta-layer: proof dependency graphs (Mermaid and JSON), audit reports validating cross-layer consistency, and navigation aids for both humans and AI agents. Start here to understand how the entire repository fits together.</p>
+        <div class="module-card__badges">
+          <span class="idea-badge idea-badge--id4">ID4</span>
+          <span class="idea-badge idea-badge--id5">ID5</span>
+        </div>
+      </div>
+  </div>
+</section>
+
+<section class="landing-section do-this-first">
+  <h2 class="do-this-first__header">Do This First</h2>
+  <div class="persona-group">
+      <button class="persona-tab" data-group="code-first">Code-First</button>
+      <button class="persona-tab" data-group="theory-first">Theory-First</button>
+      <button class="persona-tab" data-group="science-first">Science-First</button>
+      <button class="persona-tab" data-group="outcome-first">Outcome-First</button>
+  </div>
+  <div class="persona-group">
+      <button class="persona-tab" data-persona="cs-student" data-in-group="code-first">CS Student</button>
+      <button class="persona-tab" data-persona="ai-ml-engineer" data-in-group="code-first">AI/ML Engineer</button>
+      <button class="persona-tab" data-persona="hardware-engineer" data-in-group="code-first">Hardware Engineer</button>
+      <button class="persona-tab" data-persona="proof-engineer" data-in-group="theory-first">Proof Engineer</button>
+      <button class="persona-tab" data-persona="mathematician" data-in-group="theory-first">Mathematician</button>
+      <button class="persona-tab" data-persona="complexity-theorist" data-in-group="theory-first">Complexity Theorist</button>
+      <button class="persona-tab" data-persona="qc-enthusiast" data-in-group="theory-first">Quantum Computing Enthusiast</button>
+      <button class="persona-tab" data-persona="cryptographer" data-in-group="theory-first">Cryptographer</button>
+      <button class="persona-tab" data-persona="physicist" data-in-group="science-first">Physicist</button>
+      <button class="persona-tab" data-persona="philosopher" data-in-group="science-first">Philosopher of Mind</button>
+      <button class="persona-tab" data-persona="founder-investor" data-in-group="outcome-first">Founder / Investor</button>
+  </div>
+    <div class="persona-content" data-persona="cs-student">
+      <ul>
+      <li><strong>The Proof Chain:</strong> Read the walkthrough &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/Lean/EGPT/PeqNP_Proof_README.md" data-nav-dir="Lean" data-nav-file="EGPT/PeqNP_Proof_README.md">EGPT/PeqNP_Proof_README.md</a></li>
+      <li><strong>The Integer Math Library:</strong> Verify the PPF bijection &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/EGPTMath/test/verify_ppf_bijection.js" data-nav-dir="EGPTMath" data-nav-file="test/verify_ppf_bijection.js">test/verify_ppf_bijection.js</a></li>
+      <li><strong>Code:</strong> Launch GravitySim &mdash; <a href="www/GravitySim/index.html" data-nav-dir="www" data-nav-file="GravitySim/index.html">GravitySim/index.html</a></li>
+      <li><strong>Papers &amp; Stories:</strong> Read Address Is The Map &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/content/Papers/Address_Is_The_Map/Address_Is_The_Map.pdf" data-nav-dir="content" data-nav-file="Papers/Address_Is_The_Map/Address_Is_The_Map.pdf">Papers/Address_Is_The_Map/Address_Is_The_Map.pdf</a></li>
+      <li><strong>Navigation &amp; Reference:</strong> Read the proof dependency graph &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/docs/PROOF_GRAPH.md" data-nav-dir="docs" data-nav-file="PROOF_GRAPH.md">PROOF_GRAPH.md</a></li>
+      </ul>
+    </div>
+    <div class="persona-content" data-persona="ai-ml-engineer">
+      <ul>
+      <li><strong>The Integer Math Library:</strong> Run the test suite: npm test &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/EGPTMath/test/EGPTTestSuite.js" data-nav-dir="EGPTMath" data-nav-file="test/EGPTTestSuite.js">test/EGPTTestSuite.js</a></li>
+      <li><strong>Code:</strong> See why GPUs waste energy &mdash; <a href="www/GPUHeatDeath.html" data-nav-dir="www" data-nav-file="GPUHeatDeath.html">GPUHeatDeath.html</a></li>
+      <li><strong>Navigation &amp; Reference:</strong> Check audit reports for consistency &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/docs/audit/lean-proof-audit.md" data-nav-dir="docs" data-nav-file="audit/lean-proof-audit.md">audit/lean-proof-audit.md</a></li>
+      </ul>
+    </div>
+    <div class="persona-content" data-persona="hardware-engineer">
+      <ul>
+      <li><strong>The Integer Math Library:</strong> Read the FAT overview &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/EGPTMath/FAT/FAT_README.md" data-nav-dir="EGPTMath" data-nav-file="FAT/FAT_README.md">FAT/FAT_README.md</a></li>
+      </ul>
+    </div>
+    <div class="persona-content" data-persona="proof-engineer">
+      <ul>
+      <li><strong>The Proof Chain:</strong> cd Lean &amp;&amp; lake build</li>
+      <li><strong>Navigation &amp; Reference:</strong> Study the proof dependency DAG &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/docs/PROOF_GRAPH.md" data-nav-dir="docs" data-nav-file="PROOF_GRAPH.md">PROOF_GRAPH.md</a></li>
+      </ul>
+    </div>
+    <div class="persona-content" data-persona="mathematician">
+      <ul>
+      <li><strong>The Proof Chain:</strong> Read the CH proof &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/Lean/EGPT/NumberTheory/ContinuumHypothesis.lean" data-nav-dir="Lean" data-nav-file="EGPT/NumberTheory/ContinuumHypothesis.lean">EGPT/NumberTheory/ContinuumHypothesis.lean</a></li>
+      <li><strong>Papers &amp; Stories:</strong> Read the P=NP paper &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/content/Papers/EGPT_PeqNP/PeqNP_QED.md" data-nav-dir="content" data-nav-file="Papers/EGPT_PeqNP/PeqNP_QED.md">Papers/EGPT_PeqNP/PeqNP_QED.md</a></li>
+      </ul>
+    </div>
+    <div class="persona-content" data-persona="complexity-theorist">
+      <ul>
+      <li><strong>The Proof Chain:</strong> Read PPNP.lean &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/Lean/EGPT/Complexity/PPNP.lean" data-nav-dir="Lean" data-nav-file="EGPT/Complexity/PPNP.lean">EGPT/Complexity/PPNP.lean</a></li>
+      <li><strong>Navigation &amp; Reference:</strong> Read the machine-readable graph &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/docs/proof_graph.json" data-nav-dir="docs" data-nav-file="proof_graph.json">proof_graph.json</a></li>
+      </ul>
+    </div>
+    <div class="persona-content" data-persona="qc-enthusiast">
+      <ul>
+      <li><strong>The Integer Math Library:</strong> Run the QFT benchmark on Colab</li>
+      <li><strong>Code:</strong> Run the QFT benchmark on Colab</li>
+      </ul>
+    </div>
+    <div class="persona-content" data-persona="cryptographer">
+      <ul>
+      <li><strong>Papers &amp; Stories:</strong> Read No Q-Day Threat &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/content/pyFRAQTL/No%20Q-Day%20Threat.md" data-nav-dir="content" data-nav-file="pyFRAQTL/No Q-Day Threat.md">pyFRAQTL/No Q-Day Threat.md</a></li>
+      </ul>
+    </div>
+    <div class="persona-content" data-persona="physicist">
+      <ul>
+      <li><strong>The Proof Chain:</strong> Read RealityIsComputation &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/Lean/EGPT/Physics/RealityIsComputation.lean" data-nav-dir="Lean" data-nav-file="EGPT/Physics/RealityIsComputation.lean">EGPT/Physics/RealityIsComputation.lean</a></li>
+      <li><strong>Code:</strong> Explore the FRAQTL DevSDK &mdash; <a href="www/fraqtl_devsdk/index.html" data-nav-dir="www" data-nav-file="fraqtl_devsdk/index.html">fraqtl_devsdk/index.html</a></li>
+      <li><strong>Papers &amp; Stories:</strong> Read the Gravity paper &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/content/Papers/GravityPaper/GravityPaper.pdf" data-nav-dir="content" data-nav-file="Papers/GravityPaper/GravityPaper.pdf">Papers/GravityPaper/GravityPaper.pdf</a></li>
+      </ul>
+    </div>
+    <div class="persona-content" data-persona="philosopher">
+      <ul>
+      <li><strong>Code:</strong> Explore the Address-is-the-Map visualizer &mdash; <a href="www/the-address-is-the-map-visualizer/index.html" data-nav-dir="www" data-nav-file="the-address-is-the-map-visualizer/index.html">the-address-is-the-map-visualizer/index.html</a></li>
+      <li><strong>Papers &amp; Stories:</strong> Read The Story of EGPT &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/content/docs/EGPT_Stories/The%20Story%20of%20EGPT.md" data-nav-dir="content" data-nav-file="docs/EGPT_Stories/The Story of EGPT.md">docs/EGPT_Stories/The Story of EGPT.md</a></li>
+      </ul>
+    </div>
+    <div class="persona-content" data-persona="founder-investor">
+      <ul>
+      <li><strong>Papers &amp; Stories:</strong> Read the Executive Summary &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/content/Faster%20Abadir%20Transform%20BP/Executive_Summary.md" data-nav-dir="content" data-nav-file="Faster Abadir Transform BP/Executive_Summary.md">Faster Abadir Transform BP/Executive_Summary.md</a></li>
+      </ul>
+    </div>
+</section>
+
+<section class="landing-section">
+  <h2>Proof Dependency Graph</h2>
+  <pre class="mermaid">
+graph TD
+    M[Mathlib] --> B[EGPT/Basic.lean<br/>helper lemmas]
+    M --> C[EGPT/Core.lean<br/>ParticlePath, ComputerTape<br/>IIDParticleSource]
+    C --> NT[EGPT/NumberTheory/Core.lean<br/>ParticlePath bijection NN<br/>toNat, fromNat, EGPT_Polynomial]
+    NT --> CN[EGPT/Constraints.lean<br/>Literal_EGPT, Clause_EGPT<br/>CanonicalCNF, encodeCNF]
+    CN --> CC[EGPT/Complexity/Core.lean<br/>PathToConstraint<br/>IsPolynomialEGPT]
+    CC --> CT[EGPT/Complexity/Tableau.lean<br/>SatisfyingTableau<br/>constructSatisfyingTableau<br/>tableauComplexity le n squared]
+    CT --> PP[EGPT/Complexity/PPNP.lean<br/>P, NP, P_eq_NP<br/>L_SAT_in_NP, L_SAT_in_P<br/>EGPT_CookLevin_Theorem]
+
+    EC[EGPT/Entropy/Common.lean<br/>type definitions only] -.-> CT
+    PD[EGPT/Physics/PhysicsDist.lean<br/>type definitions only] -.-> CT
+    EC -.-> PP
+    PD -.-> PP
+
+    style PP fill:#2d6a4f,color:#fff
+    style CT fill:#40916c,color:#fff
+    style CC fill:#52b788,color:#fff
+    style CN fill:#74c69d,color:#000
+    style NT fill:#95d5b2,color:#000
+    style C fill:#b7e4c7,color:#000
+  </pre>
+</section>
+
+<section class="landing-section">
+  <h2>External Resources</h2>
+  <ul>
+    <li><a href="https://colab.research.google.com/drive/1LQLCHDNp9kCFgJXIzlitaVxuYiHRATXm" target="_blank">QFT Benchmark (Google Colab)</a> <span class="idea-badge idea-badge--id2">ID2</span> <span class="idea-badge idea-badge--id5">ID5</span></li>
+  </ul>
+</section>
+
+<div class="landing-footer">
+  <p>Electronic Graph Paper Theory (EGPT) &mdash; <a href="LICENSE">DeSciX Community License</a></p>
+</div>
+      </div>
+      <iframe class="content-iframe" id="content-iframe" sandbox="allow-scripts allow-same-origin allow-popups" style="display:none"></iframe>
+      <div class="content-rendered" id="content-rendered" style="display:none"></div>
+    </main>
+  </div>
+  <script>
+    window.SITE_DATA = {
+  "site": {
+    "title": "18.313 — Introduction To EGPT: The New Manhattan Project",
+    "subtitle": "Five Ideas. One Repository. A New Computing Architecture.",
+    "repo_url": "https://github.com/eabadir/EGPT",
+    "pages_url": "https://eabadir.github.io/EGPT",
+    "raw_url": "https://raw.githubusercontent.com/eabadir/EGPT/main"
+  },
+  "ideas": {
+    "ID1": {
+      "label": "Ulam — CGS from a Random Walk",
+      "color": "#2196F3",
+      "short": "Random Walk"
+    },
+    "ID2": {
+      "label": "Von Neumann — The Statistical AI Computer",
+      "color": "#4CAF50",
+      "short": "IOPs"
+    },
+    "ID3": {
+      "label": "Einstein — Algebraic Discrete Physics",
+      "color": "#FF9800",
+      "short": "Discrete Physics"
+    },
+    "ID4": {
+      "label": "Rota — Entropy is the Record of Truth",
+      "color": "#9C27B0",
+      "short": "Entropy"
+    },
+    "ID5": {
+      "label": "Abadir — CH Decidable / Unique Representations",
+      "color": "#F44336",
+      "short": "Completeness"
+    }
+  },
+  "personas": {
+    "ai-ml-engineer": {
+      "label": "AI/ML Engineer",
+      "group": "code-first"
+    },
+    "cs-student": {
+      "label": "CS Student",
+      "group": "code-first"
+    },
+    "hardware-engineer": {
+      "label": "Hardware Engineer",
+      "group": "code-first"
+    },
+    "complexity-theorist": {
+      "label": "Complexity Theorist",
+      "group": "theory-first"
+    },
+    "proof-engineer": {
+      "label": "Proof Engineer",
+      "group": "theory-first"
+    },
+    "mathematician": {
+      "label": "Mathematician",
+      "group": "theory-first"
+    },
+    "qc-enthusiast": {
+      "label": "Quantum Computing Enthusiast",
+      "group": "theory-first"
+    },
+    "physicist": {
+      "label": "Physicist",
+      "group": "science-first"
+    },
+    "philosopher": {
+      "label": "Philosopher of Mind",
+      "group": "science-first"
+    },
+    "founder-investor": {
+      "label": "Founder / Investor",
+      "group": "outcome-first"
+    },
+    "ai-practitioner": {
+      "label": "AI Practitioner",
+      "group": "outcome-first"
+    },
+    "cryptographer": {
+      "label": "Cryptographer",
+      "group": "theory-first"
+    }
+  },
+  "modules": [
+    {
+      "dir": "Lean",
+      "label": "Module 1: The Proof Chain",
+      "order": 1,
+      "title": "Formal Proofs (Lean 4)",
+      "description": "Machine-verified theorems in Lean 4 with mathlib4. No sorry. No custom axioms. The constructive proof that P = NP, Rota's Entropy Theorem formalized, the Continuum Hypothesis decided, and algebraic discrete physics — all formally verified.",
+      "ideas": [
+        "ID1",
+        "ID2",
+        "ID3",
+        "ID4",
+        "ID5"
+      ],
+      "primary_ideas": [
+        "ID4",
+        "ID5"
+      ],
+      "do_this_first": {
+        "proof-engineer": {
+          "action": "cd Lean && lake build",
+          "file": null
+        },
+        "cs-student": {
+          "action": "Read the walkthrough",
+          "file": "EGPT/PeqNP_Proof_README.md"
+        },
+        "mathematician": {
+          "action": "Read the CH proof",
+          "file": "EGPT/NumberTheory/ContinuumHypothesis.lean"
+        },
+        "complexity-theorist": {
+          "action": "Read PPNP.lean",
+          "file": "EGPT/Complexity/PPNP.lean"
+        },
+        "physicist": {
+          "action": "Read RealityIsComputation",
+          "file": "EGPT/Physics/RealityIsComputation.lean"
+        }
+      },
+      "highlights": [
+        {
+          "file": "EGPT/Complexity/PPNP.lean",
+          "label": "P = NP theorem",
+          "idea": "ID5"
+        },
+        {
+          "file": "EGPT/NumberTheory/ContinuumHypothesis.lean",
+          "label": "Continuum Hypothesis decided",
+          "idea": "ID5"
+        },
+        {
+          "file": "EGPT/Entropy/RET.lean",
+          "label": "Rota's Entropy Theorem",
+          "idea": "ID4"
+        },
+        {
+          "file": "EGPT/Core.lean",
+          "label": "ParticlePath foundation",
+          "idea": "ID1"
+        },
+        {
+          "file": "EGPT/Physics/RealityIsComputation.lean",
+          "label": "Reality as computation",
+          "idea": "ID3"
+        }
+      ],
+      "subsections": [
+        {
+          "title": "The P=NP Proof Chain (6 files, sorry-free)",
+          "files": [
+            "EGPT/Core.lean",
+            "EGPT/NumberTheory/Core.lean",
+            "EGPT/Constraints.lean",
+            "EGPT/Complexity/Core.lean",
+            "EGPT/Complexity/Tableau.lean",
+            "EGPT/Complexity/PPNP.lean"
+          ]
+        },
+        {
+          "title": "Entropy (Rota's Theorem)",
+          "files": [
+            "EGPT/Entropy/Common.lean",
+            "EGPT/Entropy/H.lean",
+            "EGPT/Entropy/RET.lean"
+          ]
+        },
+        {
+          "title": "Physics (Motivation Only)",
+          "files": [
+            "EGPT/Physics/RealityIsComputation.lean",
+            "EGPT/Physics/Common.lean"
+          ]
+        }
+      ],
+      "related_reading": [
+        {
+          "label": "Proof Walkthrough",
+          "file": "../SKEPTICS_GUIDE.md"
+        },
+        {
+          "label": "Proof Dependency Graph",
+          "file": "../docs/PROOF_GRAPH.md"
+        },
+        {
+          "label": "Proof Validation Report",
+          "file": "EGPT_PROOFS_VALIDATION.md"
+        }
+      ],
+      "embed_demos": []
+    },
+    {
+      "dir": "EGPTMath",
+      "label": "Module 2: The Integer Math Library",
+      "order": 2,
+      "title": "EGPTMath — Integer-Only Mathematics",
+      "description": "The practical answer to scalable AI. An integer-only math library that replaces floating-point operations (FLOPs) with integer operations (IOPs) — exact arithmetic with no error accumulation. Includes the PPF number representation, vector algebra, polynomial operations, and the pedagogical Faster Abadir Transform (integer-only FFT/QFT).",
+      "ideas": [
+        "ID1",
+        "ID2",
+        "ID5"
+      ],
+      "primary_ideas": [
+        "ID2"
+      ],
+      "do_this_first": {
+        "ai-ml-engineer": {
+          "action": "Run the test suite: npm test",
+          "file": "test/EGPTTestSuite.js"
+        },
+        "cs-student": {
+          "action": "Verify the PPF bijection",
+          "file": "test/verify_ppf_bijection.js"
+        },
+        "hardware-engineer": {
+          "action": "Read the FAT overview",
+          "file": "FAT/FAT_README.md"
+        },
+        "qc-enthusiast": {
+          "action": "Run the QFT benchmark on Colab",
+          "file": null
+        }
+      },
+      "highlights": [
+        {
+          "file": "EGPTMath.js",
+          "label": "Integer-only vector algebra engine (~6800 lines)",
+          "idea": "ID2"
+        },
+        {
+          "file": "EGPTNumber.js",
+          "label": "PPF number representation — lossless Shannon coding",
+          "idea": "ID1"
+        },
+        {
+          "file": "FAT/EGPTFAT.js",
+          "label": "Pedagogical FAT — integer-only FFT/QFT",
+          "idea": "ID2"
+        },
+        {
+          "file": "test/EGPTTestSuite.js",
+          "label": "Full test suite (157 tests)",
+          "idea": "ID2"
+        },
+        {
+          "file": "EGPTMath_Developer_Guide.md",
+          "label": "How unlimited precision works in information space",
+          "idea": "ID5"
+        }
+      ],
+      "subsections": [
+        {
+          "title": "Core Library",
+          "files": [
+            "EGPTMath.js",
+            "EGPTNumber.js",
+            "EGPTComplex.js",
+            "EGPTPolynomial.js",
+            "EGPTranscendental.js"
+          ]
+        },
+        {
+          "title": "Faster Abadir Transform (Pedagogical Variants)",
+          "files": [
+            "FAT/EGPTFAT.js",
+            "FAT/EGPTFAT_PurePPF.js",
+            "FAT/EGPTFAT_TypeSafe.js",
+            "FAT/FAT_README.md"
+          ]
+        },
+        {
+          "title": "Tests & Validation",
+          "files": [
+            "test/EGPTTestSuite.js",
+            "test/verify_ppf_bijection.js",
+            "test/EGPTPolynomialTest.js",
+            "test/EGPTTopologyTestSuite.js"
+          ]
+        }
+      ],
+      "related_reading": [
+        {
+          "label": "Developer Guide",
+          "file": "EGPTMath_Developer_Guide.md"
+        },
+        {
+          "label": "FAT Overview",
+          "file": "FAT/FAT_README.md"
+        },
+        {
+          "label": "IDEAS.md (ID2 — IOPs)",
+          "file": "../IDEAS.md"
+        }
+      ],
+      "embed_demos": []
+    },
+    {
+      "dir": "www",
+      "label": "Module 3: Code",
+      "order": 3,
+      "title": "Interactive Demos & Visualizers",
+      "description": "Browser-based interactive demonstrations of EGPT concepts. See integer-only gravity simulation, entropy visualization, fractal wave patterns, and the FRAQTL factorization DevSDK — all running in your browser with no server required.",
+      "ideas": [
+        "ID1",
+        "ID2",
+        "ID3",
+        "ID4"
+      ],
+      "primary_ideas": [
+        "ID1",
+        "ID3",
+        "ID4"
+      ],
+      "do_this_first": {
+        "cs-student": {
+          "action": "Launch GravitySim",
+          "file": "GravitySim/index.html"
+        },
+        "physicist": {
+          "action": "Explore the FRAQTL DevSDK",
+          "file": "fraqtl_devsdk/index.html"
+        },
+        "qc-enthusiast": {
+          "action": "Run the QFT benchmark on Colab",
+          "file": null
+        },
+        "ai-ml-engineer": {
+          "action": "See why GPUs waste energy",
+          "file": "GPUHeatDeath.html"
+        },
+        "philosopher": {
+          "action": "Explore the Address-is-the-Map visualizer",
+          "file": "the-address-is-the-map-visualizer/index.html"
+        }
+      },
+      "highlights": [
+        {
+          "file": "GravitySim/index.html",
+          "label": "Integer-only gravity simulation (p5.js)",
+          "idea": "ID3"
+        },
+        {
+          "file": "fraqtl_devsdk/index.html",
+          "label": "FRAQTL factorization DevSDK",
+          "idea": "ID1"
+        },
+        {
+          "file": "RotaEntropy/RotaEntropyProperties.html",
+          "label": "Rota Entropy Properties visualizer",
+          "idea": "ID4"
+        },
+        {
+          "file": "GPUHeatDeath.html",
+          "label": "GPU Heat Death — why FLOPs cost energy",
+          "idea": "ID2"
+        },
+        {
+          "file": "the-address-is-the-map-visualizer/index.html",
+          "label": "The Address Is The Map — interactive visualizer",
+          "idea": "ID1"
+        }
+      ],
+      "subsections": [
+        {
+          "title": "Gravity & Physics",
+          "files": [
+            "GravitySim/index.html",
+            "fraqtl_devsdk/index.html"
+          ]
+        },
+        {
+          "title": "Entropy",
+          "files": [
+            "RotaEntropy/index.html",
+            "RotaEntropy/RotaEntropyProperties.html",
+            "RotaEntropy/TheGreatestDebate.html",
+            "EntropyUniformity.html"
+          ]
+        },
+        {
+          "title": "Fractals & Waves",
+          "files": [
+            "EGPTFactalWave.html",
+            "EGPTfractal.html"
+          ]
+        },
+        {
+          "title": "Number Theory",
+          "files": [
+            "EGPTNumberUniformity.html"
+          ]
+        },
+        {
+          "title": "Conceptual Visualizers",
+          "files": [
+            "the-address-is-the-map-visualizer/index.html",
+            "GPUHeatDeath.html"
+          ]
+        }
+      ],
+      "related_reading": [
+        {
+          "label": "GravitySim README",
+          "file": "GravitySim/README.md"
+        },
+        {
+          "label": "FRAQTL DevSDK README",
+          "file": "fraqtl_devsdk/README.md"
+        },
+        {
+          "label": "Prime Shannon Codes",
+          "file": "RotaEntropy/EGPTPrimeShannonCodes.md"
+        }
+      ],
+      "embed_demos": [
+        {
+          "src": "GravitySim/index.html",
+          "label": "GravitySim — Integer-only gravity",
+          "height": 500
+        },
+        {
+          "src": "fraqtl_devsdk/index.html",
+          "label": "FRAQTL DevSDK — Factorization explorer",
+          "height": 600
+        },
+        {
+          "src": "RotaEntropy/RotaEntropyProperties.html",
+          "label": "Rota Entropy Properties",
+          "height": 500
+        },
+        {
+          "src": "GPUHeatDeath.html",
+          "label": "GPU Heat Death — FLOPs vs IOPs",
+          "height": 400
+        }
+      ]
+    },
+    {
+      "dir": "content",
+      "label": "Module 4: Papers & Stories",
+      "order": 4,
+      "title": "Papers, Books & Stories",
+      "description": "The written foundation of EGPT: formal papers on P=NP, the Continuum Hypothesis, Rota's Entropy Theorem, and algebraic gravity; reference books by Ulam, Von Neumann, and Rota; narrative expositions that make the ideas accessible; the FRAQTL white paper and Python SDK; and course lecture materials.",
+      "ideas": [
+        "ID1",
+        "ID2",
+        "ID3",
+        "ID4",
+        "ID5"
+      ],
+      "primary_ideas": [
+        "ID1",
+        "ID4",
+        "ID5"
+      ],
+      "do_this_first": {
+        "mathematician": {
+          "action": "Read the P=NP paper",
+          "file": "Papers/EGPT_PeqNP/PeqNP_QED.md"
+        },
+        "physicist": {
+          "action": "Read the Gravity paper",
+          "file": "Papers/GravityPaper/GravityPaper.pdf"
+        },
+        "cryptographer": {
+          "action": "Read No Q-Day Threat",
+          "file": "pyFRAQTL/No Q-Day Threat.md"
+        },
+        "founder-investor": {
+          "action": "Read the Executive Summary",
+          "file": "Faster Abadir Transform BP/Executive_Summary.md"
+        },
+        "philosopher": {
+          "action": "Read The Story of EGPT",
+          "file": "docs/EGPT_Stories/The Story of EGPT.md"
+        },
+        "cs-student": {
+          "action": "Read Address Is The Map",
+          "file": "Papers/Address_Is_The_Map/Address_Is_The_Map.pdf"
+        }
+      },
+      "highlights": [
+        {
+          "file": "Papers/EGPT_PeqNP/PeqNP_QED.md",
+          "label": "P = NP — the readable proof",
+          "idea": "ID5"
+        },
+        {
+          "file": "pyFRAQTL/FRAQTL_WhitePaper.md",
+          "label": "FRAQTL factorization white paper",
+          "idea": "ID1"
+        },
+        {
+          "file": "Papers/GravityPaper/GravityPaper.pdf",
+          "label": "Algebraic discrete gravity",
+          "idea": "ID3"
+        },
+        {
+          "file": "Papers/RET_Paper/Rota_Entropy_Theorem_Original_Proof.pdf",
+          "label": "Rota's Entropy Theorem — original proof",
+          "idea": "ID4"
+        },
+        {
+          "file": "docs/EGPT_Stories/The Story of EGPT.md",
+          "label": "The Story of EGPT — narrative exposition",
+          "idea": "ID1"
+        },
+        {
+          "file": "Papers/ContinuumHypothesis/ContinuumHypothesis.pdf",
+          "label": "Continuum Hypothesis decided",
+          "idea": "ID5"
+        }
+      ],
+      "subsections": [
+        {
+          "title": "Core Papers",
+          "files": [
+            "Papers/EGPT_PeqNP/PeqNP_QED.md",
+            "Papers/PPNP_Paper/PprobablyEqualsNP_formal.pdf",
+            "Papers/ContinuumHypothesis/ContinuumHypothesis.pdf",
+            "Papers/RET_Paper/Rota_Entropy_Theorem_Original_Proof.pdf",
+            "Papers/Address_Is_The_Map/Address_Is_The_Map.pdf",
+            "Papers/GravityPaper/GravityPaper.pdf"
+          ]
+        },
+        {
+          "title": "Applied Papers",
+          "files": [
+            "Papers/Entropy Game/TheEntropyGame.pdf",
+            "Papers/Without_Attraction_There_Is_Nothing/Without_Attraction_There_Is_Nothing.tex",
+            "Papers/AddressMap_And_Crypto/Structural_Security_Of_Crypto_When_PeqNP.tex",
+            "Papers/Integer_Infinity_Tautology.md"
+          ]
+        },
+        {
+          "title": "FRAQTL & pyFRAQTL SDK",
+          "files": [
+            "pyFRAQTL/FRAQTL_WhitePaper.md",
+            "pyFRAQTL/FRAQTL_WhitePaper.ipynb",
+            "pyFRAQTL/pyFRAQTLsdk.py",
+            "pyFRAQTL/No Q-Day Threat.md"
+          ]
+        },
+        {
+          "title": "Books & Reference",
+          "files": [
+            "Books/Ulam/Science Computers And People.md",
+            "Books/Von Neumann/0300181116_The Computer Brain.pdf",
+            "Books/Rota/Indiscrete Thoughts.md",
+            "Books/Rota/Rota Bio, Math, and Philosophy.md"
+          ]
+        },
+        {
+          "title": "Stories & Narratives",
+          "files": [
+            "docs/EGPT_Stories/The Story of EGPT.md",
+            "docs/EGPT_Stories/The Riddle of EGPT.md",
+            "docs/EGPT_Stories/Everything In EGPT Is A Pyramid.md",
+            "docs/EGPT_Stories/Story of Nile Deriving Gravity.md",
+            "docs/EGPT_Stories/Ulam And Von Neumann TOE.md",
+            "docs/EGPT_Stories/An EGPT Story: The Impossible Audit.md"
+          ]
+        },
+        {
+          "title": "Course Materials",
+          "files": [
+            "Class/18.313 Course Outline.md",
+            "Class/AI_Prompt.md"
+          ]
+        },
+        {
+          "title": "Business & Strategy",
+          "files": [
+            "Faster Abadir Transform BP/Executive_Summary.md",
+            "Faster Abadir Transform BP/Business_Plan.md",
+            "Faster Abadir Transform BP/Market_Research.md",
+            "Faster Abadir Transform BP/Technical_Docs.md"
+          ]
+        },
+        {
+          "title": "Historical Sources",
+          "files": [
+            "SSG_History/Godel Letter to Von Neumann.pdf",
+            "SSG_History/The-Barrier-of-Meaning-Gian-Carlo-Rota.pdf",
+            "SSG_History/TheMathematician.pdf"
+          ]
+        }
+      ],
+      "related_reading": [
+        {
+          "label": "IDEAS.md — Idea Map",
+          "file": "../IDEAS.md"
+        },
+        {
+          "label": "EGPT Story (root)",
+          "file": "../EGPT_STORY.md"
+        },
+        {
+          "label": "Proof Dependency Graph",
+          "file": "../docs/PROOF_GRAPH.md"
+        }
+      ],
+      "embed_demos": []
+    },
+    {
+      "dir": "docs",
+      "label": "Module 5: Navigation & Reference",
+      "order": 5,
+      "title": "Navigation & Reference",
+      "description": "The meta-layer: proof dependency graphs (Mermaid and JSON), audit reports validating cross-layer consistency, and navigation aids for both humans and AI agents. Start here to understand how the entire repository fits together.",
+      "ideas": [
+        "ID1",
+        "ID2",
+        "ID3",
+        "ID4",
+        "ID5"
+      ],
+      "primary_ideas": [
+        "ID4",
+        "ID5"
+      ],
+      "do_this_first": {
+        "proof-engineer": {
+          "action": "Study the proof dependency DAG",
+          "file": "PROOF_GRAPH.md"
+        },
+        "cs-student": {
+          "action": "Read the proof dependency graph",
+          "file": "PROOF_GRAPH.md"
+        },
+        "complexity-theorist": {
+          "action": "Read the machine-readable graph",
+          "file": "proof_graph.json"
+        },
+        "ai-ml-engineer": {
+          "action": "Check audit reports for consistency",
+          "file": "audit/lean-proof-audit.md"
+        }
+      },
+      "highlights": [
+        {
+          "file": "PROOF_GRAPH.md",
+          "label": "Theorem dependency DAG (Mermaid diagrams)",
+          "idea": "ID5"
+        },
+        {
+          "file": "proof_graph.json",
+          "label": "Machine-readable proof dependency graph",
+          "idea": "ID5"
+        },
+        {
+          "file": "audit/lean-proof-audit.md",
+          "label": "Lean proof audit report",
+          "idea": "ID4"
+        },
+        {
+          "file": "audit/cross-reference-validation.md",
+          "label": "Cross-reference validation",
+          "idea": "ID5"
+        }
+      ],
+      "subsections": [
+        {
+          "title": "Proof Dependency Graphs",
+          "files": [
+            "PROOF_GRAPH.md",
+            "proof_graph.json"
+          ]
+        },
+        {
+          "title": "Audit Reports",
+          "files": [
+            "audit/lean-proof-audit.md",
+            "audit/egptmath-audit.md",
+            "audit/demos-audit.md",
+            "audit/content-audit.md",
+            "audit/navigation-audit.md",
+            "audit/cross-reference-validation.md",
+            "audit/idea-connections.md",
+            "audit/do-this-first-verification.md",
+            "audit/demo-gap-proposals.md",
+            "audit/llms-manifest-review.md",
+            "audit/phase2-validation.md",
+            "audit/phase4-final-validation.md",
+            "audit/phase5-validation.md"
+          ]
+        }
+      ],
+      "related_reading": [
+        {
+          "label": "IDEAS.md",
+          "file": "../IDEAS.md"
+        },
+        {
+          "label": "AGENTS.md",
+          "file": "../AGENTS.md"
+        },
+        {
+          "label": "llms.txt",
+          "file": "../llms.txt"
+        },
+        {
+          "label": "SKEPTICS_GUIDE.md",
+          "file": "../SKEPTICS_GUIDE.md"
+        },
+        {
+          "label": "Lean PROOF_DEPENDENCIES.md",
+          "file": "../Lean/PROOF_DEPENDENCIES.md"
+        }
+      ],
+      "embed_demos": []
+    }
+  ],
+  "mermaid_diagrams": [
+    "graph TD\n    M[Mathlib] --> B[EGPT/Basic.lean<br/>helper lemmas]\n    M --> C[EGPT/Core.lean<br/>ParticlePath, ComputerTape<br/>IIDParticleSource]\n    C --> NT[EGPT/NumberTheory/Core.lean<br/>ParticlePath bijection NN<br/>toNat, fromNat, EGPT_Polynomial]\n    NT --> CN[EGPT/Constraints.lean<br/>Literal_EGPT, Clause_EGPT<br/>CanonicalCNF, encodeCNF]\n    CN --> CC[EGPT/Complexity/Core.lean<br/>PathToConstraint<br/>IsPolynomialEGPT]\n    CC --> CT[EGPT/Complexity/Tableau.lean<br/>SatisfyingTableau<br/>constructSatisfyingTableau<br/>tableauComplexity le n squared]\n    CT --> PP[EGPT/Complexity/PPNP.lean<br/>P, NP, P_eq_NP<br/>L_SAT_in_NP, L_SAT_in_P<br/>EGPT_CookLevin_Theorem]\n\n    EC[EGPT/Entropy/Common.lean<br/>type definitions only] -.-> CT\n    PD[EGPT/Physics/PhysicsDist.lean<br/>type definitions only] -.-> CT\n    EC -.-> PP\n    PD -.-> PP\n\n    style PP fill:#2d6a4f,color:#fff\n    style CT fill:#40916c,color:#fff\n    style CC fill:#52b788,color:#fff\n    style CN fill:#74c69d,color:#000\n    style NT fill:#95d5b2,color:#000\n    style C fill:#b7e4c7,color:#000",
+    "graph TD\n    M[Mathlib] --> EC[EGPT/Entropy/Common.lean<br/>Shannon entropy, RECT<br/>rect_program_for_dist]\n    C[EGPT/Core.lean] --> EC\n    CC[EGPT/Complexity/Core.lean] -.-> EC\n\n    EC --> RET[EGPT/Entropy/RET.lean<br/>RotaUniformTheorem<br/>All entropy = C x Shannon]\n    EC --> H[EGPT/Entropy/H.lean<br/>7 Rota axioms verified<br/>entropy_of_fair_coin_is_one_bit]\n    PP[EGPT/Complexity/PPNP.lean] -.-> H\n    PC[EGPT/Physics/PhotonicCA.lean] -.-> H\n\n    style RET fill:#3a86a8,color:#fff\n    style H fill:#3a86a8,color:#fff\n    style EC fill:#89c2d9,color:#000",
+    "graph TD\n    PC[EGPT/Physics/Common.lean<br/>Physical entropy definitions] --> US[EGPT/Physics/UniformSystems.lean<br/>Uniform = C x Shannon]\n    US --> BE[EGPT/Physics/BoseEinstein.lean<br/>H_BE = C x Shannon]\n    US --> FD[EGPT/Physics/FermiDirac.lean<br/>H_FD = C x Shannon]\n    US --> MB[EGPT/Physics/MaxwellBoltzmann.lean<br/>H_MB = C x Shannon]\n    BE --> PD[EGPT/Physics/PhysicsDist.lean<br/>Unified entropy theorem]\n    FD --> PD\n    MB --> PD\n    PD --> PA[EGPT/Physics/PhotonicCA.lean<br/>BE system has equivalent program]\n    PA --> RC[EGPT/Physics/RealityIsComputation.lean<br/>RealityIsComputation<br/>ContinuousFieldsAreComputation]\n\n    style RC fill:#9b2226,color:#fff\n    style PA fill:#ae2012,color:#fff\n    style PD fill:#bb3e03,color:#fff",
+    "graph TD\n    NT[EGPT/NumberTheory/Core.lean] --> CH[EGPT/NumberTheory/ContinuumHypothesis.lean<br/>EGPT_ContinuumHypothesis<br/>EGPT_GeneralizedContinuumHypothesis]\n    NT --> F[EGPT/NumberTheory/Filter.lean<br/>RejectionFilter, distributions]\n    NT --> A[EGPT/NumberTheory/Analysis.lean<br/>FTA via information]\n\n    style CH fill:#7b2cbf,color:#fff",
+    "graph LR\n    RW[Random Walk<br/>List Bool] --> NUM[Number Encoding<br/>NN ZZ QQ RR]\n    NUM --> ENT[Entropy<br/>Shannon = unique measure]\n    ENT --> RECT[RECT<br/>Entropy = Program Length]\n    RECT --> TAB[Constraint Tableau<br/>cost le n squared]\n    TAB --> PNP[P = NP<br/>Iff.rfl]\n    PNP --> RIC[Reality Is Computation<br/>Every physical system<br/>has a finite program]\n\n    style PNP fill:#2d6a4f,color:#fff\n    style RIC fill:#9b2226,color:#fff"
+  ],
+  "external_resources": [
+    {
+      "label": "QFT Benchmark (Google Colab)",
+      "url": "https://colab.research.google.com/drive/1LQLCHDNp9kCFgJXIzlitaVxuYiHRATXm",
+      "ideas": [
+        "ID2",
+        "ID5"
+      ],
+      "personas": [
+        "qc-enthusiast",
+        "ai-ml-engineer",
+        "hardware-engineer"
+      ]
+    }
+  ]
+};
+  </script>
+  <script src="site-assets/marked.min.js"></script>
+  <script src="site-assets/hljs.min.js"></script>
+  <script src="site-assets/mermaid.min.js"></script>
+  <script src="site-assets/site.js"></script>
+</body>
+</html>
