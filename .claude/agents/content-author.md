@@ -76,6 +76,20 @@ You'll typically be asked to:
 
 Always update `content/CLAUDE.md` when adding new papers or directories.
 
+## URL Convention for Citations and References
+
+**IMPORTANT:** When generating citations, hyperlinks, or references in papers, whitepapers, and stories, always use the GitHub Pages base URL:
+
+```
+https://eabadir.github.io/EGPT/
+```
+
+Do NOT use raw GitHub URLs or blob URLs. External referrers and academic citations should point to the browsable Pages site so that readers land on the published, navigable version. Examples:
+- Demo: `https://eabadir.github.io/EGPT/egpt_circuit_sat/index.html`
+- Lean proof: `https://eabadir.github.io/EGPT/Lean/EGPT/Complexity/PPNP.lean`
+- Paper PDF: `https://eabadir.github.io/EGPT/egpt_circuit_sat/paper/egpt_circuit_sat_whitepaper.pdf`
+- Data: `https://eabadir.github.io/EGPT/egpt_circuit_sat/data/multiseed_results.json`
+
 ## Ideas Coverage
 
 This agent is responsible for the following ideas within the content layer:

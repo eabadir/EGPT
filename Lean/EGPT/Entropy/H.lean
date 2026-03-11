@@ -11,6 +11,36 @@ import EGPT.Entropy.RET -- For the RET entropy function
 
 open EGPT.Complexity EGPT.Constraints EGPT.Physics.PCA EGPT.Entropy.Common EGPT.NumberTheory.Filter EGPT.Complexity.PPNP EGPT.NumberTheory.Core EGPT.Entropy.RET Real Finset
 
+/-!
+# Concrete Shannon Entropy — All 7 Rota Axioms Proven (`Entropy/H.lean`)
+
+This file defines the concrete Shannon entropy function (`H_canonical_ln`,
+base-e; `H_canonical_log2`, base-2) and proves that it satisfies all 7 axioms
+from `HasRotaEntropyProperties` (defined in `Entropy/Common.lean`).
+
+## Structure
+
+Each `h_canonical_is_*` theorem converts what was an *axiom* (assumption) in
+`RET.lean` into a *proven property* of the concrete Shannon entropy:
+
+| Rota axiom (abstract)         | Proven theorem (concrete)               |
+|-------------------------------|-----------------------------------------|
+| `IsEntropyNormalized`         | `h_canonical_is_normalized`             |
+| `IsEntropySymmetric`          | `h_canonical_is_symmetric`              |
+| `IsEntropyZeroInvariance`     | `h_canonical_is_zero_invariance`        |
+| `IsEntropyContinuous`         | `h_canonical_is_continuous`             |
+| `IsEntropyCondAddSigma`       | `h_canonical_is_cond_add_sigma`         |
+| `IsEntropyMaxUniform`         | `h_canonical_is_max_uniform`            |
+| `IsEntropyZeroOnEmptyDomain`  | `h_canonical_is_zero_on_empty`          |
+
+All 7 proofs are bundled into `TheCanonicalEntropyFunction_Ln`, an
+`EntropyFunction` instance that packages the concrete function together with
+its verified axioms. This bundle is the bridge from abstract axioms to
+concrete construction: it is consumed by the modernized capstone theorem
+`RET_All_Entropy_Is_Scaled_Shannon_Entropy` in `NumberTheory/Analysis.lean`,
+where the "axioms" become fully proven foundations rather than assumptions.
+-/
+
 namespace EGPT.Entropy.H
 -- ==================================================================
 -- SECTION: The Canonical Entropy Function (H_shannon)

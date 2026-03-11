@@ -2,7 +2,7 @@
 
 > In maximally compressed information space, Cantor's diagonal fails; all infinities collapse onto ℕ.
 > This file contains all primary artifacts for Idea #5.
-> For the full framework: https://github.com/eabadir/EGPT/blob/main/IDEAS.md
+> For the full framework: https://eabadir.github.io/EGPT/IDEAS.md
 >
 > Key claim: The Continuum Hypothesis is decidable because the EGPT hierarchy is bijective
 > with the standard mathematical universe and the Beth staircase is integer-stepped.

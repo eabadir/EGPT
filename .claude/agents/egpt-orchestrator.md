@@ -146,6 +146,7 @@ After all agents complete, summarize:
 4. FAT (Faster Abadir Transform) is proprietary — never expose optimized implementations. Only pedagogical variants in `EGPTMath/FAT/`.
 5. Physics modules are motivation only — never import into proof chain
 6. Entropy module is independent — has its own axiom foundations
+7. **GitHub Pages URLs for external content** — All citations, hyperlinks, and references in externally-facing content (papers, READMEs, whitepapers, llms.txt) must use the Pages base URL `https://eabadir.github.io/EGPT/`, not raw GitHub or blob URLs. This ensures published papers and external referrers point to the browsable site.
 
 ## Repo Structure Quick Reference
 

@@ -186,6 +186,7 @@ function buildSiteData(rootMeta, moduleMetas, mermaidBlocks) {
     site: rootMeta.site,
     ideas: rootMeta.ideas,
     personas: rootMeta.personas,
+    featured_results: rootMeta.featured_results || [],
     modules,
     mermaid_diagrams: mermaidBlocks,
     external_resources: rootMeta.external_resources || []
@@ -207,6 +208,48 @@ function generateLandingContent(rootMeta, moduleMetas, mermaidBlocks) {
   <h2>The New Manhattan Project</h2>
   <p class="landing-subtitle">Five Ideas. One Repository. A New Computing Architecture.</p>
 </div>`);
+
+  // --- Section 1b: Featured Results ---
+  if (rootMeta.featured_results && rootMeta.featured_results.length > 0) {
+    const featuredCards = rootMeta.featured_results.map(fr => {
+      const ideaId = (fr.idea || 'id1').toLowerCase();
+      const ideaColor = ideas[fr.idea] ? ideas[fr.idea].color : '#888';
+      const badgeHtml = fr.badge
+        ? `<span class="featured-badge">${escapeHtml(fr.badge)}</span>`
+        : '';
+
+      let linksHtml = '';
+      if (fr.link) {
+        const isExternal = fr.link.startsWith('http');
+        const target = isExternal ? ' target="_blank"' : '';
+        linksHtml += `<a class="featured-cta" href="${fr.link}"${target}>${escapeHtml(fr.link_label || 'View')}</a>`;
+      }
+      if (fr.paper_link) {
+        linksHtml += ` <a class="featured-link" href="${fr.paper_link}">Paper</a>`;
+      }
+      if (fr.data_link) {
+        linksHtml += ` <a class="featured-link" href="${fr.data_link}">Data</a>`;
+      }
+
+      return `      <div class="featured-card" data-idea="${ideaId}" style="border-top: 4px solid ${ideaColor}">
+        ${badgeHtml}
+        <h3 class="featured-card__title">${escapeHtml(fr.title)}</h3>
+        <p class="featured-card__subtitle">${escapeHtml(fr.subtitle)}</p>
+        <p class="featured-card__detail">${escapeHtml(fr.detail)}</p>
+        <div class="featured-card__links">
+          ${linksHtml}
+          <span class="idea-badge idea-badge--${ideaId}">${escapeHtml(fr.idea)}</span>
+        </div>
+      </div>`;
+    }).join('\n');
+
+    sections.push(`<section class="landing-section featured-results">
+  <h2>Featured Results</h2>
+  <div class="featured-grid">
+${featuredCards}
+  </div>
+</section>`);
+  }
 
   // --- Section 2: Five Ideas ---
   const ideaCards = Object.entries(ideas).map(([id, idea]) => {

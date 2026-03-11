@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EGPTMath Interactive Test Runner</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 {
+            font-size: 2.2em;
+            background: linear-gradient(90deg, #00d2ff, #7b2ff7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            color: #8892b0;
+            font-size: 1.1em;
+        }
+        .subtitle a { color: #7b2ff7; text-decoration: none; }
+
+        /* Dashboard */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .stat-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        .stat-card .value {
+            font-size: 2.4em;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+        .stat-card .label {
+            font-size: 0.85em;
+            color: #8892b0;
+            margin-top: 4px;
+        }
+        .stat-card.pass .value { color: #50fa7b; }
+        .stat-card.fail .value { color: #ff5555; }
+        .stat-card.total .value { color: #8be9fd; }
+        .stat-card.rate .value { color: #f1fa8c; }
+        .stat-card.time .value { color: #bd93f9; }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        button:hover { transform: translateY(-1px); }
+        button:active { transform: translateY(0); }
+        .btn-run {
+            background: linear-gradient(135deg, #50fa7b, #00d2ff);
+            color: #0f0c29;
+        }
+        .btn-run:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .btn-filter {
+            background: rgba(255,255,255,0.1);
+            color: #e0e0e0;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .btn-filter.active {
+            background: rgba(123,47,247,0.3);
+            border-color: #7b2ff7;
+        }
+        .suite-select {
+            padding: 10px 16px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #e0e0e0;
+            font-size: 0.95em;
+        }
+        .suite-select option { background: #302b63; }
+
+        /* Progress bar */
+        .progress-container {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            margin-bottom: 24px;
+            overflow: hidden;
+            display: none;
+        }
+        .progress-container.active { display: block; }
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #50fa7b, #00d2ff);
+            border-radius: 3px;
+            transition: width 0.3s;
+        }
+
+        /* Category sections */
+        .category {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+        .category:hover { border-color: rgba(255,255,255,0.15); }
+        .category-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .category-header:hover { background: rgba(255,255,255,0.03); }
+        .category-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .category-chevron {
+            transition: transform 0.2s;
+            color: #8892b0;
+            font-size: 0.8em;
+        }
+        .category.open .category-chevron { transform: rotate(90deg); }
+        .category-name {
+            font-weight: 600;
+            font-size: 1.05em;
+        }
+        .category-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        .badge-pass {
+            background: rgba(80,250,123,0.15);
+            color: #50fa7b;
+        }
+        .badge-fail {
+            background: rgba(255,85,85,0.15);
+            color: #ff5555;
+        }
+        .category-body {
+            display: none;
+            padding: 0 20px 16px;
+        }
+        .category.open .category-body { display: block; }
+
+        /* Test rows */
+        .test-row {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-bottom: 4px;
+            font-size: 0.9em;
+            gap: 10px;
+        }
+        .test-row:hover { background: rgba(255,255,255,0.03); }
+        .test-icon { font-size: 1.1em; flex-shrink: 0; }
+        .test-desc { flex: 1; }
+        .test-error {
+            font-size: 0.82em;
+            color: #ff5555;
+            margin-top: 2px;
+            font-family: 'Menlo', 'Consolas', monospace;
+        }
+        .test-row.pass .test-desc { color: #ccd6f6; }
+        .test-row.fail { background: rgba(255,85,85,0.08); }
+        .test-row.fail .test-desc { color: #ff5555; }
+        .hidden { display: none !important; }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: #8892b0;
+        }
+        .empty-state .icon { font-size: 4em; margin-bottom: 16px; }
+        .empty-state h2 { color: #ccd6f6; margin-bottom: 8px; }
+
+        /* Paradigm banner */
+        .paradigm-banner {
+            display: none;
+            background: rgba(80,250,123,0.08);
+            border: 1px solid rgba(80,250,123,0.2);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .paradigm-banner.visible { display: block; }
+        .paradigm-banner h3 {
+            color: #50fa7b;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+        }
+        .paradigm-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 6px;
+        }
+        .paradigm-list li {
+            color: #8892b0;
+            font-size: 0.9em;
+            padding: 2px 0;
+        }
+        .paradigm-list li::before {
+            content: "\2713  ";
+            color: #50fa7b;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #4a5568;
+            font-size: 0.85em;
+        }
+        footer a { color: #7b2ff7; text-decoration: none; }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.6em; }
+            .dashboard { grid-template-columns: repeat(2, 1fr); }
+            .paradigm-list { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>EGPTMath Test Runner</h1>
+            <p class="subtitle">
+                Interactive validation of the integer-only math library &mdash;
+                <a href="https://eabadir.github.io/EGPT" target="_blank">IOPs, not FLOPs</a>
+            </p>
+        </header>
+
+        <div class="dashboard">
+            <div class="stat-card total">
+                <div class="value" id="stat-total">--</div>
+                <div class="label">Total Tests</div>
+            </div>
+            <div class="stat-card pass">
+                <div class="value" id="stat-passed">--</div>
+                <div class="label">Passed</div>
+            </div>
+            <div class="stat-card fail">
+                <div class="value" id="stat-failed">--</div>
+                <div class="label">Failed</div>
+            </div>
+            <div class="stat-card rate">
+                <div class="value" id="stat-rate">--%</div>
+                <div class="label">Success Rate</div>
+            </div>
+            <div class="stat-card time">
+                <div class="value" id="stat-time">--</div>
+                <div class="label">Duration (ms)</div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <select class="suite-select" id="suite-select">
+                <option value="main">Core Test Suite (157 tests)</option>
+                <option value="topology">Topology Test Suite</option>
+                <option value="both">Both Suites</option>
+            </select>
+            <button class="btn-run" id="btn-run">Run Tests</button>
+            <div style="flex:1"></div>
+            <button class="btn-filter active" data-filter="all">All</button>
+            <button class="btn-filter" data-filter="pass">Passed</button>
+            <button class="btn-filter" data-filter="fail">Failed</button>
+        </div>
+
+        <div class="progress-container" id="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <div class="paradigm-banner" id="paradigm-banner">
+            <h3>Paradigm Validation Complete</h3>
+            <ul class="paradigm-list">
+                <li>EGPTNumber: Pure vector data container with scalar operations</li>
+                <li>EGPTMath: Pure static vector algebra engine</li>
+                <li>TwiddleTable: Phase-based FFT ops with unlimited precision</li>
+                <li>Clear separation: Data vs Operations</li>
+                <li>Intuitive API: Normal-space naming abstracts Shannon mechanics</li>
+                <li>Pedagogical clarity: Dual naming shows Shannon perspective</li>
+                <li>RET Iron Law: H(p&times;q) = H(p) + H(q) verified in canonical space</li>
+                <li>FFT Requirements: 100% validated (k=4, 8, 16, 32, 4096)</li>
+            </ul>
+        </div>
+
+        <div id="results">
+            <div class="empty-state" id="empty-state">
+                <div class="icon">&#x1F9EA;</div>
+                <h2>Ready to run</h2>
+                <p>Click "Run Tests" to validate the EGPTMath integer-only math library in your browser.</p>
+                <p style="margin-top:8px;font-size:0.85em">All operations use BigInt &mdash; zero floating point.</p>
+            </div>
+        </div>
+
+        <footer>
+            EGPTMath &mdash; Integer-only mathematics for scalable AI.
+            Part of <a href="../index.html">Electronic Graph Paper Theory</a>.
+        </footer>
+    </div>
+
+    <script type="module">
+        const btnRun = document.getElementById('btn-run');
+        const resultsDiv = document.getElementById('results');
+        const emptyState = document.getElementById('empty-state');
+        const progressContainer = document.getElementById('progress-container');
+        const progressBar = document.getElementById('progress-bar');
+        const paradigmBanner = document.getElementById('paradigm-banner');
+        const suiteSelect = document.getElementById('suite-select');
+
+        const filterButtons = document.querySelectorAll('.btn-filter');
+        let currentFilter = 'all';
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.filter;
+                applyFilter();
+            });
+        });
+
+        function applyFilter() {
+            document.querySelectorAll('.category').forEach(cat => {
+                const rows = cat.querySelectorAll('.test-row');
+                let anyVisible = false;
+                rows.forEach(row => {
+                    if (currentFilter === 'all') {
+                        row.classList.remove('hidden');
+                        anyVisible = true;
+                    } else if (currentFilter === 'pass' && row.classList.contains('pass')) {
+                        row.classList.remove('hidden');
+                        anyVisible = true;
+                    } else if (currentFilter === 'fail' && row.classList.contains('fail')) {
+                        row.classList.remove('hidden');
+                        anyVisible = true;
+                    } else {
+                        row.classList.add('hidden');
+                    }
+                });
+                cat.classList.toggle('hidden', !anyVisible);
+            });
+        }
+
+        function updateDashboard(tests) {
+            const total = tests.length;
+            const passed = tests.filter(t => t.passed).length;
+            const failed = total - passed;
+            const rate = total ? ((passed / total) * 100).toFixed(1) : 0;
+
+            document.getElementById('stat-total').textContent = total;
+            document.getElementById('stat-passed').textContent = passed;
+            document.getElementById('stat-failed').textContent = failed;
+            document.getElementById('stat-rate').textContent = rate + '%';
+        }
+
+        function renderResults(categories) {
+            emptyState.style.display = 'none';
+
+            // Remove old category elements
+            document.querySelectorAll('.category').forEach(el => el.remove());
+
+            const order = Object.keys(categories);
+            for (const catName of order) {
+                const catTests = categories[catName];
+                const passed = catTests.filter(t => t.passed).length;
+                const total = catTests.length;
+                const allPassed = passed === total;
+
+                const catEl = document.createElement('div');
+                catEl.className = 'category' + (allPassed ? '' : ' open');
+
+                // Header
+                const header = document.createElement('div');
+                header.className = 'category-header';
+                header.innerHTML = `
+                    <div class="category-left">
+                        <span class="category-chevron">&#9654;</span>
+                        <span class="category-name">${escHtml(catName)}</span>
+                    </div>
+                    <span class="category-badge ${allPassed ? 'badge-pass' : 'badge-fail'}">
+                        ${passed}/${total}
+                    </span>
+                `;
+                header.addEventListener('click', () => catEl.classList.toggle('open'));
+
+                // Body
+                const body = document.createElement('div');
+                body.className = 'category-body';
+
+                for (const t of catTests) {
+                    const row = document.createElement('div');
+                    row.className = 'test-row ' + (t.passed ? 'pass' : 'fail');
+                    let inner = `
+                        <span class="test-icon">${t.passed ? '&#x2705;' : '&#x274C;'}</span>
+                        <div>
+                            <div class="test-desc">${escHtml(t.description)}</div>
+                            ${t.error ? `<div class="test-error">${escHtml(t.error)}</div>` : ''}
+                        </div>
+                    `;
+                    row.innerHTML = inner;
+                    body.appendChild(row);
+                }
+
+                catEl.appendChild(header);
+                catEl.appendChild(body);
+                resultsDiv.appendChild(catEl);
+            }
+        }
+
+        function escHtml(s) {
+            const d = document.createElement('div');
+            d.textContent = s;
+            return d.innerHTML;
+        }
+
+        btnRun.addEventListener('click', async () => {
+            btnRun.disabled = true;
+            btnRun.textContent = 'Running...';
+            progressContainer.classList.add('active');
+            progressBar.style.width = '10%';
+            paradigmBanner.classList.remove('visible');
+
+            // Reset dashboard
+            ['stat-total','stat-passed','stat-failed','stat-rate','stat-time'].forEach(id => {
+                document.getElementById(id).textContent = '--';
+            });
+
+            // Small delay to let UI update
+            await new Promise(r => setTimeout(r, 50));
+
+            const selected = suiteSelect.value;
+            const startTime = performance.now();
+            let allTests = [];
+            let allCategories = {};
+
+            try {
+                progressBar.style.width = '30%';
+
+                // Cache-busting ensures tests re-run on each click
+                const bust = '?t=' + Date.now();
+
+                if (selected === 'main' || selected === 'both') {
+                    const mainModule = await import('../EGPTMath/test/EGPTTestSuite.js' + bust);
+                    const mainResults = mainModule.testResults;
+                    allTests = allTests.concat(mainResults.tests);
+                    Object.assign(allCategories, mainResults.categories);
+                }
+
+                progressBar.style.width = '60%';
+
+                if (selected === 'topology' || selected === 'both') {
+                    const topoModule = await import('../EGPTMath/test/EGPTTopologyTestSuite.js' + bust);
+                    const topoResults = topoModule.testResults;
+                    allTests = allTests.concat(topoResults.tests);
+                    for (const [k, v] of Object.entries(topoResults.categories)) {
+                        if (allCategories[k]) {
+                            allCategories[k] = allCategories[k].concat(v);
+                        } else {
+                            allCategories[k] = v;
+                        }
+                    }
+                }
+
+                progressBar.style.width = '90%';
+            } catch (err) {
+                console.error('Test import error:', err);
+                emptyState.style.display = 'block';
+                emptyState.innerHTML = `
+                    <div class="icon">&#x26A0;&#xFE0F;</div>
+                    <h2>Import Error</h2>
+                    <p style="color:#ff5555">${escHtml(err.message)}</p>
+                    <p style="margin-top:8px;font-size:0.85em;color:#8892b0">
+                        Make sure you're serving this page from a local web server (not file://).<br>
+                        Try: <code style="color:#bd93f9">python3 -m http.server 8000</code> from the repo root.
+                    </p>
+                `;
+                btnRun.disabled = false;
+                btnRun.textContent = 'Run Tests';
+                progressContainer.classList.remove('active');
+                return;
+            }
+
+            const elapsed = Math.round(performance.now() - startTime);
+
+            progressBar.style.width = '100%';
+            await new Promise(r => setTimeout(r, 200));
+            progressContainer.classList.remove('active');
+
+            document.getElementById('stat-time').textContent = elapsed;
+            updateDashboard(allTests);
+            renderResults(allCategories);
+            applyFilter();
+
+            // Show paradigm banner if all passed
+            const allPassed = allTests.every(t => t.passed);
+            if (allPassed) {
+                paradigmBanner.classList.add('visible');
+            }
+
+            btnRun.disabled = false;
+            btnRun.textContent = 'Run Tests';
+        });
+    </script>
+</body>
+</html>

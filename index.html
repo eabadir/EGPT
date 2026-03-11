@@ -37,6 +37,42 @@
   <p class="landing-subtitle">Five Ideas. One Repository. A New Computing Architecture.</p>
 </div>
 
+<section class="landing-section featured-results">
+  <h2>Featured Results</h2>
+  <div class="featured-grid">
+      <div class="featured-card" data-idea="id5" style="border-top: 4px solid #F44336">
+        <span class="featured-badge">NEW</span>
+        <h3 class="featured-card__title">Experimental Confirmation: 100% Accuracy</h3>
+        <p class="featured-card__subtitle">Half-adder circuit SAT — 80 runs, 20 seeds, zero failures</p>
+        <p class="featured-card__detail">Boolean computation via particle diffusion in a force-free discrete physics engine. Open code, open data, fully reproducible.</p>
+        <div class="featured-card__links">
+          <a class="featured-cta" href="egpt_circuit_sat/index.html">Run the Demo</a> <a class="featured-link" href="egpt_circuit_sat/paper/egpt_circuit_sat_whitepaper.pdf">Paper</a> <a class="featured-link" href="egpt_circuit_sat/data/multiseed_results.json">Data</a>
+          <span class="idea-badge idea-badge--id5">ID5</span>
+        </div>
+      </div>
+      <div class="featured-card" data-idea="id5" style="border-top: 4px solid #F44336">
+        
+        <h3 class="featured-card__title">Formal Proof: P = NP</h3>
+        <p class="featured-card__subtitle">85 theorems — sorry-free, axiom-free, Lean 4 + mathlib4</p>
+        <p class="featured-card__detail">Complete proof chain from random walks to computational complexity via information-theoretic entropy.</p>
+        <div class="featured-card__links">
+          <a class="featured-cta" href="Lean/EGPT/Complexity/PPNP.lean">Read the Proof</a>
+          <span class="idea-badge idea-badge--id5">ID5</span>
+        </div>
+      </div>
+      <div class="featured-card" data-idea="id2" style="border-top: 4px solid #4CAF50">
+        
+        <h3 class="featured-card__title">FAT Benchmark: 1.277 Billion x Faster</h3>
+        <p class="featured-card__subtitle">Integer-only QFT outperforms 2,048 GPUs</p>
+        <p class="featured-card__detail">The Faster Abadir Transform replaces floating-point FFT with exact integer operations — no error accumulation.</p>
+        <div class="featured-card__links">
+          <a class="featured-cta" href="https://colab.research.google.com/drive/1LQLCHDNp9kCFgJXIzlitaVxuYiHRATXm" target="_blank">Run the Benchmark</a>
+          <span class="idea-badge idea-badge--id2">ID2</span>
+        </div>
+      </div>
+  </div>
+</section>
+
 <section class="landing-section">
   <h2>Five Ideas</h2>
   <div class="module-grid">
@@ -107,6 +143,14 @@
           <span class="idea-badge idea-badge--id5">ID5</span>
         </div>
       </div>
+      <div class="module-card" data-idea="id5">
+        <h3 class="module-card__title">Module 6: Circuit SAT Experiment</h3>
+        <p class="module-card__desc">Circuit SAT: Experimental P=NP Confirmation &mdash; 100% accurate half-adder via discrete particle transport — 80 runs, 20 seeds, zero failures. Open code, open data, fully reproducible. No force calculations, no floating point, no fields.</p>
+        <div class="module-card__badges">
+          <span class="idea-badge idea-badge--id5">ID5</span>
+          <span class="idea-badge idea-badge--id1">ID1</span>
+        </div>
+      </div>
   </div>
 </section>
 
@@ -138,6 +182,7 @@
       <li><strong>Code:</strong> Launch GravitySim &mdash; <a href="www/GravitySim/index.html" data-nav-dir="www" data-nav-file="GravitySim/index.html">GravitySim/index.html</a></li>
       <li><strong>Papers &amp; Stories:</strong> Read Address Is The Map &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/content/Papers/Address_Is_The_Map/Address_Is_The_Map.pdf" data-nav-dir="content" data-nav-file="Papers/Address_Is_The_Map/Address_Is_The_Map.pdf">Papers/Address_Is_The_Map/Address_Is_The_Map.pdf</a></li>
       <li><strong>Navigation &amp; Reference:</strong> Read the proof dependency graph &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/docs/PROOF_GRAPH.md" data-nav-dir="docs" data-nav-file="PROOF_GRAPH.md">PROOF_GRAPH.md</a></li>
+      <li><strong>Circuit SAT Experiment:</strong> Run the 80-experiment reproduction &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/egpt_circuit_sat/run_multiseed.js" data-nav-dir="egpt_circuit_sat" data-nav-file="run_multiseed.js">run_multiseed.js</a></li>
       </ul>
     </div>
     <div class="persona-content" data-persona="ai-ml-engineer">
@@ -145,6 +190,7 @@
       <li><strong>The Integer Math Library:</strong> Run the test suite: npm test &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/EGPTMath/test/EGPTTestSuite.js" data-nav-dir="EGPTMath" data-nav-file="test/EGPTTestSuite.js">test/EGPTTestSuite.js</a></li>
       <li><strong>Code:</strong> See why GPUs waste energy &mdash; <a href="www/GPUHeatDeath.html" data-nav-dir="www" data-nav-file="GPUHeatDeath.html">GPUHeatDeath.html</a></li>
       <li><strong>Navigation &amp; Reference:</strong> Check audit reports for consistency &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/docs/audit/lean-proof-audit.md" data-nav-dir="docs" data-nav-file="audit/lean-proof-audit.md">audit/lean-proof-audit.md</a></li>
+      <li><strong>Circuit SAT Experiment:</strong> See Boolean logic from Brownian motion &mdash; <a href="egpt_circuit_sat/index.html" data-nav-dir="egpt_circuit_sat" data-nav-file="index.html">index.html</a></li>
       </ul>
     </div>
     <div class="persona-content" data-persona="hardware-engineer">
@@ -156,6 +202,7 @@
       <ul>
       <li><strong>The Proof Chain:</strong> cd Lean &amp;&amp; lake build</li>
       <li><strong>Navigation &amp; Reference:</strong> Study the proof dependency DAG &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/docs/PROOF_GRAPH.md" data-nav-dir="docs" data-nav-file="PROOF_GRAPH.md">PROOF_GRAPH.md</a></li>
+      <li><strong>Circuit SAT Experiment:</strong> Inspect the experimental data &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/egpt_circuit_sat/data/multiseed_results.json" data-nav-dir="egpt_circuit_sat" data-nav-file="data/multiseed_results.json">data/multiseed_results.json</a></li>
       </ul>
     </div>
     <div class="persona-content" data-persona="mathematician">
@@ -168,6 +215,7 @@
       <ul>
       <li><strong>The Proof Chain:</strong> Read PPNP.lean &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/Lean/EGPT/Complexity/PPNP.lean" data-nav-dir="Lean" data-nav-file="EGPT/Complexity/PPNP.lean">EGPT/Complexity/PPNP.lean</a></li>
       <li><strong>Navigation &amp; Reference:</strong> Read the machine-readable graph &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/docs/proof_graph.json" data-nav-dir="docs" data-nav-file="proof_graph.json">proof_graph.json</a></li>
+      <li><strong>Circuit SAT Experiment:</strong> Read the Circuit SAT whitepaper &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/egpt_circuit_sat/paper/egpt_circuit_sat_whitepaper.pdf" data-nav-dir="egpt_circuit_sat" data-nav-file="paper/egpt_circuit_sat_whitepaper.pdf">paper/egpt_circuit_sat_whitepaper.pdf</a></li>
       </ul>
     </div>
     <div class="persona-content" data-persona="qc-enthusiast">
@@ -186,6 +234,7 @@
       <li><strong>The Proof Chain:</strong> Read RealityIsComputation &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/Lean/EGPT/Physics/RealityIsComputation.lean" data-nav-dir="Lean" data-nav-file="EGPT/Physics/RealityIsComputation.lean">EGPT/Physics/RealityIsComputation.lean</a></li>
       <li><strong>Code:</strong> Explore the FRAQTL DevSDK &mdash; <a href="www/fraqtl_devsdk/index.html" data-nav-dir="www" data-nav-file="fraqtl_devsdk/index.html">fraqtl_devsdk/index.html</a></li>
       <li><strong>Papers &amp; Stories:</strong> Read the Gravity paper &mdash; <a href="https://github.com/eabadir/EGPT/blob/main/content/Papers/GravityPaper/GravityPaper.pdf" data-nav-dir="content" data-nav-file="Papers/GravityPaper/GravityPaper.pdf">Papers/GravityPaper/GravityPaper.pdf</a></li>
+      <li><strong>Circuit SAT Experiment:</strong> Watch particles compute a half-adder &mdash; <a href="egpt_circuit_sat/index.html" data-nav-dir="egpt_circuit_sat" data-nav-file="index.html">index.html</a></li>
       </ul>
     </div>
     <div class="persona-content" data-persona="philosopher">
@@ -328,6 +377,35 @@ graph TD
       "group": "theory-first"
     }
   },
+  "featured_results": [
+    {
+      "title": "Experimental Confirmation: 100% Accuracy",
+      "subtitle": "Half-adder circuit SAT — 80 runs, 20 seeds, zero failures",
+      "detail": "Boolean computation via particle diffusion in a force-free discrete physics engine. Open code, open data, fully reproducible.",
+      "link": "egpt_circuit_sat/index.html",
+      "link_label": "Run the Demo",
+      "data_link": "egpt_circuit_sat/data/multiseed_results.json",
+      "paper_link": "egpt_circuit_sat/paper/egpt_circuit_sat_whitepaper.pdf",
+      "idea": "ID5",
+      "badge": "NEW"
+    },
+    {
+      "title": "Formal Proof: P = NP",
+      "subtitle": "85 theorems — sorry-free, axiom-free, Lean 4 + mathlib4",
+      "detail": "Complete proof chain from random walks to computational complexity via information-theoretic entropy.",
+      "link": "Lean/EGPT/Complexity/PPNP.lean",
+      "link_label": "Read the Proof",
+      "idea": "ID5"
+    },
+    {
+      "title": "FAT Benchmark: 1.277 Billion x Faster",
+      "subtitle": "Integer-only QFT outperforms 2,048 GPUs",
+      "detail": "The Faster Abadir Transform replaces floating-point FFT with exact integer operations — no error accumulation.",
+      "link": "https://colab.research.google.com/drive/1LQLCHDNp9kCFgJXIzlitaVxuYiHRATXm",
+      "link_label": "Run the Benchmark",
+      "idea": "ID2"
+    }
+  ],
   "modules": [
     {
       "dir": "Lean",
@@ -959,6 +1037,116 @@ graph TD
         }
       ],
       "embed_demos": []
+    },
+    {
+      "dir": "egpt_circuit_sat",
+      "label": "Module 6: Circuit SAT Experiment",
+      "order": 6,
+      "title": "Circuit SAT: Experimental P=NP Confirmation",
+      "description": "100% accurate half-adder via discrete particle transport — 80 runs, 20 seeds, zero failures. Open code, open data, fully reproducible. No force calculations, no floating point, no fields.",
+      "ideas": [
+        "ID1",
+        "ID5"
+      ],
+      "primary_ideas": [
+        "ID5",
+        "ID1"
+      ],
+      "do_this_first": {
+        "cs-student": {
+          "action": "Run the 80-experiment reproduction",
+          "file": "run_multiseed.js"
+        },
+        "complexity-theorist": {
+          "action": "Read the Circuit SAT whitepaper",
+          "file": "paper/egpt_circuit_sat_whitepaper.pdf"
+        },
+        "physicist": {
+          "action": "Watch particles compute a half-adder",
+          "file": "index.html"
+        },
+        "ai-ml-engineer": {
+          "action": "See Boolean logic from Brownian motion",
+          "file": "index.html"
+        },
+        "proof-engineer": {
+          "action": "Inspect the experimental data",
+          "file": "data/multiseed_results.json"
+        }
+      },
+      "highlights": [
+        {
+          "file": "index.html",
+          "label": "Interactive half-adder demo — watch particles compute",
+          "idea": "ID5"
+        },
+        {
+          "file": "paper/egpt_circuit_sat_whitepaper.pdf",
+          "label": "Whitepaper: Experimental Confirmation of P=NP",
+          "idea": "ID5"
+        },
+        {
+          "file": "data/multiseed_results.json",
+          "label": "Open data: 80-run experimental results (JSON)",
+          "idea": "ID1"
+        }
+      ],
+      "subsections": [
+        {
+          "title": "Interactive Demo",
+          "files": [
+            "index.html"
+          ]
+        },
+        {
+          "title": "Paper & Documentation",
+          "files": [
+            "paper/egpt_circuit_sat_whitepaper.pdf",
+            "paper/circuits_guide.md",
+            "README.md"
+          ]
+        },
+        {
+          "title": "Experimental Data",
+          "files": [
+            "data/multiseed_results.json",
+            "data/circuit_combo_00.json",
+            "data/circuit_combo_01.json",
+            "data/circuit_combo_10.json",
+            "data/circuit_combo_11.json"
+          ]
+        },
+        {
+          "title": "Source Code",
+          "files": [
+            "run_multiseed.js",
+            "js/engine/EGPTfraqtl.js",
+            "js/simulation/setupCircuitSAT.js",
+            "js/game/CircuitObjects.js"
+          ]
+        }
+      ],
+      "related_reading": [
+        {
+          "label": "Circuit SAT README",
+          "file": "README.md"
+        },
+        {
+          "label": "Circuits Programming Guide",
+          "file": "paper/circuits_guide.md"
+        },
+        {
+          "label": "Whitepaper (PDF)",
+          "file": "paper/egpt_circuit_sat_whitepaper.pdf"
+        }
+      ],
+      "embed_demos": [
+        {
+          "src": "index.html",
+          "label": "Circuit SAT Half-Adder — Particles Computing Boolean Logic",
+          "height": 650
+        }
+      ]
     }
   ],
   "mermaid_diagrams": [

@@ -2,7 +2,7 @@
 
 > All of modern physics derives from a purely algebraic, discrete theory.
 > This file contains all primary artifacts for Idea #3.
-> For the full framework: https://github.com/eabadir/EGPT/blob/main/IDEAS.md
+> For the full framework: https://eabadir.github.io/EGPT/IDEAS.md
 >
 > Key claim: Continuous field theory can be replaced by discrete, integer-indexed computation.
 > Einstein suspected this ('letter to Besso, 1954') but died without the mathematical form.

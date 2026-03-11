@@ -55,6 +55,7 @@ Reference `GPUHeatDeath.html` and `RotaEntropy/RotaEntropyProperties.html` as ex
 4. Ensure it works by opening directly in a browser (no server needed)
 5. Notify `@doc-writer` to update `www/CLAUDE.md` with the new demo
 6. Update `www/_meta.json` to include the new demo in `highlights` or `embed_demos`
+7. When adding links in demo descriptions or inline docs intended for external visitors, use the GitHub Pages base URL `https://eabadir.github.io/EGPT/` — not raw GitHub or blob URLs. External referrers should land on the browsable site.
 
 ## Key EGPT Concepts to Visualize
 

@@ -30,7 +30,7 @@ Five interlocking ideas from five authors across a century of mathematics, physi
 - **ID4 -- Rota:** Entropy is the unique information measure (RET: all entropy = C x Shannon)
 - **ID5 -- Abadir:** Cantor's diagonal assumes non-unique reps — CH is decidable (Hilbert #1)
 
-Full framework with artifact maps: [IDEAS.md](https://github.com/eabadir/EGPT/blob/main/IDEAS.md)
+Full framework with artifact maps: [IDEAS.md](https://eabadir.github.io/EGPT/IDEAS.md)
 Live QFT benchmark: [Google Colab](https://colab.research.google.com/drive/1LQLCHDNp9kCFgJXIzlitaVxuYiHRATXm)
 
 ## Core Claims
@@ -46,26 +46,26 @@ FAT benchmarks ~1.277 billion x faster than 2,048 GPUs on a single 1.2 GHz core.
 
 ## Documentation
 
-- [README](https://github.com/eabadir/EGPT/blob/main/README.md): Project overview, philosophy, and proof chain narrative
-- [AGENTS.md](https://github.com/eabadir/EGPT/blob/main/AGENTS.md): AI agent navigation instructions, build commands, proof dependency graph
-- [Skeptic's Guide](https://github.com/eabadir/EGPT/blob/main/SKEPTICS_GUIDE.md): Step-by-step audited proof walkthrough
-- [P=NP Proof Walkthrough](https://github.com/eabadir/EGPT/blob/main/Lean/EGPT/PeqNP_Proof_README.md): Detailed mathematical exposition
-- [Proof Validation Report](https://github.com/eabadir/EGPT/blob/main/Lean/EGPT_PROOFS_VALIDATION.md): 85 theorems with full axiom inventory
-- [Proof Dependency Graph](https://github.com/eabadir/EGPT/blob/main/Lean/PROOF_DEPENDENCIES.md): Import chains, theorem counts, isolation guarantees
-- [Proof Graph (Mermaid)](https://github.com/eabadir/EGPT/blob/main/docs/PROOF_GRAPH.md): Visual dependency DAG with Mermaid diagrams
-- [Proof Graph (JSON)](https://github.com/eabadir/EGPT/blob/main/docs/proof_graph.json): Machine-readable dependency graph for programmatic ingestion
-- [EGPT Story](https://github.com/eabadir/EGPT/blob/main/EGPT_STORY.md): Full narrative exposition (accessible, picture-based)
-- [Academic Paper](https://github.com/eabadir/EGPT/blob/main/content/Papers/EGPT_PeqNP/PeqNP_QED.md): Formal paper version
-- [Rota's Entropy Theorem Guide](https://github.com/eabadir/EGPT/blob/main/RET_README.md): Dedicated RET walkthrough
+- [README](https://eabadir.github.io/EGPT/README.md): Project overview, philosophy, and proof chain narrative
+- [AGENTS.md](https://eabadir.github.io/EGPT/AGENTS.md): AI agent navigation instructions, build commands, proof dependency graph
+- [Skeptic's Guide](https://eabadir.github.io/EGPT/SKEPTICS_GUIDE.md): Step-by-step audited proof walkthrough
+- [P=NP Proof Walkthrough](https://eabadir.github.io/EGPT/Lean/EGPT/PeqNP_Proof_README.md): Detailed mathematical exposition
+- [Proof Validation Report](https://eabadir.github.io/EGPT/Lean/EGPT_PROOFS_VALIDATION.md): 85 theorems with full axiom inventory
+- [Proof Dependency Graph](https://eabadir.github.io/EGPT/Lean/PROOF_DEPENDENCIES.md): Import chains, theorem counts, isolation guarantees
+- [Proof Graph (Mermaid)](https://eabadir.github.io/EGPT/docs/PROOF_GRAPH.md): Visual dependency DAG with Mermaid diagrams
+- [Proof Graph (JSON)](https://eabadir.github.io/EGPT/docs/proof_graph.json): Machine-readable dependency graph for programmatic ingestion
+- [EGPT Story](https://eabadir.github.io/EGPT/EGPT_STORY.md): Full narrative exposition (accessible, picture-based)
+- [Academic Paper](https://eabadir.github.io/EGPT/content/Papers/EGPT_PeqNP/PeqNP_QED.md): Formal paper version
+- [Rota's Entropy Theorem Guide](https://eabadir.github.io/EGPT/RET_README.md): Dedicated RET walkthrough
 
 ## Source Code — Formal Proofs (Lean 4)
 
-- [Lean Proofs](https://github.com/eabadir/EGPT/tree/main/Lean/EGPT): All formal Lean 4 proofs
-- [P=NP Theorem](https://github.com/eabadir/EGPT/blob/main/Lean/EGPT/Complexity/PPNP.lean): The P_eq_NP theorem
-- [Core Types](https://github.com/eabadir/EGPT/blob/main/Lean/EGPT/Core.lean): ParticlePath, ComputerTape
-- [Number Theory](https://github.com/eabadir/EGPT/blob/main/Lean/EGPT/NumberTheory/Core.lean): ParticlePath ≃ ℕ bijection
-- [Continuum Hypothesis](https://github.com/eabadir/EGPT/blob/main/Lean/EGPT/NumberTheory/ContinuumHypothesis.lean): CH & GCH decidable (Hilbert #1)
-- [Rota's Entropy Theorem](https://github.com/eabadir/EGPT/blob/main/Lean/EGPT/Entropy/RET.lean): All entropy = C × Shannon
+- [Lean Proofs](https://eabadir.github.io/EGPT/Lean/EGPT): All formal Lean 4 proofs
+- [P=NP Theorem](https://eabadir.github.io/EGPT/Lean/EGPT/Complexity/PPNP.lean): The P_eq_NP theorem
+- [Core Types](https://eabadir.github.io/EGPT/Lean/EGPT/Core.lean): ParticlePath, ComputerTape
+- [Number Theory](https://eabadir.github.io/EGPT/Lean/EGPT/NumberTheory/Core.lean): ParticlePath ≃ ℕ bijection
+- [Continuum Hypothesis](https://eabadir.github.io/EGPT/Lean/EGPT/NumberTheory/ContinuumHypothesis.lean): CH & GCH decidable (Hilbert #1)
+- [Rota's Entropy Theorem](https://eabadir.github.io/EGPT/Lean/EGPT/Entropy/RET.lean): All entropy = C × Shannon
 
 ## Working Implementations — Pedagogical JS (EGPTMath)
 
@@ -74,10 +74,10 @@ runnable integer-only code. Every Lean concept (ParticlePath, PPF encoding, Shan
 coding, the FFT as an integer operation) has a corresponding JS implementation. The
 library is intentionally unoptimized — clarity over speed, teaching over benchmarking.
 
-- [EGPTMath overview](https://github.com/eabadir/EGPT/blob/main/EGPTMath/README.md): PPF representation, test results, Lean correspondence
-- [EGPTMath.js](https://github.com/eabadir/EGPT/blob/main/EGPTMath/EGPTMath.js): Static vector algebra engine (integer-only, ~6800 lines)
-- [EGPTNumber.js](https://github.com/eabadir/EGPT/blob/main/EGPTMath/EGPTNumber.js): PPF number representation — lossless Shannon coding
-- [Developer Guide](https://github.com/eabadir/EGPT/blob/main/EGPTMath/EGPTMath_Developer_Guide.md): How unlimited precision works in information space
+- [EGPTMath overview](https://eabadir.github.io/EGPT/EGPTMath/README.md): PPF representation, test results, Lean correspondence
+- [EGPTMath.js](https://eabadir.github.io/EGPT/EGPTMath/EGPTMath.js): Static vector algebra engine (integer-only, ~6800 lines)
+- [EGPTNumber.js](https://eabadir.github.io/EGPT/EGPTMath/EGPTNumber.js): PPF number representation — lossless Shannon coding
+- [Developer Guide](https://eabadir.github.io/EGPT/EGPTMath/EGPTMath_Developer_Guide.md): How unlimited precision works in information space
 
 ### FAT — Fast Abadir Transform (Pedagogical)
 
@@ -86,43 +86,45 @@ integer arithmetic — no floating point anywhere in the transform pipeline. Twi
 factors become exact rational coordinates on N-gon vertices. These are teaching
 implementations; the optimized FAT is proprietary and not in this repository.
 
-- [FAT overview](https://github.com/eabadir/EGPT/blob/main/EGPTMath/FAT/FAT_README.md): All variants, test results, what passes and what's known-limited
-- [EGPTFAT.js](https://github.com/eabadir/EGPT/blob/main/EGPTMath/FAT/EGPTFAT.js): Canonical recursive Cooley-Tukey (integer-only)
-- [EGPTFAT_PurePPF.js](https://github.com/eabadir/EGPT/blob/main/EGPTMath/FAT/EGPTFAT_PurePPF.js): Native BigInt variant
-- [EGPTFAT_TypeSafe.js](https://github.com/eabadir/EGPT/blob/main/EGPTMath/FAT/EGPTFAT_TypeSafe.js): Domain-safe wrappers
+- [FAT overview](https://eabadir.github.io/EGPT/EGPTMath/FAT/FAT_README.md): All variants, test results, what passes and what's known-limited
+- [EGPTFAT.js](https://eabadir.github.io/EGPT/EGPTMath/FAT/EGPTFAT.js): Canonical recursive Cooley-Tukey (integer-only)
+- [EGPTFAT_PurePPF.js](https://eabadir.github.io/EGPT/EGPTMath/FAT/EGPTFAT_PurePPF.js): Native BigInt variant
+- [EGPTFAT_TypeSafe.js](https://eabadir.github.io/EGPT/EGPTMath/FAT/EGPTFAT_TypeSafe.js): Domain-safe wrappers
 
 ## Papers
 
-- [FRAQTL White Paper](https://github.com/eabadir/EGPT/blob/main/content/pyFRAQTL/FRAQTL_WhitePaper.md): Deterministic factorization algorithm
-- [pyFRAQTL SDK](https://github.com/eabadir/EGPT/blob/main/content/pyFRAQTL/pyFRAQTLsdk.py): Python implementation
+- [FRAQTL White Paper](https://eabadir.github.io/EGPT/content/pyFRAQTL/FRAQTL_WhitePaper.md): Deterministic factorization algorithm
+- [pyFRAQTL SDK](https://eabadir.github.io/EGPT/content/pyFRAQTL/pyFRAQTLsdk.py): Python implementation
 
 ## Computational Experiments (The Triumvirate)
 
 EGPT provides a triumvirate for each physical phenomenon: formal proof (Lean 4) + analytical
 derivation (paper) + computational experiment (interactive simulation). No other framework
-offers all three for any one phenomenon, let alone four:
+offers all three for any one phenomenon, let alone six:
 
-- **Gravity**: [GravitySim](https://github.com/eabadir/EGPT/tree/main/www/GravitySim) — inverse-square law emerges from random walk statistics. No Newton's law as input.
-- **Double slit / wave interference**: [FRAQTL DevSDK](https://github.com/eabadir/EGPT/tree/main/www/fraqtl_devsdk) — interference patterns from discrete particles, no wave equation.
-- **Blackbody radiation**: [FRAQTL DevSDK](https://github.com/eabadir/EGPT/tree/main/www/fraqtl_devsdk) — Planck's distribution from particle statistics.
-- **Atomic structure**: [FRAQTL DevSDK](https://github.com/eabadir/EGPT/tree/main/www/fraqtl_devsdk) — electron shells from random walk confinement, no Schrödinger equation.
-- **Analytical derivation**: [Gravity Paper](https://github.com/eabadir/EGPT/blob/main/content/Papers/GravityPaper/GravityPaper.tex) — P(interaction) = (m₁m₂)/(4r²), G and k_e as dimensional scaling factors.
+- **Circuit SAT (Half-Adder)**: [Circuit SAT Demo](https://eabadir.github.io/EGPT/egpt_circuit_sat) — 100% accuracy across 80 runs. Boolean computation via particle diffusion in a force-free engine. Open code, open data, fully reproducible. [Whitepaper](https://eabadir.github.io/EGPT/egpt_circuit_sat/paper/egpt_circuit_sat_whitepaper.pdf), [Data](https://eabadir.github.io/EGPT/egpt_circuit_sat/data/multiseed_results.json).
+- **Gravity**: [GravitySim](https://eabadir.github.io/EGPT/www/GravitySim) — inverse-square law emerges from random walk statistics. No Newton's law as input.
+- **Double slit / wave interference**: [FRAQTL DevSDK](https://eabadir.github.io/EGPT/www/fraqtl_devsdk) — interference patterns from discrete particles, no wave equation.
+- **Blackbody radiation**: [FRAQTL DevSDK](https://eabadir.github.io/EGPT/www/fraqtl_devsdk) — Planck's distribution from particle statistics.
+- **Atomic structure**: [FRAQTL DevSDK](https://eabadir.github.io/EGPT/www/fraqtl_devsdk) — electron shells from random walk confinement, no Schrödinger equation.
+- **Analytical derivation**: [Gravity Paper](https://eabadir.github.io/EGPT/content/Papers/GravityPaper/GravityPaper.tex) — P(interaction) = (m₁m₂)/(4r²), G and k_e as dimensional scaling factors.
 
 ## Interactive Demos
 
-- [Web Demos](https://github.com/eabadir/EGPT/tree/main/www): Browser-based visualizations (no build step)
-- [GravitySim](https://github.com/eabadir/EGPT/tree/main/www/GravitySim): Emergent gravity from random walks (p5.js, no build step)
-- [FRAQTL DevSDK](https://github.com/eabadir/EGPT/tree/main/www/fraqtl_devsdk): 5 physics experiments — particle walk, wave interference, blackbody, oscillator, atomic model (p5.js, no build step)
+- [Circuit SAT Half-Adder](https://eabadir.github.io/EGPT/egpt_circuit_sat): Boolean computation via particle transport — interactive demo + reproducible 80-run dataset (no build step)
+- [Web Demos](https://eabadir.github.io/EGPT/www): Browser-based visualizations (no build step)
+- [GravitySim](https://eabadir.github.io/EGPT/www/GravitySim): Emergent gravity from random walks (p5.js, no build step)
+- [FRAQTL DevSDK](https://eabadir.github.io/EGPT/www/fraqtl_devsdk): 5 physics experiments — particle walk, wave interference, blackbody, oscillator, atomic model (p5.js, no build step)
 
 ## Specialist Agent Instructions (.claude/agents/)
 
 Seven specialist agents keep the mono-repo layers synchronized. Each file contains
 domain-specific conventions, file inventories, sync rules, and success criteria.
 
-- [egpt-orchestrator.md](https://github.com/eabadir/EGPT/blob/main/.claude/agents/egpt-orchestrator.md): Cross-layer sync assessment and delegation — reads changes, applies sync matrix, delegates to specialists
-- [lean-prover.md](https://github.com/eabadir/EGPT/blob/main/.claude/agents/lean-prover.md): Lean 4 formal proofs — proof chain invariants, key definitions, module structure, proof style
-- [js-engineer.md](https://github.com/eabadir/EGPT/blob/main/.claude/agents/js-engineer.md): EGPTMath pedagogical JS — Lean-to-JS mapping patterns, test suite, integer-only conventions
-- [doc-writer.md](https://github.com/eabadir/EGPT/blob/main/.claude/agents/doc-writer.md): Documentation — CLAUDE.md files, AI navigation files, narrative docs, cross-reference checks
-- [demo-builder.md](https://github.com/eabadir/EGPT/blob/main/.claude/agents/demo-builder.md): Interactive web demos — Chart.js, p5.js, self-contained HTML, style guide
-- [content-author.md](https://github.com/eabadir/EGPT/blob/main/.claude/agents/content-author.md): Academic papers and stories — content structure, tone guidelines, key principles
-- [sync-validator.md](https://github.com/eabadir/EGPT/blob/main/.claude/agents/sync-validator.md): Cross-layer consistency — 11 validation checks (build, sorry-free, theorem count, test suite, imports, isolation)
+- [egpt-orchestrator.md](https://eabadir.github.io/EGPT/.claude/agents/egpt-orchestrator.md): Cross-layer sync assessment and delegation — reads changes, applies sync matrix, delegates to specialists
+- [lean-prover.md](https://eabadir.github.io/EGPT/.claude/agents/lean-prover.md): Lean 4 formal proofs — proof chain invariants, key definitions, module structure, proof style
+- [js-engineer.md](https://eabadir.github.io/EGPT/.claude/agents/js-engineer.md): EGPTMath pedagogical JS — Lean-to-JS mapping patterns, test suite, integer-only conventions
+- [doc-writer.md](https://eabadir.github.io/EGPT/.claude/agents/doc-writer.md): Documentation — CLAUDE.md files, AI navigation files, narrative docs, cross-reference checks
+- [demo-builder.md](https://eabadir.github.io/EGPT/.claude/agents/demo-builder.md): Interactive web demos — Chart.js, p5.js, self-contained HTML, style guide
+- [content-author.md](https://eabadir.github.io/EGPT/.claude/agents/content-author.md): Academic papers and stories — content structure, tone guidelines, key principles
+- [sync-validator.md](https://eabadir.github.io/EGPT/.claude/agents/sync-validator.md): Cross-layer consistency — 11 validation checks (build, sorry-free, theorem count, test suite, imports, isolation)

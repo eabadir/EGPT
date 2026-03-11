@@ -1880,4 +1880,4 @@ console.log("✅ Pedagogical clarity: Dual naming shows Shannon perspective");
 console.log("✅ RET Iron Law: H(p×q) = H(p) + H(q) verified in canonical space");
 console.log("✅ FFT Requirements: 100% validated (k=4, 8, 16, 32, 4096)");
 
-export { TestFramework };
+export { TestFramework, test as testResults };

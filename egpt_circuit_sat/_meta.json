@@ -1,0 +1,66 @@
+{
+  "title": "Circuit SAT: Experimental P=NP Confirmation",
+  "module": "Module 6: Circuit SAT Experiment",
+  "description": "100% accurate half-adder via discrete particle transport — 80 runs, 20 seeds, zero failures. Open code, open data, fully reproducible. No force calculations, no floating point, no fields.",
+  "ideas": ["ID1", "ID5"],
+  "primary_ideas": ["ID5", "ID1"],
+  "do_this_first": {
+    "cs-student":          { "action": "Run the 80-experiment reproduction",       "file": "run_multiseed.js" },
+    "complexity-theorist": { "action": "Read the Circuit SAT whitepaper",          "file": "paper/egpt_circuit_sat_whitepaper.pdf" },
+    "physicist":           { "action": "Watch particles compute a half-adder",     "file": "index.html" },
+    "ai-ml-engineer":      { "action": "See Boolean logic from Brownian motion",  "file": "index.html" },
+    "proof-engineer":      { "action": "Inspect the experimental data",            "file": "data/multiseed_results.json" }
+  },
+  "highlights": [
+    { "file": "index.html",                                    "label": "Interactive half-adder demo — watch particles compute",   "idea": "ID5" },
+    { "file": "paper/egpt_circuit_sat_whitepaper.pdf",         "label": "Whitepaper: Experimental Confirmation of P=NP",          "idea": "ID5" },
+    { "file": "data/multiseed_results.json",                   "label": "Open data: 80-run experimental results (JSON)",          "idea": "ID1" }
+  ],
+  "subsections": [
+    {
+      "title": "Interactive Demo",
+      "files": [
+        "index.html"
+      ]
+    },
+    {
+      "title": "Paper & Documentation",
+      "files": [
+        "paper/egpt_circuit_sat_whitepaper.pdf",
+        "paper/circuits_guide.md",
+        "README.md"
+      ]
+    },
+    {
+      "title": "Experimental Data",
+      "files": [
+        "data/multiseed_results.json",
+        "data/circuit_combo_00.json",
+        "data/circuit_combo_01.json",
+        "data/circuit_combo_10.json",
+        "data/circuit_combo_11.json"
+      ]
+    },
+    {
+      "title": "Source Code",
+      "files": [
+        "run_multiseed.js",
+        "js/engine/EGPTfraqtl.js",
+        "js/simulation/setupCircuitSAT.js",
+        "js/game/CircuitObjects.js"
+      ]
+    }
+  ],
+  "embed_demos": [
+    {
+      "src": "index.html",
+      "label": "Circuit SAT Half-Adder — Particles Computing Boolean Logic",
+      "height": 650
+    }
+  ],
+  "related_reading": [
+    { "label": "Circuit SAT README",           "file": "README.md" },
+    { "label": "Circuits Programming Guide",   "file": "paper/circuits_guide.md" },
+    { "label": "Whitepaper (PDF)",             "file": "paper/egpt_circuit_sat_whitepaper.pdf" }
+  ]
+}

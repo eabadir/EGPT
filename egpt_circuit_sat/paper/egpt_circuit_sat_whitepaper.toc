@@ -1,0 +1,66 @@
+\contentsline {section}{\numberline {1}Introduction}{4}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Relationship to the EGPT Theoretical Framework}{4}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Paper Organization}{5}{subsection.1.2}%
+\contentsline {section}{\numberline {2}The EGPT FRAQTL Model}{5}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Primitives}{5}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}The Frame Axiom}{6}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Movement Rules}{6}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Collisions and Boundaries}{6}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Wave Behavior Without Wave-Particle Duality}{7}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Information Conservation}{7}{subsection.2.6}%
+\contentsline {section}{\numberline {3}Circuit Primitives}{8}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Wires}{8}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Batteries}{8}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Resistance}{8}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Logic Gates}{8}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Probes}{9}{subsection.3.5}%
+\contentsline {section}{\numberline {4}Half-Adder Layout and Configuration}{9}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Topology}{9}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Dual-Exit Chamber Design}{9}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Configuration Parameters}{10}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Experimental Results}{10}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Protocol}{10}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Truth Table Accuracy}{10}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Flow Statistics at Tick 3000}{10}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Convergence Time}{11}{subsection.5.4}%
+\contentsline {section}{\numberline {6}Discussion}{11}{section.6}%
+\contentsline {subsection}{\numberline {6.1}What This Result Demonstrates}{11}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Connection to Brownian Computing}{11}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Noise as a Feature}{12}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Scaling and Composability}{12}{subsection.6.4}%
+\contentsline {section}{\numberline {7}Computational Significance: The Half-Adder, Circuit SAT, and P=NP}{12}{section.7}%
+\contentsline {subsection}{\numberline {7.1}The Half-Adder as Irreducible Computational Atom}{12}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}The Polynomial Composability Argument}{12}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Connection to the Lean 4 Proof of P=NP}{13}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}What This Means for Circuit SAT}{13}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}Information Conservation and Computation}{14}{subsection.7.5}%
+\contentsline {section}{\numberline {8}Quantum Computing and the FRAQTL Framework}{14}{section.8}%
+\contentsline {subsection}{\numberline {8.1}The Frame as Quantum Bit}{14}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}FRAQTL as Classical Quantum Fourier Transform}{14}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}The QFT Result Does Not Imply Easy Factorization}{14}{subsection.8.3}%
+\contentsline {subsection}{\numberline {8.4}Why Quantum Advantage Evaporates}{15}{subsection.8.4}%
+\contentsline {section}{\numberline {9}Related Work}{15}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Brownian and Thermodynamic Computing}{15}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Billiard Ball Computing}{16}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Lattice Gas Automata}{16}{subsection.9.3}%
+\contentsline {subsection}{\numberline {9.4}Cellular Automata and Computation}{16}{subsection.9.4}%
+\contentsline {subsection}{\numberline {9.5}Von Neumann's Statistical Computing Architecture}{16}{subsection.9.5}%
+\contentsline {subsection}{\numberline {9.6}Quantum Cellular Automata}{16}{subsection.9.6}%
+\contentsline {subsection}{\numberline {9.7}What Distinguishes EGPT}{16}{subsection.9.7}%
+\contentsline {section}{\numberline {10}Conclusion}{17}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Summary of Contributions}{17}{subsection.10.1}%
+\contentsline {subsection}{\numberline {10.2}Future Work}{17}{subsection.10.2}%
+\contentsline {section}{References}{18}{subsection.10.2}%
+\contentsline {section}{\numberline {A}Reproducibility and Open-Source Code}{19}{appendix.A}%
+\contentsline {subsection}{\numberline {A.1}Repository Structure}{19}{subsection.A.1}%
+\contentsline {subsection}{\numberline {A.2}Reproducing the 80-Experiment Dataset}{19}{subsection.A.2}%
+\contentsline {subsection}{\numberline {A.3}Interactive Visualization}{19}{subsection.A.3}%
+\contentsline {subsection}{\numberline {A.4}CLI Options}{19}{subsection.A.4}%
+\contentsline {section}{\numberline {B}Circuit Implementation Reference}{20}{appendix.B}%
+\contentsline {subsection}{\numberline {B.1}Physics-to-Electronics Correspondence}{20}{subsection.B.1}%
+\contentsline {subsection}{\numberline {B.2}Universe Configuration for Circuits}{20}{subsection.B.2}%
+\contentsline {subsection}{\numberline {B.3}Key Component Classes}{20}{subsection.B.3}%
+\contentsline {subsection}{\numberline {B.4}Netlist Parsing}{20}{subsection.B.4}%
+\contentsline {subsection}{\numberline {B.5}Observed Emergent Behavior}{21}{subsection.B.5}%
+\contentsline {section}{\numberline {C}Lean 4 Proof Chain Summary}{21}{appendix.C}%
+\contentsline {subsection}{\numberline {C.1}Key Theorems}{21}{subsection.C.1}%

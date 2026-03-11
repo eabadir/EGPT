@@ -2,7 +2,7 @@
   "tier": 3,
   "outputFile": "llms-id5.txt",
   "description": "ID5 (Abadir) — CH Decidable / Unique Representations. Cantor's diagonal assumes non-unique reps. The Beth staircase, P=NP, Hilbert's First Problem, FRAQTL factorization.",
-  "header": "# EGPT — ID5: Abadir's Idea (CH Decidable / Unique Representations)\n\n> In maximally compressed information space, Cantor's diagonal fails; all infinities collapse onto ℕ.\n> This file contains all primary artifacts for Idea #5.\n> For the full framework: https://github.com/eabadir/EGPT/blob/main/IDEAS.md\n>\n> Key claim: The Continuum Hypothesis is decidable because the EGPT hierarchy is bijective\n> with the standard mathematical universe and the Beth staircase is integer-stepped.\n> Hilbert's First Problem, resolved. P=NP is a corollary.",
+  "header": "# EGPT — ID5: Abadir's Idea (CH Decidable / Unique Representations)\n\n> In maximally compressed information space, Cantor's diagonal fails; all infinities collapse onto ℕ.\n> This file contains all primary artifacts for Idea #5.\n> For the full framework: https://eabadir.github.io/EGPT/IDEAS.md\n>\n> Key claim: The Continuum Hypothesis is decidable because the EGPT hierarchy is bijective\n> with the standard mathematical universe and the Beth staircase is integer-stepped.\n> Hilbert's First Problem, resolved. P=NP is a corollary.",
   "files": [
     { "path": "./Lean/EGPT/NumberTheory/ContinuumHypothesis.lean", "includeFile": true, "note": "CH, GCH, AbadirCompletenessTheorem" },
     { "path": "./Lean/EGPT/NumberTheory/Core.lean", "includeFile": true, "note": "ParticlePath-to-N bijection, Beth hierarchy" },

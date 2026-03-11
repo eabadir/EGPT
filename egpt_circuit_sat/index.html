@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <title>EGPT Circuit SAT: Half-Adder via Discrete Particle Transport</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #1a1a2e;
+            color: #e0e0e0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            overflow: hidden;
+        }
+        #header {
+            background: #16213e;
+            padding: 8px 16px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 100;
+            position: relative;
+        }
+        #header h1 {
+            font-size: 16px;
+            margin: 0;
+            color: #e94560;
+            font-weight: 600;
+        }
+        #header .subtitle {
+            font-size: 12px;
+            color: #95a3ab;
+            margin-left: 12px;
+        }
+        #content-area {
+            position: relative;
+            width: 100%;
+            height: calc(100vh - 40px);
+        }
+    </style>
+
+    <!-- Charting -->
+    <script src="js/vendor/d3.min.js"></script>
+
+    <!-- Graphics -->
+    <script src="js/vendor/chroma.min.js"></script>
+    <script src="js/vendor/p5.min.js"></script>
+    <script src="js/vendor/p5.dom.min.js"></script>
+</head>
+<body>
+    <script src="js/vendor/bootstrap.bundle.min.js"></script>
+
+    <div id="header">
+        <div style="display: flex; align-items: baseline;">
+            <h1>EGPT Circuit SAT</h1>
+            <span class="subtitle">Half-Adder via Discrete Particle Transport &mdash; No Force Calculations</span>
+        </div>
+    </div>
+    <div id="content-area"></div>
+
+    <!-- Engine -->
+    <script src="js/engine/quadtree.js"></script>
+    <script src="js/engine/EGPTfraqtl.js"></script>
+
+    <!-- Rendering -->
+    <script src="js/consumers/P5Renderer.js"></script>
+
+    <!-- Game layer -->
+    <script src="js/game/EntropyGame.js"></script>
+    <script src="js/game/GameControls.js"></script>
+    <script src="js/game/charting.js"></script>
+    <script src="js/game/TruthTableChart.js"></script>
+    <script src="js/game/EntropyGameObjects.js"></script>
+
+    <!-- Circuit components -->
+    <script src="js/game/CircuitObjects.js"></script>
+    <script src="js/circuit/CircuitParser.js"></script>
+    <script src="js/circuit/CircuitLayout.js"></script>
+
+    <!-- Experiment setup -->
+    <script src="js/simulation/setupCircuitBasic.js"></script>
+    <script src="js/simulation/setupCircuitSAT.js"></script>
+
+    <script>
+        // Standalone P5.js setup — launches the circuit SAT half-adder directly
+        function setup() {
+            let contentArea = document.getElementById('content-area');
+            let vpSize = contentArea
+                ? Math.min(contentArea.clientWidth, contentArea.clientHeight)
+                : window.innerHeight;
+
+            // Create the game instance (sets up canvas, universe, P5 draw loop)
+            let entropyGame = new EntropyGame(vpSize, vpSize);
+
+            // Create controls
+            let gameControls = new GameControls(entropyGame);
+
+            // Set up the circuit SAT half-adder experiment
+            const context = entropyGame;
+            const satSetup = createCircuitSATSetup(context, {
+                inputA: true,
+                inputB: true,
+            });
+
+            // Start simulation
+            entropyGame.startSim();
+
+            // Set up circuit-specific controls (input toggles, truth table sweep)
+            gameControls.setupCircuitSATControls(satSetup);
+        }
+    </script>
+</body>
+</html>

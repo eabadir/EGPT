@@ -13,6 +13,7 @@ Central principle: **"The address is the map."** In an information space where e
 | `EGPTMath/FAT/` | Faster Abadir Transform (pedagogical) — integer-only FFT/QFT. Demonstrates classical QFT at O((log k)^3). Optimized FAT is proprietary. | [`EGPTMath/FAT/FAT_README.md`](EGPTMath/FAT/FAT_README.md) |
 | `content/` | Papers, books, reference docs, pyFRAQTL SDK | [`content/CLAUDE.md`](content/CLAUDE.md) |
 | `www/` | Interactive browser demos and visualizers | [`www/CLAUDE.md`](www/CLAUDE.md) |
+| `egpt_circuit_sat/` | Circuit SAT experiment — half-adder via particle transport, 80-run open dataset | — |
 | `scripts/` | Build utilities (LaTeX-to-Markdown, file packager for AI indexing) | — |
 
 ## Key Conventions
@@ -23,6 +24,7 @@ Central principle: **"The address is the map."** In an information space where e
 - **EGPTMath is the practical deliverable.** It is the integer-only math library that demonstrates scalable AI is possible — FLOPs become IOPs, exact arithmetic with no error accumulation. It is intentionally unoptimized for clarity, but the architecture (PPF encoding, integer FFT, lossless round-trips) is the real-world answer to the AI energy question.
 - **FAT is proprietary.** The Faster Abadir Transform's optimized implementation is NOT in this repo. Only educational/pedagogical variants exist in `EGPTMath/FAT/`. The pedagogical FAT already demonstrates classical QFT — the optimized version is what benchmarks ~1.277 billion x faster than 2,048 GPUs.
 - **Physics is motivation, not proof.** `Lean/EGPT/Physics/` (including `RealityIsComputation.lean`) provides physical grounding but is NOT imported by the formal proof chain.
+- **GitHub Pages URLs for all external-facing links.** When generating citations, hyperlinks, or references in papers, documentation, READMEs, whitepapers, or any content intended for external consumption, always use the GitHub Pages base URL `https://eabadir.github.io/EGPT/` (not raw GitHub or blob URLs). This ensures external referrers land on the browsable site. Internal repo references (e.g., in CLAUDE.md files or agent instructions) may use relative paths.
 
 ## Build & Test
 

@@ -1,0 +1,24 @@
+{
+  "name": "egpt-circuit-sat",
+  "version": "1.0.0",
+  "description": "Half-adder Boolean computation via discrete particle transport in the EGPT FRAQTL VM. No force calculations, no fields, no continuous variables.",
+  "main": "js/engine/engine.node.js",
+  "scripts": {
+    "reproduce": "node run_multiseed.js",
+    "test": "node run_multiseed.js --seeds=1 --ticks=1000 --verbose"
+  },
+  "keywords": [
+    "physics-engine",
+    "cellular-automata",
+    "circuit-sat",
+    "half-adder",
+    "discrete-physics",
+    "brownian-computing",
+    "unconventional-computing"
+  ],
+  "author": "Essam Abadir",
+  "license": "SEE LICENSE IN LICENSE.pdf",
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

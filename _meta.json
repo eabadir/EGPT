@@ -27,12 +27,42 @@
     "ai-practitioner":     { "label": "AI Practitioner",           "group": "outcome-first" },
     "cryptographer":       { "label": "Cryptographer",             "group": "theory-first" }
   },
+  "featured_results": [
+    {
+      "title": "Experimental Confirmation: 100% Accuracy",
+      "subtitle": "Half-adder circuit SAT — 80 runs, 20 seeds, zero failures",
+      "detail": "Boolean computation via particle diffusion in a force-free discrete physics engine. Open code, open data, fully reproducible.",
+      "link": "egpt_circuit_sat/index.html",
+      "link_label": "Run the Demo",
+      "data_link": "egpt_circuit_sat/data/multiseed_results.json",
+      "paper_link": "egpt_circuit_sat/paper/egpt_circuit_sat_whitepaper.pdf",
+      "idea": "ID5",
+      "badge": "NEW"
+    },
+    {
+      "title": "Formal Proof: P = NP",
+      "subtitle": "85 theorems — sorry-free, axiom-free, Lean 4 + mathlib4",
+      "detail": "Complete proof chain from random walks to computational complexity via information-theoretic entropy.",
+      "link": "Lean/EGPT/Complexity/PPNP.lean",
+      "link_label": "Read the Proof",
+      "idea": "ID5"
+    },
+    {
+      "title": "FAT Benchmark: 1.277 Billion x Faster",
+      "subtitle": "Integer-only QFT outperforms 2,048 GPUs",
+      "detail": "The Faster Abadir Transform replaces floating-point FFT with exact integer operations — no error accumulation.",
+      "link": "https://colab.research.google.com/drive/1LQLCHDNp9kCFgJXIzlitaVxuYiHRATXm",
+      "link_label": "Run the Benchmark",
+      "idea": "ID2"
+    }
+  ],
   "modules": [
-    { "dir": "Lean",    "label": "Module 1: The Proof Chain",          "order": 1 },
-    { "dir": "EGPTMath","label": "Module 2: The Integer Math Library",  "order": 2 },
-    { "dir": "www",     "label": "Module 3: Code",                      "order": 3 },
-    { "dir": "content", "label": "Module 4: Papers & Stories",          "order": 4 },
-    { "dir": "docs",    "label": "Module 5: Navigation & Reference",    "order": 5 }
+    { "dir": "Lean",            "label": "Module 1: The Proof Chain",              "order": 1 },
+    { "dir": "EGPTMath",        "label": "Module 2: The Integer Math Library",      "order": 2 },
+    { "dir": "www",             "label": "Module 3: Code",                          "order": 3 },
+    { "dir": "content",         "label": "Module 4: Papers & Stories",              "order": 4 },
+    { "dir": "docs",            "label": "Module 5: Navigation & Reference",        "order": 5 },
+    { "dir": "egpt_circuit_sat","label": "Module 6: Circuit SAT Experiment",        "order": 6 }
   ],
   "external_resources": [
     {

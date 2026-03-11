@@ -2,7 +2,7 @@
 
 > Physical units emerge from pure mathematics via random walks.
 > This file contains all primary artifacts for Idea #1.
-> For the full framework: https://github.com/eabadir/EGPT/blob/main/IDEAS.md
+> For the full framework: https://eabadir.github.io/EGPT/IDEAS.md
 >
 > Key claim: The Centimeter-Gram-Second system can be reconstructed from a random walk.
 > Ulam proposed this in 'Physics for Mathematicians' (pub. posthumously 1986, ed. Rota).

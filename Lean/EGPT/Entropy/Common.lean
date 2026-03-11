@@ -26,6 +26,44 @@ import Mathlib.GroupTheory.Congruence.Basic
 import EGPT.Core
 import EGPT.Complexity.Core
 
+/-!
+# Entropy Axioms and Common Definitions (`Entropy/Common.lean`)
+
+This file defines `HasRotaEntropyProperties`, the axiomatic structure that any
+entropy function must satisfy. It formalizes — and extends — the properties
+that Gian-Carlo Rota used in his uniqueness-of-entropy proof.
+
+## Relationship to Rota's Original 5 Properties
+
+Rota's original proof (Rota-Baclawski, *Introduction to Probability and
+Random Processes*, 1979 Ch. 7; 1992 revised edition Ch. 8) established five
+properties for a function H on finite probability distributions:
+
+  1. **Defined on probability sets** — H takes distributions summing to 1.
+  2. **Zero invariance** — adding outcomes with probability 0 does not change H.
+  3. **Continuity** — H is continuous in the distribution parameters.
+  4. **Conditional additivity** — H(joint) = H(prior) + expected H(conditional).
+  5. **Maximum at uniform** — H is maximized by the uniform distribution.
+
+The Lean formalization adds two properties that were implicit in Rota's
+pen-and-paper treatment and one edge case required by Lean's type system:
+
+  - **Normalization** (`IsEntropyNormalized`) — H({1}) = 0. In Rota's work
+    this follows from Properties 1 and 2, but making it explicit simplifies
+    the formal chain.
+  - **Symmetry** (`IsEntropySymmetric`) — H is invariant under relabeling of
+    outcomes. Rota implicitly assumed this by treating probability distributions
+    as *sets* (unordered); Lean's `Fin n → NNReal` representation is ordered,
+    so symmetry must be stated explicitly.
+  - **Empty-domain handling** (`IsEntropyZeroOnEmptyDomain`) — H(empty) = 0.
+    Lean's type system admits `Fin 0` as a valid domain; Rota never considered
+    this edge case. It is needed for well-definedness in the Lean formalization.
+
+Together these yield the 7-axiom `HasRotaEntropyProperties` structure below.
+All 7 axioms are proven as theorems for the concrete Shannon entropy function
+in `Entropy/H.lean` (see `TheCanonicalEntropyFunction_Ln`).
+-/
+
 namespace EGPT.Entropy.Common
 
 open BigOperators Fin Real Topology NNReal Filter Nat Function
@@ -335,10 +373,24 @@ structure IsEntropyCondAddSigma
       H_func prior + ∑ i, prior i * H_func (P_cond i)
 
 /--
-**Axiomatic Entropy Function.** (Updated to use IsEntropyCondAddSigma)
-`HasRotaEntropyProperties H_func` means `H_func` assigns `NNReal` to finite probability distributions,
-satisfying normalization, symmetry, continuity, conditional additivity (sigma version),
-zero invariance, and maximality at uniform.
+**Axiomatic Entropy Function — 7-axiom Lean formalization of Rota's entropy properties.**
+
+`HasRotaEntropyProperties H_func` bundles the 7 properties that uniquely
+characterize entropy up to a positive scalar (Rota's Entropy Theorem).
+
+Five of these correspond directly to Rota's original properties
+(Rota-Baclawski 1979/1992): zero invariance, continuity, conditional
+additivity, and maximum-at-uniform, plus the implicit "defined on probability
+sets" constraint enforced by the `∑ i, p i = 1` preconditions throughout.
+
+The remaining two — `normalized` (H on a single certain outcome is 0) and
+`symmetry` (H is invariant under relabeling) — were implicit in Rota's
+presentation and are made explicit here for formal rigor. A seventh axiom,
+`apply_to_empty_domain` (H on the empty type is 0), handles an edge case
+in Lean's type system that Rota's pen-and-paper proof did not address.
+
+All 7 axioms are proven as theorems for the concrete Shannon entropy
+function `H_canonical_ln` in `Entropy/H.lean`.
 -/
 structure HasRotaEntropyProperties -- This is the new definition
   (H_func : ∀ {α : Type} [Fintype α], (α → NNReal) → NNReal) -- Changed Type u to Type

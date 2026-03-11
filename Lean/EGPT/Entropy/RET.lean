@@ -25,6 +25,42 @@ import EGPT.Core
 import EGPT.Basic
 import EGPT.Entropy.Common
 
+/-!
+# Rota's Entropy Theorem — Abstract/Axiomatic Uniqueness Proof (`Entropy/RET.lean`)
+
+This file is a faithful Lean 4 rendition of the uniqueness-of-entropy proof
+from Gian-Carlo Rota and Kenneth Baclawski, *Introduction to Probability and
+Random Processes* (1979, Chapter 7; revised 1992, Chapter 8).
+
+## Approach
+
+The proof works entirely with **abstract** entropy functions: it assumes an
+`H_func` satisfying the 7 axioms in `HasRotaEntropyProperties` (defined in
+`Entropy/Common.lean`) and derives that H must be a constant multiple of the
+logarithm. No concrete Shannon entropy formula is assumed or constructed here.
+
+## Key Results
+
+- `f0_mul_eq_add_f0` — The function `f0(n) = H(uniform_n)` satisfies the
+  Cauchy functional equation `f0(m * n) = f0(m) + f0(n)`, following Rota's
+  original derivation from conditional additivity on product distributions.
+- `logarithmic_trapping` — The monotone solution of the Cauchy equation is
+  trapped between consecutive integer logarithms, forcing `f0(n) = C * log n`.
+- `RotaUniformTheorem` / `RotaUniformTheorem_formula_with_C_constant` — For
+  uniform distributions, H(uniform_n) = C * log n for a universal constant C.
+
+These results establish that any function satisfying Rota's axioms agrees with
+Shannon entropy up to a positive scalar — the classical Rota-Khinchin
+uniqueness theorem.
+
+## Relationship to the Modernized Proof
+
+This file takes the 7 axioms as *given* (via `HasRotaEntropyProperties`). The
+modernized capstone in `NumberTheory/Analysis.lean` eliminates this assumption:
+there, `RET_All_Entropy_Is_Scaled_Shannon_Entropy` operates on `EntropyFunction`
+instances whose axioms are fully proven theorems (see `Entropy/H.lean`), making
+the entire chain axiom-free and sorry-free.
+-/
 
 namespace EGPT.Entropy.RET
 

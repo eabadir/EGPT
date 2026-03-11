@@ -11,6 +11,7 @@ Browser-based interactive demos and visualizations of EGPT concepts. **No build 
 | `EGPTfractal.html` | EGPT fractal structure explorer |
 | `EntropyUniformity.html` | Entropy distribution analysis |
 | `GPUHeatDeath.html` | GPU entropy / heat death simulation |
+| `EGPTTestRunner.html` | Interactive test runner — run 157+ EGPTMath tests in-browser with live results |
 
 ## Subdirectories
 

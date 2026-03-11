@@ -1,0 +1,172 @@
+{
+  "experiment": "circuit_sat_half_adder",
+  "params": {
+    "seeds": 2,
+    "ticks": 3000,
+    "probeThreshold": 20,
+    "canvasSize": {
+      "w": 600,
+      "h": 600
+    },
+    "voltage": 2,
+    "emissionRate": 3,
+    "gateThreshold": 3,
+    "wallThick": 6
+  },
+  "totalCorrect": "8/8",
+  "combos": {
+    "0,0": {
+      "inputA": false,
+      "inputB": false,
+      "expectedSUM": false,
+      "expectedCARRY": false,
+      "correct": "2/2",
+      "sumFlow": {
+        "mean": 0,
+        "std": 0,
+        "min": 0,
+        "max": 0
+      },
+      "carryFlow": {
+        "mean": 0,
+        "std": 0,
+        "min": 0,
+        "max": 0
+      },
+      "seeds": [
+        {
+          "seed": 1,
+          "sumFlowRate": 0,
+          "carryFlowRate": 0,
+          "sumHigh": false,
+          "carryHigh": false,
+          "correct": true
+        },
+        {
+          "seed": 2,
+          "sumFlowRate": 0,
+          "carryFlowRate": 0,
+          "sumHigh": false,
+          "carryHigh": false,
+          "correct": true
+        }
+      ],
+      "durationMs": 21
+    },
+    "0,1": {
+      "inputA": false,
+      "inputB": true,
+      "expectedSUM": true,
+      "expectedCARRY": false,
+      "correct": "2/2",
+      "sumFlow": {
+        "mean": 89.65,
+        "std": 0.15,
+        "min": 89.5,
+        "max": 89.8
+      },
+      "carryFlow": {
+        "mean": 0,
+        "std": 0,
+        "min": 0,
+        "max": 0
+      },
+      "seeds": [
+        {
+          "seed": 1,
+          "sumFlowRate": 89.5,
+          "carryFlowRate": 0,
+          "sumHigh": true,
+          "carryHigh": false,
+          "correct": true
+        },
+        {
+          "seed": 2,
+          "sumFlowRate": 89.8,
+          "carryFlowRate": 0,
+          "sumHigh": true,
+          "carryHigh": false,
+          "correct": true
+        }
+      ],
+      "durationMs": 207937
+    },
+    "1,0": {
+      "inputA": true,
+      "inputB": false,
+      "expectedSUM": true,
+      "expectedCARRY": false,
+      "correct": "2/2",
+      "sumFlow": {
+        "mean": 70.1,
+        "std": 0.5,
+        "min": 69.6,
+        "max": 70.6
+      },
+      "carryFlow": {
+        "mean": 0,
+        "std": 0,
+        "min": 0,
+        "max": 0
+      },
+      "seeds": [
+        {
+          "seed": 1,
+          "sumFlowRate": 70.6,
+          "carryFlowRate": 0,
+          "sumHigh": true,
+          "carryHigh": false,
+          "correct": true
+        },
+        {
+          "seed": 2,
+          "sumFlowRate": 69.6,
+          "carryFlowRate": 0,
+          "sumHigh": true,
+          "carryHigh": false,
+          "correct": true
+        }
+      ],
+      "durationMs": 206823
+    },
+    "1,1": {
+      "inputA": true,
+      "inputB": true,
+      "expectedSUM": false,
+      "expectedCARRY": true,
+      "correct": "2/2",
+      "sumFlow": {
+        "mean": 9.1,
+        "std": 4.3,
+        "min": 4.8,
+        "max": 13.4
+      },
+      "carryFlow": {
+        "mean": 133.55,
+        "std": 1.05,
+        "min": 132.5,
+        "max": 134.6
+      },
+      "seeds": [
+        {
+          "seed": 1,
+          "sumFlowRate": 4.8,
+          "carryFlowRate": 134.6,
+          "sumHigh": false,
+          "carryHigh": true,
+          "correct": true
+        },
+        {
+          "seed": 2,
+          "sumFlowRate": 13.4,
+          "carryFlowRate": 132.5,
+          "sumHigh": false,
+          "carryHigh": true,
+          "correct": true
+        }
+      ],
+      "durationMs": 468952
+    }
+  },
+  "timestamp": "2026-03-11T06:04:59.590Z"
+}

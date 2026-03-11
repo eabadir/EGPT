@@ -293,3 +293,5 @@ console.log("\n" + "=".repeat(60));
 test.printSummary();
 console.log("\n" + "=".repeat(60));
 console.log("✅ Topology-native functions validated.");
+
+export { test as testResults };

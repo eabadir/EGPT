@@ -95,6 +95,22 @@ You'll typically be asked to:
 
 Always read the current state of a file before editing it.
 
+## URL Convention for External-Facing Content
+
+**IMPORTANT:** When generating citations, hyperlinks, or references in any content intended for external consumption (papers, READMEs, whitepapers, llms.txt, narrative docs), always use the GitHub Pages base URL:
+
+```
+https://eabadir.github.io/EGPT/
+```
+
+Do NOT use raw GitHub URLs (`raw.githubusercontent.com`) or blob URLs (`github.com/.../blob/main/`) for external-facing links. The Pages site is the browsable, published destination — external referrers should land there, not on raw file views.
+
+- **External links** (papers, README, llms.txt, AGENTS.md): `https://eabadir.github.io/EGPT/path/to/file`
+- **Internal repo references** (CLAUDE.md files, agent instructions, inline code comments): relative paths are fine
+- **HTML demos**: `https://eabadir.github.io/EGPT/www/GravitySim/index.html` (loads directly in browser)
+- **Lean proofs/JS source**: `https://eabadir.github.io/EGPT/Lean/EGPT/Complexity/PPNP.lean` (rendered by SPA)
+- **PDFs**: `https://eabadir.github.io/EGPT/egpt_circuit_sat/paper/egpt_circuit_sat_whitepaper.pdf`
+
 ## Ideas Coverage
 
 This agent is responsible for the following ideas within the navigation/documentation layer:

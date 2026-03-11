@@ -1,0 +1,28 @@
+\contentsline {section}{\numberline {1}Introduction: The Question Nobody Could Answer}{3}{section.1}%
+\contentsline {section}{\numberline {2}The Man: Gian-Carlo Rota (1932--1999)}{3}{section.2}%
+\contentsline {section}{\numberline {3}Rota's Five Properties of Entropy}{4}{section.3}%
+\contentsline {section}{\numberline {4}The Proof: From Axioms to Uniqueness}{5}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Stage 1: Entropy of certainty is zero}{5}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Stage 2: Monotonicity}{5}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Stage 3: The Cauchy functional equation}{5}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Stage 4: The logarithmic trapping argument}{6}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Stage 5: Extension to rational probabilities}{6}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Stage 6: Extension to real probabilities}{6}{subsection.4.6}%
+\contentsline {section}{\numberline {5}The Modernization: From Pen-and-Paper to Machine-Verified Proof}{7}{section.5}%
+\contentsline {subsection}{\numberline {5.1}From five properties to seven axioms}{7}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}The abstract uniqueness proof (\texttt {RET.lean})}{7}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Proving the axioms as theorems (\texttt {H.lean})}{8}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}The capstone theorem}{8}{subsection.5.4}%
+\contentsline {section}{\numberline {6}What Entropy Actually Is}{9}{section.6}%
+\contentsline {paragraph}{Entropy is not disorder.}{9}{section*.2}%
+\contentsline {paragraph}{Entropy is not surprise.}{9}{section*.3}%
+\contentsline {paragraph}{Entropy is not tendency toward chaos.}{9}{section*.4}%
+\contentsline {paragraph}{Entropy is the exact count of information.}{9}{section*.5}%
+\contentsline {paragraph}{The double-entry accounting metaphor.}{9}{section*.6}%
+\contentsline {paragraph}{All entropies are one.}{9}{section*.7}%
+\contentsline {section}{\numberline {7}Implications}{10}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Einstein's question answered}{10}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}The AI energy question}{10}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Physics unification via statistical distributions}{10}{subsection.7.3}%
+\contentsline {section}{\numberline {8}Conclusion: Credit Where It Is Due}{10}{section.8}%
+\contentsline {section}{\numberline {A}Summary of Lean Theorem Names}{12}{appendix.A}%

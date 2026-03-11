@@ -2,7 +2,7 @@
 
 > An ultra-efficient computer operates statistically, not arithmetically.
 > This file contains all primary artifacts for Idea #2.
-> For the full framework: https://github.com/eabadir/EGPT/blob/main/IDEAS.md
+> For the full framework: https://eabadir.github.io/EGPT/IDEAS.md
 >
 > Key claim: Integer-only arithmetic (IOPs) replaces floating-point (FLOPs) with zero error accumulation.
 > Von Neumann diagnosed this in 'The Computer and the Brain' (1958, posthumous).

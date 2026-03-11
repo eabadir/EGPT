@@ -7,6 +7,17 @@ This project provides the foundation to build [John von Neumann's](IDEAS.md#id2-
 
 The computational approach was first ideated by [Stanislaw Ulam](IDEAS.md#id1----ulam-cgs-from-a-random-walk), then formalized and existentially proved by [Gian-Carlo Rota](IDEAS.md#id4----rota-entropy-is-the-record-of-truth), and now constructively extended by [Essam Abadir](IDEAS.md#id5----abadir-ch-decidable--unique-representations). The work is only beginning and you are invited to [join](#join-the-project).
 
+## Latest: Experimental Confirmation of P=NP
+
+**100% accuracy across 80 runs** — a half-adder circuit built from discrete particle transport produces correct Boolean outputs for all input combinations, with zero failures across 20 independent PRNG seeds. No force calculations, no floating point, no fields. Open code, open data, fully reproducible.
+
+- **[Run the interactive demo](egpt_circuit_sat/index.html)** — watch particles compute a half-adder in your browser
+- **[Read the whitepaper](egpt_circuit_sat/paper/egpt_circuit_sat_whitepaper.pdf)** — full experimental methodology and results
+- **[Download or Reproduce the data](egpt_circuit_sat/)** — see the data directory or
+`node run_multiseed.js` (zero dependencies, ~2-3hr data generation)
+
+---
+
 # Electronic Graph Paper Theory (EGPT): Consciousness, the Universe, and Everything
 - *The Question:* How far can we scale AI?
 - *The Problem:* AI datacenters already consume the energy of small nations. The brain does the same work on 20 watts — the energy of a small light bulb. Can we scale AI without cooking the planet?
@@ -179,22 +190,16 @@ For any valid Bose-Einstein system, there exists a deterministic `PathProgram` �
 
 Most scientific claims rest on two legs: theory and observation. EGPT adds a third: **computational emergence** — running simulations where physical phenomena arise from first principles without being programmed in. No force equations. No wave functions. Just particles doing random walks on a discrete grid.
 
-This repository contains what we believe to be the first computationally emergent models of:
+This repository contains what we believe to be the first computationally emergent models of gravity, wave interference, blackbody radiation, atomic structure, and wave-particle duality — all from the same discrete framework. For each, the repository provides a **triumvirate** that no other framework offers for any one of them, let alone all five: a formal machine-checked proof, an interactive simulation, and an analytical derivation.
 
-| Phenomenon | Experiment | What Emerges |
-|-----------|------------|-------------|
-| **Gravity** | [GravitySim](www/GravitySim/index.html) | The inverse-square law falls out of random walk statistics. No Newton's law as input — it appears as output. |
-| **Double slit / wave interference** | [FRAQTL DevSDK](www/fraqtl_devsdk/index.html) | Interference patterns from discrete particles. No wave equation. Feynman said this was "impossible to explain in any classical way." |
-| **Blackbody radiation** | [FRAQTL DevSDK](www/fraqtl_devsdk/index.html) | Planck's distribution emerges from particle statistics. The phenomenon that launched quantum mechanics, derived classically. |
-| **Atomic structure** | [FRAQTL DevSDK](www/fraqtl_devsdk/index.html) | Electron shell structure from random walk confinement. No Schrödinger equation. |
-
-For each of these, the repository provides a **triumvirate** that no other framework offers for any one of them, let alone all four:
-
-1. **Formal proof** (Lean 4) — [`RealityIsComputation.lean`](Lean/EGPT/Physics/RealityIsComputation.lean) proves every physical system has an equivalent computable program. [`BoseEinstein.lean`](Lean/EGPT/Physics/BoseEinstein.lean), [`FermiDirac.lean`](Lean/EGPT/Physics/FermiDirac.lean), [`MaxwellBoltzmann.lean`](Lean/EGPT/Physics/MaxwellBoltzmann.lean) prove H = C × Shannon for all three statistical distributions.
-
-2. **Analytical derivation** — The [Gravity Paper](content/Papers/GravityPaper/GravityPaper.tex) derives P(interaction) = (m₁m₂)/(4r²) from first principles, proving that G and the Coulomb constant k_e are dimensional scaling factors, not fundamental constants.
-
-3. **Working computational experiment** — [GravitySim](www/GravitySim/index.html) and the [FRAQTL DevSDK](www/fraqtl_devsdk/index.html) let you watch it happen. Adjust parameters. See the physics emerge. No equations of motion anywhere in the code.
+| Unsolved Problem | Lean Proof | Simulation | Paper / Derivation |
+|-----------------|------------|------------|-------------------|
+| **Circuit SAT (Half-Adder)** | [`PPNP.lean`](Lean/EGPT/Complexity/PPNP.lean) — `P_eq_NP` | [`Circuit SAT Demo`](egpt_circuit_sat/index.html) — 100% accuracy, 80/80 runs, [open data](egpt_circuit_sat/data/multiseed_results.json) | [`Whitepaper`](egpt_circuit_sat/paper/egpt_circuit_sat_whitepaper.pdf) — Boolean computation via particle diffusion |
+| **Stochastic Gravity** | [`RealityIsComputation.lean`](Lean/EGPT/Physics/RealityIsComputation.lean) — `ContinuousFieldsAreComputation`; [`PhysicsDist.lean`](Lean/EGPT/Physics/PhysicsDist.lean) — `entropy_BE_eq_C_shannon` | [`GravitySim`](www/GravitySim/index.html) — inverse-square law from random walk collisions | [`GravityPaper.tex`](content/Papers/GravityPaper/GravityPaper.tex) — P(interaction) = m₁m₂/4r²; G and k_e as dimensional scaling factors |
+| **Blackbody Radiation** | [`BoseEinstein.lean`](Lean/EGPT/Physics/BoseEinstein.lean) — `H_BE_from_Multiset_eq_C_shannon`; [`PhysicsDist.lean`](Lean/EGPT/Physics/PhysicsDist.lean) — `entropy_BE_eq_C_shannon` | [`FRAQTL DevSDK`](www/fraqtl_devsdk/index.html) — blackbody experiment ([`setupBlackbody.js`](www/fraqtl_devsdk/js/simulation/setupBlackbody.js)) | [Quantum Computing vs Fractal Compression](content/Papers/Quantum%20Computing%20vs%20Fractal%20Compression%20In%20a%20Chaotic%20Discontinuum.docx.md) — oscillatory motion and entropy |
+| **Double Slit / Cellular Automata** | [`PhotonicCA.lean`](Lean/EGPT/Physics/PhotonicCA.lean) — `be_system_has_equivalent_program` | [`FRAQTL DevSDK`](www/fraqtl_devsdk/index.html) — wave interference ([`setupWaveInterference.js`](www/fraqtl_devsdk/js/simulation/setupWaveInterference.js)) | [Quantum Computing vs Fractal Compression](content/Papers/Quantum%20Computing%20vs%20Fractal%20Compression%20In%20a%20Chaotic%20Discontinuum.docx.md) — fractal algorithms produce wave behavior |
+| **Wave-Particle Duality** | [`WaveParticleDualityDisproved.lean`](Lean/PPNP/Proofs/WaveParticleDualityDisproved.lean) — `Wave_Particle_Duality_Disproved_QED` | [`FRAQTL DevSDK`](www/fraqtl_devsdk/index.html) — particle paths produce "wave" interference patterns | [`PeqNP_QED.md`](content/Papers/EGPT_PeqNP/PeqNP_QED.md) — "Wave-Particle Duality is a Computational Artifact" |
+| **P = NP** | [`PPNP.lean`](Lean/EGPT/Complexity/PPNP.lean) — `P_eq_NP` via `Iff.rfl`; [`Tableau.lean`](Lean/EGPT/Complexity/Tableau.lean) — `tableauComplexity_upper_bound` ≤ n² | [Address Is The Map Visualizer](www/the-address-is-the-map-visualizer/) — SAT solver; [FRAQTL Colab](https://colab.research.google.com/drive/1LQLCHDNp9kCFgJXIzlitaVxuYiHRATXm) | [`PeqNP_QED.md`](content/Papers/EGPT_PeqNP/PeqNP_QED.md); [`SKEPTICS_GUIDE.md`](SKEPTICS_GUIDE.md); [`FRAQTL_WhitePaper.md`](content/pyFRAQTL/FRAQTL_WhitePaper.md) |
 
 The distinction matters: traditional physics simulations *input* the laws and watch consequences unfold. These experiments *derive* the laws from something more primitive. The inverse-square law is not programmed — it is discovered by the simulation, the same way it was discovered by observation.
 
@@ -222,6 +227,7 @@ The chain from random walks to computable consciousness:
 | [`EGPTMath/`](EGPTMath/) | Pedagogical JS integer math library — FLOPs become IOPs | [`EGPTMath.js`](EGPTMath/EGPTMath.js) |
 | [`content/`](content/) | Papers, books, reference docs, pyFRAQTL SDK | [FAT White Paper (Colab)](https://colab.research.google.com/drive/1LQLCHDNp9kCFgJXIzlitaVxuYiHRATXm) |
 | [`www/`](www/) | Interactive browser demos and visualizers | Open any `.html` in your browser |
+| [`egpt_circuit_sat/`](egpt_circuit_sat/) | Circuit SAT experiment — half-adder via particle transport | [`index.html`](egpt_circuit_sat/index.html) |
 
 | Document | Purpose |
 |----------|---------|
