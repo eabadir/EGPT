@@ -14,6 +14,7 @@
     { "path": "./Lean/EGPT/Physics/PhotonicCA.lean", "includeFile": true, "note": "BE systems are classically computable via RECT" },
     { "path": "./EGPTMath/EGPTranscendental.js", "includeFile": true, "note": "PI as rational phase, not transcendental — discrete algebra" },
     { "path": "./content/Papers/GravityPaper/GravityPaper.tex", "includeFile": true, "note": "Analytical derivation: P(interaction) = m₁m₂/4r², G as dimensional scaling" },
-    { "path": "./content/docs/EGPT_Stories/Story of Nile Deriving Gravity.md", "includeFile": true, "note": "Narrative: deriving gravity from random walks" }
+    { "path": "./content/docs/EGPT_Stories/Story of Nile Deriving Gravity.md", "includeFile": true, "note": "Narrative: deriving gravity from random walks" },
+    { "path": "./egpt_circuit_sat/paper/egpt_circuit_sat_whitepaper.tex", "includeFile": true, "note": "Circuit SAT via particle transport — half-adder experiment, 80 runs, 100% accuracy" }
   ]
 }

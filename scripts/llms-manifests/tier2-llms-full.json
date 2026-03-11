@@ -24,6 +24,7 @@
     { "path": "./content/pyFRAQTL/FRAQTL_WhitePaper.md", "includeFile": true, "note": "FRAQTL factorization algorithm white paper" },
     { "path": "./content/Papers/EGPT_PeqNP/PeqNP_QED.md", "includeFile": true, "note": "The P=NP paper (readable markdown)" },
     { "path": "./www/CLAUDE.md", "includeFile": true, "note": "Web demos directory instructions" },
-    { "path": "./docs/PROOF_GRAPH.md", "includeFile": true, "note": "Mermaid diagrams of theorem dependency DAG" }
+    { "path": "./docs/PROOF_GRAPH.md", "includeFile": true, "note": "Mermaid diagrams of theorem dependency DAG" },
+    { "path": "./docs/EGPT_Artifact_Reference.md", "includeFile": true, "note": "Reusable audit tables: 28 Lean theorems, 10 papers, 8 web demos with GitHub Pages URLs" }
   ]
 }
