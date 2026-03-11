@@ -1,8 +1,8 @@
 # EGPT Build Verification Report
 
-> Generated: 2026-03-06 UTC  
+> Generated: 2026-03-11 20:53:44 UTC  
 > Toolchain: `leanprover/lean4:v4.21.0-rc3`  
-> Elapsed: 18.1s
+> Elapsed: 35.0s
 
 | Check | Result |
 |-------|--------|
@@ -10,9 +10,9 @@
 | `lake build PPNP` | PASS |
 | sorry-free | PASS |
 | No custom axioms | PASS |
-| Theorems verified | **86** |
+| Theorems verified | **85** |
 
-**Verdict: PASS** — All 86 theorems are sorry-free and use only Lean's built-in axioms.
+**Verdict: PASS** — All 85 theorems are sorry-free and use only Lean's built-in axioms.
 
 ---
 
@@ -48,7 +48,7 @@ Source: [`EGPT/NumberTheory/Core.lean`](EGPT/NumberTheory/Core.lean)
 
 ## Number Theory — Continuum Hypothesis: CH & GCH Decidable (Hilbert #1)
 
-The Continuum Hypothesis and Generalized CH are decidable and true. The EGPT beth staircase (Nat_L n with cardinality beth n) is bijective with the standard mathematical universe and has no gaps between consecutive cardinalities. The Abadir Completeness Theorem proves every type constructible in Lean 4 / CIC from ℕ via finitary operations has beth-level cardinality.
+The Continuum Hypothesis and Generalized CH are decidable and true. The EGPT beth staircase (Nat_L n with cardinality beth n) is bijective with the standard mathematical universe and has no gaps between consecutive cardinalities.
 
 Source: [`EGPT/NumberTheory/ContinuumHypothesis.lean`](EGPT/NumberTheory/ContinuumHypothesis.lean)
 
@@ -58,7 +58,6 @@ Source: [`EGPT/NumberTheory/ContinuumHypothesis.lean`](EGPT/NumberTheory/Continu
 | `EGPT_ContinuumHypothesis` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 | `EGPT_GeneralizedContinuumHypothesis` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 | `EGPT_all_infinities_indexed_by_Nat` | `propext`, `Classical.choice`, `Quot.sound` | OK |
-| `AbadirCompletenessTheorem` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 
 ## Number Theory — Filter: RejectionFilter & Probability
 
@@ -182,12 +181,12 @@ Source: [`EGPT/Complexity/PPNP.lean`](EGPT/Complexity/PPNP.lean)
 |---------|--------|--------|
 | `L_SAT_Canonical` | `propext` | OK |
 | `NP` | `propext` | OK |
-| `P` | `propext` | OK |
+| `P` | `propext`, `Classical.choice` | OK |
 | `L_SAT_in_NP` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 | `L_SAT_in_P` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 | `L_SAT_in_NP_Hard` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 | `EGPT_CookLevin_Theorem` | `propext`, `Classical.choice`, `Quot.sound` | OK |
-| `P_eq_NP` | `propext`, `Quot.sound` | OK |
+| `P_eq_NP` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 
 ## Complexity — UTM: Universal Turing Machine Certifier
 

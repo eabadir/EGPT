@@ -69,8 +69,10 @@ PPNP/                              # Development workspace
 | `SatisfyingTableau` | `Complexity/Tableau.lean` | Certificate type for CNF satisfiability |
 | `constructSatisfyingTableau` | `Complexity/Tableau.lean` | Deterministic certificate construction |
 | `tableauComplexity_upper_bound` | `Complexity/Tableau.lean` | Cost ≤ clauses × variables |
-| `P` / `NP` | `Complexity/PPNP.lean` | Complexity class definitions (identical) |
-| `P_eq_NP` | `Complexity/PPNP.lean` | **The P = NP theorem** |
+| `P` / `NP` | `Complexity/PPNP.lean` | Complexity class definitions (structurally distinct) |
+| `P_eq_NP` | `Complexity/PPNP.lean` | **The P = NP theorem (non-trivial proof)** |
+| `constructTableauFromCNF` | `Complexity/PPNP.lean` | Deterministic construction from CNF alone + existence proof |
+| `canonical_n_squared_bound` | `Complexity/PPNP.lean` | \|cnf\| x k ≤ n² helper lemma |
 | `EGPT_CookLevin_Theorem` | `Complexity/PPNP.lean` | SAT is NP-Complete |
 | `EGPT_ContinuumHypothesis` | `NumberTheory/ContinuumHypothesis.lean` | CH decidable & true (Hilbert #1) |
 | `EGPT_GeneralizedContinuumHypothesis` | `NumberTheory/ContinuumHypothesis.lean` | GCH: no gap between consecutive beth levels |

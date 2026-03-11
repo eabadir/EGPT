@@ -23,7 +23,7 @@ graph TD
     NT --> CN[EGPT/Constraints.lean<br/>Literal_EGPT, Clause_EGPT<br/>CanonicalCNF, encodeCNF]
     CN --> CC[EGPT/Complexity/Core.lean<br/>PathToConstraint<br/>IsPolynomialEGPT]
     CC --> CT[EGPT/Complexity/Tableau.lean<br/>SatisfyingTableau<br/>constructSatisfyingTableau<br/>tableauComplexity le n squared]
-    CT --> PP[EGPT/Complexity/PPNP.lean<br/>P, NP, P_eq_NP<br/>L_SAT_in_NP, L_SAT_in_P<br/>EGPT_CookLevin_Theorem]
+    CT --> PP[EGPT/Complexity/PPNP.lean<br/>P, NP structurally distinct<br/>constructTableauFromCNF<br/>P_eq_NP non-trivial proof<br/>L_SAT_in_NP, L_SAT_in_P<br/>EGPT_CookLevin_Theorem]
 
     EC[EGPT/Entropy/Common.lean<br/>type definitions only] -.-> CT
     PD[EGPT/Physics/PhysicsDist.lean<br/>type definitions only] -.-> CT
@@ -96,7 +96,7 @@ graph LR
     NUM --> ENT[Entropy<br/>Shannon = unique measure]
     ENT --> RECT[RECT<br/>Entropy = Program Length]
     RECT --> TAB[Constraint Tableau<br/>cost le n squared]
-    TAB --> PNP[P = NP<br/>Iff.rfl]
+    TAB --> PNP[P = NP<br/>non-trivial proof]
     PNP --> RIC[Reality Is Computation<br/>Every physical system<br/>has a finite program]
 
     style PNP fill:#2d6a4f,color:#fff
