@@ -654,6 +654,44 @@ body {
   margin-bottom: 0.35rem;
 }
 
+/* ----- Landing Quote ----- */
+.landing-quote {
+  margin: 1.5rem 0 2rem;
+  padding: 1.25rem 1.5rem;
+  border-left: 4px solid var(--id2-color, #4CAF50);
+  background: var(--code-bg, #f6f8fa);
+  border-radius: 0 6px 6px 0;
+  font-style: italic;
+}
+
+.landing-quote p {
+  margin-bottom: 0.75rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.landing-quote p:last-of-type {
+  margin-bottom: 0.5rem;
+}
+
+.landing-quote cite {
+  display: block;
+  font-style: normal;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+}
+
+.landing-quote a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+.landing-quote a:hover {
+  text-decoration: underline;
+}
+
 /* ----- Featured Results ----- */
 .featured-results {
   margin-top: 1rem;

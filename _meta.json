@@ -1,7 +1,7 @@
 {
   "site": {
     "title": "18.313 — Introduction To EGPT: The New Manhattan Project",
-    "subtitle": "Five Ideas. One Repository. A New Computing Architecture.",
+    "subtitle": "John von Neumann\u2019s \u201cComputer & The Brain\u201d project to build an AI computing architecture that takes 20 watts instead of 20 Giga Watts.",
     "repo_url": "https://github.com/eabadir/EGPT",
     "pages_url": "https://eabadir.github.io/EGPT",
     "raw_url": "https://raw.githubusercontent.com/eabadir/EGPT/main"
@@ -29,9 +29,9 @@
   },
   "featured_results": [
     {
-      "title": "Experimental Confirmation: 100% Accuracy",
-      "subtitle": "Half-adder circuit SAT — 80 runs, 20 seeds, zero failures",
-      "detail": "Boolean computation via particle diffusion in a force-free discrete physics engine. Open code, open data, fully reproducible.",
+      "title": "P=NP Circuit SAT Experimentally Solved",
+      "subtitle": "100% accuracy — 80 runs, 20 seeds, 4 input combos, zero failures",
+      "detail": "Half-adder boolean computation via particle diffusion in a force-free discrete physics engine. Open code, open data, fully reproducible.",
       "link": "egpt_circuit_sat/index.html",
       "link_label": "Run the Demo",
       "data_link": "egpt_circuit_sat/data/multiseed_results.json",

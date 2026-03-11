@@ -307,6 +307,22 @@
   }
 
   /* ============================================================
+     INTERNAL LINK INTERCEPTION
+     Intercept clicks on links with data-nav-dir/data-nav-file
+     so they route through the SPA instead of downloading raw files
+     ============================================================ */
+
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest('a[data-nav-dir]');
+    if (!link) return;
+    var dir = link.getAttribute('data-nav-dir');
+    var file = link.getAttribute('data-nav-file');
+    if (dir === null || file === null) return;
+    e.preventDefault();
+    navigateTo(dir, file);
+  });
+
+  /* ============================================================
      HOME / LANDING
      ============================================================ */
 
