@@ -1,11 +1,53 @@
 **AI Navigation** — [IDEAS.md](IDEAS.md) | [llms.txt](llms.txt) | [sitemap.xml](sitemap.xml) | [.claude/agents/](.claude/agents/)
 Raw: https://raw.githubusercontent.com/eabadir/EGPT/main/
 
+**200 MegaWatts vs. 20 Watts: AI Data Centers vs. The Human Brain**
+Why are we boiling rivers to cool data centers instead of building "computer brains"?
+
+## The AI Energy Crisis: von Neumann Machines vs von Neumann's **"Computer Brain"**
 Imagine there was an AI computer which ran on the power of a dim refrigerator lightbulb but out-performed the most massive of data centers? That computer exists and it is called the human brain.
 
-This project is a job offer, not a handout. We are building the foundation of [John von Neumann's](IDEAS.md#id2----von-neumann-the-statistical-ai-computer) hyper-efficient AGI computing architecture laid out in "[The Computer & The Brain](content/docs/)". The contents of this repository show not only that it can be built but it provides working foundations to build it. You'll find [formalized machine checked proofs](Lean/EGPT_PROOFS_VALIDATION.md), [computational simulation derivations](www/GravitySim/index.html) of the [necessary physics](www/fraqtl_devsdk/index.html), and [working pedagogical code libraries](EGPTMath/).
+This project is a job offer, not a handout. We are building the foundation of [John von Neumann's (JvM)](IDEAS.md#id2----von-neumann-the-statistical-ai-computer) hyper-efficient AGI computing architecture laid out in "[The Computer & The Brain](content/docs/)". 
+
+The contents of this repository include the fundamental building of every modern computer circuit, the half-adder, rebuilt in the architecture of JvM's Computer Brain and simulatable so effeciently it runs in software. 
+
+**P=NP Circuit SAT — Experimentally Solved**  
+100% accuracy: 80 runs, 20 seeds, 4 input combos, zero failures. Half-adder boolean computation via particle diffusion in a force-free discrete physics engine. Open code, open data, fully reproducible.
+[Whitepaper](https://eabadir.github.io/EGPT/egpt_circuit_sat/paper/egpt_circuit_sat_whitepaper.pdf)
+
+## Getting Started
+### INSTALLATION INSTRUCTIONS
+As an AI project we focus on AI driven development via the UnkAmon Visual Studio Marketplace Extension which will clone this repository and bring the sources here alive with the assistance of AI agents. Use of Claude Code is optional but advanced agent coordination is enabled if you do use claude code by invoking @egpt-orchestrator in the agent prompt.
+https://marketplace.visualstudio.com/items?itemName=descix.egpt
+
+Direct install (opens VS Code):
+vscode:extension/descix.egpt
+
+While I invite you to just jump right in and start building I encourage you to go oldschool first and read this README to gain context on what you might be building and why.
+
+### BROWSE THE REPOSITORY
+- The repository site is: https://eabadir.github.io/EGPT and, given the volume of information from essential history and philosophy to hard core machine checked math proofs, the site is organized in a mind map structure in an attempt to let different audiences follow the path most appropriate to them.
+- If you are looking for one place to start and have a computer science background I'd suggest: [P=NP Circuit Sat - Run the simulation](https://eabadir.github.io/EGPT/egpt_circuit_sat/) · [Whitepaper](https://eabadir.github.io/EGPT/egpt_circuit_sat/paper/egpt_circuit_sat_whitepaper.pdf) · [Data](https://eabadir.github.io/EGPT/egpt_circuit_sat/data/multiseed_results.json)
+
+This not only shows the Computer Brain can be built but it provides working foundations to build it. But, you have trouble believing your eyes and you want formal proof validation you'll also find [formalized machine checked proofs](Lean/EGPT_PROOFS_VALIDATION.md), [computational simulation derivations](www/GravitySim/index.html) of the [necessary physics](www/fraqtl_devsdk/index.html), and [working pedagogical code libraries](EGPTMath/).
 
 The computational approach was first ideated by [Stanislaw Ulam](IDEAS.md#id1----ulam-cgs-from-a-random-walk), then formalized and existentially proved by [Gian-Carlo Rota](IDEAS.md#id4----rota-entropy-is-the-record-of-truth), and now constructively extended by [Essam Abadir](IDEAS.md#id5----abadir-ch-decidable--unique-representations). The work is only beginning and you are invited to [join](#join-the-project).
+
+# Electronic Graph Paper Theory: A Project To Revolutionize AI, Physics, & Computing
+This project is about building the next generation of Artificial Intelligence and the approach is to it in the same way actual "Intelligence" is built. 
+
+This is a wildly different approach than the rest of the world takes and the tools here just as wild. For that reason, the project goes to extradorinary lengths to validate the foundation upon which this project is built. The source code here covers rigorous machine checkable proofs and physics experiments code and data - it is completely transparent and, using AI agents, extremely easy to reproduce every step of the validation chain. 
+
+## P=NP & The Continuum Hypothesis: von Neumann vs. Godel
+### Godel's Question: Can We Build A Computer That Thinks?
+In 1956, knowing John von Neumann was on his death bed, Godel asked exactly this question. In fact, the history of computer science regards this letter as the proto *P vs NP* letter. Comp sci geeks have been so taken by *P vs NP* that I believe they missed the real reason a mathematician like Godel would think it was so important to bother his dieing friend with a math problem:
+
+> If there really were a machine with ϕ(n) ∼ k · n (or even ∼ k · n2), this would have consequences of the greatest importance. Namely, it would obviously mean that in spite of the undecidability of the Entscheidungsproblem, **the mental work of a mathematician concerning Yes-or-No questions could be completely replaced by a machine**. (Emphasis Added)
+- [Kurt G¨odel’s Letter to John von Neumann - 1956](content/SSG_History/Godel%20Letter%20to%20Von%20Neumann.pdf)
+
+
+
+So, what did JvM proceed to do? 
 
 ## Let's Just Get P=NP Out of The Way
 First let's be clear that I believe I'm the fourth person (that I know of) to prove P=NP: Ulam & von Neumann with Monte Carlo solving quantum neutron diffusion for the nuclear bombs (not just the hydrogen bomb); Rota's existential proof formalized in this repository; and John Conway's ONAG implicitly constructive proof that the Real and "Sureal" numbers are computable from cellular automata.
