@@ -7,9 +7,12 @@ import Mathlib.Data.List.FinRange
 import Mathlib.Logic.Encodable.Basic
 
 import EGPT.Core
+import EGPT.Complexity.Core
 import EGPT.NumberTheory.Core
 import EGPT.NumberTheory.Filter
 import EGPT.Constraints
+import EGPT.Complexity.Decomposition
+import EGPT.Complexity.PPNP
 
 namespace EGPT.Complexity.Physics
 
@@ -65,7 +68,7 @@ def get_system_state_vector {k : ℕ} (states : Vector ParticleState_SAT k) : Ve
 
 
 -- A ProgramTape is the fundamental data structure for a path/program.
-abbrev ProgramTape := List Bool
+abbrev ProgramTape := ComputerProgram
 
 
 /--
@@ -160,12 +163,12 @@ The process is a direct, computable chain:
 3.  The underlying `List Bool` of the `ParticleHistoryPMF` is, by definition, the
     canonical `ComputerTape` or "program" for that rational.
 -/
-noncomputable def EGPTProgramForRejectionFilter {k : ℕ} (filter : RejectionFilter k) : ComputerTape :=
+noncomputable def EGPTProgramForRejectionFilter {k : ℕ} (filter : RejectionFilter k) : ComputerProgram :=
   -- 1. Calculate the characteristic rational of the filter.
   let prob_success : ℚ := characteristicRational filter
   -- 2. Convert this rational number into its canonical EGPT representation.
   let egpt_rational : ParticleHistoryPMF := fromRat prob_success
-  -- 3. The program is the underlying List Bool of the canonical EGPT rational.
+  -- 3. The program is the underlying binary tape/program of the canonical EGPT rational.
   egpt_rational.val
 
 
@@ -430,6 +433,173 @@ by
 
   -- Unfold the definition of `potential_next_state` on the right-hand side.
   simp [potential_next_state]
+
+/-!
+==================================================================
+# Deterministic Breadth Construction (Experimental Parallel Chain)
+
+This section defines a CNF-initialized deterministic breadth constructor:
+- Initial state is the CNF program itself (no witness argument).
+- Survivors are evolved clause-by-clause in canonical list order.
+- Terminal survivors are exactly the satisfying assignments.
+
+This is intentionally experimental and does NOT replace the load-bearing chain.
+==================================================================
+-/
+
+/-- CNF magnitude used as a deterministic constructor time-limit parameter. -/
+def CNFMagnitude {k : ℕ} (cnf : SyntacticCNF_EGPT k) : ℕ :=
+  (encodeCNF cnf).length
+
+/-- Deterministic breadth state over ordered CNF constraints. -/
+structure BreadthState (k : ℕ) where
+  cnf : SyntacticCNF_EGPT k
+  step : ℕ
+  survivors : Finset (Vector Bool k)
+
+/-- Deterministic clause-filter step on current survivors. -/
+def breadthStep {k : ℕ} (clause : Clause_EGPT k) (survivors : Finset (Vector Bool k)) :
+    Finset (Vector Bool k) :=
+  survivors.filter (fun v => evalClause clause v)
+
+/-- CNF-initialized breadth state starts with all states as candidates. -/
+def initBreadthState {k : ℕ} (cnf : SyntacticCNF_EGPT k) : BreadthState k := {
+  cnf := cnf
+  step := 0
+  survivors := (Finset.univ : Finset (Vector Bool k))
+}
+
+/-- Single deterministic transition by consuming the next ordered clause. -/
+def breadthAdvance {k : ℕ} (st : BreadthState k) : BreadthState k :=
+  match st.cnf.drop st.step with
+  | [] => st
+  | clause :: _ =>
+      { st with
+        step := st.step + 1
+        survivors := breadthStep clause st.survivors }
+
+/-- Recursive deterministic breadth run from an initial survivor set. -/
+def breadthRunFrom {k : ℕ} (survivors : Finset (Vector Bool k)) : SyntacticCNF_EGPT k → Finset (Vector Bool k)
+  | [] => survivors
+  | clause :: rest => breadthRunFrom (breadthStep clause survivors) rest
+
+/-- Deterministic breadth constructor run in canonical CNF list order. -/
+def deterministicBreadthRun {k : ℕ} (cnf : SyntacticCNF_EGPT k) : Finset (Vector Bool k) :=
+  breadthRunFrom (Finset.univ : Finset (Vector Bool k)) cnf
+
+/-- Deterministic breadth terminal state after exactly `cnf.length` transitions. -/
+def deterministicBreadthFinalState {k : ℕ} (cnf : SyntacticCNF_EGPT k) : BreadthState k := {
+  cnf := cnf
+  step := cnf.length
+  survivors := deterministicBreadthRun cnf
+}
+
+/-- Constructor cost model: one full variable sweep per clause row. -/
+def deterministicBreadthCost {k : ℕ} (cnf : SyntacticCNF_EGPT k) : ℕ :=
+  cnf.length * k
+
+/-- The breadth constructor step-count is bounded by CNF magnitude. -/
+lemma deterministicBreadth_steps_le_magnitude {k : ℕ} (cnf : SyntacticCNF_EGPT k) :
+    cnf.length ≤ CNFMagnitude cnf := by
+  simpa [CNFMagnitude] using (cnf_length_le_encoded_length cnf)
+
+/-- Deterministic breadth transition-cost bound by encoded-size square. -/
+theorem deterministicBreadth_cost_le_nSquared {k : ℕ} (cnf : SyntacticCNF_EGPT k) :
+    deterministicBreadthCost cnf ≤ CNFMagnitude cnf * CNFMagnitude cnf := by
+  unfold deterministicBreadthCost CNFMagnitude
+  apply Nat.mul_le_mul
+  · exact cnf_length_le_encoded_length cnf
+  · exact encodeCNF_size_ge_k k cnf
+
+/-- A survivor in one step iff it was in the prior set and satisfies that clause. -/
+@[simp] lemma mem_breadthStep_iff {k : ℕ} (clause : Clause_EGPT k) (survivors : Finset (Vector Bool k))
+    (v : Vector Bool k) :
+    v ∈ breadthStep clause survivors ↔ v ∈ survivors ∧ evalClause clause v = true := by
+  simp [breadthStep]
+
+/--
+Prefix invariant:
+membership in `breadthRunFrom survivors clauses` is equivalent to
+membership in the initial survivor set and truth of every processed clause.
+-/
+lemma mem_breadthRunFrom_iff {k : ℕ} (survivors : Finset (Vector Bool k))
+    (clauses : SyntacticCNF_EGPT k) (v : Vector Bool k) :
+    v ∈ breadthRunFrom survivors clauses ↔
+      v ∈ survivors ∧ clauses.all (fun clause => evalClause clause v) = true := by
+  induction clauses generalizing survivors with
+  | nil =>
+      simp [breadthRunFrom]
+  | cons clause rest ih =>
+      simp [breadthRunFrom, ih, and_assoc, Bool.and_eq_true]
+
+/-- Terminal survivors are exactly the satisfying assignments of the CNF. -/
+theorem mem_deterministicBreadthRun_iff_evalCNF {k : ℕ} (cnf : SyntacticCNF_EGPT k) (v : Vector Bool k) :
+    v ∈ deterministicBreadthRun cnf ↔ evalCNF cnf v = true := by
+  simpa [deterministicBreadthRun, evalCNF] using
+    (mem_breadthRunFrom_iff (survivors := (Finset.univ : Finset (Vector Bool k))) (clauses := cnf) (v := v))
+
+/--
+`ConstructedSolutionSet` is the CNF-only constructed set of satisfying endpoints:
+the terminal survivor set of deterministic breadth construction.
+-/
+def ConstructedSolutionSet {k : ℕ} (cnf : SyntacticCNF_EGPT k) : Finset (Vector Bool k) :=
+  deterministicBreadthRun cnf
+
+/--
+Verifier by constructed-set membership.
+Returns true exactly when the candidate is in the CNF-constructed solution set.
+-/
+def verify_via_constructedSet {k : ℕ} (cnf : SyntacticCNF_EGPT k) (candidate : Vector Bool k) : Bool :=
+  decide (candidate ∈ ConstructedSolutionSet cnf)
+
+/--
+Core verifier equivalence chain:
+verifying by constructed-set membership is equivalent to `evalCNF`.
+-/
+theorem verify_via_constructedSet_iff_evalCNF {k : ℕ}
+    (cnf : SyntacticCNF_EGPT k) (candidate : Vector Bool k) :
+    verify_via_constructedSet cnf candidate = true ↔ evalCNF cnf candidate = true := by
+  unfold verify_via_constructedSet ConstructedSolutionSet
+  simpa [decide_eq_true_eq] using (mem_deterministicBreadthRun_iff_evalCNF (cnf := cnf) (v := candidate))
+
+/-- Constructor success iff CNF semantic set is nonempty. -/
+theorem deterministicBreadthRun_nonempty_iff_allSatisfyingAssignments_nonempty {k : ℕ}
+    (cnf : SyntacticCNF_EGPT k) :
+    (deterministicBreadthRun cnf).Nonempty ↔ (EGPT.Complexity.PPNP.AllSatisfyingAssignments cnf).Nonempty := by
+  constructor
+  · rintro ⟨v, hv⟩
+    exact ⟨v, (mem_deterministicBreadthRun_iff_evalCNF cnf v).1 hv⟩
+  · rintro ⟨v, hv⟩
+    exact ⟨v, (mem_deterministicBreadthRun_iff_evalCNF cnf v).2 hv⟩
+
+/-- Constructor success iff CNF satisfies the common-factor criterion. -/
+theorem deterministicBreadthRun_nonempty_iff_CNFSharesFactor {k : ℕ}
+    (cnf : SyntacticCNF_EGPT k) :
+    (deterministicBreadthRun cnf).Nonempty ↔ EGPT.Complexity.CNFSharesFactor cnf := by
+  constructor
+  · rintro ⟨v, hv⟩
+    exact (EGPT.Complexity.cnfSharesFactor_of_exists_assignment (cnf := cnf))
+      ⟨v, (mem_deterministicBreadthRun_iff_evalCNF cnf v).1 hv⟩
+  · intro h_cf
+    rcases (EGPT.Complexity.exists_assignment_of_cnfSharesFactor (cnf := cnf) h_cf) with ⟨v, hv⟩
+    exact ⟨v, (mem_deterministicBreadthRun_iff_evalCNF cnf v).2 hv⟩
+
+/-- Program projection of a terminal survivor assignment. -/
+def survivorProgram {k : ℕ} (v : Vector Bool k) : ComputerProgram :=
+  encodeCNF (cnf_for_specific_assignment v)
+
+/-- Ordered list of survivor programs extracted from terminal survivor set. -/
+noncomputable def survivorPrograms {k : ℕ} (cnf : SyntacticCNF_EGPT k) : List ComputerProgram :=
+  (deterministicBreadthRun cnf).toList.map survivorProgram
+
+/-- Composition (sum) of all survivor programs. -/
+noncomputable def composeSurvivorPrograms {k : ℕ} (cnf : SyntacticCNF_EGPT k) : ComputerProgram :=
+  (survivorPrograms cnf).foldl combinePrograms []
+
+/-- Composed survivor output is definitionally a `ComputerProgram`. -/
+theorem composeSurvivorPrograms_is_program {k : ℕ} (cnf : SyntacticCNF_EGPT k) :
+    ∃ prog : ComputerProgram, prog = composeSurvivorPrograms cnf := by
+  exact ⟨composeSurvivorPrograms cnf, rfl⟩
 
 end EGPT.Complexity.Physics
 

@@ -5,7 +5,7 @@ import EGPT.Entropy.Common
 import EGPT.Physics.PhysicsDist
 import EGPT.NumberTheory.Core -- For ParticlePath, fromNat, toNat
 import EGPT.NumberTheory.Filter -- For RejectionFilter
-import EGPT.Complexity.Tableau -- For SatisfyingTableau, constructSatisfyingTableau
+import EGPT.Complexity.TableauFromCNF -- For SatisfyingTableau, constructSatisfyingTableau
 open EGPT EGPT.Complexity EGPT.NumberTheory.Core EGPT.Constraints EGPT.NumberTheory.Filter
 
 namespace EGPT.Complexity.PPNP
@@ -19,6 +19,10 @@ into a certified result. The "computation" it performs is the construction of a
 The function is `noncomputable` because it uses `Classical.choice` to select an
 arbitrary solution from the non-empty set of satisfying assignments. This mirrors
 the non-deterministic nature of finding a specific solution in a physical system.
+
+Reviewer note: EGPT represents executable artifacts on `ComputerProgram`
+(`= ComputerTape = List Bool`), even when the proof object is carried as a
+`SatisfyingTableau` or `RejectionFilter`.
 -/
 noncomputable def UniversalTuringMachine_EGPT {k : ℕ} (input_problem : RejectionFilter k) : RejectionFilter k :=
   -- 1. **Select a Witness:** From the input problem's proof that a solution

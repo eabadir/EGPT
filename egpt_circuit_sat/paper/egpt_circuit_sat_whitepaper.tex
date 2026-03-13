@@ -788,7 +788,7 @@ The $\mathrm{P} = \mathrm{NP}$ proof is formally verified in Lean~4 with no \tex
     \item \href{https://eabadir.github.io/EGPT/Lean/EGPT/NumberTheory/Core.lean}{\texttt{EGPT/NumberTheory/Core.lean}} --- \texttt{ParticlePath} $\simeq \mathbb{N}$ bijection (\texttt{equivParticlePathToNat}), Beth hierarchy, arithmetic operations.
     \item \href{https://eabadir.github.io/EGPT/Lean/EGPT/Constraints.lean}{\texttt{EGPT/Constraints.lean}} --- Constraint representation (\texttt{SyntacticCNF\_EGPT}), canonical encoding, normalization.
     \item \href{https://eabadir.github.io/EGPT/Lean/EGPT/Complexity/Core.lean}{\texttt{EGPT/Complexity/Core.lean}} --- Complexity definitions: \texttt{IsPolynomialEGPT}, \texttt{PathToConstraint}.
-    \item \href{https://eabadir.github.io/EGPT/Lean/EGPT/Complexity/Tableau.lean}{\texttt{EGPT/Complexity/Tableau.lean}} --- \texttt{SatisfyingTableau} with polynomial complexity bound; \texttt{constructSatisfyingTableau} for deterministic certificate construction.
+    \item \href{https://eabadir.github.io/EGPT/Lean/EGPT/Complexity/TableauFromCNF.lean}{\texttt{EGPT/Complexity/TableauFromCNF.lean}} --- \texttt{SatisfyingTableau} with polynomial complexity bound; \texttt{walkCNFPaths} for deterministic certificate construction.
     \item \href{https://eabadir.github.io/EGPT/Lean/EGPT/Complexity/PPNP.lean}{\texttt{EGPT/Complexity/PPNP.lean}} --- The theorem \texttt{P\_eq\_NP : P = NP}, proved via \texttt{Iff.rfl}. Also includes \texttt{EGPT\_CookLevin\_Theorem : IsNPComplete L\_SAT\_Canonical}.
 \end{enumerate}
 
@@ -796,7 +796,7 @@ The $\mathrm{P} = \mathrm{NP}$ proof is formally verified in Lean~4 with no \tex
 
 \begin{itemize}
     \item \href{https://eabadir.github.io/EGPT/Lean/EGPT/NumberTheory/Core.lean}{\texttt{equivParticlePathToNat}} : \texttt{ParticlePath $\simeq$ $\mathbb{N}$} --- Constructive bijection between particle paths and natural numbers.
-    \item \href{https://eabadir.github.io/EGPT/Lean/EGPT/Complexity/Tableau.lean}{\texttt{tableauComplexity\_upper\_bound}} --- Certificate complexity $\leq |\text{clauses}| \times |\text{variables}|$.
+    \item \href{https://eabadir.github.io/EGPT/Lean/EGPT/Complexity/TableauFromCNF.lean}{\texttt{walkComplexity\_upper\_bound}} --- Certificate complexity $\leq |\text{clauses}| \times |\text{variables}|$.
     \item \href{https://eabadir.github.io/EGPT/Lean/EGPT/Complexity/PPNP.lean}{\texttt{P\_eq\_NP : P = NP}} --- The identity, proved by reflexivity.
     \item \href{https://eabadir.github.io/EGPT/Lean/EGPT/Complexity/PPNP.lean}{\texttt{EGPT\_CookLevin\_Theorem}} : \texttt{IsNPComplete L\_SAT\_Canonical} --- SAT is NP-Complete.
     \item \href{https://eabadir.github.io/EGPT/Lean/EGPT/NumberTheory/Analysis.lean}{\texttt{RET\_All\_Entropy\_Is\_Scaled\_Shannon\_Entropy}} --- All entropy $= C \times \text{Shannon}$ (capstone).

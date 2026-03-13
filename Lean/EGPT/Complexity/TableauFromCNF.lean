@@ -22,7 +22,7 @@ address (literal) is reached. This walk produces a `List ParticlePath` — the
 (how many clauses, how many variables), not on the specific endpoint reached.
 
 Since `List ParticlePath` is `List (List Bool)` which flattens to `List Bool`
-which IS `ComputerTape` (by definition in `Core.lean`), the walk itself
+which IS both `ComputerTape` and `ComputerProgram` (by definition in `Core.lean`), the walk itself
 **constructs** the polynomial-time computation tape. The address is the map.
 -/
 
@@ -75,7 +75,7 @@ where n = |encodeCNF cnf|. This bound is a property of the CNF's dimensions,
 not of the specific endpoint.
 
 Since `witness_paths : List ParticlePath` is `List (List Bool)` which flattens
-to `List Bool` = `ComputerTape`, the walk itself constructs the computation tape.
+to `List Bool` = `ComputerTape` = `ComputerProgram`, the walk itself constructs the computation tape.
 -/
 noncomputable def walkCNFPaths {k : ℕ} (cnf : SyntacticCNF_EGPT k) (endpoint : { v : Vector Bool k // evalCNF cnf v = true }) : SatisfyingTableau k :=
   let assignment := endpoint.val
@@ -94,6 +94,17 @@ noncomputable def walkCNFPaths {k : ℕ} (cnf : SyntacticCNF_EGPT k) (endpoint :
     witness_paths := witness_paths,
     h_valid := h_valid
   }
+
+/--
+Flatten the witness-path trace into a `ComputerProgram`.
+This makes explicit that the certificate trace is an executable tape/program.
+-/
+def SatisfyingTableau.toComputerProgram {k : ℕ} (tableau : SatisfyingTableau k) : ComputerProgram :=
+  List.flatten (tableau.witness_paths.map (fun p => p.val))
+
+/-- The flattened witness trace is a program by definition. -/
+@[simp] theorem SatisfyingTableau.toComputerProgram_eq_bind {k : ℕ} (tableau : SatisfyingTableau k) :
+    tableau.toComputerProgram = List.flatten (tableau.witness_paths.map (fun p => p.val)) := rfl
 
 /--
 **The walk complexity equals the sum of path costs.**

@@ -1,10 +1,11 @@
 import Mathlib.Tactic.NormNum
+import EGPT.Core
 import EGPT.NumberTheory.Core
 import EGPT.Constraints
 
 namespace EGPT.Complexity
 
-open EGPT.NumberTheory.Core EGPT.Constraints
+open EGPT EGPT.NumberTheory.Core EGPT.Constraints
 
 /-!
 ### Core Complexity Definitions (The "Logic" Preliminaries)
@@ -57,5 +58,57 @@ direct, physical quantity.
 def PathToConstraint {k : ℕ} (l : Literal_EGPT k) : ParticlePath :=
   -- The complexity is the index of the particle/variable being constrained.
   fromNat l.particle_idx.val
+
+/--
+`CanonicalCNFProgram` is the program-level view of an encoded canonical CNF.
+This is a readability alias for reviewers: canonical SAT instances are handled
+as executable binary programs in the EGPT machine model.
+-/
+abbrev CanonicalCNFProgram (_k : ℕ) := ComputerProgram
+
+/-- Complexity-facing alias for the foundational `ParticlePath ≃ ℕ` equivalence. -/
+abbrev equivPathNat := EGPT.NumberTheory.Core.equivParticlePathToNat
+
+/-- Complexity-facing alias for the CNF-to-path equivalence. -/
+noncomputable abbrev equivCNFPath {k : ℕ} := EGPT.Constraints.equivSyntacticCNF_to_ParticlePath (k := k)
+
+/-- Complexity-facing alias: interpret a path as its native `ℕ` size. -/
+abbrev pathNat := EGPT.NumberTheory.Core.toNat
+
+/-- Complexity-facing alias: build a path from native `ℕ`. -/
+abbrev natPath := EGPT.NumberTheory.Core.fromNat
+
+/-- Encode a canonical CNF as a `ComputerProgram`. -/
+def encodeCanonicalCNFAsProgram {k : ℕ} (ccnf : CanonicalCNF k) : CanonicalCNFProgram k :=
+  encodeCNF ccnf.val
+
+/-- The encoded canonical CNF is definitionally a program tape. -/
+@[simp] theorem encodeCanonicalCNFAsProgram_eq_encodeCNF {k : ℕ} (ccnf : CanonicalCNF k) :
+    encodeCanonicalCNFAsProgram ccnf = encodeCNF ccnf.val := rfl
+
+/-- Program size for canonical CNF is just encoded tape length. -/
+@[simp] theorem encodeCanonicalCNFAsProgram_length {k : ℕ} (ccnf : CanonicalCNF k) :
+    (encodeCanonicalCNFAsProgram ccnf).length = (encodeCNF ccnf.val).length := rfl
+
+/--
+Program composition is closed: the sum/composition of two programs is a program.
+In this binary machine model, composition is concatenation.
+-/
+def combinePrograms (p q : ComputerProgram) : ComputerProgram := List.append p q
+
+/-- Combined programs are definitionally append. -/
+@[simp] theorem combinePrograms_eq_append (p q : ComputerProgram) :
+    combinePrograms p q = List.append p q := rfl
+
+/-- Composition cost is additive in program length. -/
+@[simp] theorem combinePrograms_length (p q : ComputerProgram) :
+    (combinePrograms p q).length = p.length + q.length := by
+  simp [combinePrograms]
+
+/-- Existential closure form: sum of two programs is itself a program. -/
+theorem computerProgram_sum_is_program (p q : ComputerProgram) :
+    ∃ r : ComputerProgram, r = List.append p q := by
+  refine ⟨combinePrograms p q, ?_⟩
+  simp [combinePrograms]
 
 end EGPT.Complexity

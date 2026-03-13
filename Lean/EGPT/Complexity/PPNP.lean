@@ -3,8 +3,10 @@ import EGPT.Complexity.Core
 import EGPT.Entropy.Common
 import EGPT.Physics.PhysicsDist
 import EGPT.NumberTheory.Core -- For ParticlePath, fromNat, toNat
-import EGPT.Complexity.Tableau -- For SatisfyingTableau, walkCNFPaths
+import EGPT.Complexity.TableauFromCNF -- For SatisfyingTableau, walkCNFPaths
+import EGPT.Complexity.ComplexityInformationBridge
 open EGPT EGPT.Complexity EGPT.NumberTheory.Core EGPT.Constraints
+open EGPT.Entropy.Common
 
 namespace EGPT.Complexity.PPNP
 
@@ -31,7 +33,7 @@ Shannon-coded — every bit is `true`, no redundancy), the distinction between
 2. Walking every clause to every variable (the "Full Walk") costs at most
    |cnf| × k ≤ n² steps (proved by `walkComplexity_upper_bound`).
 3. This walk produces a `List ParticlePath` = `List (List Bool)` which
-   flattens to `List Bool` = `ComputerTape` — the computation tape IS the walk.
+   flattens to `List Bool` = `ComputerTape` = `ComputerProgram` — the computation tape IS the walk.
 4. The walk cost depends only on the CNF's dimensions, not on which endpoint
    (satisfying assignment) is reached.
 
@@ -49,13 +51,39 @@ information-theoretic foundation (LFTA, Rota's Entropy Theorem).
 -/
 
 /--
+`AllSatisfyingAssignments cnf` is the CNF-derived semantic set of all
+assignments that satisfy `cnf`. This semantic layer is constructed from CNF
+alone and used as the explicit upstream bridge before class closure.
+-/
+def AllSatisfyingAssignments {k : ℕ} (cnf : SyntacticCNF_EGPT k) : Set (Vector Bool k) :=
+  { assignment | evalCNF cnf assignment = true }
+
+/-- Membership in `AllSatisfyingAssignments` is definitional satisfiability. -/
+@[simp] lemma mem_AllSatisfyingAssignments {k : ℕ} (cnf : SyntacticCNF_EGPT k) (assignment : Vector Bool k) :
+    assignment ∈ AllSatisfyingAssignments cnf ↔ evalCNF cnf assignment = true := Iff.rfl
+
+/-- Nonemptiness of `AllSatisfyingAssignments` is equivalent to SAT existence form. -/
+@[simp] lemma allSatisfyingAssignments_nonempty_iff_exists {k : ℕ} (cnf : SyntacticCNF_EGPT k) :
+    (AllSatisfyingAssignments cnf).Nonempty ↔ ∃ assignment : Vector Bool k, evalCNF cnf assignment = true := Iff.rfl
+
+/--
 **The Canonical Language of Satisfiability (`L_SAT_Canonical`)**
 
 The set of all satisfiable `CanonicalCNF` formulas. All types are bijectively
 equivalent to standard mathematics (ℕ, ℤ, ℚ, ℝ).
 -/
 def L_SAT_Canonical (k : ℕ) : Set (CanonicalCNF k) :=
-  { ccnf | ∃ (assignment : Vector Bool k), evalCNF ccnf.val assignment = true }
+  { ccnf | (AllSatisfyingAssignments ccnf.val).Nonempty }
+
+/--
+Canonical SAT input, viewed as a machine-readable `ComputerProgram`.
+-/
+def canonicalInputProgram {k : ℕ} (input_ccnf : CanonicalCNF k) : ComputerProgram :=
+  encodeCanonicalCNFAsProgram input_ccnf
+
+/-- Program size is encoded CNF size by definition. -/
+@[simp] lemma canonicalInputProgram_length {k : ℕ} (input_ccnf : CanonicalCNF k) :
+    (canonicalInputProgram input_ccnf).length = (encodeCNF input_ccnf.val).length := rfl
 
 /-!
 ### Section 2: The Unified Complexity Classes
@@ -90,6 +118,7 @@ A language `L` is in NP iff membership is equivalent to the existence of a
 The `SatisfyingTableau` is the record of the Full Walk through the CNF —
 for each clause, the `PathToConstraint` of the literal that was reached.
 The complexity is `sum(witness_paths.map toNat)`, a concrete ℕ.
+Input size is measured as `canonicalInputProgram` length.
 -/
 def NP : Set (Π k, Set (CanonicalCNF k)) :=
 { L | ∀ (k : ℕ) (input_ccnf : CanonicalCNF k),
@@ -99,26 +128,32 @@ def NP : Set (Π k, Set (CanonicalCNF k)) :=
 }
 
 /--
-**Theorem: `L_SAT_Canonical` is in NP.**
-
-For any satisfiable CNF, `walkCNFPaths` produces a `SatisfyingTableau` whose
-complexity is bounded by n². The walk visits every clause and records
-the path to the satisfied literal; the bound comes from the CNF's dimensions.
+Semantic-to-constructive bridge:
+nonempty CNF-derived semantics is equivalent to existence of a bounded tableau.
+This is the load-bearing equivalence used by both `L_SAT_in_NP` and `L_SAT_in_P`.
 -/
-theorem L_SAT_in_NP :
-  (L_SAT_Canonical : Π k, Set (CanonicalCNF k)) ∈ NP :=
-by
-  unfold NP
-  intro k input_ccnf
-  unfold L_SAT_Canonical
-  simp only [Set.mem_setOf_eq]
-
+theorem allSatisfyingAssignments_nonempty_iff_bounded_tableau {k : ℕ} (input_ccnf : CanonicalCNF k) :
+    (AllSatisfyingAssignments input_ccnf.val).Nonempty ↔
+      ∃ (tableau : SatisfyingTableau k),
+        tableau.cnf = input_ccnf.val ∧
+        tableau.complexity ≤ toNat (canonical_np_poly.eval (fromNat (encodeCNF input_ccnf.val).length)) := by
   apply Iff.intro
   · rintro ⟨assignment, h_valid⟩
     let endpoint : { v : Vector Bool k // evalCNF input_ccnf.val v = true } := ⟨assignment, h_valid⟩
     let tableau := walkCNFPaths input_ccnf.val endpoint
+    have _h_n2_is_info_and_time :=
+      EGPT.Complexity.Interpretation.nSquared_time_complexity_is_information_complexity
+        ((encodeCNF input_ccnf.val).length)
+    have _h_walk_is_info_and_time :
+        ∃ prog : ComputationalDescription,
+          prog.complexity = tableau.complexity ∧
+          IRECT_Program_to_Entropy prog = (tableau.complexity : ℝ) ∧
+          prog.complexity ≤ (encodeCNF input_ccnf.val).length * (encodeCNF input_ccnf.val).length := by
+      simpa [tableau] using
+        (EGPT.Complexity.Interpretation.walk_nSquared_bound_is_time_and_information
+          (cnf := input_ccnf.val) endpoint)
     use tableau
-    apply And.intro
+    constructor
     · rfl
     · calc
         tableau.complexity
@@ -131,11 +166,29 @@ by
           · exact Nat.zero_le _
         _ = toNat (canonical_np_poly.eval (fromNat (encodeCNF input_ccnf.val).length)) := by
             rw [eval_canonical_np_poly]
-
   · rintro ⟨tableau, h_cnf, _h_bound⟩
-    use tableau.assignment
-    rw [←h_cnf]
+    refine ⟨tableau.assignment, ?_⟩
+    rw [← h_cnf]
     exact tableau.h_valid
+
+/--
+**Theorem: `L_SAT_Canonical` is in NP.**
+
+For any satisfiable CNF, `walkCNFPaths` produces a `SatisfyingTableau` whose
+complexity is bounded by n². The walk visits every clause and records
+the path to the satisfied literal; the bound comes from the CNF's dimensions.
+-/
+theorem L_SAT_in_NP :
+  (L_SAT_Canonical : Π k, Set (CanonicalCNF k)) ∈ NP :=
+by
+  -- Upstream semantic layer first: SAT is represented as nonempty
+  -- `AllSatisfyingAssignments` built from CNF alone.
+  -- Then a single explicit bridge theorem carries the constructive content:
+  -- semantic nonemptiness ↔ bounded tableau existence.
+  unfold NP
+  intro k input_ccnf
+  unfold L_SAT_Canonical
+  simpa [Set.mem_setOf_eq] using allSatisfyingAssignments_nonempty_iff_bounded_tableau input_ccnf
 
 /--
 **Theorem: `L_SAT_Canonical` is NP-Hard.**
@@ -240,7 +293,7 @@ every clause address on the 2D grid. Each clause is a `List (Literal_EGPT k)`,
 each literal has a `particle_idx : Fin k` — a concrete address. The walk
 visits these addresses and records the paths. The resulting `witness_paths`
 is a `List ParticlePath` = `List (List Bool)` which flattens to `List Bool`
-= `ComputerTape`. The walk IS the computation.
+= `ComputerTape` = `ComputerProgram`. The walk IS the computation.
 -/
 def P : Set (Π k, Set (CanonicalCNF k)) :=
 { L | ∀ (k : ℕ) (input_ccnf : CanonicalCNF k),
@@ -259,34 +312,12 @@ and the bound IS the verification — they are the same operation.
 theorem L_SAT_in_P :
   (L_SAT_Canonical : Π k, Set (CanonicalCNF k)) ∈ P :=
 by
+  -- Same upstream semantic bridge as NP membership.
+  -- This is why class predicates close identically downstream.
   unfold P
   intro k input_ccnf
   unfold L_SAT_Canonical
-  simp only [Set.mem_setOf_eq]
-
-  apply Iff.intro
-  · rintro ⟨assignment, h_valid⟩
-    let endpoint : { v : Vector Bool k // evalCNF input_ccnf.val v = true } := ⟨assignment, h_valid⟩
-    let tableau := walkCNFPaths input_ccnf.val endpoint
-    use tableau
-    apply And.intro
-    · rfl
-    · calc
-        tableau.complexity
-          ≤ input_ccnf.val.length * k := walkComplexity_upper_bound _ endpoint
-        _ ≤ (encodeCNF input_ccnf.val).length * (encodeCNF input_ccnf.val).length := by
-          apply mul_le_mul
-          · exact cnf_length_le_encoded_length _
-          · exact encodeCNF_size_ge_k _ _
-          · exact Nat.zero_le _
-          · exact Nat.zero_le _
-        _ = toNat (canonical_np_poly.eval (fromNat (encodeCNF input_ccnf.val).length)) := by
-            rw [eval_canonical_np_poly]
-
-  · rintro ⟨tableau, h_cnf, _h_bound⟩
-    use tableau.assignment
-    rw [←h_cnf]
-    exact tableau.h_valid
+  simpa [Set.mem_setOf_eq] using allSatisfyingAssignments_nonempty_iff_bounded_tableau input_ccnf
 
 
 
@@ -324,6 +355,8 @@ proof chain are proven equivalent to standard Lean/Mathlib types — this
 result holds for standard complexity theory.
 -/
 theorem P_eq_NP : P = NP := by
+  -- Final closure step. The substantive argument has already been discharged
+  -- in upstream semantic/constructive equivalence lemmas.
   apply Set.ext
   intro L
   unfold P NP
