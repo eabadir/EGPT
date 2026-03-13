@@ -13,6 +13,7 @@ import EGPT.Complexity.TableauFromCNF
 import EGPT.Complexity.Decomposition
 import EGPT.Complexity.PPNP
 import EGPT.Complexity.UTM
+import EGPT.Complexity.PPNPConstructive
 import EGPT.Complexity.ComplexityInformationBridge
 import EGPT.Complexity.Interpretation
 -- Entropy

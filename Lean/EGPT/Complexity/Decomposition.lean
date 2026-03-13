@@ -1,6 +1,7 @@
 import EGPT.Constraints
 import EGPT.Complexity.Core
 import EGPT.Complexity.PPNP
+import EGPT.Complexity.TableauFromCNF
 import EGPT.NumberTheory.Core
 
 namespace EGPT.Complexity
@@ -397,5 +398,267 @@ example : ¬ CNFSharesFactor unsatUnitCNF := by
         simp [unsatUnitCNF, lit0Pos, lit0Neg, evalCNF, evalClause, evalLiteral, h_false]
       rw [this] at h_eval
       contradiction
+
+/--
+**UNSAT Detection via Prime Structure.**
+
+If no assignment's prime-indexed composite shares factors with every clause of the
+CNF (`¬ CNFSharesFactor cnf`), then `computeTableau?` returns `none` for every
+candidate. This connects the prime factorization layer to the computational layer:
+
+- `¬ CNFSharesFactor cnf` means no assignment satisfies the CNF (via
+  `evalCNF_true_iff_cnfSharesFactor`).
+- `computeTableau?` returns `none` exactly when `evalCNF` returns `false`
+  (via `computeTableau_none_iff_not_sat`).
+
+The prime factorization encoding faithfully detects unsatisfiability.
+-/
+theorem unsat_detected_by_prime_structure {k : ℕ} (cnf : SyntacticCNF_EGPT k) :
+    (¬ CNFSharesFactor cnf) → ∀ v : Vector Bool k, computeTableau? cnf v = none := by
+  intro h_not_share v
+  rw [computeTableau_none_iff_not_sat]
+  -- h_not_share : ¬ ∃ a, cnfSharesFactor a cnf
+  -- Goal: evalCNF cnf v = false
+  -- If evalCNF cnf v were true, then cnfSharesFactor v cnf, contradicting h_not_share
+  cases h_eval : evalCNF cnf v with
+  | false => rfl
+  | true =>
+    exfalso
+    exact h_not_share ⟨v, (evalCNF_true_iff_cnfSharesFactor v cnf).mp h_eval⟩
+
+/-!
+### Conditional Entropy Formulation: H(k|p) ↔ GCD
+
+The information-theoretic characterization of `literalSharesFactor`.
+Conditional entropy of a literal given an assignment composite is zero
+iff the literal's prime divides the composite — the GCD analog of
+Euclidean reduction in information space.
+
+By the LFTA (`log(n) = Σ v_p(n) · log(p)`), information decomposes
+additively under prime factorization. The conditional entropy of a literal
+given a composite measures how much NEW information the literal provides:
+- Zero when the literal's prime already divides the composite (GCD captures it)
+- `log(p)` when the literal's prime is absent (full new information)
+
+This is the bijective analog of GCD: just as `gcd(n, p) = p` iff `p | n`,
+`H(literal | composite) = 0` iff `literalSharesFactor`.
+-/
+
+/--
+Conditional entropy of a literal given a composite number.
+`H(literal | composite) = 0` when the literal's prime divides the composite
+(the literal's information is already present — zero new information), and
+`H(literal | composite) = Real.log(literalAtom lit)` when it does not
+(the literal provides full new information of `log(p)` nats).
+
+This is the information-theoretic formulation of prime divisibility:
+checking a literal is measuring its conditional entropy.
+-/
+noncomputable def conditionalLiteralEntropy {k : ℕ}
+    (composite : ℕ) (lit : Literal_EGPT k) : ℝ :=
+  if literalAtom lit ∣ composite then 0
+  else Real.log (literalAtom lit)
+
+/--
+Conditional entropy of a clause given a composite: zero iff at least one
+literal in the clause has zero conditional entropy (shares a factor).
+A clause is satisfied iff some literal contributes no new information.
+-/
+noncomputable def conditionalClauseEntropy {k : ℕ}
+    (composite : ℕ) (clause : Clause_EGPT k) : ℝ :=
+  if ∃ lit ∈ clause, conditionalLiteralEntropy composite lit = 0 then 0
+  else (clause.map (conditionalLiteralEntropy composite)).sum
+
+/--
+Conditional entropy of a CNF given a composite: the sum of clause-level
+conditional entropies. Zero iff every clause has zero conditional entropy.
+-/
+noncomputable def conditionalCNFEntropy {k : ℕ}
+    (composite : ℕ) (cnf : SyntacticCNF_EGPT k) : ℝ :=
+  (cnf.map (conditionalClauseEntropy composite)).sum
+
+/-- Literal conditional entropy is non-negative. -/
+theorem conditionalLiteralEntropy_nonneg {k : ℕ}
+    (composite : ℕ) (lit : Literal_EGPT k) :
+    0 ≤ conditionalLiteralEntropy composite lit := by
+  unfold conditionalLiteralEntropy
+  split
+  · exact le_refl 0
+  · exact le_of_lt (Real.log_pos (by exact_mod_cast (literalAtom_prime lit).one_lt))
+
+/--
+The key bridge: `literalSharesFactor ↔ zero conditional entropy`.
+A literal shares a factor with the assignment composite iff its
+conditional entropy is zero — the information-theoretic reformulation
+of prime divisibility.
+-/
+theorem literalSharesFactor_iff_zero_conditional_entropy {k : ℕ}
+    (a : Vector Bool k) (lit : Literal_EGPT k) :
+    literalSharesFactor a lit ↔
+      conditionalLiteralEntropy (assignmentCompositePrime a) lit = 0 := by
+  unfold literalSharesFactor conditionalLiteralEntropy
+  constructor
+  · intro h; simp [h]
+  · intro h
+    split at h
+    · assumption
+    · exact absurd h (ne_of_gt (Real.log_pos (by exact_mod_cast (literalAtom_prime lit).one_lt)))
+
+/-- Positive conditional entropy means the literal does NOT share a factor. -/
+theorem conditionalLiteralEntropy_pos_iff_not_shares {k : ℕ}
+    (composite : ℕ) (lit : Literal_EGPT k) :
+    0 < conditionalLiteralEntropy composite lit ↔ ¬ literalAtom lit ∣ composite := by
+  unfold conditionalLiteralEntropy
+  constructor
+  · intro h
+    split at h
+    · exact absurd (le_refl 0) (not_le.mpr h)
+    · assumption
+  · intro h; simp [h]; exact Real.log_pos (by exact_mod_cast (literalAtom_prime lit).one_lt)
+
+/--
+GCD characterization — the explicit GCD ↔ entropy bridge.
+Conditional entropy is zero iff `gcd(composite, literalAtom) = literalAtom`,
+i.e. the literal's prime divides the composite.
+-/
+theorem conditional_entropy_gcd_characterization {k : ℕ}
+    (composite : ℕ) (_hc : 0 < composite) (lit : Literal_EGPT k) :
+    conditionalLiteralEntropy composite lit = 0 ↔
+      Nat.gcd composite (literalAtom lit) = literalAtom lit := by
+  unfold conditionalLiteralEntropy
+  constructor
+  · intro h
+    split at h
+    · next h_dvd =>
+      exact Nat.dvd_antisymm
+        (Nat.gcd_dvd_right composite (literalAtom lit))
+        (Nat.dvd_gcd h_dvd (dvd_refl _))
+    · next h_not_dvd =>
+      exact absurd h (ne_of_gt (Real.log_pos (by exact_mod_cast (literalAtom_prime lit).one_lt)))
+  · intro h
+    have h_dvd : literalAtom lit ∣ composite := by
+      have := Nat.gcd_dvd_left composite (literalAtom lit)
+      rwa [h] at this
+    simp [h_dvd]
+
+/-- Clause-level conditional entropy is non-negative. -/
+theorem conditionalClauseEntropy_nonneg {k : ℕ}
+    (composite : ℕ) (clause : Clause_EGPT k) :
+    0 ≤ conditionalClauseEntropy composite clause := by
+  unfold conditionalClauseEntropy
+  split
+  · exact le_refl 0
+  · exact List.sum_nonneg (fun x hx => by
+      rw [List.mem_map] at hx
+      rcases hx with ⟨lit, _, rfl⟩
+      exact conditionalLiteralEntropy_nonneg composite lit)
+
+/--
+Clause-level bridge: `clauseSharesFactor ↔ zero conditional clause entropy`
+for nonempty clauses. The nonempty hypothesis is needed because an empty
+clause has zero entropy (empty sum) but `clauseSharesFactor` is vacuously false.
+-/
+theorem clauseSharesFactor_iff_zero_conditional_clause_entropy {k : ℕ}
+    (a : Vector Bool k) (clause : Clause_EGPT k) (h_nonempty : clause ≠ []) :
+    clauseSharesFactor a clause ↔
+      conditionalClauseEntropy (assignmentCompositePrime a) clause = 0 := by
+  unfold clauseSharesFactor conditionalClauseEntropy
+  constructor
+  · rintro ⟨lit, h_mem, h_share⟩
+    have h_zero := (literalSharesFactor_iff_zero_conditional_entropy a lit).mp h_share
+    simp [show ∃ lit ∈ clause, conditionalLiteralEntropy (assignmentCompositePrime a) lit = 0 from ⟨lit, h_mem, h_zero⟩]
+  · intro h
+    split at h
+    · next h_exists =>
+      rcases h_exists with ⟨lit, h_mem, h_zero⟩
+      exact ⟨lit, h_mem, (literalSharesFactor_iff_zero_conditional_entropy a lit).mpr h_zero⟩
+    · -- In the else branch, h says the sum = 0. Every term is non-negative
+      -- and each term is positive (since no term is zero). For a nonempty clause,
+      -- the sum must be strictly positive — contradiction.
+      next h_not_exists =>
+      push_neg at h_not_exists
+      exfalso
+      have h_all_pos : ∀ lit ∈ clause, 0 < conditionalLiteralEntropy (assignmentCompositePrime a) lit := by
+        intro lit h_mem
+        exact lt_of_le_of_ne (conditionalLiteralEntropy_nonneg _ lit) (Ne.symm (h_not_exists lit h_mem))
+      -- Get a witness literal from nonempty clause
+      obtain ⟨wit, h_wit_mem⟩ : ∃ w, w ∈ clause := by
+        cases clause with
+        | nil => exact absurd rfl h_nonempty
+        | cons hd _ => exact ⟨hd, .head _⟩
+      have h_wit_pos := h_all_pos wit h_wit_mem
+      -- The sum of the mapped list is positive because each entry is ≥ 0
+      -- and at least one (wit's entropy) is strictly positive.
+      have h_sum_pos : 0 < (clause.map (conditionalLiteralEntropy (assignmentCompositePrime a))).sum := by
+        obtain ⟨pre, post, h_eq⟩ := List.append_of_mem h_wit_mem
+        rw [h_eq, List.map_append, List.map_cons, List.sum_append, List.sum_cons]
+        have h_pre_nonneg : 0 ≤ (pre.map (conditionalLiteralEntropy (assignmentCompositePrime a))).sum :=
+          List.sum_nonneg (fun x hx => by
+            rw [List.mem_map] at hx; rcases hx with ⟨lit, _, rfl⟩
+            exact conditionalLiteralEntropy_nonneg _ lit)
+        have h_post_nonneg : 0 ≤ (post.map (conditionalLiteralEntropy (assignmentCompositePrime a))).sum :=
+          List.sum_nonneg (fun x hx => by
+            rw [List.mem_map] at hx; rcases hx with ⟨lit, _, rfl⟩
+            exact conditionalLiteralEntropy_nonneg _ lit)
+        linarith
+      linarith
+
+/-!
+### CNF-Level Conditional Entropy Bridge (Exchange 17, Theorem A)
+
+Extends the clause-level bridge (`clauseSharesFactor_iff_zero_conditional_clause_entropy`)
+to full CNFs: `cnfSharesFactor a cnf ↔ conditionalCNFEntropy(composite, cnf) = 0`.
+
+The proof: forward, if all clauses share factors then each clause entropy is zero
+(by clause-level bridge), so the sum is zero. Backward, if the sum of non-negative
+terms is zero, each term is zero, so each clause shares a factor.
+-/
+
+/--
+CNF-level bridge: `cnfSharesFactor ↔ zero conditional CNF entropy`.
+A CNF shares factors with the assignment composite iff the total conditional
+entropy is zero — every clause's information is already present.
+
+Requires each clause to be nonempty (same condition as clause-level bridge).
+-/
+theorem cnfSharesFactor_iff_zero_conditional_cnf_entropy {k : ℕ}
+    (a : Vector Bool k) (cnf : SyntacticCNF_EGPT k)
+    (h_clauses_nonempty : ∀ c ∈ cnf, c ≠ []) :
+    cnfSharesFactor a cnf ↔
+      conditionalCNFEntropy (assignmentCompositePrime a) cnf = 0 := by
+  unfold cnfSharesFactor conditionalCNFEntropy
+  constructor
+  · intro h_all_share
+    apply List.sum_eq_zero
+    intro x hx
+    rw [List.mem_map] at hx
+    rcases hx with ⟨clause, h_mem, rfl⟩
+    exact (clauseSharesFactor_iff_zero_conditional_clause_entropy a clause
+      (h_clauses_nonempty clause h_mem)).mp (h_all_share clause h_mem)
+  · intro h_sum_zero
+    intro clause h_clause_mem
+    -- Each clause entropy is non-negative
+    have h_nonneg : ∀ c ∈ cnf, 0 ≤ conditionalClauseEntropy (assignmentCompositePrime a) c :=
+      fun c _ => conditionalClauseEntropy_nonneg _ c
+    -- If a sum of non-negative reals equals zero, each term must be zero
+    -- We prove this by contradiction: if some term were positive, the sum would be positive
+    have h_clause_zero : conditionalClauseEntropy (assignmentCompositePrime a) clause = 0 := by
+      by_contra h_ne
+      have h_pos : 0 < conditionalClauseEntropy (assignmentCompositePrime a) clause :=
+        lt_of_le_of_ne (h_nonneg clause h_clause_mem) (Ne.symm h_ne)
+      -- Split cnf at clause
+      obtain ⟨pre, post, h_eq⟩ := List.append_of_mem h_clause_mem
+      rw [h_eq, List.map_append, List.map_cons, List.sum_append, List.sum_cons] at h_sum_zero
+      have h_pre_nn : 0 ≤ (pre.map (conditionalClauseEntropy (assignmentCompositePrime a))).sum :=
+        List.sum_nonneg (fun x hx => by
+          rw [List.mem_map] at hx; rcases hx with ⟨c, hc, rfl⟩
+          exact conditionalClauseEntropy_nonneg _ c)
+      have h_post_nn : 0 ≤ (post.map (conditionalClauseEntropy (assignmentCompositePrime a))).sum :=
+        List.sum_nonneg (fun x hx => by
+          rw [List.mem_map] at hx; rcases hx with ⟨c, _, rfl⟩
+          exact conditionalClauseEntropy_nonneg _ c)
+      linarith
+    exact (clauseSharesFactor_iff_zero_conditional_clause_entropy a clause
+      (h_clauses_nonempty clause h_clause_mem)).mpr h_clause_zero
 
 end EGPT.Complexity

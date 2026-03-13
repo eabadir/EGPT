@@ -247,6 +247,64 @@ def computeTableau? {k : ℕ} (cnf : SyntacticCNF_EGPT k)
   else
     none
 
+/--
+**Lemma: `computeTableau?` returns `none` iff the candidate does not satisfy the CNF.**
+
+This follows directly from the `if`/`else` branch structure of `computeTableau?`.
+-/
+theorem computeTableau_none_iff_not_sat {k : ℕ} (cnf : SyntacticCNF_EGPT k) (v : Vector Bool k) :
+    computeTableau? cnf v = none ↔ evalCNF cnf v = false := by
+  constructor
+  · intro h_none
+    unfold computeTableau? at h_none
+    by_contra h_not_false
+    push_neg at h_not_false
+    have h_true : evalCNF cnf v = true := by
+      cases evalCNF cnf v <;> simp_all
+    simp [h_true] at h_none
+  · intro h_false
+    unfold computeTableau?
+    simp [h_false]
+
+/--
+**Lemma: When `computeTableau?` returns `some`, the resulting tableau's
+complexity is bounded by `cnf.length * k`.**
+
+This matches the `walkComplexity_upper_bound` bound. The walk logic in
+`computeTableau?` constructs the same `witness_paths` structure as
+`walkCNFPaths`, so the same per-clause bound applies.
+-/
+theorem computeTableau_time_bounded {k : ℕ} (cnf : SyntacticCNF_EGPT k) (v : Vector Bool k)
+    (tableau : SatisfyingTableau k)
+    (h : computeTableau? cnf v = some tableau) :
+    tableau.complexity ≤ cnf.length * k := by
+  -- Extract that evalCNF cnf v = true from the `some` branch
+  have h_valid : evalCNF cnf v = true := by
+    unfold computeTableau? at h
+    split at h
+    · case isTrue h_true => exact h_true
+    · case isFalse => simp at h
+  -- The tableau from computeTableau? has specific structure
+  have h_tableau : tableau = {
+      cnf := cnf,
+      assignment := v,
+      witness_paths := cnf.map (fun clause =>
+        match clause.find? (fun lit => evalLiteral lit v) with
+        | some lit => PathToConstraint lit
+        | none     => fromNat 0),
+      h_valid := h_valid
+    } := by
+    unfold computeTableau? at h
+    simp [h_valid] at h
+    exact h.symm
+  -- The tableau equals the one produced by walkCNFPaths, so reuse its bound
+  let endpoint : { w : Vector Bool k // evalCNF cnf w = true } := ⟨v, h_valid⟩
+  have h_eq : tableau.complexity = (walkCNFPaths cnf endpoint).complexity := by
+    rw [h_tableau]
+    rfl
+  rw [h_eq]
+  exact walkComplexity_upper_bound cnf endpoint
+
 -- Backward-compatible alias used by PPNP.lean
 noncomputable abbrev constructSatisfyingTableau {k : ℕ} := @walkCNFPaths k
 noncomputable abbrev tableauComplexity_upper_bound {k : ℕ} := @walkComplexity_upper_bound k
