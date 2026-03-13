@@ -38,7 +38,7 @@
 | 6 | `NumberTheory/Analysis.lean` | | | | ● | | RET (Rota's Entropy Theorem) applied: proves all entropy is scaled Shannon entropy. Imports Physics + Entropy + PPNP. The "capstone" analysis file. |
 | 7 | `NumberTheory/ContinuumHypothesis.lean` | | | | ◐ | ● | `EGPT_ContinuumHypothesis`, `EGPT_GeneralizedContinuumHypothesis`, `AbadirCompletenessTheorem`, `TypeTheoryConstructible`. Beth staircase, CH/GCH decidable, universe completeness. Pure ID5. |
 | 8 | `Complexity/Core.lean` | ◐ | ● | | | | `IsPolynomialEGPT`, `IsBoundedByEGPT_Polynomial`, `PathToConstraint`. Defines polynomial-time computation in EGPT terms using native ParticlePath arithmetic. |
-| 9 | `Complexity/Tableau.lean` | | ● | | | ◐ | `SatisfyingTableau`, `constructSatisfyingTableau`, `tableauComplexity_upper_bound`. The NP certificate and its polynomial complexity bound. Core of the P=NP argument. |
+| 9 | `Complexity/TableauFromCNF.lean` | | ● | | | ◐ | `SatisfyingTableau`, `walkCNFPaths`, `walkComplexity_upper_bound`. The NP certificate and its polynomial complexity bound. Core of the P=NP argument. |
 | 10 | `Complexity/PPNP.lean` | | ● | | | ◐ | `P`, `NP`, `P_eq_NP`, `EGPT_CookLevin_Theorem`, `IsNPComplete`, `L_SAT_in_P`, `L_SAT_in_NP`. The P=NP theorem. The crown jewel of the complexity layer. |
 | 11 | `Complexity/UTM.lean` | | ◐ | | | | `UniversalTuringMachine_EGPT`. UTM as universal certifier. Not used in the formal proof chain but demonstrates the construction. |
 | 12 | `Complexity/Physics.lean` | ● | ◐ | ● | | | `ParticleState_SAT`, `advance_state`, `NDTM_A_run`, `construct_solution_filter`, `potential_next_state`. Physical model of computation as constrained random walk. Markov process formalization. |
@@ -59,12 +59,12 @@
 ## Relevance by User Role
 
 ### Complexity Theorist
-**Start here:** `Complexity/PPNP.lean` (P_eq_NP, Cook-Levin), then `Complexity/Tableau.lean` (certificate construction), then `Complexity/Core.lean` (polynomial definitions), then `Constraints.lean` (CNF encoding).
+**Start here:** `Complexity/PPNP.lean` (P_eq_NP, Cook-Levin), then `Complexity/TableauFromCNF.lean` (certificate construction), then `Complexity/Core.lean` (polynomial definitions), then `Constraints.lean` (CNF encoding).
 
 **Key theorems:**
 - `P_eq_NP` -- the main result
 - `EGPT_CookLevin_Theorem` -- SAT is NP-Complete
-- `tableauComplexity_upper_bound` -- certificate cost <= clauses x variables
+- `walkComplexity_upper_bound` -- certificate cost <= clauses x variables
 - `encodeCNF_size_ge_k` -- encoding lower bound
 
 ### Mathematician (Number Theory / Set Theory)
@@ -97,15 +97,15 @@
 **Start here:** `Complexity/PPNP.lean` (the sorry-free proof chain), then `NumberTheory/Core.lean` (the bijection techniques).
 
 **Key patterns:**
-- The 6-file sorry-free, axiom-free proof chain (Core -> NT/Core -> Constraints -> Complexity/Core -> Tableau -> PPNP)
-- Constructive certificate building (`constructSatisfyingTableau`)
+- The 8-file sorry-free, axiom-free proof chain (Core -> NT/Core -> Constraints -> Complexity/Core -> TableauFromCNF -> PPNP)
+- Constructive certificate building (`walkCNFPaths`)
 - Bijection-based arithmetic (`equivParticlePathToNat` used for all operations)
 - Rota axiom verification (7 axioms proven individually in `Entropy/H.lean`)
 
 ### Cryptographer
 **Start here:** `Complexity/PPNP.lean` (P=NP implications), then `Constraints.lean` (CNF encoding sizes).
 
-**Key concern:** If P=NP holds within EGPT's framework, what are the implications for cryptographic hardness assumptions? The `encodeCNF_size_ge_k` and `tableauComplexity_upper_bound` theorems define the concrete polynomial bounds.
+**Key concern:** If P=NP holds within EGPT's framework, what are the implications for cryptographic hardness assumptions? The `encodeCNF_size_ge_k` and `walkComplexity_upper_bound` theorems define the concrete polynomial bounds.
 
 ---
 
@@ -127,7 +127,7 @@
 | ID | Primary Coverage (●) | Secondary Coverage (◐) | Assessment |
 |----|----------------------|------------------------|------------|
 | **ID1** (Ulam/random walk) | 3 files: `Core.lean`, `NT/Core.lean`, `Complexity/Physics.lean` | 4 files | **Adequate.** The random walk is the foundation but is largely "absorbed" into the ParticlePath type. The physical interpretation (CGS units from random walks) is implicit rather than explicitly formalized as a theorem. |
-| **ID2** (Von Neumann/statistical AI) | 4 files: `Constraints.lean`, `NT/Filter.lean`, `Complexity/Core.lean`, `Complexity/Tableau.lean`, `Complexity/PPNP.lean` | 5 files | **Strong.** The entire complexity proof chain is about polynomial-time decidability. The statistical/non-deterministic computation model is in `Complexity/Physics.lean`. |
+| **ID2** (Von Neumann/statistical AI) | 4 files: `Constraints.lean`, `NT/Filter.lean`, `Complexity/Core.lean`, `Complexity/TableauFromCNF.lean`, `Complexity/PPNP.lean` | 5 files | **Strong.** The entire complexity proof chain is about polynomial-time decidability. The statistical/non-deterministic computation model is in `Complexity/Physics.lean`. |
 | **ID3** (Einstein/discrete physics) | 7 files: `Complexity/Physics.lean`, `Physics/Common.lean`, `Physics/BoseEinstein.lean`, `Physics/FermiDirac.lean`, `Physics/MaxwellBoltzmann.lean`, `Physics/PhysicsDist.lean`, `Physics/PhotonicCA.lean`, `Physics/RealityIsComputation.lean` | 2 files | **Strong.** All three canonical distributions formalized algebraically. The `RealityIsComputation` capstone proves discrete physics -> computation. |
 | **ID4** (Rota/entropy) | 5 files: `NT/Analysis.lean`, `Entropy/Common.lean`, `Entropy/H.lean`, `Entropy/RET.lean`, `Physics/PhysicsDist.lean` | 7 files | **Strong.** All 7 Rota axioms proven for Shannon entropy. RECT proved. Entropy = C x Shannon proved for all three physics distributions. The entropy layer is the most thoroughly developed. |
 | **ID5** (Abadir/CH+unique rep) | 2 files: `NT/Core.lean`, `NT/ContinuumHypothesis.lean` | 6 files | **Adequate but concentrated.** CH, GCH, and AbadirCompletenessTheorem are all in one file. The unique representation principle ("address is the map") is pervasive but implicit -- it motivates the bijection design rather than being stated as a standalone theorem. |
@@ -152,7 +152,7 @@
 
 **Gap:** Von Neumann's idea of a statistical computer is realized through the complexity proof chain, but there is no explicit `StatisticalComputer` type or theorem stating "a computer that operates statistically can solve NP problems in polynomial time."
 
-**Recommendation:** The `Complexity/Physics.lean` file's `NDTM_A_run` is the closest artifact. A theorem explicitly connecting the statistical solver to the deterministic `constructSatisfyingTableau` would bridge ID2 more directly.
+**Recommendation:** The `Complexity/Physics.lean` file's `NDTM_A_run` is the closest artifact. A theorem explicitly connecting the statistical solver to the deterministic `walkCNFPaths` would bridge ID2 more directly.
 
 ### 4. Entropy layer has `sorry` instances
 
@@ -172,7 +172,7 @@ PROOF CHAIN (sorry-free, axiom-free):
     -> NumberTheory/Core.lean
       -> Constraints.lean
         -> Complexity/Core.lean
-          -> Complexity/Tableau.lean
+          -> Complexity/TableauFromCNF.lean
             -> Complexity/PPNP.lean  [P_eq_NP]
 
 ENTROPY (independent, some sorry):

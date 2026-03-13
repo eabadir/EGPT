@@ -20,7 +20,7 @@ For the full narrative and motivation behind EGPT, see [EGPT_STORY.md](../../EGP
 
 ### Complexity — The P=NP Proof (`Complexity/`)
 - **[Core.lean](Complexity/Core.lean)** — `PathToConstraint` (the address IS the path), polynomial definitions
-- **[Tableau.lean](Complexity/Tableau.lean)** — `SatisfyingTableau`, `constructSatisfyingTableau`, `tableauComplexity_upper_bound` (cost ≤ clauses × variables)
+- **[TableauFromCNF.lean](Complexity/TableauFromCNF.lean)** — `SatisfyingTableau`, `constructSatisfyingTableau`, `tableauComplexity_upper_bound` (cost ≤ clauses × variables)
 - **[PPNP.lean](Complexity/PPNP.lean)** — `P`, `NP`, **`P_eq_NP`** (the theorem), `EGPT_CookLevin_Theorem`
 
 For a detailed walkthrough of the proof: [PeqNP_Proof_README.md](PeqNP_Proof_README.md)
@@ -48,7 +48,7 @@ Constraints.lean (CNF as addresses)
     ↓
 Complexity/Core.lean (PathToConstraint: address = path)
     ↓
-Complexity/Tableau.lean (SatisfyingTableau, polynomial bound)
+Complexity/TableauFromCNF.lean (SatisfyingTableau, polynomial bound)
     ↓
 Complexity/PPNP.lean (P = NP via Iff.rfl)
 ```

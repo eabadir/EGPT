@@ -280,7 +280,7 @@ This set of instructions is a list of paths—one for each clause in the CNF. Ea
 Let's build the formal definitions.
 
 ```lean
--- In a new file, e.g., EGPT/Complexity/Tableau.lean
+-- In a new file, e.g., EGPT/Complexity/TableauFromCNF.lean
 
 import EGPT.Complexity.PPNP -- For SyntacticCNF_EGPT, etc.
 import EGPT.NumberTheory.Core -- For ParticlePath, fromNat, toNat
@@ -346,7 +346,7 @@ assignment, it generates the canonical Tableau. It does this by iterating
 through each clause, finding the first literal that satisfies it (which is
 guaranteed to exist), and recording the `PathToConstraint` for that literal.
 -/
-noncomputable def constructSatisfyingTableau {k : ℕ} (cnf : SyntacticCNF_EGPT k) (solution : { v : Vector Bool k // evalCNF cnf v = true }) : SatisfyingTableau k :=
+noncomputable def walkCNFPaths {k : ℕ} (cnf : SyntacticCNF_EGPT k) (solution : { v : Vector Bool k // evalCNF cnf v = true }) : SatisfyingTableau k :=
   let assignment := solution.val
   let h_valid := solution.property
 
@@ -386,7 +386,7 @@ the "size of a satisfying Tableau" is precisely the sum of the EGPT natural
 numbers (`ParticlePath`s) representing the work needed to verify each clause.
 -/
 theorem tableauComplexity_eq_sum_of_paths {k : ℕ} (cnf : SyntacticCNF_EGPT k) (solution : { v : Vector Bool k // evalCNF cnf v = true }) :
-  let tableau := constructSatisfyingTableau cnf solution
+  let tableau := walkCNFPaths cnf solution
   tableau.complexity = (tableau.witness_paths.map toNat).sum :=
 by
   -- The proof is by definition.

@@ -152,14 +152,23 @@ const SECTIONS = [
   },
   // ── Complexity ────────────────────────────────────────────────
   {
-    title: 'Complexity — Tableau & Polynomial Bounds',
-    description: 'Satisfying tableaux as NP certificates with constructive polynomial bounds.',
-    file: 'EGPT/Complexity/Tableau.lean',
+    title: 'Complexity — TableauFromCNF & Polynomial Bounds',
+    description: 'walkCNFPaths constructs satisfying tableaux with constructive polynomial bounds.',
+    file: 'EGPT/Complexity/TableauFromCNF.lean',
     theorems: [
       'EGPT.Complexity.PathToConstraint',
-      'EGPT.Complexity.constructSatisfyingTableau',
-      'EGPT.Complexity.tableauComplexity_upper_bound',
-      'EGPT.Complexity.tableauComplexity_eq_sum_of_paths',
+      'EGPT.Complexity.walkCNFPaths',
+      'EGPT.Complexity.walkComplexity_upper_bound',
+      'EGPT.Complexity.walkComplexity_eq_sum_of_paths',
+    ],
+  },
+  {
+    title: 'Complexity — Information Bridge',
+    description: 'Time complexity = information complexity interpretation theorems.',
+    file: 'EGPT/Complexity/ComplexityInformationBridge.lean',
+    theorems: [
+      'EGPT.Complexity.Interpretation.nSquared_time_complexity_is_information_complexity',
+      'EGPT.Complexity.Interpretation.walk_nSquared_bound_is_time_and_information',
     ],
   },
   {

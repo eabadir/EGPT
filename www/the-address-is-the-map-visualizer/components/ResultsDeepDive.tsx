@@ -216,10 +216,10 @@ export const ResultsDeepDive: React.FC<ResultsDeepDiveProps> = ({
         {activeTab === 'theory' && (
           <div className="space-y-3">
             <div className="bg-slate-900/50 rounded p-3 border border-slate-700">
-              <h4 className="font-semibold text-emerald-400 mb-2 text-sm">Certificate = Tableau</h4>
+              <h4 className="font-semibold text-emerald-400 mb-2 text-sm">Certificate = WalkCNFPaths</h4>
               <p className="text-xs text-slate-300">
-                The certificate corresponds to a <code className="text-cyan-300 bg-slate-800 px-1 rounded">SatisfyingTableau</code> in{' '}
-                <code className="text-cyan-300 bg-slate-800 px-1 rounded">EGPT/Complexity/Tableau.lean</code>
+                The certificate corresponds to a <code className="text-cyan-300 bg-slate-800 px-1 rounded">walkCNFPaths</code> result in{' '}
+                <code className="text-cyan-300 bg-slate-800 px-1 rounded">EGPT/Complexity/TableauFromCNF.lean</code>
               </p>
               <p className="text-xs text-slate-400 mt-2">
                 This structure contains the satisfying assignment and witness paths that prove the problem is satisfiable.
@@ -251,7 +251,7 @@ export const ResultsDeepDive: React.FC<ResultsDeepDiveProps> = ({
               <h4 className="font-semibold text-emerald-400 mb-2 text-sm">Key Theorems</h4>
               <ul className="text-xs text-slate-300 space-y-2">
                 <li>
-                  <code className="text-cyan-300 bg-slate-800 px-1 rounded">tableauComplexity_upper_bound</code>:{' '}
+                  <code className="text-cyan-300 bg-slate-800 px-1 rounded">walkComplexity_upper_bound</code>:{' '}
                   Proves certificate complexity ≤ N²
                 </li>
                 <li>

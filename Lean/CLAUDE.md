@@ -23,8 +23,10 @@ EGPT/
 │   ├── Analysis.lean              # Analytical properties
 │   └── Filter.lean                # Rejection filters, probability distributions
 ├── Complexity/                    # *** THE P=NP PROOF CHAIN ***
-│   ├── Core.lean                  # PathToConstraint, polynomial definitions
-│   ├── Tableau.lean               # SatisfyingTableau, constructSatisfyingTableau, complexity bounds
+│   ├── Core.lean                  # PathToConstraint, polynomial definitions, equivPathNat/equivCNFPath/pathNat/natPath aliases
+│   ├── TableauFromCNF.lean        # SatisfyingTableau, walkCNFPaths, walkComplexity_upper_bound
+│   ├── ComplexityInformationBridge.lean  # Interpretation theorems: time complexity = information complexity
+│   ├── Interpretation.lean        # Thin import shim re-exporting ComplexityInformationBridge
 │   ├── PPNP.lean                  # P, NP, P_eq_NP, Cook-Levin theorem
 │   └── UTM.lean                   # Universal Turing Machine (NOT used in proof)
 ├── Entropy/                       # *** INDEPENDENT PROOF — not in P=NP chain ***
@@ -46,12 +48,14 @@ PPNP/                              # Development workspace
 
 ## Critical Invariants
 
-1. **The P=NP proof chain is sorry-free and axiom-free.** These 6 files form the chain:
+1. **The P=NP proof chain is sorry-free and axiom-free.** These 8 files form the chain:
    - `EGPT/Core.lean`
    - `EGPT/NumberTheory/Core.lean`
    - `EGPT/Constraints.lean`
    - `EGPT/Complexity/Core.lean`
-   - `EGPT/Complexity/Tableau.lean`
+   - `EGPT/Complexity/TableauFromCNF.lean`
+   - `EGPT/Complexity/ComplexityInformationBridge.lean`
+   - `EGPT/Complexity/Interpretation.lean`
    - `EGPT/Complexity/PPNP.lean`
 
    Do NOT introduce `sorry`, `axiom`, or `native_decide` into these files.
@@ -66,12 +70,15 @@ PPNP/                              # Development workspace
 |-----------|------|---------|
 | `ParticlePath` | `Core.lean` | `{ L : List Bool // PathCompress_AllTrue L }` — maximally compressed paths |
 | `equivParticlePathToNat` | `NumberTheory/Core.lean` | Proven bijection `ParticlePath ≃ ℕ` |
-| `SatisfyingTableau` | `Complexity/Tableau.lean` | Certificate type for CNF satisfiability |
-| `constructSatisfyingTableau` | `Complexity/Tableau.lean` | Deterministic certificate construction |
-| `tableauComplexity_upper_bound` | `Complexity/Tableau.lean` | Cost ≤ clauses × variables |
-| `P` / `NP` | `Complexity/PPNP.lean` | Complexity class definitions (structurally distinct) |
-| `P_eq_NP` | `Complexity/PPNP.lean` | **The P = NP theorem (non-trivial proof)** |
-| `constructTableauFromCNF` | `Complexity/PPNP.lean` | Deterministic construction from CNF alone + existence proof |
+| `equivPathNat` | `Complexity/Core.lean` | Complexity-facing alias for `equivParticlePathToNat` |
+| `equivCNFPath` | `Complexity/Core.lean` | Complexity-facing alias for `equivSyntacticCNF_to_ParticlePath` |
+| `pathNat` / `natPath` | `Complexity/Core.lean` | Aliases for `toNat` / `fromNat` used within the complexity layer |
+| `SatisfyingTableau` | `Complexity/TableauFromCNF.lean` | Certificate type for CNF satisfiability |
+| `walkCNFPaths` | `Complexity/TableauFromCNF.lean` | Full walk: visits every CNF clause and records the path to its satisfied literal |
+| `walkComplexity_upper_bound` | `Complexity/TableauFromCNF.lean` | Walk cost ≤ clauses × variables (the n² bound) |
+| `ComplexityInformationBridge` | `Complexity/ComplexityInformationBridge.lean` | Interpretation theorems: n² time complexity = n² information complexity |
+| `P` / `NP` | `Complexity/PPNP.lean` | Complexity class definitions — identical definitions, identity forced by bijection chain |
+| `P_eq_NP` | `Complexity/PPNP.lean` | **The P = NP theorem — definitional identity (`Set.ext` + `Iff.rfl`), consequence of proven bijection chain** |
 | `canonical_n_squared_bound` | `Complexity/PPNP.lean` | \|cnf\| x k ≤ n² helper lemma |
 | `EGPT_CookLevin_Theorem` | `Complexity/PPNP.lean` | SAT is NP-Complete |
 | `EGPT_ContinuumHypothesis` | `NumberTheory/ContinuumHypothesis.lean` | CH decidable & true (Hilbert #1) |

@@ -81,7 +81,7 @@ On his deathbed in 1957, von Neumann completed a devastating diagnosis of his ow
 | [EGPTMath/FAT/EGPTFAT.js](EGPTMath/FAT/EGPTFAT.js) -- Integer-only FFT/QFT | Code | QC enthusiast | Quantum computing enthusiast, Hardware engineer |
 | [EGPTMath/FAT/FAT_README.md](EGPTMath/FAT/FAT_README.md) -- FAT architecture docs | Code | | Hardware engineer, QC enthusiast |
 | [Lean/EGPT/Complexity/PPNP.lean](Lean/EGPT/Complexity/PPNP.lean) -- `P_eq_NP` | Proof | Complexity theorist | Complexity theorist, Proof engineer |
-| [Lean/EGPT/Complexity/Tableau.lean](Lean/EGPT/Complexity/Tableau.lean) -- Certificate construction | Proof | | Complexity theorist, Proof engineer |
+| [Lean/EGPT/Complexity/TableauFromCNF.lean](Lean/EGPT/Complexity/TableauFromCNF.lean) -- Certificate construction | Proof | | Complexity theorist, Proof engineer |
 | [www/GPUHeatDeath.html](www/GPUHeatDeath.html) -- Floating-point erosion visualizer | Demo | Everyone | Founder/investor, Hardware engineer, AI/ML engineer |
 | [content/Notes/Precision Loss.md](content/Notes/Precision%20Loss.md) -- Key von Neumann quotes | Reading | | AI/ML engineer, Hardware engineer |
 | [content/Notes/Monte Carlo and AI.md](content/Notes/Monte%20Carlo%20and%20AI.md) -- "AI Is Monte Carlo" | Reading | | AI industry practitioner, AI/ML engineer |
@@ -184,7 +184,7 @@ The central insight is embarrassingly simple: "Is there a whole number between 0
 
 #### Connections
 
-Ulam's random walk gives us `ParticlePath`, the data structure that makes P=NP provable and CH decidable. Because every walk is informationally primitive, the address space has no gaps and no hidden dimensions -- Cantor's diagonal fails because every walk is already in the enumeration by construction (**ID1**). The "address is the map" resolves the Free Address Fallacy: in the Turing model, memory access is O(1), but in EGPT, the cost of reaching an address *is* the address, which is why `constructSatisfyingTableau` produces a certificate in polynomial time (**ID2**). The proof that no intermediate cardinality exists removes the last mathematical obstacle to Einstein's discrete physics (**ID3**). Unique representations give Rota's entropy theorem its full power: without them, you could encode the same information multiple ways and violate conditional additivity by double-counting. The Fundamental Theorem of Arithmetic, treated as a Shannon coder, prevents this (**ID4**).
+Ulam's random walk gives us `ParticlePath`, the data structure that makes P=NP provable and CH decidable. Because every walk is informationally primitive, the address space has no gaps and no hidden dimensions -- Cantor's diagonal fails because every walk is already in the enumeration by construction (**ID1**). The "address is the map" resolves the Free Address Fallacy: in the Turing model, memory access is O(1), but in EGPT, the cost of reaching an address *is* the address, which is why `walkCNFPaths` produces a certificate in polynomial time (**ID2**). The proof that no intermediate cardinality exists removes the last mathematical obstacle to Einstein's discrete physics (**ID3**). Unique representations give Rota's entropy theorem its full power: without them, you could encode the same information multiple ways and violate conditional additivity by double-counting. The Fundamental Theorem of Arithmetic, treated as a Shannon coder, prevents this (**ID4**).
 
 ---
 
@@ -229,7 +229,7 @@ Ulam's random walk gives us `ParticlePath`, the data structure that makes P=NP p
 | 2 | Read [SKEPTICS_GUIDE.md](SKEPTICS_GUIDE.md) | ID5 | The skeptic's walkthrough of the P=NP argument: where does EGPT diverge from the standard model? |
 | 3 | Read [content/Papers/EGPT_PeqNP/PeqNP_QED.md](content/Papers/EGPT_PeqNP/PeqNP_QED.md) | ID5, ID4 | The full proof paper: 78 machine-verified theorems, the Free Address Fallacy, certificate complexity bound. |
 | 4 | Read [Lean/EGPT/Complexity/PPNP.lean](Lean/EGPT/Complexity/PPNP.lean) (line 378) | ID5 | The `P_eq_NP` theorem statement: 10 lines via `Set.ext` + `Iff.rfl`. |
-| 5 | Read [Lean/EGPT/Complexity/Tableau.lean](Lean/EGPT/Complexity/Tableau.lean) | ID2, ID5 | `constructSatisfyingTableau` and `tableauComplexity_upper_bound` -- the certificate and its polynomial cost. |
+| 5 | Read [Lean/EGPT/Complexity/TableauFromCNF.lean](Lean/EGPT/Complexity/TableauFromCNF.lean) | ID2, ID5 | `walkCNFPaths` and `walkComplexity_upper_bound` -- the certificate and its polynomial cost. |
 | 6 | Read [Lean/EGPT_PROOFS_VALIDATION.md](Lean/EGPT_PROOFS_VALIDATION.md) | All | The complete theorem inventory showing only `propext`, `Quot.sound`, `Classical.choice`. |
 
 #### Proof Engineer
@@ -238,7 +238,7 @@ Ulam's random walk gives us `ParticlePath`, the data structure that makes P=NP p
 
 | Step | Action | Idea | What you learn |
 |------|--------|------|----------------|
-| 1 | Read [Lean/EGPT_PROOFS_VALIDATION.md](Lean/EGPT_PROOFS_VALIDATION.md) | All | Full axiom inventory: the 6-file proof chain uses only standard Lean axioms. |
+| 1 | Read [Lean/EGPT_PROOFS_VALIDATION.md](Lean/EGPT_PROOFS_VALIDATION.md) | All | Full axiom inventory: the 8-file proof chain uses only standard Lean axioms. |
 | 2 | Read [content/docs/EGPT_FTA.md](content/docs/EGPT_FTA.md) | ID4, ID5 | Lean artifact map: theorem names, file locations, logical dependency chain. |
 | 3 | Run `cd Lean && lake build` | All | Verify the entire proof chain builds cleanly. |
 | 4 | Read [Lean/EGPT/Complexity/PPNP.lean](Lean/EGPT/Complexity/PPNP.lean) | ID5 | The sorry-free P=NP proof. Study `Set.ext` + `Iff.rfl` pattern. |
@@ -369,8 +369,10 @@ PROOF CHAIN (sorry-free, axiom-free):
     -> NumberTheory/Core.lean (bijection N <=> ParticlePath)
       -> Constraints.lean (CNF encoding)
         -> Complexity/Core.lean (polynomial definitions)
-          -> Complexity/Tableau.lean (certificate construction)
-            -> Complexity/PPNP.lean [P_eq_NP]
+          -> Complexity/TableauFromCNF.lean (certificate construction)
+            -> Complexity/ComplexityInformationBridge.lean (complexity-information bridge)
+              -> Complexity/Interpretation.lean (interpretation layer)
+                -> Complexity/PPNP.lean [P_eq_NP]
 
 ENTROPY (independent, Rota axioms as foundation):
   Basic.lean + Core.lean

@@ -10,14 +10,16 @@
   "core_identity": "ParticlePath = ComputerTape = RandomWalkPath = List Bool",
   "chains": {
     "p_eq_np": {
-      "description": "The P=NP proof chain. 6 files, sorry-free, axiom-free.",
+      "description": "The P=NP proof chain. 8 files, sorry-free, axiom-free.",
       "files": [
         "EGPT/Basic.lean",
         "EGPT/Core.lean",
         "EGPT/NumberTheory/Core.lean",
         "EGPT/Constraints.lean",
         "EGPT/Complexity/Core.lean",
-        "EGPT/Complexity/Tableau.lean",
+        "EGPT/Complexity/TableauFromCNF.lean",
+        "EGPT/Complexity/ComplexityInformationBridge.lean",
+        "EGPT/Complexity/Interpretation.lean",
         "EGPT/Complexity/PPNP.lean"
       ],
       "capstone_theorem": "P_eq_NP"
@@ -62,7 +64,9 @@
     {"id": "NumberTheory.Core", "type": "proof", "file": "EGPT/NumberTheory/Core.lean", "theorems": ["equivParticlePathToNat", "cardinal_of_egpt_level", "EGPT_Polynomial"], "chain": "p_eq_np"},
     {"id": "Constraints", "type": "proof", "file": "EGPT/Constraints.lean", "theorems": ["encodeCNF_size_ge_k", "evalCNF_normalize_eq_evalCNF", "CanonicalCNF"], "chain": "p_eq_np"},
     {"id": "Complexity.Core", "type": "proof", "file": "EGPT/Complexity/Core.lean", "theorems": ["PathToConstraint", "IsPolynomialEGPT"], "chain": "p_eq_np"},
-    {"id": "Complexity.Tableau", "type": "proof", "file": "EGPT/Complexity/Tableau.lean", "theorems": ["constructSatisfyingTableau", "tableauComplexity_upper_bound"], "chain": "p_eq_np"},
+    {"id": "Complexity.TableauFromCNF", "type": "proof", "file": "EGPT/Complexity/TableauFromCNF.lean", "theorems": ["walkCNFPaths", "walkComplexity_upper_bound"], "chain": "p_eq_np"},
+    {"id": "Complexity.ComplexityInformationBridge", "type": "proof", "file": "EGPT/Complexity/ComplexityInformationBridge.lean", "theorems": ["nSquared_time_complexity_is_information_complexity"], "chain": "p_eq_np"},
+    {"id": "Complexity.Interpretation", "type": "proof", "file": "EGPT/Complexity/Interpretation.lean", "theorems": [], "chain": "p_eq_np"},
     {"id": "Complexity.PPNP", "type": "proof", "file": "EGPT/Complexity/PPNP.lean", "theorems": ["P_eq_NP", "EGPT_CookLevin_Theorem", "L_SAT_in_NP", "L_SAT_in_P"], "chain": "p_eq_np"},
     {"id": "Entropy.Common", "type": "proof", "file": "EGPT/Entropy/Common.lean", "theorems": ["rect_program_for_dist", "RECT_Entropy_to_Program", "IID_Source_to_Program"], "chain": "entropy"},
     {"id": "Entropy.RET", "type": "proof", "file": "EGPT/Entropy/RET.lean", "theorems": ["RotaUniformTheorem", "uniformEntropy_power_law"], "chain": "entropy"},
@@ -87,10 +91,12 @@
     {"from": "Core", "to": "NumberTheory.Core", "type": "proof_dependency"},
     {"from": "NumberTheory.Core", "to": "Constraints", "type": "proof_dependency"},
     {"from": "Constraints", "to": "Complexity.Core", "type": "proof_dependency"},
-    {"from": "Complexity.Core", "to": "Complexity.Tableau", "type": "proof_dependency"},
-    {"from": "Complexity.Tableau", "to": "Complexity.PPNP", "type": "proof_dependency"},
-    {"from": "Entropy.Common", "to": "Complexity.Tableau", "type": "type_import_only"},
-    {"from": "Physics.PhysicsDist", "to": "Complexity.Tableau", "type": "type_import_only"},
+    {"from": "Complexity.Core", "to": "Complexity.TableauFromCNF", "type": "proof_dependency"},
+    {"from": "Complexity.TableauFromCNF", "to": "Complexity.ComplexityInformationBridge", "type": "proof_dependency"},
+    {"from": "Complexity.ComplexityInformationBridge", "to": "Complexity.Interpretation", "type": "proof_dependency"},
+    {"from": "Complexity.Interpretation", "to": "Complexity.PPNP", "type": "proof_dependency"},
+    {"from": "Entropy.Common", "to": "Complexity.TableauFromCNF", "type": "type_import_only"},
+    {"from": "Physics.PhysicsDist", "to": "Complexity.TableauFromCNF", "type": "type_import_only"},
     {"from": "Entropy.Common", "to": "Complexity.PPNP", "type": "type_import_only"},
     {"from": "Physics.PhysicsDist", "to": "Complexity.PPNP", "type": "type_import_only"},
     {"from": "Core", "to": "Entropy.Common", "type": "proof_dependency"},
@@ -111,7 +117,7 @@
     {"from": "NumberTheory.Core", "to": "NumberTheory.ContinuumHypothesis", "type": "proof_dependency"},
     {"from": "NumberTheory.Core", "to": "NumberTheory.Filter", "type": "proof_dependency"},
     {"from": "Constraints", "to": "NumberTheory.Filter", "type": "proof_dependency"},
-    {"from": "Complexity.Tableau", "to": "Complexity.UTM", "type": "proof_dependency"},
+    {"from": "Complexity.TableauFromCNF", "to": "Complexity.UTM", "type": "proof_dependency"},
     {"from": "NumberTheory.Filter", "to": "Complexity.UTM", "type": "proof_dependency"}
   ]
 }

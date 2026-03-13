@@ -32,7 +32,7 @@
 | 6 | `Lean/EGPT/NumberTheory/Analysis.lean` | Yes (#6) |
 | 7 | `Lean/EGPT/NumberTheory/ContinuumHypothesis.lean` | Yes (#7) |
 | 8 | `Lean/EGPT/Complexity/Core.lean` | Yes (#8) |
-| 9 | `Lean/EGPT/Complexity/Tableau.lean` | Yes (#9) |
+| 9 | `Lean/EGPT/Complexity/TableauFromCNF.lean` | Yes (#9) |
 | 10 | `Lean/EGPT/Complexity/PPNP.lean` | Yes (#10) |
 | 11 | `Lean/EGPT/Complexity/UTM.lean` | Yes (#11) |
 | 12 | `Lean/EGPT/Complexity/Physics.lean` | Yes (#12) |

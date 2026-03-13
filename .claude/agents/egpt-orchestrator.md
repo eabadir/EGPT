@@ -16,7 +16,7 @@ Run `git diff --name-only HEAD~1` (or read the user's description of what change
 
 | Layer | Path Pattern |
 |-------|-------------|
-| **Proof chain** | `Lean/EGPT/Core.lean`, `Lean/EGPT/NumberTheory/Core.lean`, `Lean/EGPT/Constraints.lean`, `Lean/EGPT/Complexity/{Core,Tableau,PPNP}.lean` |
+| **Proof chain** | `Lean/EGPT/Core.lean`, `Lean/EGPT/NumberTheory/Core.lean`, `Lean/EGPT/Constraints.lean`, `Lean/EGPT/Complexity/{Core,TableauFromCNF,PPNP}.lean` |
 | **Physics** | `Lean/EGPT/Physics/*.lean` |
 | **Entropy** | `Lean/EGPT/Entropy/*.lean` |
 | **EGPTMath** | `EGPTMath/**` |
@@ -140,7 +140,7 @@ After all agents complete, summarize:
 
 ## Critical Invariants (Never Violate)
 
-1. The P=NP proof chain (6 files) must remain sorry-free and axiom-free
+1. The P=NP proof chain (8 files) must remain sorry-free and axiom-free
 2. **No floating point in EGPTMath core logic** — this is the core thesis in practice. IOPs, not FLOPs.
 3. **EGPTMath test suite must stay green** — 157 tests, 100% pass rate. Run after every change.
 4. FAT (Faster Abadir Transform) is proprietary — never expose optimized implementations. Only pedagogical variants in `EGPTMath/FAT/`.

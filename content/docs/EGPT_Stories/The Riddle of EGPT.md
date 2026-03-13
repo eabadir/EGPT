@@ -180,10 +180,10 @@ Any problem in the class NP can be expressed as a CNF satisfiability problem —
 
 Here is where the "address is the map" insight becomes the proof. In EGPT's information space, a CNF formula is a list of addresses — each literal contains a `particle_idx : Fin k` that points to a variable. But since every address *is* a `ParticlePath` (via `PathToConstraint`), defining the CNF has already defined the map to its solution. You cannot state the problem without simultaneously encoding the structure of its certificate.
 
-The `constructSatisfyingTableau` function deterministically walks every address in the CNF, finds the first satisfied literal in each clause, and records its `PathToConstraint`. The total cost is bounded by `cnf.length * k` — the number of clauses times the number of variables — which the encoding size bounds (`cnf_length_le_encoded_length` and `encodeCNF_size_ge_k`) reduce to `n²`.
+The `walkCNFPaths` function deterministically walks every address in the CNF, finds the first satisfied literal in each clause, and records its `PathToConstraint`. The total cost is bounded by `cnf.length * k` — the number of clauses times the number of variables — which the encoding size bounds (`cnf_length_le_encoded_length` and `encodeCNF_size_ge_k`) reduce to `n²`.
 
-*   **Lean Citation:** `EGPT/Complexity/Tableau.lean`
-    *   `theorem tableauComplexity_upper_bound` proves the certificate complexity is bounded by `cnf.length * k`.
+*   **Lean Citation:** `EGPT/Complexity/TableauFromCNF.lean`
+    *   `theorem walkComplexity_upper_bound` proves the certificate complexity is bounded by `cnf.length * k`.
 *   **Lean Citation:** `EGPT/Complexity/PPNP.lean`
     *   `theorem L_SAT_in_P` proves that this deterministic, polynomial-time construction places SAT in the P class.
 

@@ -17,12 +17,14 @@ cd Lean && lake build
 Must exit 0 with no errors.
 
 ### 2. Proof Chain Sorry-Free
-Search for `sorry` in the 6 proof chain files:
+Search for `sorry` in the 8 proof chain files:
 - `Lean/EGPT/Core.lean`
 - `Lean/EGPT/NumberTheory/Core.lean`
 - `Lean/EGPT/Constraints.lean`
 - `Lean/EGPT/Complexity/Core.lean`
-- `Lean/EGPT/Complexity/Tableau.lean`
+- `Lean/EGPT/Complexity/TableauFromCNF.lean`
+- `Lean/EGPT/Complexity/ComplexityInformationBridge.lean`
+- `Lean/EGPT/Complexity/Interpretation.lean`
 - `Lean/EGPT/Complexity/PPNP.lean`
 
 Must find zero occurrences of `sorry`, `axiom`, or `native_decide`.
@@ -140,7 +142,7 @@ Report results as a structured checklist:
 ## Sync Validation Report
 
 - [x] Lean build: PASS
-- [x] Proof chain sorry-free: PASS (0 sorries in 6 files)
+- [x] Proof chain sorry-free: PASS (0 sorries in 8 files)
 - [x] Theorem count: PASS (81 in validation report, 81 in README)
 - [x] EGPTMath tests: PASS (157/157)
 - [x] Import consistency: PASS

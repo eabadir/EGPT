@@ -14,7 +14,7 @@ Different documents require different tones:
 |--------------|------|---------|
 | `CLAUDE.md` files | Technical, structured, navigation-focused. Help agents and developers find what they need quickly. | Tables, bullet points, file paths |
 | `README.md` (root) | Intuitive, conversational, helps developers navigate the code. Not academic — think "helpful guide." | "Here's how the pieces fit together..." |
-| `PeqNP_Proof_README.md` | Technical walkthrough with line-number code references. Step-by-step logic. | "In `Tableau.lean:45`, the certificate is constructed by..." |
+| `PeqNP_Proof_README.md` | Technical walkthrough with line-number code references. Step-by-step logic. | "In `TableauFromCNF.lean:45`, the certificate is constructed by..." |
 | `EGPT_Stories/` | Accessible narrative, story-form. Make complex ideas feel intuitive through characters and scenarios. | "Anna realized that the address itself was the audit trail..." |
 | `EGPT_STORY.md` | Extended narrative exposition. The "campfire" version of the proof. | Full story arc from physics to proof |
 
@@ -62,7 +62,7 @@ When updating documentation, verify these stay consistent:
 1. **Theorem count**: Must match `Lean/EGPT_PROOFS_VALIDATION.md` (currently 85 theorems, 0 sorries). Propagate to: `README.md`, `CLAUDE.md`, `AGENTS.md`, `llms.txt`, `docs/PROOF_GRAPH.md`, `docs/proof_graph.json`
 2. **EGPTMath test count**: Must match actual `EGPTMath/test/EGPTTestSuite.js` output (currently 157 tests). Propagate to: `README.md`, `CLAUDE.md`, `AGENTS.md`, `llms.txt`, `EGPTMath/CLAUDE.md`
 3. **EGPTMath/FAT parity**: When EGPTMath adds a new concept, check if `AGENTS.md` Lean-to-JS mapping table and `EGPTMath/README.md` need updating. EGPTMath and FAT get equal billing with proofs in all navigation files.
-4. **Proof chain file list**: Must match `Lean/CLAUDE.md` exactly (6 files)
+4. **Proof chain file list**: Must match `Lean/CLAUDE.md` exactly (8 files)
 5. **File paths**: All paths referenced in docs must point to real files
 5b. **`_meta.json` file paths**: All file paths in `_meta.json` `highlights`, `subsections`, and `do_this_first` resolve to real files
 6. **Key definitions table**: Must match actual Lean code

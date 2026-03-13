@@ -50,14 +50,14 @@ A comprehensive testing environment with four main panels:
 - **CNF Problems**: Conjunctive Normal Form representation of logical constraints
 - **Certificates**: Satisfying assignments with witness literals and complexity measures
 - **PathToConstraint**: EGPT's measure of information cost for each constraint
-- **Tableau Complexity**: Sum of witness path costs, bounded by n²
+- **Walk Complexity**: Sum of witness path costs, bounded by n²
 
 ### EGPT Theory Integration
 The visualizer explicitly connects to the formal EGPT framework:
 
-- **Certificate = SatisfyingTableau**: From `EGPT/Complexity/Tableau.lean`
+- **Certificate = WalkCNFPaths**: From `EGPT/Complexity/TableauFromCNF.lean`
 - **Witness Paths = PathToConstraint**: Each literal's cost is its variable index
-- **Complexity Bound**: Demonstrates `tableauComplexity_upper_bound`
+- **Complexity Bound**: Demonstrates `walkComplexity_upper_bound`
 - **Bijection**: Mirrors `equivParticlePathToNat` from `EGPT/NumberTheory/Core.lean`
 - **P=NP Proof**: Shows definitional equality from `EGPT/Complexity/PPNP.lean`
 
@@ -130,7 +130,7 @@ This visualizer demonstrates the key concepts from the formal EGPT proof:
 1. **Number Theory Foundations**: `EGPT/NumberTheory/Core.lean`
 2. **Entropy and RET**: `EGPT/Entropy/RET.lean`
 3. **Constraints and CNF**: `EGPT/Constraints.lean`
-4. **SatisfyingTableau**: `EGPT/Complexity/Tableau.lean`
+4. **WalkCNFPaths**: `EGPT/Complexity/TableauFromCNF.lean`
 5. **P=NP Definition**: `EGPT/Complexity/PPNP.lean`
 
 The visualizer makes these abstract concepts concrete and interactive, showing how the "Address Is The Map" insight leads directly to P=NP.

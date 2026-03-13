@@ -2,7 +2,7 @@
 
 > Electronic Graph Paper Theory (EGPT) — a constructive, machine-verified proof that P = NP
 > and a working integer-only math library (EGPTMath) that replaces FLOPs with IOPs.
-> 85 Lean 4 theorems. No `sorry`. No custom axioms. 157 EGPTMath tests, 100% pass.
+> 87 Lean 4 theorems. No `sorry`. No custom axioms. 157 EGPTMath tests, 100% pass.
 > The proof says scalable AI is possible. EGPTMath and FAT show how.
 > Central principle: **"The address is the map."**
 
@@ -12,12 +12,14 @@ You are working in a repository with two equally important layers: **formal proo
 
 ## Critical Invariants — Never Violate
 
-1. **The P=NP proof chain is sorry-free and axiom-free.** Do NOT introduce `sorry`, `axiom`, or `native_decide` into these 6 files:
+1. **The P=NP proof chain is sorry-free and axiom-free.** Do NOT introduce `sorry`, `axiom`, or `native_decide` into these 8 files:
    - `Lean/EGPT/Core.lean`
    - `Lean/EGPT/NumberTheory/Core.lean`
    - `Lean/EGPT/Constraints.lean`
    - `Lean/EGPT/Complexity/Core.lean`
-   - `Lean/EGPT/Complexity/Tableau.lean`
+   - `Lean/EGPT/Complexity/TableauFromCNF.lean`
+   - `Lean/EGPT/Complexity/ComplexityInformationBridge.lean`
+   - `Lean/EGPT/Complexity/Interpretation.lean`
    - `Lean/EGPT/Complexity/PPNP.lean`
 
 2. **No floating point.** All math is integer operations (IOPs, not FLOPs). This is the core thesis.
@@ -32,7 +34,7 @@ You are working in a repository with two equally important layers: **formal proo
 |-----------|---------|----------------------|
 | [`EGPTMath/`](EGPTMath/) | Integer-only math library — FLOPs become IOPs. Exact arithmetic, no error accumulation. 157 tests. | [`EGPTMath/CLAUDE.md`](EGPTMath/CLAUDE.md) |
 | [`EGPTMath/FAT/`](EGPTMath/FAT/) | Faster Abadir Transform (pedagogical) — integer-only FFT/QFT. Classical QFT at O((log k)^3). | [`EGPTMath/FAT/FAT_README.md`](EGPTMath/FAT/FAT_README.md) |
-| [`Lean/`](Lean/) | Formal Lean 4 proofs (85 theorems, sorry-free, axiom-free) | [`Lean/CLAUDE.md`](Lean/CLAUDE.md) |
+| [`Lean/`](Lean/) | Formal Lean 4 proofs (87 theorems, sorry-free, axiom-free) | [`Lean/CLAUDE.md`](Lean/CLAUDE.md) |
 | [`content/`](content/) | Papers, books, reference docs, pyFRAQTL SDK | [`content/CLAUDE.md`](content/CLAUDE.md) |
 | [`www/`](www/) | Interactive browser demos and visualizers | [`www/CLAUDE.md`](www/CLAUDE.md) |
 | [`scripts/`](scripts/) | Build utilities (LaTeX-to-Markdown, validation report) | — |
@@ -42,7 +44,7 @@ Each subdirectory's `CLAUDE.md` contains detailed conventions, file inventories,
 ## Build & Verify
 
 ```bash
-# Lean proofs — typechecks all 85 theorems (requires Lean 4 + mathlib4)
+# Lean proofs — typechecks all 87 theorems (requires Lean 4 + mathlib4)
 cd Lean && lake build
 
 # EGPTMath — run the full test suite (157 tests)
@@ -60,7 +62,7 @@ node scripts/generate_sitemap.js
 
 ## Proof Dependency Graph
 
-### P=NP Proof Chain (6 files, sorry-free, axiom-free)
+### P=NP Proof Chain (8 files, sorry-free, axiom-free)
 
 ```
 EGPT/Core.lean ─────────── ParticlePath, ComputerTape
@@ -71,7 +73,11 @@ EGPT/Constraints.lean ──── CNF formulas, Literal_EGPT, encodeCNF
        |
 EGPT/Complexity/Core.lean ── PathToConstraint, polynomial definitions
        |
-EGPT/Complexity/Tableau.lean ── SatisfyingTableau, cost ≤ n²
+EGPT/Complexity/TableauFromCNF.lean ── walkCNFPaths, cost ≤ n²
+       |
+EGPT/Complexity/ComplexityInformationBridge.lean ── complexity-information bridge
+       |
+EGPT/Complexity/Interpretation.lean ── interpretation layer
        |
 EGPT/Complexity/PPNP.lean ── P, NP, P_eq_NP, Cook-Levin theorem
 ```
@@ -114,7 +120,7 @@ For Mermaid diagrams and a machine-readable JSON graph, see [`docs/PROOF_GRAPH.m
 | **Formal proofs (why it works)** | |
 | Understand the P=NP proof | [`Lean/EGPT/PeqNP_Proof_README.md`](Lean/EGPT/PeqNP_Proof_README.md) |
 | Audit the proof chain step-by-step | [`SKEPTICS_GUIDE.md`](SKEPTICS_GUIDE.md) |
-| See all 85 theorems with axiom inventory | [`Lean/EGPT_PROOFS_VALIDATION.md`](Lean/EGPT_PROOFS_VALIDATION.md) |
+| See all 87 theorems with axiom inventory | [`Lean/EGPT_PROOFS_VALIDATION.md`](Lean/EGPT_PROOFS_VALIDATION.md) |
 | Read the full dependency graph | [`Lean/PROOF_DEPENDENCIES.md`](Lean/PROOF_DEPENDENCIES.md) |
 | See the Mermaid proof DAG | [`docs/PROOF_GRAPH.md`](docs/PROOF_GRAPH.md) |
 | Ingest the graph programmatically | [`docs/proof_graph.json`](docs/proof_graph.json) |

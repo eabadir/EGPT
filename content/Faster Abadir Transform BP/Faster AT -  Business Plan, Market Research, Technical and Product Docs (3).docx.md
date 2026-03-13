@@ -1515,9 +1515,9 @@ The proof of P=NP is a direct consequence of defining complexity classes in a ca
 1. **The Canonical Problem:** All problems are reduced to finding a satisfying assignment for a CanonicalCNF, a syntactically unique representation of a CNF formula.  
    1. **Location:** EGPT/Constraints.lean, definition CanonicalCNF.  
 2. **The Physical Certificate:** A "yes" instance is verified by a SatisfyingTableau, a structure containing the solution and the physical "proof of work" paths needed to check it. Its complexity is a concrete ℕ.  
-   1. **Location:** EGPT/Complexity/Tableau.lean.  
-3. **The Deterministic P-Solver:** The function constructSatisfyingTableau deterministically builds the required certificate for any satisfiable instance. Its runtime complexity is tied to the complexity of the certificate, which is proven to be polynomially bounded.  
-   1. **Location:** EGPT/Complexity/Tableau.lean, see constructSatisfyingTableau and the bounding theorem tableauComplexity\_upper\_bound.  
+   1. **Location:** EGPT/Complexity/TableauFromCNF.lean.
+3. **The Deterministic P-Solver:** The function walkCNFPaths deterministically builds the required certificate for any satisfiable instance. Its runtime complexity is tied to the complexity of the certificate, which is proven to be polynomially bounded.
+   1. **Location:** EGPT/Complexity/TableauFromCNF.lean, see walkCNFPaths and the bounding theorem walkComplexity\_upper\_bound.  
 4. **The Complexity Classes P\_EGPT and NP\_EGPT:** The classes are defined by the existence of a polynomially-bounded SatisfyingTableau. def P\_EGPT : Set (Π k, Set (CanonicalCNF k)) :={ L | ∀ k c, (c ∈ L k) ↔ ∃ (t : SatisfyingTableau k), t.cnf \= c.val ∧ t.complexity ≤ toNat (canonical\_np\_poly.eval (fromNat (encodeCNF c.val).length)) }def NP\_EGPT : Set (Π k, Set (CanonicalCNF k)) :={ L | ∀ k c, (c ∈ L k) ↔ ∃ (t : SatisfyingTableau k), t.cnf \= c.val ∧ t.complexity ≤ toNat (canonical\_np\_poly.eval (fromNat (encodeCNF c.val).length)) }   
 5. **The Final Theorem:** The proof of equality is a direct consequence of the identical definitions. theorem P\_eq\_NP\_EGPT : P\_EGPT \= NP\_EGPT := by apply Set.ext; intro L; exact Iff.rfl
 
@@ -1583,7 +1583,7 @@ The EGPT framework thus asserts that this is not a coincidence but a formal cons
   * H.lean: Defines the canonical Shannon entropy function (H\_canonical\_ln) and provides sorry-free proofs that it satisfies all of Rota's axioms.  
 * EGPT/Constraints.lean: Defines the data structures for CNF formulas (SyntacticCNF\_EGPT) and the canonical form (CanonicalCNF).  
 * EGPT/Complexity/: The P vs. NP formalization.  
-  * Tableau.lean: Defines the physical certificate (SatisfyingTableau) and the P-solver (constructSatisfyingTableau).  
+  * TableauFromCNF.lean: Defines the physical certificate (SatisfyingTableau) and the P-solver (walkCNFPaths).  
   * PPNP.lean: Defines the complexity classes P\_EGPT and NP\_EGPT and contains the final theorem P\_eq\_NP\_EGPT.  
 * docs/: Contains the original unpublished manuscript by Gian-Carlo Rota for context.  
 * EGPT\_README.md: The original high-level conceptual overview.

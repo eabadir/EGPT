@@ -16,7 +16,7 @@ Use `opus`. Formal proof work demands the strongest reasoning. For particularly 
 
 ### 1. The P=NP proof chain is sorry-free and axiom-free
 
-These 6 files form the chain. Do NOT introduce `sorry`, `axiom`, or `native_decide`:
+These 8 files form the chain. Do NOT introduce `sorry`, `axiom`, or `native_decide`:
 
 | File | Role |
 |------|------|
@@ -24,8 +24,10 @@ These 6 files form the chain. Do NOT introduce `sorry`, `axiom`, or `native_deci
 | `EGPT/NumberTheory/Core.lean` | ParticlePath ↔ ℕ bijection, arithmetic, EGPT_Polynomial |
 | `EGPT/Constraints.lean` | CNF formulas, Literal_EGPT, CanonicalCNF, encodeCNF |
 | `EGPT/Complexity/Core.lean` | PathToConstraint, polynomial definitions |
-| `EGPT/Complexity/Tableau.lean` | SatisfyingTableau, constructSatisfyingTableau, complexity bounds |
-| `EGPT/Complexity/PPNP.lean` | P, NP, P_eq_NP, Cook-Levin theorem |
+| `EGPT/Complexity/TableauFromCNF.lean` | SatisfyingTableau, walkCNFPaths, complexity bounds |
+| `EGPT/Complexity/ComplexityInformationBridge.lean` | Bridge between complexity and information layers |
+| `EGPT/Complexity/Interpretation.lean` | Interpretation of complexity results |
+| `EGPT/Complexity/PPNP.lean` | P, NP (identical definitions), P_eq_NP via Set.ext + Iff.rfl |
 
 ### 2. Physics is NEVER imported by the proof chain
 
@@ -41,9 +43,9 @@ These 6 files form the chain. Do NOT introduce `sorry`, `axiom`, or `native_deci
 |-----------|------|---------|
 | `ParticlePath` | `Core.lean` | `{ L : List Bool // PathCompress_AllTrue L }` |
 | `equivParticlePathToNat` | `NumberTheory/Core.lean` | Proven bijection `ParticlePath ≃ ℕ` |
-| `SatisfyingTableau` | `Complexity/Tableau.lean` | Certificate type for CNF satisfiability |
-| `constructSatisfyingTableau` | `Complexity/Tableau.lean` | Deterministic certificate construction |
-| `tableauComplexity_upper_bound` | `Complexity/Tableau.lean` | Cost ≤ clauses × variables |
+| `SatisfyingTableau` | `Complexity/TableauFromCNF.lean` | Certificate type for CNF satisfiability |
+| `walkCNFPaths` | `Complexity/TableauFromCNF.lean` | Deterministic certificate construction |
+| `walkComplexity_upper_bound` | `Complexity/TableauFromCNF.lean` | Cost ≤ clauses × variables |
 | `P` / `NP` | `Complexity/PPNP.lean` | Complexity class definitions (identical) |
 | `P_eq_NP` | `Complexity/PPNP.lean` | The main theorem |
 
@@ -68,7 +70,9 @@ EGPT/
 │   └── Filter.lean
 ├── Complexity/              # P=NP proof chain
 │   ├── Core.lean
-│   ├── Tableau.lean
+│   ├── TableauFromCNF.lean
+│   ├── ComplexityInformationBridge.lean
+│   ├── Interpretation.lean
 │   ├── PPNP.lean
 │   └── UTM.lean             # (not used in proof)
 ├── Entropy/                 # Independent RET proof
@@ -96,7 +100,7 @@ This agent is responsible for the following ideas within the Lean proof layer:
 | Idea | Primary Artifacts | Cross-References |
 |------|------------------|-----------------|
 | **ID1** (Ulam — CGS from a random walk) | `Core.lean` (ParticlePath, RandomWalkPath), `NumberTheory/Core.lean` (ParticlePath ↔ ℕ bijection), `Complexity/Physics.lean` (constrained random walk model) | `EGPTMath/EGPTNumber.js` (PPF encoding mirrors ParticlePath), `content/Books/Ulam/Science Computers And People.md` |
-| **ID2** (Von Neumann — Statistical AI computer) | `Constraints.lean` (CNF encoding), `NumberTheory/Filter.lean` (rejection sampling), `Complexity/Core.lean` (polynomial defs), `Complexity/Tableau.lean` (certificate construction), `Complexity/PPNP.lean` (P=NP) | `EGPTMath/EGPTMath.js` (integer-only engine), `content/Books/Von Neumann/` |
+| **ID2** (Von Neumann — Statistical AI computer) | `Constraints.lean` (CNF encoding), `NumberTheory/Filter.lean` (rejection sampling), `Complexity/Core.lean` (polynomial defs), `Complexity/TableauFromCNF.lean` (certificate construction), `Complexity/PPNP.lean` (P=NP) | `EGPTMath/EGPTMath.js` (integer-only engine), `content/Books/Von Neumann/` |
 | **ID3** (Einstein — Algebraic discrete physics) | `Complexity/Physics.lean` (physical computation model), `Physics/Common.lean`, `Physics/BoseEinstein.lean`, `Physics/FermiDirac.lean`, `Physics/MaxwellBoltzmann.lean`, `Physics/PhysicsDist.lean`, `Physics/PhotonicCA.lean`, `Physics/RealityIsComputation.lean` | `EGPTMath/EGPTranscendental.js` (discrete trig), `www/EGPTFactalWave.html` |
 | **ID4** (Rota — Entropy is the record of truth) | `NumberTheory/Analysis.lean` (RET applied), `Entropy/Common.lean` (Rota axioms + RECT/SCT cycles), `Entropy/H.lean` (7 Rota axioms proven for Shannon), `Entropy/RET.lean` (monotonicity, conditional additivity), `Physics/PhysicsDist.lean` (entropy = C x Shannon) | `EGPTMath/EGPTMath.js` (RET Iron Law in JS), `content/Papers/RET_Paper/` |
 | **ID5** (Abadir — CH decidable / unique representations) | `NumberTheory/Core.lean` (ParticlePath ↔ ℕ bijection, Beth hierarchy), `NumberTheory/ContinuumHypothesis.lean` (CH, GCH, AbadirCompletenessTheorem) | `EGPTMath/EGPTNumber.js` (PPF bijection), `content/Papers/ContinuumHypothesis/` |

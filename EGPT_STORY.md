@@ -67,7 +67,7 @@ Finally, while I can't claim any satisfaction in proving P=NP, I do get quite a 
 
 I wouldn't blame you if you can't or won't wade through the thousands of lines of Lean code. The conceptual explanation of the flaw in Cantor's Diagonalization and Godel's Incompleteness Theorem is that both relate to describing sets, or the completeness of logical systems, according to strict definitions of the symbols in the set. To do this, they map sets of things such as numbers onto symbols we could also call codes. The game, for example, is to show that 2,3,4,5,...45,...,90, etc. are unique codes and then ask are there more unique codes of natural numbers than there are of real numbers. But if we are being strict about coding we need to look at the informationally unique symbols in the set. If we wanted to respect the Fundamental Theorem of Arithmetic as the strict "Shannon Coder" of informationally unique symbols in the alphabet of numbers we would write the above sequence as 2,3,{2,2},5,...,{3,3,5},...,{2,3,3,5} and note that neither 45 nor 90 introduce any new codes.
 
-> EGPT constructs number theory over an **information space** where every natural number is represented as a maximally compressed particle path — a `List Bool` constrained to all `true`, so the length alone carries all the information. In this space, every `ParticlePath` is informationally primitive (there is no redundancy to factor out), much as every prime number is arithmetically primitive. A CNF problem expressed in this space is a list of addresses (`Fin k` variable indices), and since each address is also the path to reach that variable, the problem statement is itself a literal encoding of the work required to verify a solution. You cannot define the CNF without also defining the map to its solution. The P=NP proof follows: `constructSatisfyingTableau` deterministically walks every address in the CNF, producing a polynomially-bounded certificate. The classes P and NP, both defined by the existence of such a certificate, are syntactically identical.
+> EGPT constructs number theory over an **information space** where every natural number is represented as a maximally compressed particle path — a `List Bool` constrained to all `true`, so the length alone carries all the information. In this space, every `ParticlePath` is informationally primitive (there is no redundancy to factor out), much as every prime number is arithmetically primitive. A CNF problem expressed in this space is a list of addresses (`Fin k` variable indices), and since each address is also the path to reach that variable, the problem statement is itself a literal encoding of the work required to verify a solution. You cannot define the CNF without also defining the map to its solution. The P=NP proof follows: `walkCNFPaths` deterministically walks every address in the CNF, producing a polynomially-bounded certificate. The classes P and NP, both defined by the existence of such a certificate, are syntactically identical.
 
 This is precisely the information-space insight that drives EGPT. When we define `ParticlePath` as a maximally compressed bit representation (all `true`, length = value), we are building number theory in the space where every element is already in its informationally primitive form — the "Shannon coded" representation. In this space, there is no distinction between an address and its content, between a code and its meaning. The Fundamental Theorem of Arithmetic becomes a statement about the information content of compositions, and Cantor's diagonal argument fails because it relies on constructing "new" codes from combinations of existing ones — but in an information space, all such combinations are already accounted for.
 
@@ -125,7 +125,7 @@ Ironically, in this age of AI computing based on probabilistic methods, deep lea
 
 So, now I hope you'll take a chance on this mathematical approach and explore why P probably equals NP.
 
-**The EGPT framework proves that addresses ARE ALWAYS maps** — when you work in an information space. We construct number theory from the ground up using `ParticlePath`s — maximally compressed bit representations where the length *is* the value. In this information space, a CNF formula is a list of addresses (`Fin k` variable indices), and each address is simultaneously the path to reach that constraint. The P=NP proof is that defining the problem in information space has already defined the solution: `constructSatisfyingTableau` deterministically walks every address in the CNF and produces a certificate bounded by n².
+**The EGPT framework proves that addresses ARE ALWAYS maps** — when you work in an information space. We construct number theory from the ground up using `ParticlePath`s — maximally compressed bit representations where the length *is* the value. In this information space, a CNF formula is a list of addresses (`Fin k` variable indices), and each address is simultaneously the path to reach that constraint. The P=NP proof is that defining the problem in information space has already defined the solution: `walkCNFPaths` deterministically walks every address in the CNF and produces a certificate bounded by n².
 
 ---
 
@@ -144,11 +144,11 @@ The EGPT proof of P=NP follows these constructive steps. (For a complete audit o
    - Define `encodeCNF` to serialize CNF formulas to `ComputerTape` (= `List Bool`)
    - Prove encoding size bounds: `encodeCNF_size_ge_k` and `cnf_length_le_encoded_length`
 
-3. **Construct certificates where addresses = paths** (`EGPT/Complexity/Core.lean`, `Tableau.lean`)
+3. **Construct certificates where addresses = paths** (`EGPT/Complexity/Core.lean`, `TableauFromCNF.lean`)
    - Define `PathToConstraint l := fromNat l.particle_idx.val` — the address IS the path
    - Build `SatisfyingTableau` as the certificate type bundling assignment + witness paths
-   - Prove `constructSatisfyingTableau` deterministically builds the certificate by walking each address in the CNF
-   - Prove `tableauComplexity_upper_bound`: total cost ≤ |clauses| × |variables|
+   - Prove `walkCNFPaths` deterministically builds the certificate by walking each address in the CNF
+   - Prove `walkComplexity_upper_bound`: total cost ≤ |clauses| × |variables|
 
 4. **Prove P=NP via definitional identity** (`EGPT/Complexity/PPNP.lean`)
    - Define `P` and `NP` using identical mathematical structures
@@ -181,7 +181,7 @@ The complete proof chain requires exactly these files:
 - `EGPT/NumberTheory/Core.lean` — Bijection `ParticlePath ≃ ℕ`, arithmetic, `EGPT_Polynomial`
 - `EGPT/Constraints.lean` — CNF syntax, evaluation, `CanonicalCNF`, `encodeCNF`
 - `EGPT/Complexity/Core.lean` — `PathToConstraint`, `IsPolynomialEGPT`
-- `EGPT/Complexity/Tableau.lean` — `SatisfyingTableau`, `constructSatisfyingTableau`, complexity bound
+- `EGPT/Complexity/TableauFromCNF.lean` — `SatisfyingTableau`, `walkCNFPaths`, complexity bound
 - `EGPT/Complexity/PPNP.lean` — `P`, `NP`, Cook-Levin, `P_eq_NP`
 
 ### 3. The Entropy Formalization (Independent Proof)
@@ -189,7 +189,7 @@ The complete proof chain requires exactly these files:
 - `EGPT/Entropy/H.lean` — Entropy function definitions
 - `EGPT/Entropy/RET.lean` — Rota's Entropy Theorem and uniqueness proof
 
-The entropy modules are imported by `Tableau.lean` and `PPNP.lean` but no entropy definitions or theorems appear in the proof chain. The imports are vestigial and could be removed. The entropy formalization stands as a separate, information-theoretic proof that all probabilistic systems are efficiently codeable.
+The entropy modules are imported by `TableauFromCNF.lean` and `PPNP.lean` but no entropy definitions or theorems appear in the proof chain. The imports are vestigial and could be removed. The entropy formalization stands as a separate, information-theoretic proof that all probabilistic systems are efficiently codeable.
 
 ---
 
@@ -331,7 +331,7 @@ def L_SAT_Canonical (k : ℕ) : Set (CanonicalCNF k) :=
 
 ### 3.4 The Satisfying Tableau: Addresses ARE Paths
 
-**Files**: `EGPT/Complexity/Core.lean`, `EGPT/Complexity/Tableau.lean`
+**Files**: `EGPT/Complexity/Core.lean`, `EGPT/Complexity/TableauFromCNF.lean`
 
 A `SatisfyingTableau` is the certificate that proves a CNF formula is satisfiable. It is the "map" that the problem's addresses already encode.
 
@@ -364,7 +364,7 @@ The total complexity is the sum of all witness path lengths — the total cost o
 
 **Tableau Construction** (lines 45-68):
 ```lean
-noncomputable def constructSatisfyingTableau {k : ℕ} (cnf : SyntacticCNF_EGPT k)
+noncomputable def walkCNFPaths {k : ℕ} (cnf : SyntacticCNF_EGPT k)
   (solution : { v : Vector Bool k // evalCNF cnf v = true }) : SatisfyingTableau k :=
   let assignment := solution.val
   let witness_paths := cnf.map (fun clause =>
@@ -380,12 +380,14 @@ This function deterministically walks every clause in the CNF, finds the first s
 
 **Key Complexity Bound** (line 158):
 ```lean
-theorem tableauComplexity_upper_bound {k : ℕ} (cnf : SyntacticCNF_EGPT k)
+theorem walkComplexity_upper_bound {k : ℕ} (cnf : SyntacticCNF_EGPT k)
   (solution : { v : Vector Bool k // evalCNF cnf v = true }) :
-  (constructSatisfyingTableau cnf solution).complexity ≤ cnf.length * k
+  (walkCNFPaths cnf solution).complexity ≤ cnf.length * k
 ```
 
 Each witness path has cost at most `k-1` (since `particle_idx : Fin k` implies `particle_idx.val < k`), so the total cost is bounded by `cnf.length * k`. Combined with the encoding size bounds (`cnf.length ≤ n` and `k ≤ n` where `n = (encodeCNF cnf).length`), this gives `complexity ≤ n²`.
+
+The P and NP definitions are identical; the proof is `Set.ext` + `Iff.rfl`.
 
 ### 3.5 Complexity Classes in EGPT
 
@@ -425,7 +427,7 @@ def P : Set (Π k, Set (CanonicalCNF k)) :=
 }
 ```
 
-**These definitions are syntactically identical.** In standard complexity theory, the distinction between P and NP is between deterministic search (P) and non-deterministic verification (NP). In EGPT, this distinction collapses because the CNF *is* a list of addresses in information space, and each address *is* the path to its constraint. Defining the problem has already encoded the structure of its solution. The `constructSatisfyingTableau` function deterministically walks these addresses to build the certificate — no non-deterministic "guessing" is needed, because in information space, the search is already implicit in the problem description.
+**These definitions are syntactically identical.** In standard complexity theory, the distinction between P and NP is between deterministic search (P) and non-deterministic verification (NP). In EGPT, this distinction collapses because the CNF *is* a list of addresses in information space, and each address *is* the path to its constraint. Defining the problem has already encoded the structure of its solution. The `walkCNFPaths` function deterministically walks these addresses to build the certificate — no non-deterministic "guessing" is needed, because in information space, the search is already implicit in the problem description.
 
 ### 3.6 The Cook-Levin Theorem in EGPT
 
@@ -490,8 +492,8 @@ The proof uses `Iff.rfl` — reflexivity of logical equivalence. Since the defin
 
 1. A CNF formula is a list of addresses in information space
 2. Each address is simultaneously the path to its constraint (`PathToConstraint`)
-3. `constructSatisfyingTableau` deterministically walks every address, producing a certificate
-4. The certificate complexity is polynomially bounded (`tableauComplexity_upper_bound`)
+3. `walkCNFPaths` deterministically walks every address, producing a certificate
+4. The certificate complexity is polynomially bounded (`walkComplexity_upper_bound`)
 5. Therefore the problem's definition already encodes its solution, and P = NP by construction
 
 ---
@@ -523,7 +525,7 @@ The "address is the map" principle means that in an information space, computati
 - `EGPT/NumberTheory/Core.lean` — Bijections (`toNat`/`fromNat`/`equivParticlePathToNat`), arithmetic (`add_ParticlePath`/`mul_ParticlePath`), `EGPT_Polynomial`
 - `EGPT/Constraints.lean` — `Literal_EGPT`, `Clause_EGPT`, `SyntacticCNF_EGPT`, `CanonicalCNF`, `evalCNF`, `encodeCNF`, encoding size bounds
 - `EGPT/Complexity/Core.lean` — `PathToConstraint`, `IsPolynomialEGPT`, `IsBoundedByEGPT_Polynomial`
-- `EGPT/Complexity/Tableau.lean` — `SatisfyingTableau`, `constructSatisfyingTableau`, `tableauComplexity_upper_bound`
+- `EGPT/Complexity/TableauFromCNF.lean` — `SatisfyingTableau`, `walkCNFPaths`, `walkComplexity_upper_bound`
 - `EGPT/Complexity/PPNP.lean` — `P`, `NP`, `L_SAT_Canonical`, `IsNPComplete`, Cook-Levin, `P_eq_NP`
 
 **Entropy Theory** (independent proof, not in proof chain):
@@ -543,7 +545,7 @@ The "address is the map" principle means that in an information space, computati
 
 **Information-Theoretic**: The proof works by constructing number theory in an information space where every element is maximally compressed and informationally primitive. In this space, defining a problem is defining its solution.
 
-**Constructive**: Every proof is a computable function. No existential quantifiers without witnesses. `constructSatisfyingTableau` is the constructive core.
+**Constructive**: Every proof is a computable function. No existential quantifiers without witnesses. `walkCNFPaths` is the constructive core.
 
 **Bijective**: All representations are reversibly encodable. The `ParticlePath ≃ ℕ` bijection ensures addresses truly are maps.
 

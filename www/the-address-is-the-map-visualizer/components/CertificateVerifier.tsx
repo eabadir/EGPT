@@ -186,7 +186,7 @@ export const CertificateVerifier: React.FC<CertificateVerifierProps> = ({
           <p><strong>Witness Paths:</strong> Each literal's cost = <code className="text-cyan-300">PathToConstraint</code></p>
           <p><strong>Complexity Bound:</strong> ≤ {problem.numVariables} × {problem.clauses.length} = {problem.numVariables * problem.clauses.length}</p>
           <p className="text-xs text-slate-400">
-            This demonstrates <code className="text-cyan-300">tableauComplexity_upper_bound</code> from EGPT/Complexity/Tableau.lean
+            This demonstrates <code className="text-cyan-300">walkComplexity_upper_bound</code> from EGPT/Complexity/TableauFromCNF.lean
           </p>
         </div>
       </div>
@@ -251,7 +251,7 @@ export const CertificateVerifier: React.FC<CertificateVerifierProps> = ({
           
           <div className="text-xs text-slate-400">
             <p><strong>Key Insight:</strong> Certificate complexity stays within polynomial bounds, demonstrating P=NP</p>
-            <p><strong>EGPT Connection:</strong> This corresponds to <code className="text-cyan-300">tableauComplexity_upper_bound</code> in EGPT/Complexity/Tableau.lean</p>
+            <p><strong>EGPT Connection:</strong> This corresponds to <code className="text-cyan-300">walkComplexity_upper_bound</code> in EGPT/Complexity/TableauFromCNF.lean</p>
           </div>
         </div>
       </div>

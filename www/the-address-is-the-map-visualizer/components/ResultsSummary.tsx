@@ -232,7 +232,7 @@ export const ResultsSummary: React.FC<ResultsSummaryProps> = ({
 
               <p className="pt-2"><strong className="text-slate-200">EGPT Connection:</strong></p>
               <ul className="list-disc list-inside ml-4 text-xs space-y-1">
-                <li>This corresponds to <code className="text-cyan-300">tableauComplexity_upper_bound</code> in EGPT/Complexity/Tableau.lean</li>
+                <li>This corresponds to <code className="text-cyan-300">walkComplexity_upper_bound</code> in EGPT/Complexity/TableauFromCNF.lean</li>
                 <li>Certificate complexity demonstrates <code className="text-cyan-300">P_eq_NP</code> theorem</li>
                 <li>Bijective encoding provides the "decoder ring" to transform exponential → polynomial</li>
               </ul>

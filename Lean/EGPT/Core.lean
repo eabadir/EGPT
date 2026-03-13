@@ -80,6 +80,17 @@ def ComputerInstruction := Bool
     This is conceptually the Turing Machine's input tape. -/
 def ComputerTape := List ComputerInstruction
 
+/-- A computer program is represented as a tape of binary instructions. -/
+abbrev ComputerProgram := ComputerTape
+
+/-- Program length is tape length by definition. -/
+@[simp] theorem ComputerProgram.length_eq (prog : ComputerProgram) : prog.length = (prog : ComputerTape).length := rfl
+
+/-- Concatenating two programs yields a program with additive length. -/
+@[simp] theorem ComputerProgram.append_length (p q : ComputerProgram) :
+    (List.append p q).length = p.length + q.length := by
+  simp
+
 -- EGPT — Electronic Graph Paper Theory
 -- Copyright (C) 2026 Essam Abadir
 -- Licensed under the DeSciX Community Source Code License (DCSL) v1.0.

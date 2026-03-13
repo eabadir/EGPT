@@ -9,9 +9,12 @@ import EGPT.NumberTheory.Filter
 import EGPT.NumberTheory.Analysis
 -- Complexity
 import EGPT.Complexity.Core
-import EGPT.Complexity.Tableau
+import EGPT.Complexity.TableauFromCNF
+import EGPT.Complexity.Decomposition
 import EGPT.Complexity.PPNP
 import EGPT.Complexity.UTM
+import EGPT.Complexity.ComplexityInformationBridge
+import EGPT.Complexity.Interpretation
 -- Entropy
 import EGPT.Entropy.Common
 import EGPT.Entropy.RET

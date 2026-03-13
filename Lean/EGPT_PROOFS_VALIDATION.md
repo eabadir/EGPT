@@ -1,8 +1,8 @@
 # EGPT Build Verification Report
 
-> Generated: 2026-03-11 20:53:44 UTC  
+> Generated: 2026-03-12 21:07:02 UTC  
 > Toolchain: `leanprover/lean4:v4.21.0-rc3`  
-> Elapsed: 35.0s
+> Elapsed: 12.9s
 
 | Check | Result |
 |-------|--------|
@@ -10,9 +10,9 @@
 | `lake build PPNP` | PASS |
 | sorry-free | PASS |
 | No custom axioms | PASS |
-| Theorems verified | **85** |
+| Theorems verified | **87** |
 
-**Verdict: PASS** — All 85 theorems are sorry-free and use only Lean's built-in axioms.
+**Verdict: PASS** — All 87 theorems are sorry-free and use only Lean's built-in axioms.
 
 ---
 
@@ -158,18 +158,29 @@ Source: [`EGPT/Entropy/H.lean`](EGPT/Entropy/H.lean)
 | `stdShannonEntropyLn_le_log_card` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 | `stdShannonEntropyLn_chain_rule_sigma` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 
-## Complexity — Tableau & Polynomial Bounds
+## Complexity — TableauFromCNF & Polynomial Bounds
 
-Satisfying tableaux as NP certificates with constructive polynomial bounds.
+walkCNFPaths constructs satisfying tableaux with constructive polynomial bounds.
 
-Source: [`EGPT/Complexity/Tableau.lean`](EGPT/Complexity/Tableau.lean)
+Source: [`EGPT/Complexity/TableauFromCNF.lean`](EGPT/Complexity/TableauFromCNF.lean)
 
 | Theorem | Axioms | Status |
 |---------|--------|--------|
 | `PathToConstraint` | `propext` | OK |
-| `constructSatisfyingTableau` | `propext` | OK |
-| `tableauComplexity_upper_bound` | `propext`, `Classical.choice`, `Quot.sound` | OK |
-| `tableauComplexity_eq_sum_of_paths` | `propext` | OK |
+| `walkCNFPaths` | `propext` | OK |
+| `walkComplexity_upper_bound` | `propext`, `Classical.choice`, `Quot.sound` | OK |
+| `walkComplexity_eq_sum_of_paths` | `propext` | OK |
+
+## Complexity — Information Bridge
+
+Time complexity = information complexity interpretation theorems.
+
+Source: [`EGPT/Complexity/ComplexityInformationBridge.lean`](EGPT/Complexity/ComplexityInformationBridge.lean)
+
+| Theorem | Axioms | Status |
+|---------|--------|--------|
+| `nSquared_time_complexity_is_information_complexity` | `propext`, `Classical.choice`, `Quot.sound` | OK |
+| `walk_nSquared_bound_is_time_and_information` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 
 ## Complexity — P = NP Proof Chain
 
@@ -181,12 +192,12 @@ Source: [`EGPT/Complexity/PPNP.lean`](EGPT/Complexity/PPNP.lean)
 |---------|--------|--------|
 | `L_SAT_Canonical` | `propext` | OK |
 | `NP` | `propext` | OK |
-| `P` | `propext`, `Classical.choice` | OK |
+| `P` | `propext` | OK |
 | `L_SAT_in_NP` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 | `L_SAT_in_P` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 | `L_SAT_in_NP_Hard` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 | `EGPT_CookLevin_Theorem` | `propext`, `Classical.choice`, `Quot.sound` | OK |
-| `P_eq_NP` | `propext`, `Classical.choice`, `Quot.sound` | OK |
+| `P_eq_NP` | `propext`, `Quot.sound` | OK |
 
 ## Complexity — UTM: Universal Turing Machine Certifier
 

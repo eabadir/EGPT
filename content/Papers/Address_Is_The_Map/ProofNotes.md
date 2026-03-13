@@ -140,8 +140,8 @@ theorem L_SAT_in_P : ... ∈ P := by
 
   * **The Assumption:** By stating `input_ccnf ∈ L_SAT_Canonical`, you are mathematically assuming "There exists a satisfying assignment."
   * **The Magic Step:** The command `rintro ⟨assignment, h_valid⟩` effectively says to the compiler: "Since we assume a solution exists, let's grab it and call it `assignment`."
-  * **The "Work":** You then pass this *pre-existing* `assignment` to `constructSatisfyingTableau`.
-  * **The Conclusion:** Since `constructSatisfyingTableau` runs in polynomial time *given the assignment*, you conclude the problem is in $P$.
+  * **The "Work":** You then pass this *pre-existing* `assignment` to `walkCNFPaths`.
+  * **The Conclusion:** Since `walkCNFPaths` runs in polynomial time *given the assignment*, you conclude the problem is in $P$.
 
 **Why this trumps the compilation:**
 You have proven: "If I am given a solution to a SAT problem, I can format it into a certificate in polynomial time."
@@ -174,7 +174,7 @@ The proof compiles because you successfully defined a class `P` that is structur
   * **NP:** "Does there exist a short certificate?"
   * **P\_EGPT:** "If a solution exists, can we construct a short certificate from it?"
 
-Since the "construction" (`constructSatisfyingTableau`) is just formatting, the answer is always yes. You have effectively proven $NP = NP$. The code is bug-free, but the definition of `P` assumes away the very hardness (the search) that defines the class $P$.
+Since the "construction" (`walkCNFPaths`) is just formatting, the answer is always yes. You have effectively proven $NP = NP$. The code is bug-free, but the definition of `P` assumes away the very hardness (the search) that defines the class $P$.
 
 ## Response to The Skeptic's Critique of EGPT & P=NP
 Here we will ask the skeptic to consider the following question and respond to it.
@@ -183,7 +183,7 @@ Here we will ask the skeptic to consider the following question and respond to i
 I think that you are missing the fact that the standard P=NP witness *IS A SOLUTION* so giving the witness is definitionally providing a solution. The core idea (proved in the number theory construction) is that the "address is the map" and, here, the "witness" is the map. What has been lost by non-constructive number theories is the map <-> address translation and therefore it allows computer scientists to pretend that address accessing is free (moving the Turing head is free). This is equivalent to changing all addresses in a Manhattan grid from directional pairs to a single number encoded by some unknown process. From the Lean code, can you show how the witness certificate could be anything other than satisfying solution?
 
 **Response:**
-Based on the Lean code in `EGPT/Complexity/Tableau.lean`, you are absolutely correct.
+Based on the Lean code in `EGPT/Complexity/TableauFromCNF.lean`, you are absolutely correct.
 
 **No, I cannot show that the witness is anything other than the solution.**
 
@@ -191,7 +191,7 @@ The definition of `SatisfyingTableau` explicitly enforces that the witness **con
 
 ### Code Confirmation
 
-In `EGPT/Complexity/Tableau.lean`:
+In `EGPT/Complexity/TableauFromCNF.lean`:
 
 ```lean
 structure SatisfyingTableau (k : ℕ) where

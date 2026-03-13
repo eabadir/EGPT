@@ -41,6 +41,7 @@ Every EGPT type used in the P = NP proof chain has a machine-verified bijection 
 |-----------|-----------|---------------------|-----|
 | `ComputerInstruction` | `Bool` | A single bit / Turing symbol | Definitional (`Core.lean:77`) |
 | `ComputerTape` | `List ComputerInstruction` = `List Bool` | A Turing tape | Definitional (`Core.lean:81`) |
+| `ComputerProgram` | `ComputerTape` = `List Bool` | Program-level view of tape in complexity proofs | Definitional (`Core.lean`) |
 | `SyntacticCNF_EGPT k` | `List (List (Literal_EGPT k))` | Standard CNF formula with k variables | Bijection to `ParticlePath` via `equivSyntacticCNF_to_ParticlePath` (`Constraints.lean:131`) |
 | `UniversalCNF` | `Σ k, SyntacticCNF_EGPT k` | The set of all CNF formulas | Bijection to `ParticlePath` via `equivUniversalCNF_to_ParticlePath` (`Constraints.lean:291`) |
 | `CanonicalCNF k` | `{ cnf : SyntacticCNF_EGPT k // IsCNFCanonical cnf }` | CNF with sorted literals (unique representation) | `normalizeCNF` produces it; `evalCNF_normalize_eq_evalCNF` proves semantic preservation (`Constraints.lean:420`) |
@@ -50,7 +51,7 @@ Every EGPT type used in the P = NP proof chain has a machine-verified bijection 
 | EGPT Definition | Standard Equivalent | Lean Definition | File:Line |
 |----------------|---------------------|-----------------|-----------|
 | `PathToConstraint lit` | `fromNat lit.particle_idx.val` — the path cost to reach variable `i` | Path of length `i` on the 2D grid | `Complexity/Core.lean:57` |
-| `SatisfyingTableau.complexity` | `sum(witness_paths.map toNat)` — total certificate size in bits | Sum of path lengths = sum of variable indices visited | `Complexity/Tableau.lean:60` |
+| `SatisfyingTableau.complexity` | `sum(witness_paths.map toNat)` — total certificate size in bits | Sum of path lengths = sum of variable indices visited | `Complexity/TableauFromCNF.lean` |
 | `NP` | `∃ tableau, tableau.cnf = cnf ∧ tableau.complexity ≤ n²` | Standard NP: polynomial-size certificate exists | `Complexity/PPNP.lean:96` |
 | `P` | `∃ tableau, tableau.cnf = cnf ∧ tableau.complexity ≤ n²` | Standard P: polynomial-time decision | `Complexity/PPNP.lean:236` |
 | `P_eq_NP` | `P = NP` (set equality, proved by `Iff.rfl`) | P equals NP | `Complexity/PPNP.lean:282` |
@@ -61,7 +62,7 @@ Every EGPT type used in the P = NP proof chain has a machine-verified bijection 
 |---------|-----------|--------------|-----------|
 | `encodeCNF_size_ge_k` | `k ≤ (encodeCNF cnf).length` | The encoding is at least as long as the number of variables | `Constraints.lean:302` |
 | `cnf_length_le_encoded_length` | `cnf.length ≤ (encodeCNF cnf).length` | The encoding is at least as long as the number of clauses | `Constraints.lean:606` |
-| `walkComplexity_upper_bound` | `(walkCNFPaths cnf endpoint).complexity ≤ cnf.length * k` | The walk cost is bounded by clauses × variables | `Complexity/Tableau.lean:162` |
+| `walkComplexity_upper_bound` | `(walkCNFPaths cnf endpoint).complexity ≤ cnf.length * k` | The walk cost is bounded by clauses × variables | `Complexity/TableauFromCNF.lean` |
 
 ---
 
@@ -153,7 +154,7 @@ This confirms: the Shannon entropy of the uniform distribution on {1,...,n} equa
 
 In EGPT, numbers are paths on a 2D grid. A CNF formula is a list of constraint addresses on that grid. The "Full Walk" is the process of visiting every constraint address.
 
-The function `walkCNFPaths` (`Complexity/Tableau.lean:82`) implements this walk:
+The function `walkCNFPaths` (`Complexity/TableauFromCNF.lean`) implements this walk:
 
 ```
 Input:  cnf  — the list of constraint addresses (the "maze")
@@ -176,7 +177,7 @@ The walk visits `|cnf|` clauses. At each clause, the farthest reachable literal 
 walk_cost = Σ (path lengths) ≤ |cnf| × k
 ```
 
-This is proven by `walkComplexity_upper_bound` (`Complexity/Tableau.lean:162`).
+This is proven by `walkComplexity_upper_bound` (`Complexity/TableauFromCNF.lean`).
 
 Since `|cnf| ≤ n` (by `cnf_length_le_encoded_length`, `Constraints.lean:606`) and `k ≤ n` (by `encodeCNF_size_ge_k`, `Constraints.lean:302`), where n = |encodeCNF cnf|:
 
@@ -194,7 +195,7 @@ The walk produces `witness_paths : List ParticlePath`. Since:
 
 - `ParticlePath` = `{ L : List Bool // ∀ x ∈ L, x = true }` (a `List Bool`)
 - `List ParticlePath` = `List (List Bool)` which flattens to `List Bool`
-- `List Bool` = `ComputerTape` (by definition, `Core.lean:81`)
+- `List Bool` = `ComputerTape` = `ComputerProgram` (by definition in `Core.lean`)
 
 The walk record IS a computation tape. The physical walk through the constraint addresses constructs the polynomial-time computation.
 
@@ -258,7 +259,7 @@ EGPT is not a custom system. It is a proven change of basis over standard mathem
 
 ### "The n² bound is not time complexity — it is information complexity."
 
-The `SatisfyingTableau.complexity` is the sum of `toNat` values of witness paths — `toNat` is `length`, which counts steps on the grid. Since `ComputerInstruction = Bool` and `ComputerTape = List Bool`, each step is one bit of computation. In EGPT, each computation step is one path step, and both are measured in the same ℕ that Lean uses natively.
+The `SatisfyingTableau.complexity` is the sum of `toNat` values of witness paths — `toNat` is `length`, which counts steps on the grid. Since `ComputerInstruction = Bool` and `ComputerTape = ComputerProgram = List Bool`, each step is one bit of computation. In EGPT, each computation step is one path step, and both are measured in the same ℕ that Lean uses natively.
 
 The homomorphism theorems (`toNat_add_ParticlePath`, `toNat_mul_ParticlePath`) prove this IS standard ℕ arithmetic. The n² bound is standard n × n via `eval_canonical_np_poly`. Information complexity IS time complexity in this model, and both are measured in standard natural numbers.
 
@@ -268,11 +269,11 @@ The homomorphism theorems (`toNat_add_ParticlePath`, `toNat_mul_ParticlePath`) p
 
 | Step | File | Key Definitions / Theorems |
 |------|------|---------------------------|
-| 0 | `EGPT/Core.lean` | `ParticlePath`, `ComputerTape`, `ComputerInstruction` |
+| 0 | `EGPT/Core.lean` | `ParticlePath`, `ComputerInstruction`, `ComputerTape`, `ComputerProgram` |
 | 1 | `EGPT/NumberTheory/Core.lean` | `equivParticlePathToNat`, `toNat_add_ParticlePath`, `toNat_mul_ParticlePath`, `EGPT_Polynomial`, `cardinal_of_egpt_level` |
 | 2 | `EGPT/Constraints.lean` | `Literal_EGPT`, `SyntacticCNF_EGPT`, `CanonicalCNF`, `encodeCNF`, `equivSyntacticCNF_to_ParticlePath`, `encodeCNF_size_ge_k`, `cnf_length_le_encoded_length` |
 | 3 | `EGPT/Complexity/Core.lean` | `PathToConstraint`, `IsPolynomialEGPT` |
-| 4 | `EGPT/Complexity/Tableau.lean` | `SatisfyingTableau`, `walkCNFPaths`, `walkComplexity_upper_bound`, `computeTableau?` |
+| 4 | `EGPT/Complexity/TableauFromCNF.lean` | `SatisfyingTableau`, `walkCNFPaths`, `walkComplexity_upper_bound`, `computeTableau?` |
 | 5 | `EGPT/Complexity/PPNP.lean` | `P`, `NP`, `L_SAT_in_NP`, `L_SAT_in_P`, `L_SAT_in_NP_Hard`, `EGPT_CookLevin_Theorem`, `P_eq_NP` |
 
 **Supporting (not in proof chain):**

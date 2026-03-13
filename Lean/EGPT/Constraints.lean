@@ -41,14 +41,94 @@ def Literal_EGPT.equivProd {constrained_position : ℕ} : Literal_EGPT constrain
   right_inv := fun p => by cases p; simp
 }
 
+instance Literal_EGPT.encodable {k : ℕ} : Encodable (Literal_EGPT k) :=
+  Encodable.ofEquiv _ (Literal_EGPT.equivProd)
+
+/-- Convert a literal to a unique natural number index. -/
+def Literal_EGPT.toNat {k : ℕ} (lit : Literal_EGPT k) : ℕ :=
+  2 * lit.particle_idx.val + (if lit.polarity then 1 else 0)
+
+/-- A Literal is an atom of information (a Prime). -/
+abbrev EGPTPrime := ℕ -- We use Nat, but conceptually it's a Prime
+
+/-- Map a literal to a unique atom code (prime-like factor token). -/
+def LiteralToPrime {k : ℕ} (lit : Literal_EGPT k) : EGPTPrime :=
+  lit.toNat + 1
+
+/--
+`primeIndexedAtom n` is a strictly increasing prime sequence.
+It starts at `2`, and each successor is chosen as a prime at least `prev + 1`.
+-/
+noncomputable def primeIndexedAtom : ℕ → ℕ
+  | 0 => 2
+  | n + 1 => Nat.find (Nat.exists_infinite_primes (primeIndexedAtom n + 1))
+
+/-- Every term in `primeIndexedAtom` is prime. -/
+lemma primeIndexedAtom_prime (n : ℕ) : Nat.Prime (primeIndexedAtom n) := by
+  induction n with
+  | zero =>
+      simpa [primeIndexedAtom] using Nat.prime_two
+  | succ n _ih =>
+      simpa [primeIndexedAtom] using (Nat.find_spec (Nat.exists_infinite_primes (primeIndexedAtom n + 1))).2
+
+/-- `primeIndexedAtom` is strictly increasing. -/
+lemma primeIndexedAtom_strictMono : StrictMono primeIndexedAtom := by
+  apply strictMono_nat_of_lt_succ
+  intro n
+  have hbound : primeIndexedAtom n + 1 ≤ primeIndexedAtom (n + 1) := by
+    simpa [primeIndexedAtom] using (Nat.find_spec (Nat.exists_infinite_primes (primeIndexedAtom n + 1))).1
+  exact lt_of_lt_of_le (Nat.lt_succ_self (primeIndexedAtom n)) hbound
+
+/-- `primeIndexedAtom` is injective. -/
+lemma primeIndexedAtom_injective : Function.Injective primeIndexedAtom :=
+  primeIndexedAtom_strictMono.injective
+
+/--
+Prime-indexed atom for literals.
+This is the theorem-bearing encoding path used by SAT common-factor proofs.
+-/
+noncomputable def literalAtom {k : ℕ} (lit : Literal_EGPT k) : EGPTPrime :=
+  primeIndexedAtom (Encodable.encode lit)
+
+/-- The prime-indexed literal atom is prime. -/
+lemma literalAtom_prime {k : ℕ} (lit : Literal_EGPT k) : Nat.Prime (literalAtom lit) := by
+  simpa [literalAtom] using primeIndexedAtom_prime (Encodable.encode lit)
+
+/-- The prime-indexed literal atom map is injective. -/
+lemma literalAtom_injective {k : ℕ} : Function.Injective (@literalAtom k) := by
+  intro l₁ l₂ h
+  apply Encodable.encode_injective
+  exact primeIndexedAtom_injective (by simpa [literalAtom] using h)
+
 /-- A `Clause_EGPT` is a list of literals, representing their disjunction. -/
 abbrev Clause_EGPT (k : ℕ) := List (Literal_EGPT k)
+
+/-- A Clause is a Composite Number (product of its literals). -/
+abbrev EGPTNumber := ℕ
+
+noncomputable def ClauseToComposite {k : ℕ} (clause : Clause_EGPT k) : EGPTNumber :=
+  (clause.map LiteralToPrime).prod
+
+/--
+Clause composite using the prime-indexed atom encoding.
+This is used for SAT-compatible common-factor predicates.
+-/
+noncomputable def clauseCompositePrime {k : ℕ} (clause : Clause_EGPT k) : EGPTNumber :=
+  (clause.map literalAtom).prod
 
 /--
 A `SyntacticCNF_EGPT` is the data structure for a CNF formula, represented
 as a list of clauses. This is the concrete representation of a physical law.
 -/
 abbrev SyntacticCNF_EGPT (k : ℕ) := List (Clause_EGPT k)
+
+/-- A CNF is a list of Composites. -/
+noncomputable def CNFToNumberList {k : ℕ} (cnf : SyntacticCNF_EGPT k) : List EGPTNumber :=
+  cnf.map ClauseToComposite
+
+/-- CNF number list built from prime-indexed clause composites. -/
+noncomputable def CNFToPrimeNumberList {k : ℕ} (cnf : SyntacticCNF_EGPT k) : List EGPTNumber :=
+  cnf.map clauseCompositePrime
 
 -- === Syntactic Interpreter ===
 
@@ -75,10 +155,6 @@ def evalCNF {k : ℕ} (cnf : SyntacticCNF_EGPT k) (assignment : Vector Bool k) :
   cnf.all (fun clause => evalClause clause assignment)
 
 -- === Encodability and Equivalence to ParticlePath ===
-
-instance Literal_EGPT.encodable {k : ℕ} : Encodable (Literal_EGPT k) :=
-  Encodable.ofEquiv _ (Literal_EGPT.equivProd)
-
 
 instance Clause_EGPT.encodable {k : ℕ} : Encodable (Clause_EGPT k) :=
     List.encodable -- Explicitly use List.encodable

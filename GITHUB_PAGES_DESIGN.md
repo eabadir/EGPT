@@ -135,7 +135,7 @@ Every directory that should appear in the site navigation gets a `_meta.json` fi
 {
   "title": "Formal Proofs (Lean 4)",
   "module": "Module 1: The Proof Chain",
-  "description": "85 machine-verified theorems. No sorry. No custom axioms. The constructive proof that P = NP, Rota's Entropy Theorem formalized, the Continuum Hypothesis decided, and algebraic discrete physics — all in Lean 4 with mathlib4.",
+  "description": "87 machine-verified theorems. No sorry. No custom axioms. The constructive proof that P = NP, Rota's Entropy Theorem formalized, the Continuum Hypothesis decided, and algebraic discrete physics — all in Lean 4 with mathlib4.",
   "ideas": ["ID1", "ID2", "ID3", "ID4", "ID5"],
   "primary_ideas": ["ID4", "ID5"],
   "do_this_first": {
@@ -154,13 +154,13 @@ Every directory that should appear in the site navigation gets a `_meta.json` fi
   ],
   "subsections": [
     {
-      "title": "The P=NP Proof Chain (6 files, sorry-free)",
+      "title": "The P=NP Proof Chain (8 files, sorry-free)",
       "files": [
         "EGPT/Core.lean",
         "EGPT/NumberTheory/Core.lean",
         "EGPT/Constraints.lean",
         "EGPT/Complexity/Core.lean",
-        "EGPT/Complexity/Tableau.lean",
+        "EGPT/Complexity/TableauFromCNF.lean",
         "EGPT/Complexity/PPNP.lean"
       ]
     },
@@ -332,7 +332,7 @@ Create `_meta.json` files for each directory. These are the content descriptors 
    - Title: "Formal Proofs (Lean 4)"
    - Primary ideas: ID4, ID5
    - Highlights: PPNP.lean, ContinuumHypothesis.lean, RET.lean, Core.lean, RealityIsComputation.lean
-   - Subsections: P=NP chain (6 files), Entropy (3 files), Physics (motivation)
+   - Subsections: P=NP chain (8 files), Entropy (3 files), Physics (motivation)
    - Do This First: proof-engineer → `lake build`, cs-student → PeqNP_Proof_README, mathematician → CH, complexity-theorist → PPNP, physicist → RealityIsComputation
    - Related: SKEPTICS_GUIDE, PROOF_GRAPH, PROOFS_VALIDATION
 

@@ -102,7 +102,7 @@ The Abadir Completeness Theorem validates Ulam's `ParticlePath` as a foundation 
 
 ### ID5 (Abadir) -> ID2 (Von Neumann)
 
-The "address is the map" principle -- the core of Abadir's unique-representation framework -- resolves the Turing model's hidden assumption that von Neumann intuited but never formalized. In the Turing model, memory access is O(1): the address is free. In EGPT, the cost of reaching an address *is* the address. This is why `constructSatisfyingTableau` produces a certificate in polynomial time: the tableau walks every address in the CNF, and the total cost is bounded by |clauses| x |variables| because the addresses are the work. Von Neumann knew the brain's computational cost was physical, not abstract. EGPT's framework makes that physical cost the definition of complexity.
+The "address is the map" principle -- the core of Abadir's unique-representation framework -- resolves the Turing model's hidden assumption that von Neumann intuited but never formalized. In the Turing model, memory access is O(1): the address is free. In EGPT, the cost of reaching an address *is* the address. This is why `walkCNFPaths` produces a certificate in polynomial time: the walk visits every address in the CNF, and the total cost is bounded by |clauses| x |variables| because the addresses are the work. Von Neumann knew the brain's computational cost was physical, not abstract. EGPT's framework makes that physical cost the definition of complexity.
 
 ### ID5 (Abadir) -> ID3 (Einstein)
 

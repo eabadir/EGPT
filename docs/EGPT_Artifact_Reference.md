@@ -6,7 +6,7 @@ Canonical catalog of all linkable Electronic Graph Paper Theory (EGPT) artifacts
 
 All external-facing links use GitHub Pages URLs (not raw GitHub blob URLs). To construct a link, append the repo-relative path to the base URL.
 
-**P=NP Proof Chain:** The formal proof consists of 6 sorry-free, axiom-free Lean 4 files: `Core.lean`, `Constraints.lean`, `Tableau.lean`, `Physics.lean`, `PPNP.lean`, and `ContinuumHypothesis.lean`. The chain typechecks end-to-end with `lake build`. No custom axioms are introduced; the final theorem `P_eq_NP` closes by `rfl`.
+**P=NP Proof Chain:** The formal proof consists of 8 sorry-free, axiom-free Lean 4 files containing 87 theorems. The chain typechecks end-to-end with `lake build`. No custom axioms are introduced; the final theorem `P_eq_NP` closes by `rfl`.
 
 ---
 
@@ -21,8 +21,8 @@ All external-facing links use GitHub Pages URLs (not raw GitHub blob URLs). To c
 | `equivParticlePathToNat` | `Lean/EGPT/NumberTheory/Core.lean` | `https://eabadir.github.io/EGPT/Lean/EGPT/NumberTheory/Core.lean` | Bijection ParticlePath ≃ ℕ ("address is the map") |
 | `toNat_add_ParticlePath` | `Lean/EGPT/NumberTheory/Core.lean` | `https://eabadir.github.io/EGPT/Lean/EGPT/NumberTheory/Core.lean` | Addition respects bijection |
 | `toNat_mul_ParticlePath` | `Lean/EGPT/NumberTheory/Core.lean` | `https://eabadir.github.io/EGPT/Lean/EGPT/NumberTheory/Core.lean` | Multiplication respects bijection |
-| `tableauComplexity_upper_bound` | `Lean/EGPT/Complexity/Tableau.lean` | `https://eabadir.github.io/EGPT/Lean/EGPT/Complexity/Tableau.lean` | Certificate cost ≤ clauses × variables |
-| `constructSatisfyingTableau` | `Lean/EGPT/Complexity/Tableau.lean` | `https://eabadir.github.io/EGPT/Lean/EGPT/Complexity/Tableau.lean` | Deterministic polynomial certificate construction |
+| `walkComplexity_upper_bound` | `Lean/EGPT/Complexity/TableauFromCNF.lean` | `https://eabadir.github.io/EGPT/Lean/EGPT/Complexity/TableauFromCNF.lean` | Certificate cost ≤ clauses × variables |
+| `walkCNFPaths` | `Lean/EGPT/Complexity/TableauFromCNF.lean` | `https://eabadir.github.io/EGPT/Lean/EGPT/Complexity/TableauFromCNF.lean` | Deterministic polynomial certificate construction |
 | `evalCNF_normalize_eq_evalCNF` | `Lean/EGPT/Constraints.lean` | `https://eabadir.github.io/EGPT/Lean/EGPT/Constraints.lean` | Normalization preserves CNF semantics |
 | `encodeCNF_normalize_length_eq` | `Lean/EGPT/Constraints.lean` | `https://eabadir.github.io/EGPT/Lean/EGPT/Constraints.lean` | Normalization preserves encoding length |
 | `constrainedSystem_equiv_SAT` | `Lean/EGPT/Complexity/Physics.lean` | `https://eabadir.github.io/EGPT/Lean/EGPT/Complexity/Physics.lean` | Path existence ↔ satisfiability |

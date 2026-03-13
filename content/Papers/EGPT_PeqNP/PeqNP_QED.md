@@ -234,15 +234,15 @@ def SatisfyingTableau.complexity (tableau : SatisfyingTableau k) : ℕ :=
 
 ### 4.3 Construction and Bound
 
-The `constructSatisfyingTableau` function takes a CNF and a *proven satisfying assignment* and deterministically produces the tableau. For each clause, it locates the first satisfied literal and records its `PathToConstraint`.
+The `walkCNFPaths` function takes a CNF and a *proven satisfying assignment* and deterministically produces the tableau. For each clause, it locates the first satisfied literal and records its `PathToConstraint`.
 
 **Theorem (Certificate Complexity Bound).** For any satisfiable CNF with k variables and |cnf| clauses:
 
 ```lean
-theorem tableauComplexity_upper_bound {k : ℕ}
+theorem walkComplexity_upper_bound {k : ℕ}
   (cnf : SyntacticCNF_EGPT k)
   (solution : { v : Vector Bool k // evalCNF cnf v = true }) :
-  (constructSatisfyingTableau cnf solution).complexity ≤ cnf.length * k
+  (walkCNFPaths cnf solution).complexity ≤ cnf.length * k
 ```
 
 *Proof.* By induction on the CNF. Each clause contributes at most k to the total cost (the worst case: the satisfying literal is the last variable). There are |cnf| clauses. Total ≤ |cnf| × k.
@@ -320,7 +320,7 @@ More precisely:
 1. A CNF formula is a list of `ParticlePath`s — addresses in information space. It has two dimensions: k variable addresses (the "width" of the problem) and |cnf| clause constraints (the "depth").
 2. Each literal's variable index is simultaneously an address and the path to reach that address. The farthest address is at most k steps away.
 3. The encoded problem size n ≥ k and n ≥ |cnf| (proven in Section 3.2). To *state* the problem, you must have already walked every address and specified every constraint — the problem definition already contains all the information that any certificate will re-traverse.
-4. The `constructSatisfyingTableau` function walks each of the |cnf| clauses against its witnessing literal (at most k steps each). The total cost is bounded by |cnf| × k ≤ n × n = n².
+4. The `walkCNFPaths` function walks each of the |cnf| clauses against its witnessing literal (at most k steps each). The total cost is bounded by |cnf| × k ≤ n × n = n².
 5. This is the area of the informational boundary. The certificate does not search an exponential space — it reads the two-dimensional grid that the problem definition already paid for.
 
 The distinction between "guess and verify" (NP) and "construct deterministically" (P) does not add computational cost, because both reduce to the same question: does a polynomially-bounded certificate exist? The bound comes from the problem's information content — specifically, from the area of its two-dimensional constraint boundary — not from the mode of computation.
@@ -416,9 +416,9 @@ The traditional complexity-theoretic intuition — that "hiding" structure by mu
 
 The proof *is* syntactically simple. The substance lies in the 77 theorems that precede it: the `ParticlePath ≃ ℕ` bijection, the arithmetic isomorphisms, the encoding bounds, the tableau complexity bound, the Cook-Levin theorem within the framework, and the information-theoretic foundation. The identity of P and NP is a *consequence* of properly accounting for information cost, not a definitional accident.
 
-### 7.2 "constructSatisfyingTableau takes a proven solution as input"
+### 7.2 "walkCNFPaths takes a proven solution as input"
 
-Correct. The function builds the *certificate*, not the *solver*. The point is not that `constructSatisfyingTableau` finds solutions — it is that the certificate it produces has complexity bounded by n² regardless of how the solution was obtained. The definitions of P and NP both ask: "is membership equivalent to the existence of a bounded certificate?" Since the n² bound is a property of the information space, the answer is the same whether the certificate was guessed non-deterministically or constructed deterministically.
+Correct. The function builds the *certificate*, not the *solver*. The point is not that `walkCNFPaths` finds solutions — it is that the certificate it produces has complexity bounded by n² regardless of how the solution was obtained. The definitions of P and NP both ask: "is membership equivalent to the existence of a bounded certificate?" Since the n² bound is a property of the information space, the answer is the same whether the certificate was guessed non-deterministically or constructed deterministically.
 
 ### 7.3 "EGPT's complexity classes don't capture the standard ones"
 
@@ -529,7 +529,7 @@ Willsch, D., Willsch, M., Jin, F., De Raedt, H., & Michielsen, K. (2023). Large-
 | 1 | `EGPT/NumberTheory/Core.lean` | `equivParticlePathToNat`, `toNat_add_ParticlePath`, `toNat_mul_ParticlePath`, `cardinal_of_egpt_level` |
 | 2 | `EGPT/Constraints.lean` | `encodeCNF`, `encodeCNF_size_ge_k`, `cnf_length_le_encoded_length`, `evalCNF_normalize_eq_evalCNF` |
 | 3 | `EGPT/Complexity/Core.lean` | `PathToConstraint`, `IsPolynomialEGPT` |
-| 4 | `EGPT/Complexity/Tableau.lean` | `constructSatisfyingTableau`, `tableauComplexity_upper_bound` |
+| 4 | `EGPT/Complexity/TableauFromCNF.lean` | `walkCNFPaths`, `walkComplexity_upper_bound` |
 | 5 | `EGPT/Complexity/PPNP.lean` | `P`, `NP`, `eval_canonical_np_poly`, `EGPT_CookLevin_Theorem`, `P_eq_NP` |
 
 ## Appendix B: Information-Theoretic Foundation

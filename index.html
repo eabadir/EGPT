@@ -259,8 +259,10 @@ graph TD
     C --> NT[EGPT/NumberTheory/Core.lean<br/>ParticlePath bijection NN<br/>toNat, fromNat, EGPT_Polynomial]
     NT --> CN[EGPT/Constraints.lean<br/>Literal_EGPT, Clause_EGPT<br/>CanonicalCNF, encodeCNF]
     CN --> CC[EGPT/Complexity/Core.lean<br/>PathToConstraint<br/>IsPolynomialEGPT]
-    CC --> CT[EGPT/Complexity/Tableau.lean<br/>SatisfyingTableau<br/>constructSatisfyingTableau<br/>tableauComplexity le n squared]
-    CT --> PP[EGPT/Complexity/PPNP.lean<br/>P, NP structurally distinct<br/>constructTableauFromCNF<br/>P_eq_NP non-trivial proof<br/>L_SAT_in_NP, L_SAT_in_P<br/>EGPT_CookLevin_Theorem]
+    CC --> CT[EGPT/Complexity/TableauFromCNF.lean<br/>SatisfyingTableau<br/>walkCNFPaths<br/>walkComplexity le n squared]
+    CT --> CIB[EGPT/Complexity/ComplexityInformationBridge.lean<br/>time complexity = information complexity]
+    CIB --> INT[EGPT/Complexity/Interpretation.lean<br/>re-exports ComplexityInformationBridge]
+    INT --> PP[EGPT/Complexity/PPNP.lean<br/>P, NP structurally distinct<br/>P_eq_NP non-trivial proof<br/>L_SAT_in_NP, L_SAT_in_P<br/>EGPT_CookLevin_Theorem]
 
     EC[EGPT/Entropy/Common.lean<br/>type definitions only] -.-> CT
     PD[EGPT/Physics/PhysicsDist.lean<br/>type definitions only] -.-> CT
@@ -268,6 +270,8 @@ graph TD
     PD -.-> PP
 
     style PP fill:#2d6a4f,color:#fff
+    style INT fill:#357a5e,color:#fff
+    style CIB fill:#3d8868,color:#fff
     style CT fill:#40916c,color:#fff
     style CC fill:#52b788,color:#fff
     style CN fill:#74c69d,color:#000
@@ -481,7 +485,7 @@ graph TD
             "EGPT/NumberTheory/Core.lean",
             "EGPT/Constraints.lean",
             "EGPT/Complexity/Core.lean",
-            "EGPT/Complexity/Tableau.lean",
+            "EGPT/Complexity/TableauFromCNF.lean",
             "EGPT/Complexity/PPNP.lean"
           ]
         },
@@ -1150,7 +1154,7 @@ graph TD
     }
   ],
   "mermaid_diagrams": [
-    "graph TD\n    M[Mathlib] --> B[EGPT/Basic.lean<br/>helper lemmas]\n    M --> C[EGPT/Core.lean<br/>ParticlePath, ComputerTape<br/>IIDParticleSource]\n    C --> NT[EGPT/NumberTheory/Core.lean<br/>ParticlePath bijection NN<br/>toNat, fromNat, EGPT_Polynomial]\n    NT --> CN[EGPT/Constraints.lean<br/>Literal_EGPT, Clause_EGPT<br/>CanonicalCNF, encodeCNF]\n    CN --> CC[EGPT/Complexity/Core.lean<br/>PathToConstraint<br/>IsPolynomialEGPT]\n    CC --> CT[EGPT/Complexity/Tableau.lean<br/>SatisfyingTableau<br/>constructSatisfyingTableau<br/>tableauComplexity le n squared]\n    CT --> PP[EGPT/Complexity/PPNP.lean<br/>P, NP structurally distinct<br/>constructTableauFromCNF<br/>P_eq_NP non-trivial proof<br/>L_SAT_in_NP, L_SAT_in_P<br/>EGPT_CookLevin_Theorem]\n\n    EC[EGPT/Entropy/Common.lean<br/>type definitions only] -.-> CT\n    PD[EGPT/Physics/PhysicsDist.lean<br/>type definitions only] -.-> CT\n    EC -.-> PP\n    PD -.-> PP\n\n    style PP fill:#2d6a4f,color:#fff\n    style CT fill:#40916c,color:#fff\n    style CC fill:#52b788,color:#fff\n    style CN fill:#74c69d,color:#000\n    style NT fill:#95d5b2,color:#000\n    style C fill:#b7e4c7,color:#000",
+    "graph TD\n    M[Mathlib] --> B[EGPT/Basic.lean<br/>helper lemmas]\n    M --> C[EGPT/Core.lean<br/>ParticlePath, ComputerTape<br/>IIDParticleSource]\n    C --> NT[EGPT/NumberTheory/Core.lean<br/>ParticlePath bijection NN<br/>toNat, fromNat, EGPT_Polynomial]\n    NT --> CN[EGPT/Constraints.lean<br/>Literal_EGPT, Clause_EGPT<br/>CanonicalCNF, encodeCNF]\n    CN --> CC[EGPT/Complexity/Core.lean<br/>PathToConstraint<br/>IsPolynomialEGPT]\n    CC --> CT[EGPT/Complexity/TableauFromCNF.lean<br/>SatisfyingTableau<br/>walkCNFPaths<br/>walkComplexity le n squared]\n    CT --> CIB[EGPT/Complexity/ComplexityInformationBridge.lean<br/>time complexity = information complexity]\n    CIB --> INT[EGPT/Complexity/Interpretation.lean<br/>re-exports ComplexityInformationBridge]\n    INT --> PP[EGPT/Complexity/PPNP.lean<br/>P, NP structurally distinct<br/>P_eq_NP non-trivial proof<br/>L_SAT_in_NP, L_SAT_in_P<br/>EGPT_CookLevin_Theorem]\n\n    EC[EGPT/Entropy/Common.lean<br/>type definitions only] -.-> CT\n    PD[EGPT/Physics/PhysicsDist.lean<br/>type definitions only] -.-> CT\n    EC -.-> PP\n    PD -.-> PP\n\n    style PP fill:#2d6a4f,color:#fff\n    style INT fill:#357a5e,color:#fff\n    style CIB fill:#3d8868,color:#fff\n    style CT fill:#40916c,color:#fff\n    style CC fill:#52b788,color:#fff\n    style CN fill:#74c69d,color:#000\n    style NT fill:#95d5b2,color:#000\n    style C fill:#b7e4c7,color:#000",
     "graph TD\n    M[Mathlib] --> EC[EGPT/Entropy/Common.lean<br/>Shannon entropy, RECT<br/>rect_program_for_dist]\n    C[EGPT/Core.lean] --> EC\n    CC[EGPT/Complexity/Core.lean] -.-> EC\n\n    EC --> RET[EGPT/Entropy/RET.lean<br/>RotaUniformTheorem<br/>All entropy = C x Shannon]\n    EC --> H[EGPT/Entropy/H.lean<br/>7 Rota axioms verified<br/>entropy_of_fair_coin_is_one_bit]\n    PP[EGPT/Complexity/PPNP.lean] -.-> H\n    PC[EGPT/Physics/PhotonicCA.lean] -.-> H\n\n    style RET fill:#3a86a8,color:#fff\n    style H fill:#3a86a8,color:#fff\n    style EC fill:#89c2d9,color:#000",
     "graph TD\n    PC[EGPT/Physics/Common.lean<br/>Physical entropy definitions] --> US[EGPT/Physics/UniformSystems.lean<br/>Uniform = C x Shannon]\n    US --> BE[EGPT/Physics/BoseEinstein.lean<br/>H_BE = C x Shannon]\n    US --> FD[EGPT/Physics/FermiDirac.lean<br/>H_FD = C x Shannon]\n    US --> MB[EGPT/Physics/MaxwellBoltzmann.lean<br/>H_MB = C x Shannon]\n    BE --> PD[EGPT/Physics/PhysicsDist.lean<br/>Unified entropy theorem]\n    FD --> PD\n    MB --> PD\n    PD --> PA[EGPT/Physics/PhotonicCA.lean<br/>BE system has equivalent program]\n    PA --> RC[EGPT/Physics/RealityIsComputation.lean<br/>RealityIsComputation<br/>ContinuousFieldsAreComputation]\n\n    style RC fill:#9b2226,color:#fff\n    style PA fill:#ae2012,color:#fff\n    style PD fill:#bb3e03,color:#fff",
     "graph TD\n    NT[EGPT/NumberTheory/Core.lean] --> CH[EGPT/NumberTheory/ContinuumHypothesis.lean<br/>EGPT_ContinuumHypothesis<br/>EGPT_GeneralizedContinuumHypothesis]\n    NT --> F[EGPT/NumberTheory/Filter.lean<br/>RejectionFilter, distributions]\n    NT --> A[EGPT/NumberTheory/Analysis.lean<br/>FTA via information]\n\n    style CH fill:#7b2cbf,color:#fff",

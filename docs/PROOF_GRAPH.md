@@ -13,7 +13,7 @@ ParticlePath = ComputerTape = RandomWalkPath = List Bool
 
 All three are `List Bool` with the `PathCompress_AllTrue` constraint. A natural number, a computation, and a random walk are the same object.
 
-## P=NP Proof Chain (6 files, sorry-free, axiom-free)
+## P=NP Proof Chain (8 files, sorry-free, axiom-free)
 
 ```mermaid
 graph TD
@@ -22,8 +22,10 @@ graph TD
     C --> NT[EGPT/NumberTheory/Core.lean<br/>ParticlePath bijection NN<br/>toNat, fromNat, EGPT_Polynomial]
     NT --> CN[EGPT/Constraints.lean<br/>Literal_EGPT, Clause_EGPT<br/>CanonicalCNF, encodeCNF]
     CN --> CC[EGPT/Complexity/Core.lean<br/>PathToConstraint<br/>IsPolynomialEGPT]
-    CC --> CT[EGPT/Complexity/Tableau.lean<br/>SatisfyingTableau<br/>constructSatisfyingTableau<br/>tableauComplexity le n squared]
-    CT --> PP[EGPT/Complexity/PPNP.lean<br/>P, NP structurally distinct<br/>constructTableauFromCNF<br/>P_eq_NP non-trivial proof<br/>L_SAT_in_NP, L_SAT_in_P<br/>EGPT_CookLevin_Theorem]
+    CC --> CT[EGPT/Complexity/TableauFromCNF.lean<br/>SatisfyingTableau<br/>walkCNFPaths<br/>walkComplexity le n squared]
+    CT --> CIB[EGPT/Complexity/ComplexityInformationBridge.lean<br/>time complexity = information complexity]
+    CIB --> INT[EGPT/Complexity/Interpretation.lean<br/>re-exports ComplexityInformationBridge]
+    INT --> PP[EGPT/Complexity/PPNP.lean<br/>P, NP structurally distinct<br/>P_eq_NP non-trivial proof<br/>L_SAT_in_NP, L_SAT_in_P<br/>EGPT_CookLevin_Theorem]
 
     EC[EGPT/Entropy/Common.lean<br/>type definitions only] -.-> CT
     PD[EGPT/Physics/PhysicsDist.lean<br/>type definitions only] -.-> CT
@@ -31,6 +33,8 @@ graph TD
     PD -.-> PP
 
     style PP fill:#2d6a4f,color:#fff
+    style INT fill:#357a5e,color:#fff
+    style CIB fill:#3d8868,color:#fff
     style CT fill:#40916c,color:#fff
     style CC fill:#52b788,color:#fff
     style CN fill:#74c69d,color:#000

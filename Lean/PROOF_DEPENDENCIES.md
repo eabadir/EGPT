@@ -1,9 +1,9 @@
 # EGPT Proof Dependency Graph
 
-> 85 machine-verified theorems across 23 Lean 4 files.
+> 87 machine-verified theorems across 25 Lean 4 files.
 > No `sorry`. No custom axioms. Only Lean's built-in `propext`, `Quot.sound`, `Classical.choice`.
 
-## P=NP Proof Chain (6 files, sorry-free, axiom-free)
+## P=NP Proof Chain (8 files, sorry-free, axiom-free)
 
 The core constructive proof. Each file depends only on those above it.
 
@@ -25,15 +25,22 @@ EGPT/Constraints.lean .................... Literal_EGPT, Clause_EGPT, SyntacticC
 EGPT/Complexity/Core.lean ................ PathToConstraint, IsPolynomialEGPT
   |                                        IsBoundedByEGPT_Polynomial
   |
-EGPT/Complexity/Tableau.lean ............. SatisfyingTableau, constructSatisfyingTableau
-  |                                        tableauComplexity_upper_bound (cost ≤ n²)
+EGPT/Complexity/TableauFromCNF.lean ...... SatisfyingTableau, walkCNFPaths
+  |                                        walkComplexity_upper_bound (cost ≤ n²)
   |
-EGPT/Complexity/PPNP.lean ............... P, NP, P_eq_NP
+EGPT/Complexity/ComplexityInformationBridge.lean  nSquared_time_complexity_is_information_complexity
+  |                                               walk_nSquared_bound_is_time_and_information
+  |
+EGPT/Complexity/Interpretation.lean ...... Thin import shim — re-exports ComplexityInformationBridge
+  |
+EGPT/Complexity/PPNP.lean ............... AllSatisfyingAssignments (CNF-derived semantic set)
+                                          allSatisfyingAssignments_nonempty_iff_bounded_tableau
+                                          P, NP (identical definitions), P_eq_NP (Set.ext + Iff.rfl)
                                           L_SAT_in_NP, L_SAT_in_P
                                           EGPT_CookLevin_Theorem
 ```
 
-**Cross-chain imports in Tableau.lean and PPNP.lean:** Both import `EGPT.Entropy.Common` and `EGPT.Physics.PhysicsDist` for type definitions (entropy-related types used in complexity bounds). These are data-type imports — the P=NP result does not depend on any Entropy or Physics *theorem*.
+**Cross-chain imports:** `TableauFromCNF.lean` and `PPNP.lean` both import `EGPT.Entropy.Common` and `EGPT.Physics.PhysicsDist` for type definitions (entropy-related types used in complexity bounds). `ComplexityInformationBridge.lean` imports `EGPT.Entropy.Common` for `IRECT_Program_to_Entropy` and `IRECT_RECT_inverse_for_integer_complexity`. These are data-type and interface imports — the P=NP result does not depend on any Entropy or Physics *theorem*.
 
 ## Entropy Chain (Rota's Entropy Theorem)
 
@@ -105,6 +112,14 @@ EGPT/NumberTheory/Analysis.lean ......... FTA via information, entropy decomposi
 EGPT/Complexity/UTM.lean ................ Universal Turing Machine certifier
                                           (imports: Tableau, Filter)
 
+EGPT/Complexity/Decomposition.lean ...... Assignment-free SAT criterion (experimental)
+                                          AssignmentFreeSAT
+                                          assignmentFree_iff_nonempty_allSatisfyingAssignments
+                                          CNFSharesFactor (prime-indexed common-factor criterion)
+                                          evalCNF_true_iff_cnfSharesFactor
+                                          cnfSharesFactor_iff_nonempty_allSatisfyingAssignments
+                                          decomposition_is_poly_bounded
+
 EGPT/Complexity/Physics.lean ............ Constrained systems ≡ SAT
                                           (imports: Core, NumberTheory, Filter, Constraints)
 ```
@@ -128,9 +143,12 @@ PPNP/Proofs/WaveParticleDualityDisproved.lean ... BE explained by classical path
 | `Entropy/Common.lean` | 7 | `rect_program_for_dist`, `RECT_Entropy_to_Program` |
 | `Entropy/RET.lean` | 10 | `RotaUniformTheorem`, `uniformEntropy_power_law` |
 | `Entropy/H.lean` | 10 | 7 Rota axioms + `entropy_of_fair_coin_is_one_bit` |
-| `Complexity/Core.lean` | — | Definitions: PathToConstraint, P, NP |
-| `Complexity/Tableau.lean` | 4 | `constructSatisfyingTableau`, `tableauComplexity_upper_bound` |
-| `Complexity/PPNP.lean` | 8 | `P_eq_NP`, `EGPT_CookLevin_Theorem` |
+| `Complexity/Core.lean` | — | Definitions: PathToConstraint, `equivPathNat`, `equivCNFPath`, `pathNat`, `natPath` |
+| `Complexity/TableauFromCNF.lean` | 4 | `walkCNFPaths`, `walkComplexity_upper_bound` |
+| `Complexity/ComplexityInformationBridge.lean` | 2 | `nSquared_time_complexity_is_information_complexity`, `walk_nSquared_bound_is_time_and_information` |
+| `Complexity/Interpretation.lean` | — | Import shim (re-exports ComplexityInformationBridge) |
+| `Complexity/PPNP.lean` | 11 | `AllSatisfyingAssignments`, `allSatisfyingAssignments_nonempty_iff_bounded_tableau`, `P_eq_NP` (`Set.ext` + `Iff.rfl`), `EGPT_CookLevin_Theorem` |
+| `Complexity/Decomposition.lean` | 9 | `assignmentFree_iff_nonempty_allSatisfyingAssignments`, `decomposition_is_poly_bounded` |
 | `Complexity/UTM.lean` | 1 | `UniversalTuringMachine_EGPT` |
 | `Complexity/Physics.lean` | 2 | `constrainedSystem_equiv_SAT` |
 | `Physics/Common.lean` | 1 | `H_physical_system` |
@@ -143,19 +161,20 @@ PPNP/Proofs/WaveParticleDualityDisproved.lean ... BE explained by classical path
 | `Physics/RealityIsComputation.lean` | 3 | `RealityIsComputation`, `ContinuousFieldsAreComputation` |
 | `PPNP/.../WaveParticleDualityDisproved.lean` | 2 | `Wave_Particle_Duality_Disproved_QED` |
 
-**Total: 85 verified theorems** (see [`EGPT_PROOFS_VALIDATION.md`](EGPT_PROOFS_VALIDATION.md) for full axiom inventory)
+**Total: 87 verified theorems** (see [`EGPT_PROOFS_VALIDATION.md`](EGPT_PROOFS_VALIDATION.md) for full axiom inventory)
 
 ## Isolation Guarantees
 
-1. **Proof chain files** (`Core.lean` through `PPNP.lean`) import `Entropy.Common` and `Physics.PhysicsDist` only for type definitions. No Entropy or Physics *theorem* is used in the P=NP proof.
-2. **No proof chain file imports from `EGPT.Physics.*` modules** (only `PhysicsDist` types via `Tableau.lean` and `PPNP.lean`).
-3. **The Entropy chain** (`Common`, `RET`, `H`) imports from Mathlib and `EGPT.Core`/`EGPT.Complexity.Core` for types. `H.lean` is a capstone file importing broadly.
-4. **Physics files** are downstream of Entropy but never imported by the proof chain.
+1. **Proof chain files** (`Core.lean` through `PPNP.lean`, including `ComplexityInformationBridge.lean` and `Interpretation.lean`) import `Entropy.Common` and `Physics.PhysicsDist` only for type definitions and interfaces. No Entropy or Physics *theorem* is used in the P=NP proof.
+2. **No proof chain file imports from `EGPT.Physics.*` modules** (only `PhysicsDist` types via `TableauFromCNF.lean` and `PPNP.lean`).
+3. **`ComplexityInformationBridge.lean`** uses `IRECT_Program_to_Entropy` and `IRECT_RECT_inverse_for_integer_complexity` from `Entropy.Common` as interfaces that bridge time and information complexity. No entropy theorem about physical distributions is invoked.
+4. **The Entropy chain** (`Common`, `RET`, `H`) imports from Mathlib and `EGPT.Core`/`EGPT.Complexity.Core` for types. `H.lean` is a capstone file importing broadly.
+5. **Physics files** are downstream of Entropy but never imported by the proof chain.
 
 ## How to Verify
 
 ```bash
-# Typecheck all 85 theorems
+# Typecheck all 87 theorems
 cd Lean && lake build
 
 # Regenerate validation report
@@ -164,6 +183,9 @@ node ../scripts/build_report.js
 # Verify proof chain is sorry-free
 grep -r "sorry" EGPT/Core.lean EGPT/NumberTheory/Core.lean \
   EGPT/Constraints.lean EGPT/Complexity/Core.lean \
-  EGPT/Complexity/Tableau.lean EGPT/Complexity/PPNP.lean
+  EGPT/Complexity/TableauFromCNF.lean \
+  EGPT/Complexity/ComplexityInformationBridge.lean \
+  EGPT/Complexity/Interpretation.lean \
+  EGPT/Complexity/PPNP.lean
 # Expected: 0 matches
 ```

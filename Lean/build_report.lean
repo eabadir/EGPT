@@ -113,12 +113,18 @@ A clean run (exit code 0) with no `sorry` in the output confirms:
 #print axioms EGPT.Entropy.H.stdShannonEntropyLn_chain_rule_sigma
 
 -- ═══════════════════════════════════════════════════════════════
--- Complexity/Core & Tableau: certificates & polynomial bounds
+-- Complexity/Core & TableauFromCNF: certificates & polynomial bounds
 -- ═══════════════════════════════════════════════════════════════
 #print axioms EGPT.Complexity.PathToConstraint
-#print axioms EGPT.Complexity.constructSatisfyingTableau
-#print axioms EGPT.Complexity.tableauComplexity_upper_bound
-#print axioms EGPT.Complexity.tableauComplexity_eq_sum_of_paths
+#print axioms EGPT.Complexity.walkCNFPaths
+#print axioms EGPT.Complexity.walkComplexity_upper_bound
+#print axioms EGPT.Complexity.walkComplexity_eq_sum_of_paths
+
+-- ═══════════════════════════════════════════════════════════════
+-- Complexity/ComplexityInformationBridge: time = information complexity
+-- ═══════════════════════════════════════════════════════════════
+#print axioms EGPT.Complexity.Interpretation.nSquared_time_complexity_is_information_complexity
+#print axioms EGPT.Complexity.Interpretation.walk_nSquared_bound_is_time_and_information
 
 -- ═══════════════════════════════════════════════════════════════
 -- Complexity/PPNP: P = NP proof chain

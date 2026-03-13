@@ -36,7 +36,10 @@ Live QFT benchmark: [Google Colab](https://colab.research.google.com/drive/1LQLC
 ## Core Claims
 
 **The proof:** P = NP, proven constructively in Lean 4 by showing that in a maximally
-compressed information space (ParticlePath ≃ ℕ), defining a problem is defining its solution.
+compressed information space (ParticlePath ≃ ℕ), the complexity classes P and NP have
+identical definitions. The proof is `Iff.rfl` — definitional equality. The non-trivial
+content is the chain of bijections and bounds that forces this identity: `ParticlePath ≃ ℕ`,
+the n² bound via `walkCNFPaths`, and information conservation from RET.
 
 **The implementation:** EGPTMath is the integer-only math library that turns the proof
 into practice. All arithmetic uses IOPs (Integer Operations), not FLOPs. No floating point,
