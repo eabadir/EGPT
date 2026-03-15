@@ -139,9 +139,16 @@ A clean run (exit code 0) with no `sorry` in the output confirms:
 #print axioms EGPT.Complexity.PPNP.P_eq_NP
 
 -- ═══════════════════════════════════════════════════════════════
--- Complexity/UTM: Universal Turing Machine certifier
+-- Complexity/UTM: ReadHead model, time = information
 -- ═══════════════════════════════════════════════════════════════
-#print axioms EGPT.Complexity.PPNP.UniversalTuringMachine_EGPT
+#print axioms EGPT.Complexity.UTM.timeComplexity_eq_length
+#print axioms EGPT.Complexity.UTM.time_eq_information_eq_complexity
+
+-- ═══════════════════════════════════════════════════════════════
+-- Complexity/PPNPConstructive: P_info = NP_info (information-theoretic chain)
+-- ═══════════════════════════════════════════════════════════════
+#print axioms EGPT.Complexity.PPNPConstructive.P_info_eq_NP_info
+#print axioms EGPT.Complexity.PPNPConstructive.complete_information_extraction
 
 -- ═══════════════════════════════════════════════════════════════
 -- PPNP/Proofs: Wave-Particle Duality Disproved

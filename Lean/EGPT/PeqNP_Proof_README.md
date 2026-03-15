@@ -369,6 +369,16 @@ Lean's kernel will typecheck every theorem. No `sorry`. No custom axioms. Every 
 
 ---
 
+## Chain 2: The Information-Theoretic Proof (P_info_eq_NP_info)
+
+Chain 2 extends Chain 1 with three additional files -- `Complexity/Decomposition.lean`, `Complexity/UTM.lean`, and `Complexity/PPNPConstructive.lean` -- bringing the total to 11 sorry-free, axiom-free files. Where Chain 1 proves `P_eq_NP` via definitional identity, Chain 2 constructs `P_info_eq_NP_info` through an explicit three-layer equivalence: Boolean SAT (a CNF is satisfiable) is equivalent to an entropy condition (zero conditional entropy via `cnfSharesFactor_iff_zero_conditional_cnf_entropy`) which is equivalent to a number-theoretic condition (prime divisibility via `CNFSharesFactor`). The theorem `three_layer_equivalence` establishes this chain, and `three_layer_meets_proof_chain` connects it back to Chain 1's `walkCNFPaths` construction.
+
+The computation model is a Non-Deterministic Machine (NDM) whose `ndmCircuitEval` evaluates a CNF by walking literal addresses, proven equivalent to `evalCNF`. The key insight is that time equals information: `time_eq_information_eq_complexity` proves that the sequential read head time, the information content, and the walk complexity are the same quantity. Rota's entropy properties are proved (not assumed) within the constructive chain, and `entropy_extraction_is_polynomial` shows the entropy walk runs in polynomial time. The capstone theorem `complete_information_extraction` ties everything together, and `P_info_eq_NP_info` follows.
+
+For a full constructive walkthrough of Chain 2 with code references, see [`PeqNP_SKEPTICS_GUIDE.md`](https://eabadir.github.io/EGPT/Lean/EGPT/PeqNP_SKEPTICS_GUIDE.md).
+
+---
+
 ## Related Documents
 
 - [`ROSETTA_STONE.md`](https://eabadir.github.io/EGPT/Lean/EGPT/ROSETTA_STONE.md) -- Complete bijection map from EGPT types to standard mathematics

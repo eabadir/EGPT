@@ -3322,13 +3322,29 @@ information-theoretic foundation (LFTA, Rota's Entropy Theorem).
 -/
 
 /--
+`AllSatisfyingAssignments cnf` is the CNF-derived semantic set of all
+assignments that satisfy `cnf`. This semantic layer is constructed from CNF
+alone and used as the explicit upstream bridge before class closure.
+-/
+def AllSatisfyingAssignments {k : ℕ} (cnf : SyntacticCNF_EGPT k) : Set (Vector Bool k) :=
+  { assignment | evalCNF cnf assignment = true }
+
+/-- Membership in `AllSatisfyingAssignments` is definitional satisfiability. -/
+@[simp] lemma mem_AllSatisfyingAssignments {k : ℕ} (cnf : SyntacticCNF_EGPT k) (assignment : Vector Bool k) :
+    assignment ∈ AllSatisfyingAssignments cnf ↔ evalCNF cnf assignment = true := Iff.rfl
+
+/-- Nonemptiness of `AllSatisfyingAssignments` is equivalent to SAT existence form. -/
+@[simp] lemma allSatisfyingAssignments_nonempty_iff_exists {k : ℕ} (cnf : SyntacticCNF_EGPT k) :
+    (AllSatisfyingAssignments cnf).Nonempty ↔ ∃ assignment : Vector Bool k, evalCNF cnf assignment = true := Iff.rfl
+
+/--
 **The Canonical Language of Satisfiability (`L_SAT_Canonical`)**
 
 The set of all satisfiable `CanonicalCNF` formulas. All types are bijectively
 equivalent to standard mathematics (ℕ, ℤ, ℚ, ℝ).
 -/
 def L_SAT_Canonical (k : ℕ) : Set (CanonicalCNF k) :=
-  { ccnf | ∃ (assignment : Vector Bool k), evalCNF ccnf.val assignment = true }
+  { ccnf | (AllSatisfyingAssignments ccnf.val).Nonempty }
 
 /--
 Canonical SAT input, viewed as a machine-readable `ComputerProgram`.
@@ -3383,20 +3399,15 @@ def NP : Set (Π k, Set (CanonicalCNF k)) :=
 }
 
 /--
-**Theorem: `L_SAT_Canonical` is in NP.**
-
-For any satisfiable CNF, `walkCNFPaths` produces a `SatisfyingTableau` whose
-complexity is bounded by n². The walk visits every clause and records
-the path to the satisfied literal; the bound comes from the CNF's dimensions.
+Semantic-to-constructive bridge:
+nonempty CNF-derived semantics is equivalent to existence of a bounded tableau.
+This is the load-bearing equivalence used by both `L_SAT_in_NP` and `L_SAT_in_P`.
 -/
-theorem L_SAT_in_NP :
-  (L_SAT_Canonical : Π k, Set (CanonicalCNF k)) ∈ NP :=
-by
-  unfold NP
-  intro k input_ccnf
-  unfold L_SAT_Canonical
-  simp only [Set.mem_setOf_eq]
-
+theorem allSatisfyingAssignments_nonempty_iff_bounded_tableau {k : ℕ} (input_ccnf : CanonicalCNF k) :
+    (AllSatisfyingAssignments input_ccnf.val).Nonempty ↔
+      ∃ (tableau : SatisfyingTableau k),
+        tableau.cnf = input_ccnf.val ∧
+        tableau.complexity ≤ toNat (canonical_np_poly.eval (fromNat (encodeCNF input_ccnf.val).length)) := by
   apply Iff.intro
   · rintro ⟨assignment, h_valid⟩
     let endpoint : { v : Vector Bool k // evalCNF input_ccnf.val v = true } := ⟨assignment, h_valid⟩
@@ -3413,7 +3424,7 @@ by
         (EGPT.Complexity.Interpretation.walk_nSquared_bound_is_time_and_information
           (cnf := input_ccnf.val) endpoint)
     use tableau
-    apply And.intro
+    constructor
     · rfl
     · calc
         tableau.complexity
@@ -3426,11 +3437,29 @@ by
           · exact Nat.zero_le _
         _ = toNat (canonical_np_poly.eval (fromNat (encodeCNF input_ccnf.val).length)) := by
             rw [eval_canonical_np_poly]
-
   · rintro ⟨tableau, h_cnf, _h_bound⟩
-    use tableau.assignment
-    rw [←h_cnf]
+    refine ⟨tableau.assignment, ?_⟩
+    rw [← h_cnf]
     exact tableau.h_valid
+
+/--
+**Theorem: `L_SAT_Canonical` is in NP.**
+
+For any satisfiable CNF, `walkCNFPaths` produces a `SatisfyingTableau` whose
+complexity is bounded by n². The walk visits every clause and records
+the path to the satisfied literal; the bound comes from the CNF's dimensions.
+-/
+theorem L_SAT_in_NP :
+  (L_SAT_Canonical : Π k, Set (CanonicalCNF k)) ∈ NP :=
+by
+  -- Upstream semantic layer first: SAT is represented as nonempty
+  -- `AllSatisfyingAssignments` built from CNF alone.
+  -- Then a single explicit bridge theorem carries the constructive content:
+  -- semantic nonemptiness ↔ bounded tableau existence.
+  unfold NP
+  intro k input_ccnf
+  unfold L_SAT_Canonical
+  simpa [Set.mem_setOf_eq] using allSatisfyingAssignments_nonempty_iff_bounded_tableau input_ccnf
 
 /--
 **Theorem: `L_SAT_Canonical` is NP-Hard.**
@@ -3554,45 +3583,12 @@ and the bound IS the verification — they are the same operation.
 theorem L_SAT_in_P :
   (L_SAT_Canonical : Π k, Set (CanonicalCNF k)) ∈ P :=
 by
+  -- Same upstream semantic bridge as NP membership.
+  -- This is why class predicates close identically downstream.
   unfold P
   intro k input_ccnf
   unfold L_SAT_Canonical
-  simp only [Set.mem_setOf_eq]
-
-  apply Iff.intro
-  · rintro ⟨assignment, h_valid⟩
-    let endpoint : { v : Vector Bool k // evalCNF input_ccnf.val v = true } := ⟨assignment, h_valid⟩
-    let tableau := walkCNFPaths input_ccnf.val endpoint
-    have _h_n2_is_info_and_time :=
-      EGPT.Complexity.Interpretation.nSquared_time_complexity_is_information_complexity
-        ((encodeCNF input_ccnf.val).length)
-    have _h_walk_is_info_and_time :
-        ∃ prog : ComputationalDescription,
-          prog.complexity = tableau.complexity ∧
-          IRECT_Program_to_Entropy prog = (tableau.complexity : ℝ) ∧
-          prog.complexity ≤ (encodeCNF input_ccnf.val).length * (encodeCNF input_ccnf.val).length := by
-      simpa [tableau] using
-        (EGPT.Complexity.Interpretation.walk_nSquared_bound_is_time_and_information
-          (cnf := input_ccnf.val) endpoint)
-    use tableau
-    apply And.intro
-    · rfl
-    · calc
-        tableau.complexity
-          ≤ input_ccnf.val.length * k := walkComplexity_upper_bound _ endpoint
-        _ ≤ (encodeCNF input_ccnf.val).length * (encodeCNF input_ccnf.val).length := by
-          apply mul_le_mul
-          · exact cnf_length_le_encoded_length _
-          · exact encodeCNF_size_ge_k _ _
-          · exact Nat.zero_le _
-          · exact Nat.zero_le _
-        _ = toNat (canonical_np_poly.eval (fromNat (encodeCNF input_ccnf.val).length)) := by
-            rw [eval_canonical_np_poly]
-
-  · rintro ⟨tableau, h_cnf, _h_bound⟩
-    use tableau.assignment
-    rw [←h_cnf]
-    exact tableau.h_valid
+  simpa [Set.mem_setOf_eq] using allSatisfyingAssignments_nonempty_iff_bounded_tableau input_ccnf
 
 
 
@@ -3630,6 +3626,8 @@ proof chain are proven equivalent to standard Lean/Mathlib types — this
 result holds for standard complexity theory.
 -/
 theorem P_eq_NP : P = NP := by
+  -- Final closure step. The substantive argument has already been discharged
+  -- in upstream semantic/constructive equivalence lemmas.
   apply Set.ext
   intro L
   unfold P NP
@@ -3892,6 +3890,64 @@ def computeTableau? {k : ℕ} (cnf : SyntacticCNF_EGPT k)
     }
   else
     none
+
+/--
+**Lemma: `computeTableau?` returns `none` iff the candidate does not satisfy the CNF.**
+
+This follows directly from the `if`/`else` branch structure of `computeTableau?`.
+-/
+theorem computeTableau_none_iff_not_sat {k : ℕ} (cnf : SyntacticCNF_EGPT k) (v : Vector Bool k) :
+    computeTableau? cnf v = none ↔ evalCNF cnf v = false := by
+  constructor
+  · intro h_none
+    unfold computeTableau? at h_none
+    by_contra h_not_false
+    push_neg at h_not_false
+    have h_true : evalCNF cnf v = true := by
+      cases evalCNF cnf v <;> simp_all
+    simp [h_true] at h_none
+  · intro h_false
+    unfold computeTableau?
+    simp [h_false]
+
+/--
+**Lemma: When `computeTableau?` returns `some`, the resulting tableau's
+complexity is bounded by `cnf.length * k`.**
+
+This matches the `walkComplexity_upper_bound` bound. The walk logic in
+`computeTableau?` constructs the same `witness_paths` structure as
+`walkCNFPaths`, so the same per-clause bound applies.
+-/
+theorem computeTableau_time_bounded {k : ℕ} (cnf : SyntacticCNF_EGPT k) (v : Vector Bool k)
+    (tableau : SatisfyingTableau k)
+    (h : computeTableau? cnf v = some tableau) :
+    tableau.complexity ≤ cnf.length * k := by
+  -- Extract that evalCNF cnf v = true from the `some` branch
+  have h_valid : evalCNF cnf v = true := by
+    unfold computeTableau? at h
+    split at h
+    · case isTrue h_true => exact h_true
+    · case isFalse => simp at h
+  -- The tableau from computeTableau? has specific structure
+  have h_tableau : tableau = {
+      cnf := cnf,
+      assignment := v,
+      witness_paths := cnf.map (fun clause =>
+        match clause.find? (fun lit => evalLiteral lit v) with
+        | some lit => PathToConstraint lit
+        | none     => fromNat 0),
+      h_valid := h_valid
+    } := by
+    unfold computeTableau? at h
+    simp [h_valid] at h
+    exact h.symm
+  -- The tableau equals the one produced by walkCNFPaths, so reuse its bound
+  let endpoint : { w : Vector Bool k // evalCNF cnf w = true } := ⟨v, h_valid⟩
+  have h_eq : tableau.complexity = (walkCNFPaths cnf endpoint).complexity := by
+    rw [h_tableau]
+    rfl
+  rw [h_eq]
+  exact walkComplexity_upper_bound cnf endpoint
 
 -- Backward-compatible alias used by PPNP.lean
 noncomputable abbrev constructSatisfyingTableau {k : ℕ} := @walkCNFPaths k

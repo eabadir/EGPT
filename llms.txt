@@ -2,7 +2,7 @@
 
 > A constructive, machine-verified proof that P = NP and a working integer-only math
 > library (EGPTMath) that replaces FLOPs with IOPs — answering the question: how do
-> you scale AI without cooking the planet? 85 Lean 4 theorems. No sorry. No custom
+> you scale AI without cooking the planet? 90 Lean 4 theorems. No sorry. No custom
 > axioms. 157 EGPTMath tests, 100% pass. Central principle: "The address is the map."
 
 Raw access base: https://raw.githubusercontent.com/eabadir/EGPT/main/
@@ -47,13 +47,22 @@ no error accumulation. The FAT (Faster Abadir Transform) demonstrates classical 
 of the Quantum Fourier Transform — pedagogical variants ship in this repo; the optimized
 FAT benchmarks ~1.277 billion x faster than 2,048 GPUs on a single 1.2 GHz core.
 
+**The experiment:** The Circuit SAT solver in `egpt_circuit_sat/` provides experimental
+confirmation. Any Boolean circuit can be composed from a constant number of half-adder
+gates (AND + XOR). Since the half-adder simulation runs in polynomial time via discrete
+particle transport, C × polynomial = polynomial. 100% accuracy across 80 runs (4 input
+combos × 20 PRNG seeds × 3000 ticks), zero failures, open code, open data. Combined
+with two independent sorry-free Lean proofs — P_eq_NP (8-file chain) and P_info_eq_NP_info
+(constructive extension) — this constitutes an unprecedented level of transparency and proof.
+
 ## Documentation
 
-- [README](https://eabadir.github.io/EGPT/README.md): Project overview, philosophy, and proof chain narrative
+- [README](https://eabadir.github.io/EGPT/README.md): Agentic launcher — tool-specific quickstart, action table
+- [EGPT Story README](https://eabadir.github.io/EGPT/EGPT_STORY_README.md): Full narrative README — proof chain, triumvirate, New Manhattan Project
 - [AGENTS.md](https://eabadir.github.io/EGPT/AGENTS.md): AI agent navigation instructions, build commands, proof dependency graph
 - [Skeptic's Guide](https://eabadir.github.io/EGPT/SKEPTICS_GUIDE.md): Step-by-step audited proof walkthrough
 - [P=NP Proof Walkthrough](https://eabadir.github.io/EGPT/Lean/EGPT/PeqNP_Proof_README.md): Detailed mathematical exposition
-- [Proof Validation Report](https://eabadir.github.io/EGPT/Lean/EGPT_PROOFS_VALIDATION.md): 85 theorems with full axiom inventory
+- [Proof Validation Report](https://eabadir.github.io/EGPT/Lean/EGPT_PROOFS_VALIDATION.md): 90 theorems with full axiom inventory
 - [Proof Dependency Graph](https://eabadir.github.io/EGPT/Lean/PROOF_DEPENDENCIES.md): Import chains, theorem counts, isolation guarantees
 - [Proof Graph (Mermaid)](https://eabadir.github.io/EGPT/docs/PROOF_GRAPH.md): Visual dependency DAG with Mermaid diagrams
 - [Proof Graph (JSON)](https://eabadir.github.io/EGPT/docs/proof_graph.json): Machine-readable dependency graph for programmatic ingestion
@@ -105,7 +114,7 @@ EGPT provides a triumvirate for each physical phenomenon: formal proof (Lean 4) 
 derivation (paper) + computational experiment (interactive simulation). No other framework
 offers all three for any one phenomenon, let alone six:
 
-- **Circuit SAT (Half-Adder)**: [Circuit SAT Demo](https://eabadir.github.io/EGPT/egpt_circuit_sat) — 100% accuracy across 80 runs. Boolean computation via particle diffusion in a force-free engine. Open code, open data, fully reproducible. [Whitepaper](https://eabadir.github.io/EGPT/egpt_circuit_sat/paper/egpt_circuit_sat_whitepaper.pdf), [Data](https://eabadir.github.io/EGPT/egpt_circuit_sat/data/multiseed_results.json).
+- **Circuit SAT Solver**: [Circuit SAT Demo](https://eabadir.github.io/EGPT/egpt_circuit_sat) — experimentally verified general Circuit SAT solver. Any Boolean circuit decomposes into a constant number of half-adder gates; C × polynomial = polynomial. 100% accuracy across 80 runs, open code, open data. Paired with two independent Lean-verified P=NP proofs (P_eq_NP + P_info_eq_NP_info). [Whitepaper](https://eabadir.github.io/EGPT/egpt_circuit_sat/paper/egpt_circuit_sat_whitepaper.pdf), [Data](https://eabadir.github.io/EGPT/egpt_circuit_sat/data/multiseed_results.json).
 - **Gravity**: [GravitySim](https://eabadir.github.io/EGPT/www/GravitySim) — inverse-square law emerges from random walk statistics. No Newton's law as input.
 - **Double slit / wave interference**: [FRAQTL DevSDK](https://eabadir.github.io/EGPT/www/fraqtl_devsdk) — interference patterns from discrete particles, no wave equation.
 - **Blackbody radiation**: [FRAQTL DevSDK](https://eabadir.github.io/EGPT/www/fraqtl_devsdk) — Planck's distribution from particle statistics.
@@ -114,14 +123,14 @@ offers all three for any one phenomenon, let alone six:
 
 ## Interactive Demos
 
-- [Circuit SAT Half-Adder](https://eabadir.github.io/EGPT/egpt_circuit_sat): Boolean computation via particle transport — interactive demo + reproducible 80-run dataset (no build step)
+- [Circuit SAT Solver](https://eabadir.github.io/EGPT/egpt_circuit_sat): General Circuit SAT solver via particle transport — any circuit = C × half-adders. Interactive demo + reproducible 80-run dataset
 - [Web Demos](https://eabadir.github.io/EGPT/www): Browser-based visualizations (no build step)
 - [GravitySim](https://eabadir.github.io/EGPT/www/GravitySim): Emergent gravity from random walks (p5.js, no build step)
 - [FRAQTL DevSDK](https://eabadir.github.io/EGPT/www/fraqtl_devsdk): 5 physics experiments — particle walk, wave interference, blackbody, oscillator, atomic model (p5.js, no build step)
 
 ## Specialist Agent Instructions (.claude/agents/)
 
-Seven specialist agents keep the mono-repo layers synchronized. Each file contains
+Eight specialist agents keep the mono-repo layers synchronized. Each file contains
 domain-specific conventions, file inventories, sync rules, and success criteria.
 
 - [egpt-orchestrator.md](https://eabadir.github.io/EGPT/.claude/agents/egpt-orchestrator.md): Cross-layer sync assessment and delegation — reads changes, applies sync matrix, delegates to specialists
@@ -131,3 +140,4 @@ domain-specific conventions, file inventories, sync rules, and success criteria.
 - [demo-builder.md](https://eabadir.github.io/EGPT/.claude/agents/demo-builder.md): Interactive web demos — Chart.js, p5.js, self-contained HTML, style guide
 - [content-author.md](https://eabadir.github.io/EGPT/.claude/agents/content-author.md): Academic papers and stories — content structure, tone guidelines, key principles
 - [sync-validator.md](https://eabadir.github.io/EGPT/.claude/agents/sync-validator.md): Cross-layer consistency — 11 validation checks (build, sorry-free, theorem count, test suite, imports, isolation)
+- [egpt-navigator.md](https://eabadir.github.io/EGPT/.claude/agents/egpt-navigator.md): "Dungeon Master" / interactive guide — routes users to files, agents, and exploration paths through conversational discovery

@@ -1,8 +1,8 @@
 # EGPT Build Verification Report
 
-> Generated: 2026-03-12 21:07:02 UTC  
+> Generated: 2026-03-13 22:06:16 UTC  
 > Toolchain: `leanprover/lean4:v4.21.0-rc3`  
-> Elapsed: 12.9s
+> Elapsed: 22.2s
 
 | Check | Result |
 |-------|--------|
@@ -10,9 +10,9 @@
 | `lake build PPNP` | PASS |
 | sorry-free | PASS |
 | No custom axioms | PASS |
-| Theorems verified | **87** |
+| Theorems verified | **90** |
 
-**Verdict: PASS** — All 87 theorems are sorry-free and use only Lean's built-in axioms.
+**Verdict: PASS** — All 90 theorems are sorry-free and use only Lean's built-in axioms.
 
 ---
 
@@ -199,15 +199,27 @@ Source: [`EGPT/Complexity/PPNP.lean`](EGPT/Complexity/PPNP.lean)
 | `EGPT_CookLevin_Theorem` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 | `P_eq_NP` | `propext`, `Quot.sound` | OK |
 
-## Complexity — UTM: Universal Turing Machine Certifier
+## Complexity — UTM: ReadHead Model (time = information)
 
-The EGPT UTM that transforms problems into certified results.
+Sequential tape reading: timeComplexity = tape length. Used by PPNPConstructive.
 
 Source: [`EGPT/Complexity/UTM.lean`](EGPT/Complexity/UTM.lean)
 
 | Theorem | Axioms | Status |
 |---------|--------|--------|
-| `UniversalTuringMachine_EGPT` | `propext`, `Classical.choice`, `Quot.sound` | OK |
+| `timeComplexity_eq_length` | `propext`, `Classical.choice`, `Quot.sound` | OK |
+| `time_eq_information_eq_complexity` | `propext`, `Classical.choice`, `Quot.sound` | OK |
+
+## Complexity — PPNPConstructive: P_info = NP_info
+
+Information-theoretic P=NP formulation. Capstone of the P_info_eq_NP_info chain.
+
+Source: [`EGPT/Complexity/PPNPConstructive.lean`](EGPT/Complexity/PPNPConstructive.lean)
+
+| Theorem | Axioms | Status |
+|---------|--------|--------|
+| `P_info_eq_NP_info` | `propext`, `Classical.choice`, `Quot.sound` | OK |
+| `complete_information_extraction` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 
 ## PPNP — Wave-Particle Duality Disproved
 

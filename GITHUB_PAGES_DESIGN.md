@@ -135,7 +135,7 @@ Every directory that should appear in the site navigation gets a `_meta.json` fi
 {
   "title": "Formal Proofs (Lean 4)",
   "module": "Module 1: The Proof Chain",
-  "description": "87 machine-verified theorems. No sorry. No custom axioms. The constructive proof that P = NP, Rota's Entropy Theorem formalized, the Continuum Hypothesis decided, and algebraic discrete physics — all in Lean 4 with mathlib4.",
+  "description": "90 machine-verified theorems. No sorry. No custom axioms. The constructive proof that P = NP, Rota's Entropy Theorem formalized, the Continuum Hypothesis decided, and algebraic discrete physics — all in Lean 4 with mathlib4.",
   "ideas": ["ID1", "ID2", "ID3", "ID4", "ID5"],
   "primary_ideas": ["ID4", "ID5"],
   "do_this_first": {

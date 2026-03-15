@@ -1,5 +1,7 @@
 # PPNPConstructive: The Information-Theoretic Proof Architecture
 
+> **Status: Completed (2026-03-13).** The architecture described below has been fully implemented in `PPNPConstructive.lean`. Key results: `P_info_eq_NP_info` (capstone), `three_layer_equivalence`, `three_layer_meets_proof_chain`, `complete_information_extraction`, `entropy_extraction_is_polynomial`. All sorry-free, all axiom-free. See `PeqNP_SKEPTICS_GUIDE.md` for a walkthrough.
+
 ## The Core Insight: Import P into NP, Not the Other Way Around
 
 The traditional framing of P vs NP asks: "Can we efficiently FIND what we can

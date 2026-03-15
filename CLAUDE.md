@@ -58,6 +58,7 @@ node scripts/generate_sitemap.js
 
 ### Documentation & Navigation
 - `IDEAS.md` — Five foundational ideas (ID1-ID5), artifact maps, and "You might be looking for..." table
+- `EGPT_STORY_README.md` — Full narrative README (moved from README.md, 46KB)
 - `EGPT_STORY.md` — Full narrative exposition (the original README, 46KB)
 - `docs/PROOF_GRAPH.md` — Theorem dependency DAG with Mermaid diagrams (AI-optimized)
 - `docs/proof_graph.json` — Machine-readable proof dependency graph (JSON)
@@ -65,7 +66,7 @@ node scripts/generate_sitemap.js
 
 ## Agent Team
 
-Seven specialized agents in `.claude/agents/` keep the repo layers synchronized:
+Twelve specialized agents in `.claude/agents/` keep the repo layers synchronized:
 
 | Agent | Model | Role |
 |-------|-------|------|
@@ -76,6 +77,11 @@ Seven specialized agents in `.claude/agents/` keep the repo layers synchronized:
 | `@demo-builder` | sonnet | Creates interactive browser demos in www/. |
 | `@content-author` | sonnet | Drafts papers, whitepapers, and story-form narratives in content/. |
 | `@sync-validator` | haiku | Validates cross-layer consistency (theorem counts, test counts, file paths). |
+| `@pnp-moderator` | opus | Moderates the P=NP debate. Invokes skeptic/advocate/rota, consults Stan (Ulam), triggers implementation via `@egpt-orchestrator`. Entry point for debate sessions. |
+| `@pnp-skeptic` | opus | Gödel role — formal skeptic. Challenges whether EGPT's formalization captures standard P vs NP. |
+| `@pnp-jvm` | opus | Von Neumann role — constructive advocate. Defends EGPT's information-theoretic proof from code. |
+| `@pnp-rota` | opus | Rota role — entropy advisor. Filters arguments through RET, validates entropy claims, runs JS experiments. Works with the Advocate. |
+| `@egpt-navigator` | sonnet | "Dungeon Master" / interactive guide — routes users to files, agents, and exploration paths through conversational discovery. Read-only concierge. |
 
 **IMPORTANT — Orchestrator Usage**:
 - **Proactively invoke `@egpt-orchestrator`** when work is conceptually significant enough to merit reflection across multiple layers — e.g., a new Lean proof (like decidability of the Continuum Hypothesis) should cascade into papers, documentation, JS demonstrations, and potentially web demos. If a result would be noteworthy in an academic or educational context, the orchestrator should assess which layers need to reflect it.
@@ -83,11 +89,21 @@ Seven specialized agents in `.claude/agents/` keep the repo layers synchronized:
 - **After completing work** that modifies files across layers (Lean proofs, EGPTMath code, documentation, web demos, or content), invoke `@egpt-orchestrator` to assess what downstream updates are needed.
 - For quick consistency checks, invoke `@sync-validator` directly.
 
+**P=NP Debate System** (`@pnp-moderator` → `@pnp-skeptic` + `@pnp-jvm` + `@pnp-rota`):
+- **Entry point: `@pnp-moderator`.** Invoke with a question to explore. The moderator frames the question, invokes debaters and the entropy advisor, synthesizes results, and consults Stan at critical junctures.
+- **Debate history** is in `content/Skeptics/01_QA.md` through `13_QA.md` (13 exchanges from the founding conversation) plus `DEBATE_STATE.md` (accumulated state) and `debate_log.jsonl` (append-only log). The debate models the 1931 von Neumann–Gödel exchange about the formalizability of intuitionism, transposed to Lean and P=NP.
+- **Roles:** Gödel (skeptic), von Neumann (advocate), Rota (entropy advisor), Stan/Ulam (human — leaps of insight).
+- **Implementation triggers:** When debaters agree to try a concrete formalization (new Lean proof, white paper, simulation), the moderator pauses the debate, consults Stan, and invokes `@egpt-orchestrator` to delegate parallelizable implementation work to specialist agents.
+- **Stan (Ulam) in the loop:** The moderator consults Stan at impasses, when fundamental definitions might change, when the proof chain would be modified, or when genuinely new insights surface. Stan's contributions model Stanislaw Ulam — leaps of insight connecting disparate mathematical ideas.
+
 ## AI Navigation
 
 Tool-agnostic AI navigation files complement this Claude-specific guide:
 - [`AGENTS.md`](AGENTS.md) — For Cursor, GitHub Copilot, and generic AI agents
+- [`.cursorrules`](.cursorrules) — Cursor agent rules
+- [`.github/copilot-instructions.md`](.github/copilot-instructions.md) — VS Code Copilot instructions
 - [`llms.txt`](llms.txt) — Lightweight entry point (llms.txt standard)
+- [`EGPT_STORY_README.md`](EGPT_STORY_README.md) — Full narrative README (moved from README.md)
 - [`Lean/PROOF_DEPENDENCIES.md`](Lean/PROOF_DEPENDENCIES.md) — Full proof dependency graph with theorem inventory
 - [`docs/PROOF_GRAPH.md`](docs/PROOF_GRAPH.md) — Mermaid diagrams of theorem dependency DAG
 - [`docs/proof_graph.json`](docs/proof_graph.json) — Machine-readable dependency graph (JSON)

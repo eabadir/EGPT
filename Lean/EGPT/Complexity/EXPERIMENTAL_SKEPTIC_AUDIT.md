@@ -1,5 +1,7 @@
 # Experimental Skeptic Audit (Deterministic Breadth Chain)
 
+> **Status: Partially superseded (2026-03-13).** The files `PPNPExperimental.lean` and `Physics.lean` referenced below no longer exist as separate files. Their declarations were absorbed into `UTM.lean` during debate Exchanges 18-21. The deterministic breadth construction and experimental complexity classes (`P_exp`, `NP_exp`) are now non-chain experimental code within `UTM.lean`. The audit findings below remain historically accurate but file paths need mental translation: `PPNPExperimental.lean` → `UTM.lean`, `Physics.lean` → removed (physics motivation is in `Lean/EGPT/Physics/`).
+
 ## Findings (Complexity-Theorist Lens)
 
 ### High Severity

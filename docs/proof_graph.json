@@ -1,7 +1,7 @@
 {
   "meta": {
     "project": "EGPT",
-    "total_theorems": 85,
+    "total_theorems": 90,
     "total_files": 23,
     "sorry_count": 0,
     "custom_axioms": 0,
@@ -23,6 +23,16 @@
         "EGPT/Complexity/PPNP.lean"
       ],
       "capstone_theorem": "P_eq_NP"
+    },
+    "p_info_eq_np_info": {
+      "description": "Information-theoretic P=NP formulation. Extends P_eq_NP chain with Decomposition and UTM.",
+      "files": [
+        "EGPT/Complexity/PPNP.lean",
+        "EGPT/Complexity/Decomposition.lean",
+        "EGPT/Complexity/UTM.lean",
+        "EGPT/Complexity/PPNPConstructive.lean"
+      ],
+      "capstone_theorem": "P_info_eq_NP_info"
     },
     "entropy": {
       "description": "Rota's Entropy Theorem. Independent proof that all entropy = C * Shannon.",
@@ -82,7 +92,9 @@
     {"id": "NumberTheory.ContinuumHypothesis", "type": "proof", "file": "EGPT/NumberTheory/ContinuumHypothesis.lean", "theorems": ["EGPT_ContinuumHypothesis", "EGPT_GeneralizedContinuumHypothesis"], "chain": "number_theory_extensions"},
     {"id": "NumberTheory.Filter", "type": "proof", "file": "EGPT/NumberTheory/Filter.lean", "theorems": ["distOfRejectionFilter", "eventsPMF"], "chain": "number_theory_extensions"},
     {"id": "NumberTheory.Analysis", "type": "proof", "file": "EGPT/NumberTheory/Analysis.lean", "theorems": ["EGPT_Fundamental_Theorem_of_Arithmetic_via_Information"], "chain": "number_theory_extensions"},
-    {"id": "Complexity.UTM", "type": "proof", "file": "EGPT/Complexity/UTM.lean", "theorems": ["UniversalTuringMachine_EGPT"], "chain": "complexity_extensions"},
+    {"id": "Complexity.Decomposition", "type": "proof", "file": "EGPT/Complexity/Decomposition.lean", "theorems": ["assignmentFree_iff_sat", "evalCNF_true_iff_cnfSharesFactor", "CNFSharesFactor"], "chain": "p_info_eq_np_info"},
+    {"id": "Complexity.UTM", "type": "proof", "file": "EGPT/Complexity/UTM.lean", "theorems": ["timeComplexity_eq_length", "time_eq_information_eq_complexity"], "chain": "p_info_eq_np_info"},
+    {"id": "Complexity.PPNPConstructive", "type": "proof", "file": "EGPT/Complexity/PPNPConstructive.lean", "theorems": ["P_info_eq_NP_info", "complete_information_extraction"], "chain": "p_info_eq_np_info"},
     {"id": "Complexity.Physics", "type": "proof", "file": "EGPT/Complexity/Physics.lean", "theorems": ["constrainedSystem_equiv_SAT"], "chain": "complexity_extensions"}
   ],
   "edges": [
@@ -117,6 +129,9 @@
     {"from": "NumberTheory.Core", "to": "NumberTheory.ContinuumHypothesis", "type": "proof_dependency"},
     {"from": "NumberTheory.Core", "to": "NumberTheory.Filter", "type": "proof_dependency"},
     {"from": "Constraints", "to": "NumberTheory.Filter", "type": "proof_dependency"},
+    {"from": "Complexity.PPNP", "to": "Complexity.PPNPConstructive", "type": "proof_dependency"},
+    {"from": "Complexity.Decomposition", "to": "Complexity.PPNPConstructive", "type": "proof_dependency"},
+    {"from": "Complexity.UTM", "to": "Complexity.PPNPConstructive", "type": "proof_dependency"},
     {"from": "Complexity.TableauFromCNF", "to": "Complexity.UTM", "type": "proof_dependency"},
     {"from": "NumberTheory.Filter", "to": "Complexity.UTM", "type": "proof_dependency"}
   ]

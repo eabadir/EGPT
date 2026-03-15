@@ -1,9 +1,13 @@
 # EGPT Proof Dependency Graph
 
-> 87 machine-verified theorems across 25 Lean 4 files.
+> 90 machine-verified theorems across 25 Lean 4 files.
 > No `sorry`. No custom axioms. Only Lean's built-in `propext`, `Quot.sound`, `Classical.choice`.
 
-## P=NP Proof Chain (8 files, sorry-free, axiom-free)
+## P=NP Proof Chains (two formal chains, both sorry-free, axiom-free)
+
+There are **two** formal P=NP proof chains:
+
+### Chain 1: P_eq_NP (definitional identity)
 
 The core constructive proof. Each file depends only on those above it.
 
@@ -38,6 +42,22 @@ EGPT/Complexity/PPNP.lean ............... AllSatisfyingAssignments (CNF-derived 
                                           P, NP (identical definitions), P_eq_NP (Set.ext + Iff.rfl)
                                           L_SAT_in_NP, L_SAT_in_P
                                           EGPT_CookLevin_Theorem
+```
+
+### Chain 2: P_info_eq_NP_info (information-theoretic formulation)
+
+Extends PPNP with Decomposition and UTM. Uses `timeComplexity_eq_length` (UTM) and prime-factorization SAT equivalences (Decomposition).
+
+```
+PPNP.lean
+  |
+  ├── EGPT/Complexity/Decomposition.lean .. assignmentFree_iff_sat, cnfSharesFactor_of_exists_assignment
+  |                                        evalCNF_true_iff_cnfSharesFactor, CNFSharesFactor
+  |
+  ├── EGPT/Complexity/UTM.lean ............ timeComplexity, timeComplexity_eq_length (ReadHead model)
+  |
+  └── EGPT/Complexity/PPNPConstructive.lean  P_info, NP_info, P_info_eq_NP_info
+                                             complete_information_extraction
 ```
 
 **Cross-chain imports:** `TableauFromCNF.lean` and `PPNP.lean` both import `EGPT.Entropy.Common` and `EGPT.Physics.PhysicsDist` for type definitions (entropy-related types used in complexity bounds). `ComplexityInformationBridge.lean` imports `EGPT.Entropy.Common` for `IRECT_Program_to_Entropy` and `IRECT_RECT_inverse_for_integer_complexity`. These are data-type and interface imports — the P=NP result does not depend on any Entropy or Physics *theorem*.
@@ -109,19 +129,19 @@ EGPT/NumberTheory/Analysis.lean ......... FTA via information, entropy decomposi
 ## Complexity Extensions
 
 ```
-EGPT/Complexity/UTM.lean ................ Universal Turing Machine certifier
-                                          (imports: Tableau, Filter)
+EGPT/Complexity/UTM.lean ................ ReadHead model, timeComplexity_eq_length
+                                          Used by PPNPConstructive (P_info_eq_NP_info chain)
 
-EGPT/Complexity/Decomposition.lean ...... Assignment-free SAT criterion (experimental)
-                                          AssignmentFreeSAT
-                                          assignmentFree_iff_nonempty_allSatisfyingAssignments
-                                          CNFSharesFactor (prime-indexed common-factor criterion)
+EGPT/Complexity/Decomposition.lean ...... Assignment-free SAT criterion
+                                          Used by PPNPConstructive (P_info_eq_NP_info chain)
+                                          assignmentFree_iff_sat, CNFSharesFactor
                                           evalCNF_true_iff_cnfSharesFactor
                                           cnfSharesFactor_iff_nonempty_allSatisfyingAssignments
                                           decomposition_is_poly_bounded
 
-EGPT/Complexity/Physics.lean ............ Constrained systems ≡ SAT
+EGPT/Complexity/Physics.lean ............ Constrained systems ≡ SAT (NOT used in either proof chain)
                                           (imports: Core, NumberTheory, Filter, Constraints)
+                                          See AUDIT_LEGACY.md for removal/relocation recommendation
 ```
 
 ## Other Proofs
@@ -148,8 +168,9 @@ PPNP/Proofs/WaveParticleDualityDisproved.lean ... BE explained by classical path
 | `Complexity/ComplexityInformationBridge.lean` | 2 | `nSquared_time_complexity_is_information_complexity`, `walk_nSquared_bound_is_time_and_information` |
 | `Complexity/Interpretation.lean` | — | Import shim (re-exports ComplexityInformationBridge) |
 | `Complexity/PPNP.lean` | 11 | `AllSatisfyingAssignments`, `allSatisfyingAssignments_nonempty_iff_bounded_tableau`, `P_eq_NP` (`Set.ext` + `Iff.rfl`), `EGPT_CookLevin_Theorem` |
+| `Complexity/PPNPConstructive.lean` | 17 | `P_info`, `NP_info`, `P_info_eq_NP_info`, `complete_information_extraction` |
 | `Complexity/Decomposition.lean` | 9 | `assignmentFree_iff_nonempty_allSatisfyingAssignments`, `decomposition_is_poly_bounded` |
-| `Complexity/UTM.lean` | 1 | `UniversalTuringMachine_EGPT` |
+| `Complexity/UTM.lean` | 10 | `timeComplexity_eq_length`, `time_eq_information_eq_complexity` (used by PPNPConstructive) |
 | `Complexity/Physics.lean` | 2 | `constrainedSystem_equiv_SAT` |
 | `Physics/Common.lean` | 1 | `H_physical_system` |
 | `Physics/UniformSystems.lean` | 4 | `H_physical_system_is_rota_uniform` |
@@ -161,7 +182,7 @@ PPNP/Proofs/WaveParticleDualityDisproved.lean ... BE explained by classical path
 | `Physics/RealityIsComputation.lean` | 3 | `RealityIsComputation`, `ContinuousFieldsAreComputation` |
 | `PPNP/.../WaveParticleDualityDisproved.lean` | 2 | `Wave_Particle_Duality_Disproved_QED` |
 
-**Total: 87 verified theorems** (see [`EGPT_PROOFS_VALIDATION.md`](EGPT_PROOFS_VALIDATION.md) for full axiom inventory)
+**Total: 90 verified theorems** (see [`EGPT_PROOFS_VALIDATION.md`](EGPT_PROOFS_VALIDATION.md) for full axiom inventory)
 
 ## Isolation Guarantees
 
@@ -174,18 +195,20 @@ PPNP/Proofs/WaveParticleDualityDisproved.lean ... BE explained by classical path
 ## How to Verify
 
 ```bash
-# Typecheck all 87 theorems
+# Typecheck all 90 theorems
 cd Lean && lake build
 
 # Regenerate validation report
 node ../scripts/build_report.js
 
-# Verify proof chain is sorry-free
+# Verify proof chains are sorry-free
 grep -r "sorry" EGPT/Core.lean EGPT/NumberTheory/Core.lean \
   EGPT/Constraints.lean EGPT/Complexity/Core.lean \
   EGPT/Complexity/TableauFromCNF.lean \
   EGPT/Complexity/ComplexityInformationBridge.lean \
   EGPT/Complexity/Interpretation.lean \
-  EGPT/Complexity/PPNP.lean
+  EGPT/Complexity/PPNP.lean \
+  EGPT/Complexity/PPNPConstructive.lean \
+  EGPT/Complexity/Decomposition.lean EGPT/Complexity/UTM.lean
 # Expected: 0 matches
 ```

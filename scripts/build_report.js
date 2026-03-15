@@ -187,11 +187,21 @@ const SECTIONS = [
     ],
   },
   {
-    title: 'Complexity — UTM: Universal Turing Machine Certifier',
-    description: 'The EGPT UTM that transforms problems into certified results.',
+    title: 'Complexity — UTM: ReadHead Model (time = information)',
+    description: 'Sequential tape reading: timeComplexity = tape length. Used by PPNPConstructive.',
     file: 'EGPT/Complexity/UTM.lean',
     theorems: [
-      'EGPT.Complexity.PPNP.UniversalTuringMachine_EGPT',
+      'EGPT.Complexity.UTM.timeComplexity_eq_length',
+      'EGPT.Complexity.UTM.time_eq_information_eq_complexity',
+    ],
+  },
+  {
+    title: 'Complexity — PPNPConstructive: P_info = NP_info',
+    description: 'Information-theoretic P=NP formulation. Capstone of the P_info_eq_NP_info chain.',
+    file: 'EGPT/Complexity/PPNPConstructive.lean',
+    theorems: [
+      'EGPT.Complexity.PPNPConstructive.P_info_eq_NP_info',
+      'EGPT.Complexity.PPNPConstructive.complete_information_extraction',
     ],
   },
   {

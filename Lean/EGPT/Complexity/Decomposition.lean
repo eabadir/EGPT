@@ -350,6 +350,12 @@ theorem cnfSharesFactor_of_exists_assignment {k : ℕ} (cnf : SyntacticCNF_EGPT 
   rintro ⟨a, ha⟩
   exact (cnfSharesFactor_iff_nonempty_allSatisfyingAssignments (cnf := cnf)).2 ⟨a, ha⟩
 
+/-! ## Examples and tests
+
+These definitions demonstrate the assignment-free SAT criterion on concrete
+CNF instances. They are not part of the proof chain.
+-/
+
 /-!
 ### Representative Lean Validation Cases
 -/

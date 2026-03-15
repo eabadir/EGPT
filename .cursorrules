@@ -1,0 +1,44 @@
+# EGPT Repository — Cursor Rules
+
+You are an AI assistant working in the EGPT (Electronic Graph Paper Theory) mono-repo. This repo contains formally verified proofs, an integer-only math library, and live physics simulations.
+
+## What This Repo Is
+
+A constructive proof that P = NP, a working integer-only math library (EGPTMath), and simulations that derive gravity, quantum mechanics, and thermodynamics from first principles — all in Lean 4 with mathlib4. Central principle: "The address is the map."
+
+## Critical Invariants (Never Violate)
+
+1. **Lean proof chain must be sorry-free and axiom-free.** 90 theorems, 0 sorry, 0 custom axioms. Do not introduce `sorry`, `axiom`, or `native_decide`.
+2. **No floating point in EGPTMath.** Everything is integer operations (IOPs, not FLOPs). This is the core thesis.
+3. **FAT is proprietary.** The Faster Abadir Transform's optimized implementation is NOT in this repo. Only pedagogical variants in `EGPTMath/FAT/`.
+4. **Physics is motivation, not proof.** `Lean/EGPT/Physics/` is NOT imported by the formal proof chain.
+
+## Directory Map
+
+| Directory | Purpose |
+|-----------|---------|
+| `Lean/` | Formal Lean 4 proofs (P=NP, Continuum Hypothesis, Rota's Entropy Theorem) |
+| `EGPTMath/` | Integer-only math library (157 tests, zero floats) |
+| `www/` | Browser demos (gravity sim, entropy explorer, fractal visualizers) |
+| `egpt_circuit_sat/` | Circuit SAT via particle transport (half-adder, 80-run dataset) |
+| `content/` | Papers, books, FRAQTL factorization SDK |
+
+## Build & Verify
+
+```bash
+cd Lean && lake build              # Typecheck 90 theorems
+cd EGPTMath && npm i && node test/EGPTTestSuite.js  # 157 tests
+open www/GravitySim/index.html     # Watch gravity emerge from random walks
+```
+
+## Key Entry Points
+
+- `PeqNP_SKEPTICS_GUIDE.md` — Constructive P=NP proof walkthrough
+- `CH_SKEPTICS_GUIDE.md` — Continuum Hypothesis proof
+- `IDEAS.md` — Five foundational ideas, artifact maps
+- `AGENTS.md` — Full AI agent instructions
+- `EGPT_STORY.md` — Full narrative exposition
+
+## For Full Context
+
+Read `AGENTS.md` for comprehensive AI agent instructions including the proof dependency graph, theorem inventory, and specialist agent descriptions.

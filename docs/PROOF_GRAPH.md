@@ -1,6 +1,6 @@
 # EGPT Proof Dependency Graph
 
-> 85 machine-verified theorems across 23 Lean 4 files.
+> 90 machine-verified theorems across 23 Lean 4 files.
 > No `sorry`. No custom axioms. Only Lean's built-in `propext`, `Quot.sound`, `Classical.choice`.
 
 This file provides the logical dependency structure of EGPT's formal proofs in a format optimized for both human reading and AI agent consumption. For the detailed file-by-file breakdown, see [`Lean/PROOF_DEPENDENCIES.md`](../Lean/PROOF_DEPENDENCIES.md).

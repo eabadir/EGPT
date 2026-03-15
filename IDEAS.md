@@ -10,7 +10,7 @@ This repository contains five interlocking ideas from five authors across a cent
 
 | You're looking for... | It lives in... | Start here |
 |-----------------------|----------------|------------|
-| The P=NP proof | ID5 (Abadir) + ID1 (Ulam), ID4 (Rota) | [SKEPTICS_GUIDE.md](SKEPTICS_GUIDE.md) or `cd Lean && lake build` |
+| The P=NP proof | ID5 (Abadir) + ID1 (Ulam), ID4 (Rota) | [PeqNP_SKEPTICS_GUIDE.md](PeqNP_SKEPTICS_GUIDE.md) or `cd Lean && lake build` |
 | Hilbert's First Problem (Continuum Hypothesis) | ID5 (Abadir) | [CH_README.md](CH_README.md) and [CH_SKEPTICS_GUIDE.md](CH_SKEPTICS_GUIDE.md) |
 | Integer-only AI / no floating point | ID2 (Von Neumann) | `cd EGPTMath && npm install && node test/EGPTTestSuite.js` |
 | Rota's Entropy Theorem formalized | ID4 (Rota) | [RET_README.md](RET_README.md) |
@@ -178,7 +178,7 @@ The central insight is embarrassingly simple: "Is there a whole number between 0
 | [CH_SKEPTICS_GUIDE.md](CH_SKEPTICS_GUIDE.md) -- CH skeptic walkthrough | Reading | | Mathematician, Complexity theorist |
 | [content/Papers/Integer_Infinity_Tautology.md](content/Papers/Integer_Infinity_Tautology.md) -- "Is there a whole number between 0 and 1?" | Reading | Philosopher of mind | Philosopher of mind, Mathematician |
 | [content/Papers/EGPT_PeqNP/PeqNP_QED.md](content/Papers/EGPT_PeqNP/PeqNP_QED.md) -- Full P=NP paper (78 theorems, sorry-free) | Reading | Complexity theorist | Complexity theorist, Proof engineer |
-| [SKEPTICS_GUIDE.md](SKEPTICS_GUIDE.md) -- P=NP skeptic walkthrough | Reading | Complexity theorist | Complexity theorist, Mathematician |
+| [PeqNP_SKEPTICS_GUIDE.md](PeqNP_SKEPTICS_GUIDE.md) -- P=NP skeptic walkthrough | Reading | Complexity theorist | Complexity theorist, Mathematician |
 | [content/pyFRAQTL/FRAQTL_WhitePaper.md](content/pyFRAQTL/FRAQTL_WhitePaper.md) -- Classical QFT at O((log k)^3) | Reading | Cryptographer | Cryptographer, QC enthusiast |
 | [Quantum Computing vs Fractal Compression](content/Papers/Quantum%20Computing%20vs%20Fractal%20Compression%20In%20a%20Chaotic%20Discontinuum.docx.md) -- Formal proof: fractal compression >= quantum | Reading | | QC enthusiast, Complexity theorist |
 
@@ -226,7 +226,7 @@ Ulam's random walk gives us `ParticlePath`, the data structure that makes P=NP p
 | Step | Action | Idea | What you learn |
 |------|--------|------|----------------|
 | 1 | Run `cd Lean && lake build` | ID5 | The entire proof chain typechecks: zero `sorry`, zero custom axioms. |
-| 2 | Read [SKEPTICS_GUIDE.md](SKEPTICS_GUIDE.md) | ID5 | The skeptic's walkthrough of the P=NP argument: where does EGPT diverge from the standard model? |
+| 2 | Read [PeqNP_SKEPTICS_GUIDE.md](PeqNP_SKEPTICS_GUIDE.md) | ID5 | The skeptic's walkthrough of the P=NP argument: where does EGPT diverge from the standard model? |
 | 3 | Read [content/Papers/EGPT_PeqNP/PeqNP_QED.md](content/Papers/EGPT_PeqNP/PeqNP_QED.md) | ID5, ID4 | The full proof paper: 78 machine-verified theorems, the Free Address Fallacy, certificate complexity bound. |
 | 4 | Read [Lean/EGPT/Complexity/PPNP.lean](Lean/EGPT/Complexity/PPNP.lean) (line 378) | ID5 | The `P_eq_NP` theorem statement: 10 lines via `Set.ext` + `Iff.rfl`. |
 | 5 | Read [Lean/EGPT/Complexity/TableauFromCNF.lean](Lean/EGPT/Complexity/TableauFromCNF.lean) | ID2, ID5 | `walkCNFPaths` and `walkComplexity_upper_bound` -- the certificate and its polynomial cost. |

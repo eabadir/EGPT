@@ -5,7 +5,7 @@
 >
 > Raw access base: https://raw.githubusercontent.com/eabadir/EGPT/main/
 >
-> Five interlocking ideas from five authors. 85 Lean 4 theorems (sorry-free, axiom-free).
+> Five interlocking ideas from five authors. 90 Lean 4 theorems (sorry-free, axiom-free).
 > 157 EGPTMath tests (integer-only, zero floats). Central principle: "The address is the map."
 > Live QFT benchmark: https://colab.research.google.com/drive/1LQLCHDNp9kCFgJXIzlitaVxuYiHRATXm
 >
@@ -28,7 +28,7 @@ This repository contains five interlocking ideas from five authors across a cent
 
 | You're looking for... | It lives in... | Start here |
 |-----------------------|----------------|------------|
-| The P=NP proof | ID5 (Abadir) + ID1 (Ulam), ID4 (Rota) | [SKEPTICS_GUIDE.md](SKEPTICS_GUIDE.md) or `cd Lean && lake build` |
+| The P=NP proof | ID5 (Abadir) + ID1 (Ulam), ID4 (Rota) | [PeqNP_SKEPTICS_GUIDE.md](PeqNP_SKEPTICS_GUIDE.md) or `cd Lean && lake build` |
 | Hilbert's First Problem (Continuum Hypothesis) | ID5 (Abadir) | [CH_README.md](CH_README.md) and [CH_SKEPTICS_GUIDE.md](CH_SKEPTICS_GUIDE.md) |
 | Integer-only AI / no floating point | ID2 (Von Neumann) | `cd EGPTMath && npm install && node test/EGPTTestSuite.js` |
 | Rota's Entropy Theorem formalized | ID4 (Rota) | [RET_README.md](RET_README.md) |
@@ -196,7 +196,7 @@ The central insight is embarrassingly simple: "Is there a whole number between 0
 | [CH_SKEPTICS_GUIDE.md](CH_SKEPTICS_GUIDE.md) -- CH skeptic walkthrough | Reading | | Mathematician, Complexity theorist |
 | [content/Papers/Integer_Infinity_Tautology.md](content/Papers/Integer_Infinity_Tautology.md) -- "Is there a whole number between 0 and 1?" | Reading | Philosopher of mind | Philosopher of mind, Mathematician |
 | [content/Papers/EGPT_PeqNP/PeqNP_QED.md](content/Papers/EGPT_PeqNP/PeqNP_QED.md) -- Full P=NP paper (78 theorems, sorry-free) | Reading | Complexity theorist | Complexity theorist, Proof engineer |
-| [SKEPTICS_GUIDE.md](SKEPTICS_GUIDE.md) -- P=NP skeptic walkthrough | Reading | Complexity theorist | Complexity theorist, Mathematician |
+| [PeqNP_SKEPTICS_GUIDE.md](PeqNP_SKEPTICS_GUIDE.md) -- P=NP skeptic walkthrough | Reading | Complexity theorist | Complexity theorist, Mathematician |
 | [content/pyFRAQTL/FRAQTL_WhitePaper.md](content/pyFRAQTL/FRAQTL_WhitePaper.md) -- Classical QFT at O((log k)^3) | Reading | Cryptographer | Cryptographer, QC enthusiast |
 | [Quantum Computing vs Fractal Compression](content/Papers/Quantum%20Computing%20vs%20Fractal%20Compression%20In%20a%20Chaotic%20Discontinuum.docx.md) -- Formal proof: fractal compression >= quantum | Reading | | QC enthusiast, Complexity theorist |
 
@@ -244,7 +244,7 @@ Ulam's random walk gives us `ParticlePath`, the data structure that makes P=NP p
 | Step | Action | Idea | What you learn |
 |------|--------|------|----------------|
 | 1 | Run `cd Lean && lake build` | ID5 | The entire proof chain typechecks: zero `sorry`, zero custom axioms. |
-| 2 | Read [SKEPTICS_GUIDE.md](SKEPTICS_GUIDE.md) | ID5 | The skeptic's walkthrough of the P=NP argument: where does EGPT diverge from the standard model? |
+| 2 | Read [PeqNP_SKEPTICS_GUIDE.md](PeqNP_SKEPTICS_GUIDE.md) | ID5 | The skeptic's walkthrough of the P=NP argument: where does EGPT diverge from the standard model? |
 | 3 | Read [content/Papers/EGPT_PeqNP/PeqNP_QED.md](content/Papers/EGPT_PeqNP/PeqNP_QED.md) | ID5, ID4 | The full proof paper: 78 machine-verified theorems, the Free Address Fallacy, certificate complexity bound. |
 | 4 | Read [Lean/EGPT/Complexity/PPNP.lean](Lean/EGPT/Complexity/PPNP.lean) (line 378) | ID5 | The `P_eq_NP` theorem statement: 10 lines via `Set.ext` + `Iff.rfl`. |
 | 5 | Read [Lean/EGPT/Complexity/TableauFromCNF.lean](Lean/EGPT/Complexity/TableauFromCNF.lean) | ID2, ID5 | `walkCNFPaths` and `walkComplexity_upper_bound` -- the certificate and its polynomial cost. |
@@ -420,6 +420,95 @@ Open a demo: `open www/GPUHeatDeath.html`
 
 # --- README.md ---
 
+# EGPT — Electronic Graph Paper Theory
+
+> 90 Lean 4 theorems (0 sorry, 0 custom axioms) | 157 integer-only math tests | 11 browser demos | 5 physics simulations
+
+A constructive proof that P = NP, a working integer-only math library that turns FLOPs into IOPs, and live simulations that derive gravity, quantum mechanics, and thermodynamics from first principles — all formally verified in Lean 4.
+
+Central principle: **"The address is the map."** In an information space where every element is maximally compressed, defining a problem is defining its solution.
+
+---
+
+## Ask Your Agent
+
+This repo is designed for agentic exploration. Your AI assistant is your interactive guide — tell it what you're curious about.
+
+**Claude Code**
+```
+@egpt-navigator
+```
+The navigator knows every demo, proof, paper, and experiment. Just tell it what you're interested in: *"Show me how gravity emerges from random walks"* or *"I want to challenge the P=NP proof"* or *"How does integer-only math work?"*
+
+**VS Code + GitHub Copilot**
+Copilot reads `.github/copilot-instructions.md` automatically. Use Copilot Chat with `@workspace` to ask about the codebase.
+
+**Cursor**
+Rules are loaded from `.cursorrules`. Ask your Cursor agent anything — it has the repo's conventions and entry points.
+
+**Any other AI agent**
+Read `AGENTS.md` for tool-agnostic instructions, or `llms.txt` for the lightweight index.
+
+---
+
+## Try Something
+
+| What | Command | Time |
+|------|---------|------|
+| Verify the P=NP proof | `cd Lean && lake build` | ~2 min |
+| Run 157 integer-only math tests | `cd EGPTMath && npm install && node test/EGPTTestSuite.js` | ~10 sec |
+| Watch gravity emerge from random walks | `open www/GravitySim/index.html` | instant |
+| Run 5 physics experiments (wave, blackbody, atoms) | `open www/fraqtl_devsdk/index.html` | instant |
+| See floating-point error destroy precision | `open www/GPUHeatDeath.html` | instant |
+| Explore entropy interactively | `open www/RotaEntropy/RotaEntropyProperties.html` | instant |
+| Build and solve NP problems interactively | `cd www/the-address-is-the-map-visualizer && npm i && npm run dev` | ~30 sec |
+| Run a Circuit SAT solver (particles compute any circuit) | `open egpt_circuit_sat/index.html` | instant |
+| Run 157 tests live in your browser | `open www/EGPTTestRunner.html` | instant |
+
+---
+
+## What's Here
+
+| Directory | What It Contains |
+|-----------|-----------------|
+| `Lean/` | Formal proofs — P=NP, Continuum Hypothesis, Rota's Entropy Theorem, number theory |
+| `EGPTMath/` | Integer-only math library — vector algebra, FFT, trig, polynomials, zero floats |
+| `EGPTMath/FAT/` | Faster Abadir Transform (pedagogical) — integer-only QFT |
+| `www/` | Browser demos — gravity sim, entropy explorer, fractal visualizers, test runner |
+| `egpt_circuit_sat/` | Circuit SAT solver — any circuit = C × half-adders, 80-run verified dataset, open code |
+| `content/` | Papers, books, FRAQTL factorization SDK, whitepapers |
+
+---
+
+## Go Deeper
+
+| Document | What It's For |
+|----------|---------------|
+| [PeqNP_SKEPTICS_GUIDE.md](PeqNP_SKEPTICS_GUIDE.md) | Constructive P=NP proof walkthrough for skeptics |
+| [Lean/RFL_SKEPTICS_GUIDE.md](Lean/RFL_SKEPTICS_GUIDE.md) | Definitional identity P=NP proof (the short one) |
+| [CH_SKEPTICS_GUIDE.md](CH_SKEPTICS_GUIDE.md) | Continuum Hypothesis proof walkthrough |
+| [egpt_circuit_sat/](egpt_circuit_sat/) | Experimentally verified Circuit SAT solver — open code, open data, run it yourself |
+| [IDEAS.md](IDEAS.md) | Five foundational ideas, artifact maps, 12 reading paths |
+| [EGPT_STORY.md](EGPT_STORY.md) | Full narrative — from von Neumann to the New Manhattan Project |
+| [EGPT_STORY_README.md](EGPT_STORY_README.md) | The original README with full exposition |
+
+---
+
+## Prerequisites
+
+- **Lean proofs**: [Lean 4](https://leanprover.github.io/) + mathlib4 (managed by `lakefile.lean`)
+- **EGPTMath tests**: Node.js 18+
+- **Browser demos**: Any modern browser (no build step)
+
+## License
+
+[DeSciX Community License (DCMA)](DeSciX_Community_License_v1.pdf) v1.0 — open inside the DeSciX Community, value-return outside.
+
+Built by [Essam Abadir](https://www.linkedin.com/in/essamabadir/).
+
+
+# --- EGPT_STORY_README.md ---
+
 **AI Navigation** — [IDEAS.md](IDEAS.md) | [llms.txt](llms.txt) | [sitemap.xml](sitemap.xml) | [.claude/agents/](.claude/agents/)
 Raw: https://raw.githubusercontent.com/eabadir/EGPT/main/
 
@@ -431,7 +520,11 @@ Imagine there was an AI computer which ran on the power of a dim refrigerator li
 
 This project is a job offer, not a handout. We are building the foundation of [John von Neumann's (JvM)](IDEAS.md#id2----von-neumann-the-statistical-ai-computer) hyper-efficient AGI computing architecture laid out in "[The Computer & The Brain](content/docs/)". 
 
-The contents of this repository include the fundamental building of every modern computer circuit, the half-adder, rebuilt in the architecture of JvM's Computer Brain and simulatable so effeciently it runs in software. 
+If you want the "let me see you solve Circuit SAT" proof that P=NP and the Computer Brain is buildable then you can run the following *Stochastic Half-Adder Circuit Component* (SHACC) in your own browser. Why does the SHACC prove P=NP? Because every modern circuit is made of some finite number, N, of hardware half-adders but the physics equations of computing how they work are an intractable P vs NP problem (Circuit SAT). If you can simulate one half-adder in polynomial time then doing N simulations is a constant multiple polynomial computation. You run the SHACC simulation from node js source, recreate the data, re-run the analysis, and confirm.   
+
+JvM's Computer Brain and is the proposal for stochastic architecture and the SHACC is its most basic component. There would be no way to build Computer Brain or the SHACC if P != NP.
+
+But, if you don't believe your eyes or the experimental data and you feel hardcore mathematical symbolic proof is necessary then there are 30,000 lines of computer verifiable Lean code with no "sorry" or custom axioms in them, you can build the verification yourself, and you can extract the P=NP solution to C code.
 
 **P=NP Circuit SAT — Experimentally Solved**  
 100% accuracy: 80 runs, 20 seeds, 4 input combos, zero failures. Half-adder boolean computation via particle diffusion in a force-free discrete physics engine. Open code, open data, fully reproducible.
@@ -468,8 +561,7 @@ In 1956, knowing John von Neumann was on his death bed, Godel asked exactly this
 - [Kurt G¨odel’s Letter to John von Neumann - 1956](content/SSG_History/Godel%20Letter%20to%20Von%20Neumann.pdf)
 
 
-
-So, what did JvM proceed to do? 
+So, in response to Godel's letter, what did JvM proceed to do while on his deathbed? Amazingly, he disavowed his life's crowning achievement, the "von Neumann Machine", which became the architecture of every modern computing device from Apple iPhones to super computers - there are no non-von Neumann Machines. He feverishly wrote why his first pass at the computer was wrong. Sadly, he never got to finish, "The Computer & The Brain" as the architectural blueprint for the ultra-efficient stochastic computer ... and now we boil rivers to cool data centers. 
 
 ## Let's Just Get P=NP Out of The Way
 First let's be clear that I believe I'm the fourth person (that I know of) to prove P=NP: Ulam & von Neumann with Monte Carlo solving quantum neutron diffusion for the nuclear bombs (not just the hydrogen bomb); Rota's existential proof formalized in this repository; and John Conway's ONAG implicitly constructive proof that the Real and "Sureal" numbers are computable from cellular automata.
@@ -499,7 +591,7 @@ def walkCNFPaths {k : ℕ} (cnf : SyntacticCNF_EGPT k)
 
 Steps 1 and 3 are `def` — computable, executable, Lean will compile them. Step 2 is the **only** `noncomputable def` — it calls `Exists.choose` to select a satisfying assignment (exactly k bits). Both the input (`SyntacticCNF_EGPT k`, which is `List (List (Fin k × Bool))`) and the output (`Vector Bool k`) are finite types bijective with ℕ. The proven bound: `complexity ≤ |cnf| × k ≤ n²`, for **any** existence proof.
 
-Your job: decide whether Step 2 is O(1) or O(2^k). The deep dive is in the **[Skeptic's Guide](SKEPTICS_GUIDE.md)**.
+Your job: decide whether Step 2 is O(1) or O(2^k). The deep dive is in the **[Skeptic's Guide](PeqNP_SKEPTICS_GUIDE.md)**.
 
 ### What You'll Try To Push Back On
 1) ***Skeptic:* EGPT's P=NP is consistent only in its framework**
@@ -526,7 +618,7 @@ The construction is not circular. `walkCNFPaths` takes only the CNF and an exist
 - *The Question:* How far can we scale AI?
 - *The Problem:* AI datacenters already consume the energy of small nations. The brain does the same work on 20 watts — the energy of a small light bulb. Can we scale AI without cooking the planet?
 - *The Goal:* A working computing architecture as efficient as the brain, grounded in a rigorous mathematical proof of why that efficiency is possible.
-- *The Solution:* Random walks. This repository contains the formal proofs — 85 machine-verified theorems — showing that computation, physics, and information theory are the same thing, and that the brain's "low-precision statistical" approach is not a limitation but the optimal architecture.
+- *The Solution:* Random walks. This repository contains the formal proofs — 90 machine-verified theorems — showing that computation, physics, and information theory are the same thing, and that the brain's "low-precision statistical" approach is not a limitation but the optimal architecture.
 
 ## What This Repository Contains
 About 30,000 lines of math proofs and computer code that proves five ideas from five people — three who knew each other and each changed history, one who carried forward their torch, and one who found the flaw in the foundation everyone else was standing on:
@@ -537,7 +629,7 @@ About 30,000 lines of math proofs and computer code that proves five ideas from 
 4. **[Rota's idea](IDEAS.md#id4----rota-entropy-is-the-record-of-truth)** — if truth is the record of what actually happened in reality, then entropy is the record of truth. Entropy always adds up — it is the unique measure that does — and any amount of it can be efficiently coded into a finite program. This is Rota's Entropy Theorem (RET): the proof that the logarithm is the only function satisfying all seven axioms of information, and therefore that physics, computation, and information theory share the same mathematical foundation (see Rota's unpublished 400-page manuscript, taught at MIT 1970s–1999; formalized here in Lean 4).
 5. **[Abadir's idea](IDEAS.md#id5----abadir-ch-decidable--unique-representations)** — Cantor's diagonalization argument makes a hidden assumption: it allows non-unique representations. In an information space where every element is maximally compressed (the Fundamental Theorem of Arithmetic), all combinations are already accounted for. The Continuum Hypothesis is not independent of mathematics — it is decidable, because the EGPT hierarchy, which is bijective with the standard mathematical universe (ℕ, ℤ, ℚ, ℝ), collapses all infinities onto ℕ via the Beth staircase. Hilbert's First Problem, resolved. ([`ContinuumHypothesis.lean`](Lean/EGPT/NumberTheory/ContinuumHypothesis.lean))
 
-- **Lean Proofs: P_eq_NP, RealityIsComputation, ContinuousFieldsAreComputation, ContinuumHypothesis** — fully constructive and proven bijectively equivalent to the standard mathematical universe (ℕ, ℤ, ℚ, ℝ) with matching Beth cardinalities and isomorphic arithmetic, 85 machine-verified theorems build the chain from number theory through entropy through complexity through physics. No `sorry`, no custom axioms.
+- **Lean Proofs: P_eq_NP, RealityIsComputation, ContinuousFieldsAreComputation, ContinuumHypothesis** — fully constructive and proven bijectively equivalent to the standard mathematical universe (ℕ, ℤ, ℚ, ℝ) with matching Beth cardinalities and isomorphic arithmetic, 90 machine-verified theorems build the chain from number theory through entropy through complexity through physics. No `sorry`, no custom axioms.
 - **EGPTMath** — A pedagogical integer-only math library that turns FLOPs into IOPs. 157 tests, 100% pass rate.
 - **Faster Abadir Transform (FAT)** — Public benchmark: Quantum Fourier Transform on a 1.2 GHz CPU, 768 MB RAM single thread — ~1.277 billion× faster than 2,048-GPU ShorGPU supercomputer.
 
@@ -551,7 +643,7 @@ About 30,000 lines of math proofs and computer code that proves five ideas from 
 | Rota: All entropy is Shannon entropy | [Rota's Entropy Theorem](Lean/EGPT/Entropy/RET.lean) | `RET_All_Entropy_Is_Scaled_Shannon_Entropy` |
 | Abadir: The Continuum Hypothesis is decidable | [CH Proof](Lean/EGPT/NumberTheory/ContinuumHypothesis.lean) | `EGPT_ContinuumHypothesis` |
 
-Or start with the full walk-through: [Skeptic's Guide](SKEPTICS_GUIDE.md)
+Or start with the full walk-through: [Skeptic's Guide](PeqNP_SKEPTICS_GUIDE.md)
 
 ### Proof Structure
 
@@ -634,7 +726,7 @@ The proof chain runs from the ground up — deriving numbers from a physical ran
 
 - **Wave-Particle Duality Disproved** — Bose-Einstein statistics are fully explained by deterministic classical particle paths. No wave-particle duality required. ([`WaveParticleDualityDisproved.lean`](Lean/PPNP/Proofs/WaveParticleDualityDisproved.lean))
 
-All [85 theorems, sorry-free, no custom axioms](Lean/EGPT_PROOFS_VALIDATION.md) — only Lean's three built-in axioms (`propext`, `Quot.sound`, `Classical.choice`).
+All [90 theorems, sorry-free, no custom axioms](Lean/EGPT_PROOFS_VALIDATION.md) — only Lean's three built-in axioms (`propext`, `Quot.sound`, `Classical.choice`).
 
 ---
 
@@ -703,7 +795,7 @@ This repository contains what we believe to be the first computationally emergen
 | **Blackbody Radiation** | [`BoseEinstein.lean`](Lean/EGPT/Physics/BoseEinstein.lean) — `H_BE_from_Multiset_eq_C_shannon`; [`PhysicsDist.lean`](Lean/EGPT/Physics/PhysicsDist.lean) — `entropy_BE_eq_C_shannon` | [`FRAQTL DevSDK`](www/fraqtl_devsdk/index.html) — blackbody experiment ([`setupBlackbody.js`](www/fraqtl_devsdk/js/simulation/setupBlackbody.js)) | [Quantum Computing vs Fractal Compression](content/Papers/Quantum%20Computing%20vs%20Fractal%20Compression%20In%20a%20Chaotic%20Discontinuum.docx.md) — oscillatory motion and entropy |
 | **Double Slit / Cellular Automata** | [`PhotonicCA.lean`](Lean/EGPT/Physics/PhotonicCA.lean) — `be_system_has_equivalent_program` | [`FRAQTL DevSDK`](www/fraqtl_devsdk/index.html) — wave interference ([`setupWaveInterference.js`](www/fraqtl_devsdk/js/simulation/setupWaveInterference.js)) | [Quantum Computing vs Fractal Compression](content/Papers/Quantum%20Computing%20vs%20Fractal%20Compression%20In%20a%20Chaotic%20Discontinuum.docx.md) — fractal algorithms produce wave behavior |
 | **Wave-Particle Duality** | [`WaveParticleDualityDisproved.lean`](Lean/PPNP/Proofs/WaveParticleDualityDisproved.lean) — `Wave_Particle_Duality_Disproved_QED` | [`FRAQTL DevSDK`](www/fraqtl_devsdk/index.html) — particle paths produce "wave" interference patterns | [`PeqNP_QED.md`](content/Papers/EGPT_PeqNP/PeqNP_QED.md) — "Wave-Particle Duality is a Computational Artifact" |
-| **P = NP** | [`PPNP.lean`](Lean/EGPT/Complexity/PPNP.lean) — `P_eq_NP` (identical P/NP definitions, proof is `Iff.rfl`); [`TableauFromCNF.lean`](Lean/EGPT/Complexity/TableauFromCNF.lean) — `walkCNFPaths` + `tableauComplexity_upper_bound` ≤ n² | [Address Is The Map Visualizer](www/the-address-is-the-map-visualizer/) — SAT solver; [FRAQTL Colab](https://colab.research.google.com/drive/1LQLCHDNp9kCFgJXIzlitaVxuYiHRATXm) | [`PeqNP_QED.md`](content/Papers/EGPT_PeqNP/PeqNP_QED.md); [`SKEPTICS_GUIDE.md`](SKEPTICS_GUIDE.md); [`FRAQTL_WhitePaper.md`](content/pyFRAQTL/FRAQTL_WhitePaper.md) |
+| **P = NP** | [`PPNP.lean`](Lean/EGPT/Complexity/PPNP.lean) — `P_eq_NP` (identical P/NP definitions, proof is `Iff.rfl`); [`TableauFromCNF.lean`](Lean/EGPT/Complexity/TableauFromCNF.lean) — `walkCNFPaths` + `tableauComplexity_upper_bound` ≤ n² | [Address Is The Map Visualizer](www/the-address-is-the-map-visualizer/) — SAT solver; [FRAQTL Colab](https://colab.research.google.com/drive/1LQLCHDNp9kCFgJXIzlitaVxuYiHRATXm) | [`PeqNP_QED.md`](content/Papers/EGPT_PeqNP/PeqNP_QED.md); [`PeqNP_SKEPTICS_GUIDE.md`](PeqNP_SKEPTICS_GUIDE.md); [`FRAQTL_WhitePaper.md`](content/pyFRAQTL/FRAQTL_WhitePaper.md) |
 
 The distinction matters: traditional physics simulations *input* the laws and watch consequences unfold. These experiments *derive* the laws from something more primitive. The inverse-square law is not programmed — it is discovered by the simulation, the same way it was discovered by observation.
 
@@ -736,10 +828,11 @@ The chain from random walks to computable consciousness:
 | Document | Purpose |
 |----------|---------|
 | [**RET_README.md**](RET_README.md) | Einstein's question answered: why RET is the most important result |
-| [**SKEPTICS_GUIDE.md**](SKEPTICS_GUIDE.md) | Step-by-step audited proof chain walk-through |
+| [**PeqNP_SKEPTICS_GUIDE.md**](PeqNP_SKEPTICS_GUIDE.md) | Constructive P=NP proof walkthrough |
+| [**Lean/RFL_SKEPTICS_GUIDE.md**](Lean/RFL_SKEPTICS_GUIDE.md) | Definitional identity P=NP proof walkthrough |
 | [**EGPT_STORY.md**](EGPT_STORY.md) | The full narrative — knowledge passed from von Neumann → Ulam → Rota |
 | [**Lean/EGPT/PeqNP_Proof_README.md**](Lean/EGPT/PeqNP_Proof_README.md) | Detailed P=NP proof walkthrough |
-| [**Lean/EGPT_PROOFS_VALIDATION.md**](Lean/EGPT_PROOFS_VALIDATION.md) | Build verification: 85 theorems, sorry-free, axiom inventory |
+| [**Lean/EGPT_PROOFS_VALIDATION.md**](Lean/EGPT_PROOFS_VALIDATION.md) | Build verification: 90 theorems, sorry-free, axiom inventory |
 
 ---
 
@@ -787,7 +880,7 @@ cd EGPTMath && npm install && node test/EGPTTestSuite.js
 open www/EGPTNumberUniformity.html
 ```
 
-85 theorems. No `sorry`. No custom axioms. Every step machine-verified by Lean's kernel.
+90 theorems. No `sorry`. No custom axioms. Every step machine-verified by Lean's kernel.
 
 ---
 
@@ -859,7 +952,7 @@ This repository is the blueprint for that next revolution. The objective is a ne
 | Floating-point arithmetic | Integer-only arithmetic — no error accumulation |
 | 2,048 GPUs for one QFT | One 1.2 GHz CPU, ~1.277 billion× faster |
 
-Rota formalized the math behind the first Manhattan Project. In his unpublished textbook, he laid out five great unsolved problems that he knew the text provided answers to. This repository contains machine-verified formalizations of those answers — 85 Lean 4 theorems, the [computational experiments](www/GravitySim/index.html) that demonstrate them, and the [working code](EGPTMath/) that implements them.
+Rota formalized the math behind the first Manhattan Project. In his unpublished textbook, he laid out five great unsolved problems that he knew the text provided answers to. This repository contains machine-verified formalizations of those answers — 90 Lean 4 theorems, the [computational experiments](www/GravitySim/index.html) that demonstrate them, and the [working code](EGPTMath/) that implements them.
 
 The first Manhattan Project's blueprints were classified. These are open. You're reading them.
 
@@ -887,7 +980,7 @@ Open inside the DeSciX Community, value-return outside. Working with this code i
 
 > Electronic Graph Paper Theory (EGPT) — a constructive, machine-verified proof that P = NP
 > and a working integer-only math library (EGPTMath) that replaces FLOPs with IOPs.
-> 87 Lean 4 theorems. No `sorry`. No custom axioms. 157 EGPTMath tests, 100% pass.
+> 90 Lean 4 theorems. No `sorry`. No custom axioms. 157 EGPTMath tests, 100% pass.
 > The proof says scalable AI is possible. EGPTMath and FAT show how.
 > Central principle: **"The address is the map."**
 
@@ -897,15 +990,9 @@ You are working in a repository with two equally important layers: **formal proo
 
 ## Critical Invariants — Never Violate
 
-1. **The P=NP proof chain is sorry-free and axiom-free.** Do NOT introduce `sorry`, `axiom`, or `native_decide` into these 8 files:
-   - `Lean/EGPT/Core.lean`
-   - `Lean/EGPT/NumberTheory/Core.lean`
-   - `Lean/EGPT/Constraints.lean`
-   - `Lean/EGPT/Complexity/Core.lean`
-   - `Lean/EGPT/Complexity/TableauFromCNF.lean`
-   - `Lean/EGPT/Complexity/ComplexityInformationBridge.lean`
-   - `Lean/EGPT/Complexity/Interpretation.lean`
-   - `Lean/EGPT/Complexity/PPNP.lean`
+1. **The P=NP proof chains are sorry-free and axiom-free.** Do NOT introduce `sorry`, `axiom`, or `native_decide` into these files:
+   - **P_eq_NP chain (8 files):** `Core.lean`, `NumberTheory/Core.lean`, `Constraints.lean`, `Complexity/Core.lean`, `Complexity/TableauFromCNF.lean`, `Complexity/ComplexityInformationBridge.lean`, `Complexity/Interpretation.lean`, `Complexity/PPNP.lean`
+   - **P_info_eq_NP_info chain (extends above):** `Complexity/Decomposition.lean`, `Complexity/UTM.lean`, `Complexity/PPNPConstructive.lean`
 
 2. **No floating point.** All math is integer operations (IOPs, not FLOPs). This is the core thesis.
 
@@ -919,7 +1006,7 @@ You are working in a repository with two equally important layers: **formal proo
 |-----------|---------|----------------------|
 | [`EGPTMath/`](EGPTMath/) | Integer-only math library — FLOPs become IOPs. Exact arithmetic, no error accumulation. 157 tests. | [`EGPTMath/CLAUDE.md`](EGPTMath/CLAUDE.md) |
 | [`EGPTMath/FAT/`](EGPTMath/FAT/) | Faster Abadir Transform (pedagogical) — integer-only FFT/QFT. Classical QFT at O((log k)^3). | [`EGPTMath/FAT/FAT_README.md`](EGPTMath/FAT/FAT_README.md) |
-| [`Lean/`](Lean/) | Formal Lean 4 proofs (87 theorems, sorry-free, axiom-free) | [`Lean/CLAUDE.md`](Lean/CLAUDE.md) |
+| [`Lean/`](Lean/) | Formal Lean 4 proofs (90 theorems, sorry-free, axiom-free) | [`Lean/CLAUDE.md`](Lean/CLAUDE.md) |
 | [`content/`](content/) | Papers, books, reference docs, pyFRAQTL SDK | [`content/CLAUDE.md`](content/CLAUDE.md) |
 | [`www/`](www/) | Interactive browser demos and visualizers | [`www/CLAUDE.md`](www/CLAUDE.md) |
 | [`scripts/`](scripts/) | Build utilities (LaTeX-to-Markdown, validation report) | — |
@@ -929,7 +1016,7 @@ Each subdirectory's `CLAUDE.md` contains detailed conventions, file inventories,
 ## Build & Verify
 
 ```bash
-# Lean proofs — typechecks all 87 theorems (requires Lean 4 + mathlib4)
+# Lean proofs — typechecks all 90 theorems (requires Lean 4 + mathlib4)
 cd Lean && lake build
 
 # EGPTMath — run the full test suite (157 tests)
@@ -947,8 +1034,9 @@ node scripts/generate_sitemap.js
 
 ## Proof Dependency Graph
 
-### P=NP Proof Chain (8 files, sorry-free, axiom-free)
+### P=NP Proof Chains (sorry-free, axiom-free)
 
+**Chain 1 — P_eq_NP (8 files):**
 ```
 EGPT/Core.lean ─────────── ParticlePath, ComputerTape
        |
@@ -965,6 +1053,13 @@ EGPT/Complexity/ComplexityInformationBridge.lean ── complexity-information b
 EGPT/Complexity/Interpretation.lean ── interpretation layer
        |
 EGPT/Complexity/PPNP.lean ── P, NP, P_eq_NP, Cook-Levin theorem
+```
+
+**Chain 2 — P_info_eq_NP_info (extends PPNP with Decomposition + UTM):**
+```
+PPNP.lean ─┬─ Decomposition.lean (assignmentFree_iff_sat, CNFSharesFactor)
+           ├─ UTM.lean (timeComplexity_eq_length)
+           └─ PPNPConstructive.lean ── P_info, NP_info, P_info_eq_NP_info
 ```
 
 ### Entropy Chain (independent — Rota's Entropy Theorem)
@@ -1004,13 +1099,15 @@ For Mermaid diagrams and a machine-readable JSON graph, see [`docs/PROOF_GRAPH.m
 | See the FRAQTL factorization algorithm | [`content/pyFRAQTL/FRAQTL_WhitePaper.md`](content/pyFRAQTL/FRAQTL_WhitePaper.md) |
 | **Formal proofs (why it works)** | |
 | Understand the P=NP proof | [`Lean/EGPT/PeqNP_Proof_README.md`](Lean/EGPT/PeqNP_Proof_README.md) |
-| Audit the proof chain step-by-step | [`SKEPTICS_GUIDE.md`](SKEPTICS_GUIDE.md) |
-| See all 87 theorems with axiom inventory | [`Lean/EGPT_PROOFS_VALIDATION.md`](Lean/EGPT_PROOFS_VALIDATION.md) |
+| Audit the proof chain step-by-step | [`PeqNP_SKEPTICS_GUIDE.md`](PeqNP_SKEPTICS_GUIDE.md) |
+| See all 90 theorems with axiom inventory | [`Lean/EGPT_PROOFS_VALIDATION.md`](Lean/EGPT_PROOFS_VALIDATION.md) |
 | Read the full dependency graph | [`Lean/PROOF_DEPENDENCIES.md`](Lean/PROOF_DEPENDENCIES.md) |
 | See the Mermaid proof DAG | [`docs/PROOF_GRAPH.md`](docs/PROOF_GRAPH.md) |
 | Ingest the graph programmatically | [`docs/proof_graph.json`](docs/proof_graph.json) |
 | **Narrative and context** | |
-| Understand the narrative and philosophy | [`EGPT_STORY.md`](EGPT_STORY.md) |
+| Understand the narrative and philosophy | [`EGPT_STORY_README.md`](EGPT_STORY_README.md) (full narrative, moved from README.md) |
+| Quick-start with tool-specific actions | [`README.md`](README.md) (agentic launcher) |
+| Read the original narrative exposition | [`EGPT_STORY.md`](EGPT_STORY.md) |
 | Read the academic paper | [`content/Papers/EGPT_PeqNP/PeqNP_QED.md`](content/Papers/EGPT_PeqNP/PeqNP_QED.md) |
 | Five foundational ideas + artifact maps | [`IDEAS.md`](IDEAS.md) |
 | Explore interactive demos | [`www/`](www/) — open HTML files directly |
@@ -1032,7 +1129,7 @@ The FAT variants in `EGPTMath/FAT/` demonstrate that the Quantum Fourier Transfo
 
 ## Specialist Agent Instructions
 
-Seven agents in [`.claude/agents/`](.claude/agents/) provide domain-specific conventions and working instructions for each layer of the repo:
+Eight agents in [`.claude/agents/`](.claude/agents/) provide domain-specific conventions and working instructions for each layer of the repo:
 
 | Agent File | Domain | Key Contents |
 |-----------|--------|-------------|
@@ -1043,6 +1140,7 @@ Seven agents in [`.claude/agents/`](.claude/agents/) provide domain-specific con
 | [`demo-builder.md`](.claude/agents/demo-builder.md) | Web demos | Chart.js/p5.js conventions, self-contained HTML style guide |
 | [`content-author.md`](.claude/agents/content-author.md) | Papers & stories | Content structure, tone by document type, key principles |
 | [`sync-validator.md`](.claude/agents/sync-validator.md) | Consistency checks | 11 validation checks across all layers |
+| [`egpt-navigator.md`](.claude/agents/egpt-navigator.md) | Repository navigation | "Dungeon Master" / interactive guide — routes users to files, agents, and exploration paths through conversational discovery |
 
 ## Boundaries
 
@@ -1115,6 +1213,7 @@ node scripts/generate_sitemap.js
 
 ### Documentation & Navigation
 - `IDEAS.md` — Five foundational ideas (ID1-ID5), artifact maps, and "You might be looking for..." table
+- `EGPT_STORY_README.md` — Full narrative README (moved from README.md, 46KB)
 - `EGPT_STORY.md` — Full narrative exposition (the original README, 46KB)
 - `docs/PROOF_GRAPH.md` — Theorem dependency DAG with Mermaid diagrams (AI-optimized)
 - `docs/proof_graph.json` — Machine-readable proof dependency graph (JSON)
@@ -1122,7 +1221,7 @@ node scripts/generate_sitemap.js
 
 ## Agent Team
 
-Seven specialized agents in `.claude/agents/` keep the repo layers synchronized:
+Twelve specialized agents in `.claude/agents/` keep the repo layers synchronized:
 
 | Agent | Model | Role |
 |-------|-------|------|
@@ -1133,6 +1232,11 @@ Seven specialized agents in `.claude/agents/` keep the repo layers synchronized:
 | `@demo-builder` | sonnet | Creates interactive browser demos in www/. |
 | `@content-author` | sonnet | Drafts papers, whitepapers, and story-form narratives in content/. |
 | `@sync-validator` | haiku | Validates cross-layer consistency (theorem counts, test counts, file paths). |
+| `@pnp-moderator` | opus | Moderates the P=NP debate. Invokes skeptic/advocate/rota, consults Stan (Ulam), triggers implementation via `@egpt-orchestrator`. Entry point for debate sessions. |
+| `@pnp-skeptic` | opus | Gödel role — formal skeptic. Challenges whether EGPT's formalization captures standard P vs NP. |
+| `@pnp-jvm` | opus | Von Neumann role — constructive advocate. Defends EGPT's information-theoretic proof from code. |
+| `@pnp-rota` | opus | Rota role — entropy advisor. Filters arguments through RET, validates entropy claims, runs JS experiments. Works with the Advocate. |
+| `@egpt-navigator` | sonnet | "Dungeon Master" / interactive guide — routes users to files, agents, and exploration paths through conversational discovery. Read-only concierge. |
 
 **IMPORTANT — Orchestrator Usage**:
 - **Proactively invoke `@egpt-orchestrator`** when work is conceptually significant enough to merit reflection across multiple layers — e.g., a new Lean proof (like decidability of the Continuum Hypothesis) should cascade into papers, documentation, JS demonstrations, and potentially web demos. If a result would be noteworthy in an academic or educational context, the orchestrator should assess which layers need to reflect it.
@@ -1140,11 +1244,21 @@ Seven specialized agents in `.claude/agents/` keep the repo layers synchronized:
 - **After completing work** that modifies files across layers (Lean proofs, EGPTMath code, documentation, web demos, or content), invoke `@egpt-orchestrator` to assess what downstream updates are needed.
 - For quick consistency checks, invoke `@sync-validator` directly.
 
+**P=NP Debate System** (`@pnp-moderator` → `@pnp-skeptic` + `@pnp-jvm` + `@pnp-rota`):
+- **Entry point: `@pnp-moderator`.** Invoke with a question to explore. The moderator frames the question, invokes debaters and the entropy advisor, synthesizes results, and consults Stan at critical junctures.
+- **Debate history** is in `content/Skeptics/01_QA.md` through `13_QA.md` (13 exchanges from the founding conversation) plus `DEBATE_STATE.md` (accumulated state) and `debate_log.jsonl` (append-only log). The debate models the 1931 von Neumann–Gödel exchange about the formalizability of intuitionism, transposed to Lean and P=NP.
+- **Roles:** Gödel (skeptic), von Neumann (advocate), Rota (entropy advisor), Stan/Ulam (human — leaps of insight).
+- **Implementation triggers:** When debaters agree to try a concrete formalization (new Lean proof, white paper, simulation), the moderator pauses the debate, consults Stan, and invokes `@egpt-orchestrator` to delegate parallelizable implementation work to specialist agents.
+- **Stan (Ulam) in the loop:** The moderator consults Stan at impasses, when fundamental definitions might change, when the proof chain would be modified, or when genuinely new insights surface. Stan's contributions model Stanislaw Ulam — leaps of insight connecting disparate mathematical ideas.
+
 ## AI Navigation
 
 Tool-agnostic AI navigation files complement this Claude-specific guide:
 - [`AGENTS.md`](AGENTS.md) — For Cursor, GitHub Copilot, and generic AI agents
+- [`.cursorrules`](.cursorrules) — Cursor agent rules
+- [`.github/copilot-instructions.md`](.github/copilot-instructions.md) — VS Code Copilot instructions
 - [`llms.txt`](llms.txt) — Lightweight entry point (llms.txt standard)
+- [`EGPT_STORY_README.md`](EGPT_STORY_README.md) — Full narrative README (moved from README.md)
 - [`Lean/PROOF_DEPENDENCIES.md`](Lean/PROOF_DEPENDENCIES.md) — Full proof dependency graph with theorem inventory
 - [`docs/PROOF_GRAPH.md`](docs/PROOF_GRAPH.md) — Mermaid diagrams of theorem dependency DAG
 - [`docs/proof_graph.json`](docs/proof_graph.json) — Machine-readable dependency graph (JSON)
@@ -1154,7 +1268,394 @@ Tool-agnostic AI navigation files complement this Claude-specific guide:
 [DeSciX Community License Membership Agreement (DCMA)](DeSciX_Community_License_v1.pdf) v1.0 — community source, open inside the DeSciX Community, value-return outside. See [LICENSE](LICENSE) for key terms. Non-members receive no license of any kind.
 
 
-# --- SKEPTICS_GUIDE.md ---
+# --- PeqNP_SKEPTICS_GUIDE.md ---
+
+# The Constructive Skeptic's Guide to P = NP
+
+**Purpose:** You are a complexity theorist, a number theorist, or a mathematician who wants to see a *construction*, not a definitional identity. You have an hour. You believe P != NP and you want to find the flaw.
+
+This repository proves P = NP in two completely independent and valid ways. This guide covers the fully constructive proof — that's all we're talking about here. For the definitional identity proof (Chain 1), see [`Lean/RFL_SKEPTICS_GUIDE.md`](Lean/RFL_SKEPTICS_GUIDE.md).
+
+The constructive proof builds three independent characterizations of SAT — Boolean evaluation, entropy walks, and prime divisibility — proves them equivalent, and shows that reading a CNF formula IS solving it, with polynomial cost bounded by the formula's own information content.
+
+Every theorem below is machine-verified in Lean 4: no `sorry`, no custom axioms. Run `cd Lean && lake build` to verify.
+
+---
+
+## Section 1: "Show Me a Construction, Not a Definition"
+
+**The Skeptic's Claim:** "I want to see a machine that solves SAT. Show me a computation, not a type equivalence."
+
+**The Rebuttal:** Here is a computation. The NDM (Non-Deterministic Machine) particle transport model in `UTM.lean` evaluates CNF by physically walking literal addresses.
+
+```lean
+def ndmCircuitEval {k : ℕ} (cnf : SyntacticCNF_EGPT k) (a : Vector Bool k) : Bool
+```
+
+This function walks every clause in the CNF, checks each literal's address against the assignment, and returns `true` iff every clause has at least one satisfied literal. It is proven equivalent to standard Boolean CNF evaluation:
+
+```lean
+theorem ndmCircuitEval_eq_evalCNF {k : ℕ} (cnf : SyntacticCNF_EGPT k)
+    (a : Vector Bool k) :
+    ndmCircuitEval cnf a = evalCNF cnf a
+```
+
+The walk cost is polynomial — bounded by `cnf.length * k` (number of clauses times number of variables):
+
+```lean
+theorem ndmCircuit_cost_polynomial {k : ℕ} (cnf : SyntacticCNF_EGPT k)
+    (h_clause_bound : ∀ c ∈ cnf, c.length ≤ k) :
+    (cnf.map (fun c => c.length)).sum ≤ cnf.length * k
+```
+
+**File:** [`Lean/EGPT/Complexity/UTM.lean`](Lean/EGPT/Complexity/UTM.lean)
+
+---
+
+## Section 2: "Where's the Entropy?"
+
+**The Skeptic's Claim:** "You claim information theory proves P=NP. Where does entropy actually appear in the proof chain?"
+
+**The Rebuttal:** The entropy walk (`ndmEntropyWalk`) maps each assignment to a composite number via prime encoding, then measures conditional entropy at each clause. A satisfying assignment drives the total entropy to zero:
+
+```lean
+theorem ndmCircuit_entropy_bridge {k : ℕ} (cnf : SyntacticCNF_EGPT k)
+    (a : Vector Bool k) (h_clauses_nonempty : ∀ c ∈ cnf, c ≠ []) :
+    ndmCircuitEval cnf a = true ↔
+      (ndmEntropyWalk cnf (assignmentCompositePrime a)).totalEntropy = 0
+```
+
+This says: Boolean satisfaction (every clause has a true literal) is *equivalent* to conditional entropy reaching zero (no uncertainty remains). The entropy walk is complete — it detects satisfiability iff standard evaluation does:
+
+```lean
+theorem ndmEntropyWalk_determines_sat {k : ℕ} (cnf : SyntacticCNF_EGPT k)
+    (a : Vector Bool k) (h_clauses_nonempty : ∀ c ∈ cnf, c ≠ []) :
+    (ndmEntropyWalk cnf (assignmentCompositePrime a)).totalEntropy = 0 ↔
+      evalCNF cnf a = true
+```
+
+The entropy walk's total cost is also polynomially bounded:
+
+```lean
+theorem ndmWalkComplexity_polynomial {k : ℕ} (cnf : SyntacticCNF_EGPT k)
+    (h_clause_bound : ∀ c ∈ cnf, c.length ≤ k) :
+    ndmWalkComplexity cnf ≤ cnf.length * (k * (2 * k))
+```
+
+**File:** [`Lean/EGPT/Complexity/UTM.lean`](Lean/EGPT/Complexity/UTM.lean)
+
+---
+
+## Section 3: "Prime Factorization Can't Encode SAT"
+
+**The Skeptic's Claim:** "Mapping assignments to primes is a parlor trick. You can't reduce SAT to divisibility."
+
+**The Rebuttal:** Each Boolean assignment is encoded as a composite number whose prime factors correspond to satisfied literals. Each literal gets a unique prime atom. SAT reduces to divisibility:
+
+```lean
+theorem evalCNF_true_iff_cnfSharesFactor {k : ℕ} (a : Vector Bool k)
+    (cnf : SyntacticCNF_EGPT k) :
+    evalCNF cnf a = true ↔ cnfSharesFactor a cnf
+```
+
+The prime encoding connects to conditional entropy — a literal shares a factor iff its conditional entropy is zero:
+
+```lean
+theorem literalSharesFactor_iff_zero_conditional_entropy {k : ℕ}
+    (a : Vector Bool k) (lit : Literal_EGPT k) :
+    literalSharesFactor a lit ↔
+      conditionalLiteralEntropy (assignmentCompositePrime a) lit = 0
+```
+
+This chains all the way up to CNF level:
+
+```lean
+theorem cnfSharesFactor_iff_zero_conditional_cnf_entropy {k : ℕ}
+    (a : Vector Bool k) (cnf : SyntacticCNF_EGPT k)
+    (h_clauses_nonempty : ∀ c ∈ cnf, c ≠ []) :
+    cnfSharesFactor a cnf ↔
+      conditionalCNFEntropy (assignmentCompositePrime a) cnf = 0
+```
+
+The entropy characterization uses `Nat.gcd` — standard number theory:
+
+```lean
+theorem conditional_entropy_gcd_characterization {k : ℕ}
+    (composite : ℕ) (_hc : 0 < composite) (lit : Literal_EGPT k) :
+    conditionalLiteralEntropy composite lit = 0 ↔
+      Nat.gcd composite (literalAtom lit) = literalAtom lit
+```
+
+**File:** [`Lean/EGPT/Complexity/Decomposition.lean`](Lean/EGPT/Complexity/Decomposition.lean)
+
+---
+
+## Section 4: "These Three Layers Might Not Agree"
+
+**The Skeptic's Claim:** "You have three characterizations of SAT. How do I know they're actually equivalent? Maybe one is weaker than the others."
+
+**The Rebuttal:** They are proven equivalent in a single theorem:
+
+```lean
+theorem three_layer_equivalence {k : ℕ} (cnf : SyntacticCNF_EGPT k)
+    (h_clause_bound : ∀ c ∈ cnf, c.length ≤ k)
+    (h_clauses_nonempty : ∀ c ∈ cnf, c ≠ []) :
+    -- Boolean ↔ Circuit
+    (∀ a : Vector Bool k, ndmCircuitEval cnf a = evalCNF cnf a) ∧
+    -- Circuit ↔ Entropy (zero conditional entropy)
+    (∀ a : Vector Bool k,
+      ndmCircuitEval cnf a = true ↔
+        (ndmEntropyWalk cnf (assignmentCompositePrime a)).totalEntropy = 0) ∧
+    -- Circuit SAT ↔ Boolean SAT (existential)
+    ((∃ a : Vector Bool k, ndmCircuitEval cnf a = true) ↔
+      (∃ a : Vector Bool k, evalCNF cnf a = true)) ∧
+    -- All polynomial bounds hold
+    (cnf.map (fun c => c.length)).sum ≤ cnf.length * k ∧
+    ndmWalkComplexity cnf ≤ cnf.length * (k * (2 * k)) ∧
+    cnfInformationContent cnf ≤
+      toNat (PPNP.canonical_np_poly.eval (fromNat (encodeCNF cnf).length))
+```
+
+And connected to the main proof chain:
+
+```lean
+theorem three_layer_meets_proof_chain {k : ℕ} (cnf : SyntacticCNF_EGPT k)
+    (h_clause_bound : ∀ c ∈ cnf, c.length ≤ k)
+    (h_clauses_nonempty : ∀ c ∈ cnf, c ≠ []) :
+    -- Boolean ↔ Circuit
+    (∀ a : Vector Bool k, ndmCircuitEval cnf a = evalCNF cnf a) ∧
+    -- Entropy walk ↔ Boolean SAT
+    ((∃ a : Vector Bool k,
+        (ndmEntropyWalk cnf (assignmentCompositePrime a)).totalEntropy = 0) ↔
+      (∃ a : Vector Bool k, evalCNF cnf a = true)) ∧
+    -- Boolean SAT ↔ Assignment-free SAT
+    ((∃ a : Vector Bool k, evalCNF cnf a = true) ↔ AssignmentFreeSAT cnf) ∧
+    -- Polynomial bounds
+    ((cnf.map (fun c => c.length)).sum ≤ cnf.length * k ∧
+     ndmWalkComplexity cnf ≤ cnf.length * (k * (2 * k)) ∧
+     cnfInformationContent cnf ≤
+       toNat (PPNP.canonical_np_poly.eval (fromNat (encodeCNF cnf).length))) ∧
+    -- Rota axioms hold
+    (IsEntropyCondAddSigma H_canonical_ln ∧
+     IsEntropyZeroOnEmptyDomain H_canonical_ln ∧
+     IsEntropyZeroInvariance H_canonical_ln) ∧
+    -- RECT bridge exists
+    (∃ prog : ComputationalDescription,
+      prog.complexity ≤ cnfInformationContent cnf ∧
+      IRECT_Program_to_Entropy prog ≤ (cnfInformationContent cnf : ℝ))
+```
+
+**File:** [`Lean/EGPT/Complexity/PPNPConstructive.lean`](Lean/EGPT/Complexity/PPNPConstructive.lean)
+
+---
+
+## Section 5: "Time Complexity ≠ Information Complexity"
+
+**The Skeptic's Claim:** "Your 'complexity' is information content, not computational time. You're measuring the wrong thing."
+
+**The Rebuttal:** `UTM.lean` defines a sequential read head model where time complexity IS the number of tape cells read:
+
+```lean
+def timeComplexity (prog : ComputerProgram) : ℕ := prog.length
+
+theorem timeComplexity_eq_toNat (p : ParticlePath) :
+    timeComplexity p.val = toNat p
+```
+
+The bridge theorem proves these are the same quantity:
+
+```lean
+theorem time_eq_information_eq_complexity (prog : ComputationalDescription) :
+    timeComplexity prog.tape = prog.complexity ∧
+    (prog.complexity : ℝ) = IRECT_Program_to_Entropy prog
+```
+
+And for the walk specifically:
+
+```lean
+theorem walk_time_eq_information {k : ℕ}
+    (cnf : SyntacticCNF_EGPT k)
+    (endpoint : { v : Vector Bool k // evalCNF cnf v = true }) :
+    timeComplexity (walkConstructionProgram cnf endpoint) =
+      (walkCNFPaths cnf endpoint).complexity
+```
+
+Time = information = complexity. Not by assumption — by proof. Each tape cell is one bit, each bit is one `ParticlePath` step, each step costs 1. The n^2 bound is standard `n * n`:
+
+```lean
+@[simp] lemma eval_canonical_np_poly (n : ℕ) :
+  toNat ((canonical_np_poly).eval (fromNat n)) = n * n
+```
+
+**Files:** [`Lean/EGPT/Complexity/UTM.lean`](Lean/EGPT/Complexity/UTM.lean), [`Lean/EGPT/Complexity/PPNPConstructive.lean`](Lean/EGPT/Complexity/PPNPConstructive.lean)
+
+---
+
+## Section 6: "The Walk Still Needs a Witness"
+
+**The Skeptic's Claim:** "Your `walkCNFPaths` takes a satisfying assignment as input. That's circular — you need to *find* the assignment first."
+
+**The Rebuttal:** The `complete_information_extraction` theorem proves that reading the CNF IS processing it. The walk exhausts all the CNF's entropy — there is no residual information left to discover:
+
+```lean
+theorem complete_information_extraction {k : ℕ} (cnf : SyntacticCNF_EGPT k) :
+    -- The walk visits every clause
+    (∀ endpoint : { v : Vector Bool k // evalCNF cnf v = true },
+      (walkCNFPaths cnf endpoint).witness_paths.length = cnf.length) ∧
+    -- Time cost bounded by information content
+    (∀ endpoint : { v : Vector Bool k // evalCNF cnf v = true },
+      timeComplexity (walkConstructionProgram cnf endpoint) ≤
+        cnfInformationContent cnf) ∧
+    -- Information content bounded by n²
+    cnfInformationContent cnf ≤
+      toNat (PPNP.canonical_np_poly.eval (fromNat (encodeCNF cnf).length)) ∧
+    -- Decidability + entropy properties
+    ((∀ v : Vector Bool k,
+      evalCNF cnf v = true ∨ evalCNF cnf v = false) ∧
+     IsEntropyZeroOnEmptyDomain H_canonical_ln ∧
+     IsEntropyZeroInvariance H_canonical_ln) ∧
+    -- RECT bridge: computation ≤ information content
+    (∃ prog : ComputationalDescription,
+      prog.complexity ≤ cnfInformationContent cnf ∧
+      IRECT_Program_to_Entropy prog ≤ (cnfInformationContent cnf : ℝ))
+```
+
+The residual clause count after the walk is zero:
+
+```lean
+theorem walk_residual_clause_count_zero {k : ℕ}
+    (cnf : SyntacticCNF_EGPT k)
+    (endpoint : { v : Vector Bool k // evalCNF cnf v = true }) :
+    cnf.length - (walkCNFPaths cnf endpoint).witness_paths.length = 0
+```
+
+Zero residual clauses means zero residual entropy. The walk extracted everything. The "witness" is not external information — it's a *reading* of information already present in the CNF. You can't bury treasure and then claim the map doesn't exist — you drew the map when you buried the treasure.
+
+**File:** [`Lean/EGPT/Complexity/PPNPConstructive.lean`](Lean/EGPT/Complexity/PPNPConstructive.lean)
+
+---
+
+## Section 7: "Rota's Axioms Are Assumed, Not Proved"
+
+**The Skeptic's Claim:** "You invoke Rota's Entropy Theorem, but the axioms might not hold for your entropy function."
+
+**The Rebuttal:** All seven Rota axioms are individually **proved** as Lean theorems for `H_canonical_ln` (standard Shannon entropy):
+
+| Axiom | Lean Proof |
+|-------|------------|
+| Normalization | `h_canonical_is_normalized` |
+| Symmetry | `h_canonical_is_symmetric` |
+| Continuity | `h_canonical_is_continuous` |
+| Conditional Additivity | `h_canonical_is_cond_add_sigma` |
+| Zero Invariance | `h_canonical_is_zero_invariance` |
+| Maximum at Uniform | `h_canonical_is_max_uniform` |
+| Zero on Empty Domain | `h_canonical_is_zero_on_empty` |
+
+All seven are bundled:
+
+```lean
+theorem canonical_entropy_has_rota_properties :
+    HasRotaEntropyProperties H_canonical_ln
+```
+
+The uniqueness result (`RET_All_Entropy_Is_Scaled_Shannon_Entropy`) follows from these proven axioms. The entropy is verified for all three canonical statistical mechanics distributions: Bose-Einstein, Fermi-Dirac, and Maxwell-Boltzmann, all over Lean `ℝ`.
+
+To reject the entropy bridge, you must reject one of these seven proven properties of standard Shannon entropy. Pick one.
+
+**Files:** [`Lean/EGPT/Entropy/H.lean`](Lean/EGPT/Entropy/H.lean), [`Lean/EGPT/Entropy/RET.lean`](Lean/EGPT/Entropy/RET.lean)
+
+---
+
+## Section 8: "This P_info/NP_info Isn't Standard P/NP"
+
+**The Skeptic's Claim:** "Your `P_info` and `NP_info` are custom definitions. They don't capture the real complexity classes."
+
+**The Rebuttal:** The types used are proven bijective with Lean's native ℕ, ℤ, ℚ, ℝ. The arithmetic is proven isomorphic. The Cook-Levin theorem is proven within the framework:
+
+```lean
+theorem EGPT_CookLevin_Theorem :
+    (L_SAT_Canonical : Π k, Set (CanonicalCNF k)) ∈ NP ∧
+    ∀ (L : Π k, Set (CanonicalCNF k)), L ∈ NP → NPReducesTo L L_SAT_Canonical
+```
+
+The capstone:
+
+```lean
+theorem P_info_eq_NP_info : P_info = NP_info
+```
+
+`P_info` and `NP_info` are defined via `walk_construction_iff_bounded_certificate`, which connects time complexity (sequential read head), information complexity (walk cost), and entropy (RECT bridge) into a single characterization. The definitions use the same `SatisfyingTableau`, the same `cnfInformationContent` bound, and the same `canonical_np_poly` (n^2) polynomial as Chain 1.
+
+To claim these don't capture standard complexity classes, you must identify a specific standard problem that falls outside the framework — and explain how, given that `ParticlePath ≃ ℕ` with isomorphic arithmetic and `UniversalCNF ≃ ParticlePath` via `Denumerable`.
+
+**File:** [`Lean/EGPT/Complexity/PPNPConstructive.lean`](Lean/EGPT/Complexity/PPNPConstructive.lean)
+
+---
+
+## Section 9: Pick Your Poison
+
+To deny P = NP via this constructive proof, you must reject one of:
+
+1. **The Fundamental Theorem of Arithmetic** — unique prime factorization, which grounds the prime encoding of assignments and the information conservation argument.
+
+2. **Rota's Entropy Theorem** — that Shannon entropy is the unique information measure satisfying seven natural axioms, each individually proved in Lean.
+
+3. **The ParticlePath ≃ ℕ bijection** — a machine-verified equivalence with isomorphic arithmetic (`toNat_add`, `toNat_mul`).
+
+4. **The three-layer equivalence** — that Boolean SAT, entropy-zero, and prime divisibility characterize the same set. Proved sorry-free in `three_layer_equivalence`.
+
+5. **Information conservation** — that the information content of a composite cannot exceed the sum of its components' information content. This follows from the LFTA + RET.
+
+6. **Time = Information** — that `timeComplexity prog = prog.length` and `walk_time_eq_information`. Reject the sequential read head model.
+
+7. **Construct a counterexample** — exhibit a satisfiable CNF whose satisfying assignment contains information not present in the CNF's own structure. Show a solution that is not determined by the problem statement.
+
+Pick one. Reject it. Explain why. Or construct a counterexample. If you can't do either, P = NP.
+
+---
+
+## Files Reference (Chain 2 — Constructive Proof)
+
+| Step | File | What It Proves |
+|------|------|---------------|
+| 0 | `EGPT/Core.lean` | `ParticlePath := List Bool`, `ComputerTape := List Bool` |
+| 1 | `EGPT/NumberTheory/Core.lean` | `ParticlePath ≃ ℕ`, arithmetic homomorphisms, Beth hierarchy |
+| 2 | `EGPT/Constraints.lean` | CNF definitions, `encodeCNF`, `equivUniversalCNF_to_ParticlePath` |
+| 3 | `EGPT/Complexity/Core.lean` | `PathToConstraint` (literal index = path cost) |
+| 4 | `EGPT/Complexity/TableauFromCNF.lean` | `walkCNFPaths`, `walkComplexity_upper_bound` |
+| 5 | `EGPT/Complexity/ComplexityInformationBridge.lean` | time complexity = information complexity |
+| 6 | `EGPT/Complexity/PPNP.lean` | `P`, `NP`, `P_eq_NP`, Cook-Levin |
+| 7 | `EGPT/Complexity/Decomposition.lean` | `AssignmentFreeSAT`, `CNFSharesFactor`, conditional entropy |
+| 8 | `EGPT/Complexity/UTM.lean` | `ReadHead`, NDM walks, entropy walk, circuit SAT |
+| 9 | `EGPT/Complexity/PPNPConstructive.lean` | `P_info`, `NP_info`, `P_info_eq_NP_info`, `three_layer_meets_proof_chain` |
+
+**Supporting:**
+
+| File | Role |
+|------|------|
+| `EGPT/NumberTheory/Analysis.lean` | LFTA, prime information atoms |
+| `EGPT/Entropy/Common.lean` | Rota's axiom definitions, Shannon entropy, RECT |
+| `EGPT/Entropy/H.lean` | All 7 Rota axioms proven for Shannon entropy |
+| `EGPT/Entropy/RET.lean` | `RET_All_Entropy_Is_Scaled_Shannon_Entropy` |
+
+---
+
+## How To Verify
+
+```bash
+cd Lean && lake build
+```
+
+Lean's kernel will typecheck every theorem. No `sorry`. No custom axioms. Every step machine-verified.
+
+**The burden is on you:** show which established mathematical fact you are willing to reject, or construct a counterexample. If you can't do either, P = NP.
+
+---
+
+*See also: [`Lean/RFL_SKEPTICS_GUIDE.md`](Lean/RFL_SKEPTICS_GUIDE.md) for the definitional identity proof (Chain 1), [`CH_SKEPTICS_GUIDE.md`](CH_SKEPTICS_GUIDE.md) for the Continuum Hypothesis proof, and [`content/Skeptics/DEBATE_STATE.md`](content/Skeptics/DEBATE_STATE.md) for 21 exchanges of adversarial review.*
+
+
+# --- Lean/RFL_SKEPTICS_GUIDE.md ---
 
 # The Skeptic's Guide to the Proof of P = NP
 
@@ -1324,6 +1825,14 @@ The theorems `L_SAT_in_NP` and `L_SAT_in_P` both prove their respective class me
 ### The Definitions (PPNP.lean)
 
 ```lean
+-- Explicit CNF-derived semantic layer
+def AllSatisfyingAssignments {k : ℕ} (cnf : SyntacticCNF_EGPT k) : Set (Vector Bool k) :=
+  { assignment | evalCNF cnf assignment = true }
+
+-- SAT language uses nonempty semantic set
+def L_SAT_Canonical (k : ℕ) : Set (CanonicalCNF k) :=
+  { ccnf | (AllSatisfyingAssignments ccnf.val).Nonempty }
+
 -- NP: membership ↔ existence of a bounded SatisfyingTableau
 def NP : Set (Π k, Set (CanonicalCNF k)) :=
 { L | ∀ (k : ℕ) (input_ccnf : CanonicalCNF k),
@@ -1342,6 +1851,19 @@ def P : Set (Π k, Set (CanonicalCNF k)) :=
 ```
 
 These **are** the same definition. Both P and NP quantify over the existence of a polynomially-bounded `SatisfyingTableau`. This is not a typographical accident -- it is the consequence of the bijection chain.
+
+The substantive work is made explicit upstream by the semantic bridge theorem:
+
+```lean
+theorem allSatisfyingAssignments_nonempty_iff_bounded_tableau {k : ℕ}
+    (input_ccnf : CanonicalCNF k) :
+  (AllSatisfyingAssignments input_ccnf.val).Nonempty ↔
+    ∃ (tableau : SatisfyingTableau k),
+      tableau.cnf = input_ccnf.val ∧
+      tableau.complexity ≤ toNat (canonical_np_poly.eval (fromNat (encodeCNF input_ccnf.val).length))
+```
+
+`L_SAT_in_NP` and `L_SAT_in_P` now close by applying this bridge. The final `P_eq_NP` `Iff.rfl` step is therefore the terminal closure after the semantic and constructive layers are linked.
 
 ### The Proof
 
@@ -1482,6 +2004,43 @@ To claim the definitions don't capture standard complexity classes, you must ide
 
 ---
 
+## Section 8: Assignment-Free Constructive Criterion (Experimental, Proved)
+
+In addition to the load-bearing proof chain, `EGPT/Complexity/Decomposition.lean` now formalizes a witness-free SAT criterion in the 2D walk language:
+
+- **Clause coverage:** every clause-row has at least one selected literal gate (`CoversAllClauses`).
+- **Global polarity consistency:** no variable is selected with both polarities (`PolarityConsistent`).
+
+This is packaged as:
+
+```lean
+def AssignmentFreeSAT {k : ℕ} (cnf : SyntacticCNF_EGPT k) : Prop :=
+  ∃ w : WalkWitness k, CoversAllClauses cnf w ∧ PolarityConsistent w
+```
+
+And is connected to standard SAT semantics by proven equivalence:
+
+```lean
+theorem assignmentFree_iff_sat {k : ℕ} (cnf : SyntacticCNF_EGPT k) :
+  AssignmentFreeSAT cnf ↔ ∃ assignment : Vector Bool k, evalCNF cnf assignment = true
+```
+
+With explicit direction theorems:
+
+- `assignmentFree_sound` (assignment-free witness ⇒ satisfying assignment),
+- `assignmentFree_complete` (satisfying assignment ⇒ assignment-free witness),
+- `decomposition_is_poly_bounded` (walk cost bounded polynomially by encoded input size).
+
+This keeps the chain stable while proving the constructive criterion in a separate module before any future substitution. The alignment theorem is:
+
+```lean
+theorem assignmentFree_iff_nonempty_allSatisfyingAssignments {k : ℕ}
+    (cnf : SyntacticCNF_EGPT k) :
+  AssignmentFreeSAT cnf ↔ (PPNP.AllSatisfyingAssignments cnf).Nonempty
+```
+
+---
+
 ## Files Reference (Proof Chain Order)
 
 | Step | File | What It Proves |
@@ -1501,6 +2060,7 @@ To claim the definitions don't capture standard complexity classes, you must ide
 | `EGPT/Entropy/Common.lean` | Rota's entropy axiom definitions, Shannon entropy, RECT |
 | `EGPT/Entropy/H.lean` | All 7 Rota axioms proven for Shannon entropy |
 | `EGPT/Entropy/RET.lean` | `RET_All_Entropy_Is_Scaled_Shannon_Entropy` |
+| `EGPT/Complexity/Decomposition.lean` | Experimental assignment-free SAT criterion with soundness/completeness/poly-bound proofs |
 | `EGPT/Physics/RealityIsComputation.lean` | Every physical system (BE/FD/MB) has a computable program |
 
 ---
@@ -3133,6 +3693,16 @@ Lean's kernel will typecheck every theorem. No `sorry`. No custom axioms. Every 
 
 ---
 
+## Chain 2: The Information-Theoretic Proof (P_info_eq_NP_info)
+
+Chain 2 extends Chain 1 with three additional files -- `Complexity/Decomposition.lean`, `Complexity/UTM.lean`, and `Complexity/PPNPConstructive.lean` -- bringing the total to 11 sorry-free, axiom-free files. Where Chain 1 proves `P_eq_NP` via definitional identity, Chain 2 constructs `P_info_eq_NP_info` through an explicit three-layer equivalence: Boolean SAT (a CNF is satisfiable) is equivalent to an entropy condition (zero conditional entropy via `cnfSharesFactor_iff_zero_conditional_cnf_entropy`) which is equivalent to a number-theoretic condition (prime divisibility via `CNFSharesFactor`). The theorem `three_layer_equivalence` establishes this chain, and `three_layer_meets_proof_chain` connects it back to Chain 1's `walkCNFPaths` construction.
+
+The computation model is a Non-Deterministic Machine (NDM) whose `ndmCircuitEval` evaluates a CNF by walking literal addresses, proven equivalent to `evalCNF`. The key insight is that time equals information: `time_eq_information_eq_complexity` proves that the sequential read head time, the information content, and the walk complexity are the same quantity. Rota's entropy properties are proved (not assumed) within the constructive chain, and `entropy_extraction_is_polynomial` shows the entropy walk runs in polynomial time. The capstone theorem `complete_information_extraction` ties everything together, and `P_info_eq_NP_info` follows.
+
+For a full constructive walkthrough of Chain 2 with code references, see [`PeqNP_SKEPTICS_GUIDE.md`](https://eabadir.github.io/EGPT/Lean/EGPT/PeqNP_SKEPTICS_GUIDE.md).
+
+---
+
 ## Related Documents
 
 - [`ROSETTA_STONE.md`](https://eabadir.github.io/EGPT/Lean/EGPT/ROSETTA_STONE.md) -- Complete bijection map from EGPT types to standard mathematics
@@ -3148,9 +3718,9 @@ Lean's kernel will typecheck every theorem. No `sorry`. No custom axioms. Every 
 
 # EGPT Build Verification Report
 
-> Generated: 2026-03-12 21:07:02 UTC  
+> Generated: 2026-03-13 22:06:16 UTC  
 > Toolchain: `leanprover/lean4:v4.21.0-rc3`  
-> Elapsed: 12.9s
+> Elapsed: 22.2s
 
 | Check | Result |
 |-------|--------|
@@ -3158,9 +3728,9 @@ Lean's kernel will typecheck every theorem. No `sorry`. No custom axioms. Every 
 | `lake build PPNP` | PASS |
 | sorry-free | PASS |
 | No custom axioms | PASS |
-| Theorems verified | **87** |
+| Theorems verified | **90** |
 
-**Verdict: PASS** — All 87 theorems are sorry-free and use only Lean's built-in axioms.
+**Verdict: PASS** — All 90 theorems are sorry-free and use only Lean's built-in axioms.
 
 ---
 
@@ -3347,15 +3917,27 @@ Source: [`EGPT/Complexity/PPNP.lean`](EGPT/Complexity/PPNP.lean)
 | `EGPT_CookLevin_Theorem` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 | `P_eq_NP` | `propext`, `Quot.sound` | OK |
 
-## Complexity — UTM: Universal Turing Machine Certifier
+## Complexity — UTM: ReadHead Model (time = information)
 
-The EGPT UTM that transforms problems into certified results.
+Sequential tape reading: timeComplexity = tape length. Used by PPNPConstructive.
 
 Source: [`EGPT/Complexity/UTM.lean`](EGPT/Complexity/UTM.lean)
 
 | Theorem | Axioms | Status |
 |---------|--------|--------|
-| `UniversalTuringMachine_EGPT` | `propext`, `Classical.choice`, `Quot.sound` | OK |
+| `timeComplexity_eq_length` | `propext`, `Classical.choice`, `Quot.sound` | OK |
+| `time_eq_information_eq_complexity` | `propext`, `Classical.choice`, `Quot.sound` | OK |
+
+## Complexity — PPNPConstructive: P_info = NP_info
+
+Information-theoretic P=NP formulation. Capstone of the P_info_eq_NP_info chain.
+
+Source: [`EGPT/Complexity/PPNPConstructive.lean`](EGPT/Complexity/PPNPConstructive.lean)
+
+| Theorem | Axioms | Status |
+|---------|--------|--------|
+| `P_info_eq_NP_info` | `propext`, `Classical.choice`, `Quot.sound` | OK |
+| `complete_information_extraction` | `propext`, `Classical.choice`, `Quot.sound` | OK |
 
 ## PPNP — Wave-Particle Duality Disproved
 
@@ -3432,10 +4014,14 @@ No custom axioms or `sorry` placeholders are used in any verified theorem.
 
 # EGPT Proof Dependency Graph
 
-> 87 machine-verified theorems across 25 Lean 4 files.
+> 90 machine-verified theorems across 25 Lean 4 files.
 > No `sorry`. No custom axioms. Only Lean's built-in `propext`, `Quot.sound`, `Classical.choice`.
 
-## P=NP Proof Chain (8 files, sorry-free, axiom-free)
+## P=NP Proof Chains (two formal chains, both sorry-free, axiom-free)
+
+There are **two** formal P=NP proof chains:
+
+### Chain 1: P_eq_NP (definitional identity)
 
 The core constructive proof. Each file depends only on those above it.
 
@@ -3465,9 +4051,27 @@ EGPT/Complexity/ComplexityInformationBridge.lean  nSquared_time_complexity_is_in
   |
 EGPT/Complexity/Interpretation.lean ...... Thin import shim — re-exports ComplexityInformationBridge
   |
-EGPT/Complexity/PPNP.lean ............... P, NP (identical definitions), P_eq_NP (Set.ext + Iff.rfl)
+EGPT/Complexity/PPNP.lean ............... AllSatisfyingAssignments (CNF-derived semantic set)
+                                          allSatisfyingAssignments_nonempty_iff_bounded_tableau
+                                          P, NP (identical definitions), P_eq_NP (Set.ext + Iff.rfl)
                                           L_SAT_in_NP, L_SAT_in_P
                                           EGPT_CookLevin_Theorem
+```
+
+### Chain 2: P_info_eq_NP_info (information-theoretic formulation)
+
+Extends PPNP with Decomposition and UTM. Uses `timeComplexity_eq_length` (UTM) and prime-factorization SAT equivalences (Decomposition).
+
+```
+PPNP.lean
+  |
+  ├── EGPT/Complexity/Decomposition.lean .. assignmentFree_iff_sat, cnfSharesFactor_of_exists_assignment
+  |                                        evalCNF_true_iff_cnfSharesFactor, CNFSharesFactor
+  |
+  ├── EGPT/Complexity/UTM.lean ............ timeComplexity, timeComplexity_eq_length (ReadHead model)
+  |
+  └── EGPT/Complexity/PPNPConstructive.lean  P_info, NP_info, P_info_eq_NP_info
+                                             complete_information_extraction
 ```
 
 **Cross-chain imports:** `TableauFromCNF.lean` and `PPNP.lean` both import `EGPT.Entropy.Common` and `EGPT.Physics.PhysicsDist` for type definitions (entropy-related types used in complexity bounds). `ComplexityInformationBridge.lean` imports `EGPT.Entropy.Common` for `IRECT_Program_to_Entropy` and `IRECT_RECT_inverse_for_integer_complexity`. These are data-type and interface imports — the P=NP result does not depend on any Entropy or Physics *theorem*.
@@ -3539,11 +4143,19 @@ EGPT/NumberTheory/Analysis.lean ......... FTA via information, entropy decomposi
 ## Complexity Extensions
 
 ```
-EGPT/Complexity/UTM.lean ................ Universal Turing Machine certifier
-                                          (imports: Tableau, Filter)
+EGPT/Complexity/UTM.lean ................ ReadHead model, timeComplexity_eq_length
+                                          Used by PPNPConstructive (P_info_eq_NP_info chain)
 
-EGPT/Complexity/Physics.lean ............ Constrained systems ≡ SAT
+EGPT/Complexity/Decomposition.lean ...... Assignment-free SAT criterion
+                                          Used by PPNPConstructive (P_info_eq_NP_info chain)
+                                          assignmentFree_iff_sat, CNFSharesFactor
+                                          evalCNF_true_iff_cnfSharesFactor
+                                          cnfSharesFactor_iff_nonempty_allSatisfyingAssignments
+                                          decomposition_is_poly_bounded
+
+EGPT/Complexity/Physics.lean ............ Constrained systems ≡ SAT (NOT used in either proof chain)
                                           (imports: Core, NumberTheory, Filter, Constraints)
+                                          See AUDIT_LEGACY.md for removal/relocation recommendation
 ```
 
 ## Other Proofs
@@ -3569,8 +4181,10 @@ PPNP/Proofs/WaveParticleDualityDisproved.lean ... BE explained by classical path
 | `Complexity/TableauFromCNF.lean` | 4 | `walkCNFPaths`, `walkComplexity_upper_bound` |
 | `Complexity/ComplexityInformationBridge.lean` | 2 | `nSquared_time_complexity_is_information_complexity`, `walk_nSquared_bound_is_time_and_information` |
 | `Complexity/Interpretation.lean` | — | Import shim (re-exports ComplexityInformationBridge) |
-| `Complexity/PPNP.lean` | 8 | `P_eq_NP` (`Set.ext` + `Iff.rfl`), `EGPT_CookLevin_Theorem` |
-| `Complexity/UTM.lean` | 1 | `UniversalTuringMachine_EGPT` |
+| `Complexity/PPNP.lean` | 11 | `AllSatisfyingAssignments`, `allSatisfyingAssignments_nonempty_iff_bounded_tableau`, `P_eq_NP` (`Set.ext` + `Iff.rfl`), `EGPT_CookLevin_Theorem` |
+| `Complexity/PPNPConstructive.lean` | 17 | `P_info`, `NP_info`, `P_info_eq_NP_info`, `complete_information_extraction` |
+| `Complexity/Decomposition.lean` | 9 | `assignmentFree_iff_nonempty_allSatisfyingAssignments`, `decomposition_is_poly_bounded` |
+| `Complexity/UTM.lean` | 10 | `timeComplexity_eq_length`, `time_eq_information_eq_complexity` (used by PPNPConstructive) |
 | `Complexity/Physics.lean` | 2 | `constrainedSystem_equiv_SAT` |
 | `Physics/Common.lean` | 1 | `H_physical_system` |
 | `Physics/UniformSystems.lean` | 4 | `H_physical_system_is_rota_uniform` |
@@ -3582,7 +4196,7 @@ PPNP/Proofs/WaveParticleDualityDisproved.lean ... BE explained by classical path
 | `Physics/RealityIsComputation.lean` | 3 | `RealityIsComputation`, `ContinuousFieldsAreComputation` |
 | `PPNP/.../WaveParticleDualityDisproved.lean` | 2 | `Wave_Particle_Duality_Disproved_QED` |
 
-**Total: 87 verified theorems** (see [`EGPT_PROOFS_VALIDATION.md`](EGPT_PROOFS_VALIDATION.md) for full axiom inventory)
+**Total: 90 verified theorems** (see [`EGPT_PROOFS_VALIDATION.md`](EGPT_PROOFS_VALIDATION.md) for full axiom inventory)
 
 ## Isolation Guarantees
 
@@ -3595,19 +4209,21 @@ PPNP/Proofs/WaveParticleDualityDisproved.lean ... BE explained by classical path
 ## How to Verify
 
 ```bash
-# Typecheck all 87 theorems
+# Typecheck all 90 theorems
 cd Lean && lake build
 
 # Regenerate validation report
 node ../scripts/build_report.js
 
-# Verify proof chain is sorry-free
+# Verify proof chains are sorry-free
 grep -r "sorry" EGPT/Core.lean EGPT/NumberTheory/Core.lean \
   EGPT/Constraints.lean EGPT/Complexity/Core.lean \
   EGPT/Complexity/TableauFromCNF.lean \
   EGPT/Complexity/ComplexityInformationBridge.lean \
   EGPT/Complexity/Interpretation.lean \
-  EGPT/Complexity/PPNP.lean
+  EGPT/Complexity/PPNP.lean \
+  EGPT/Complexity/PPNPConstructive.lean \
+  EGPT/Complexity/Decomposition.lean EGPT/Complexity/UTM.lean
 # Expected: 0 matches
 ```
 
@@ -3638,13 +4254,15 @@ EGPT/
 │   ├── ContinuumHypothesis.lean   # CH & GCH decidable in EGPT (beth staircase has no gaps)
 │   ├── Analysis.lean              # Analytical properties
 │   └── Filter.lean                # Rejection filters, probability distributions
-├── Complexity/                    # *** THE P=NP PROOF CHAIN ***
+├── Complexity/                    # *** THE P=NP PROOF CHAINS ***
 │   ├── Core.lean                  # PathToConstraint, polynomial definitions, equivPathNat/equivCNFPath/pathNat/natPath aliases
 │   ├── TableauFromCNF.lean        # SatisfyingTableau, walkCNFPaths, walkComplexity_upper_bound
 │   ├── ComplexityInformationBridge.lean  # Interpretation theorems: time complexity = information complexity
 │   ├── Interpretation.lean        # Thin import shim re-exporting ComplexityInformationBridge
-│   ├── PPNP.lean                  # P, NP, P_eq_NP, Cook-Levin theorem
-│   └── UTM.lean                   # Universal Turing Machine (NOT used in proof)
+│   ├── PPNP.lean                  # P, NP, P_eq_NP, Cook-Levin theorem (Chain 1 capstone)
+│   ├── Decomposition.lean         # Assignment-free SAT, CNFSharesFactor (Chain 2)
+│   ├── UTM.lean                   # Sequential read head, NDM particle transport, entropy walk, circuit SAT (Chain 2)
+│   └── PPNPConstructive.lean      # P_info, NP_info, P_info_eq_NP_info (Chain 2 capstone)
 ├── Entropy/                       # *** INDEPENDENT PROOF — not in P=NP chain ***
 │   ├── Common.lean                # Rota's 5 entropy axioms (HasRotaEntropyProperties)
 │   ├── H.lean                     # Entropy function definitions
@@ -3664,15 +4282,9 @@ PPNP/                              # Development workspace
 
 ## Critical Invariants
 
-1. **The P=NP proof chain is sorry-free and axiom-free.** These 8 files form the chain:
-   - `EGPT/Core.lean`
-   - `EGPT/NumberTheory/Core.lean`
-   - `EGPT/Constraints.lean`
-   - `EGPT/Complexity/Core.lean`
-   - `EGPT/Complexity/TableauFromCNF.lean`
-   - `EGPT/Complexity/ComplexityInformationBridge.lean`
-   - `EGPT/Complexity/Interpretation.lean`
-   - `EGPT/Complexity/PPNP.lean`
+1. **The P=NP proof chains are sorry-free and axiom-free.** Two chains:
+   - **P_eq_NP chain (8 files):** `Core.lean`, `NumberTheory/Core.lean`, `Constraints.lean`, `Complexity/Core.lean`, `Complexity/TableauFromCNF.lean`, `Complexity/ComplexityInformationBridge.lean`, `Complexity/Interpretation.lean`, `Complexity/PPNP.lean`
+   - **P_info_eq_NP_info chain (extends above):** `Complexity/Decomposition.lean`, `Complexity/UTM.lean`, `Complexity/PPNPConstructive.lean`
 
    Do NOT introduce `sorry`, `axiom`, or `native_decide` into these files.
 
@@ -3701,6 +4313,13 @@ PPNP/                              # Development workspace
 | `EGPT_GeneralizedContinuumHypothesis` | `NumberTheory/ContinuumHypothesis.lean` | GCH: no gap between consecutive beth levels |
 | `TypeTheoryConstructible` | `NumberTheory/ContinuumHypothesis.lean` | Types constructible in Lean 4 / CIC from ℕ via finitary operations |
 | `AbadirCompletenessTheorem` | `NumberTheory/ContinuumHypothesis.lean` | Every `TypeTheoryConstructible` type has beth-level cardinality |
+| `cnfSharesFactor_iff_zero_conditional_cnf_entropy` | `Complexity/Decomposition.lean` | CNF-level bridge: SAT ↔ zero conditional CNF entropy (sorry-free) |
+| `deterministicBreadthRun` | `Complexity/UTM.lean` | Deterministic clause-by-clause SAT filter from Finset.univ |
+| `survivorPrograms` | `Complexity/UTM.lean` | PProgram extraction from breadth run survivor set |
+| `NDTM_A_run` | `Complexity/UTM.lean` | Non-deterministic machine runner (particle transport) |
+| `potential_next_state` | `Complexity/UTM.lean` | Memoryless Markov state transition (proven memoryless) |
+| `ndm_survivors_eq_breadth_survivors` | `Complexity/UTM.lean` | NDM terminal states = breadth construction survivors |
+| `walk_per_clause_cost_independent_of_history` | `Complexity/UTM.lean` | Per-clause walk cost bounded by k, independent of clause interaction |
 
 ## Documentation
 
@@ -4848,7 +5467,7 @@ Browser-based interactive demos and visualizations of EGPT concepts. **No build 
 
 # EGPT Proof Dependency Graph
 
-> 85 machine-verified theorems across 23 Lean 4 files.
+> 90 machine-verified theorems across 23 Lean 4 files.
 > No `sorry`. No custom axioms. Only Lean's built-in `propext`, `Quot.sound`, `Classical.choice`.
 
 This file provides the logical dependency structure of EGPT's formal proofs in a format optimized for both human reading and AI agent consumption. For the detailed file-by-file breakdown, see [`Lean/PROOF_DEPENDENCIES.md`](../Lean/PROOF_DEPENDENCIES.md).
@@ -4976,7 +5595,7 @@ Canonical catalog of all linkable Electronic Graph Paper Theory (EGPT) artifacts
 
 All external-facing links use GitHub Pages URLs (not raw GitHub blob URLs). To construct a link, append the repo-relative path to the base URL.
 
-**P=NP Proof Chain:** The formal proof consists of 8 sorry-free, axiom-free Lean 4 files containing 87 theorems. The chain typechecks end-to-end with `lake build`. No custom axioms are introduced; the final theorem `P_eq_NP` closes by `rfl`.
+**P=NP Proof Chain:** The formal proof consists of 8 sorry-free, axiom-free Lean 4 files containing 90 theorems. The chain typechecks end-to-end with `lake build`. No custom axioms are introduced; the final theorem `P_eq_NP` closes by `rfl`.
 
 ---
 

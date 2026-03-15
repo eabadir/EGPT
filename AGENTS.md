@@ -2,7 +2,7 @@
 
 > Electronic Graph Paper Theory (EGPT) — a constructive, machine-verified proof that P = NP
 > and a working integer-only math library (EGPTMath) that replaces FLOPs with IOPs.
-> 87 Lean 4 theorems. No `sorry`. No custom axioms. 157 EGPTMath tests, 100% pass.
+> 90 Lean 4 theorems. No `sorry`. No custom axioms. 157 EGPTMath tests, 100% pass.
 > The proof says scalable AI is possible. EGPTMath and FAT show how.
 > Central principle: **"The address is the map."**
 
@@ -12,15 +12,9 @@ You are working in a repository with two equally important layers: **formal proo
 
 ## Critical Invariants — Never Violate
 
-1. **The P=NP proof chain is sorry-free and axiom-free.** Do NOT introduce `sorry`, `axiom`, or `native_decide` into these 8 files:
-   - `Lean/EGPT/Core.lean`
-   - `Lean/EGPT/NumberTheory/Core.lean`
-   - `Lean/EGPT/Constraints.lean`
-   - `Lean/EGPT/Complexity/Core.lean`
-   - `Lean/EGPT/Complexity/TableauFromCNF.lean`
-   - `Lean/EGPT/Complexity/ComplexityInformationBridge.lean`
-   - `Lean/EGPT/Complexity/Interpretation.lean`
-   - `Lean/EGPT/Complexity/PPNP.lean`
+1. **The P=NP proof chains are sorry-free and axiom-free.** Do NOT introduce `sorry`, `axiom`, or `native_decide` into these files:
+   - **P_eq_NP chain (8 files):** `Core.lean`, `NumberTheory/Core.lean`, `Constraints.lean`, `Complexity/Core.lean`, `Complexity/TableauFromCNF.lean`, `Complexity/ComplexityInformationBridge.lean`, `Complexity/Interpretation.lean`, `Complexity/PPNP.lean`
+   - **P_info_eq_NP_info chain (extends above):** `Complexity/Decomposition.lean`, `Complexity/UTM.lean`, `Complexity/PPNPConstructive.lean`
 
 2. **No floating point.** All math is integer operations (IOPs, not FLOPs). This is the core thesis.
 
@@ -34,7 +28,7 @@ You are working in a repository with two equally important layers: **formal proo
 |-----------|---------|----------------------|
 | [`EGPTMath/`](EGPTMath/) | Integer-only math library — FLOPs become IOPs. Exact arithmetic, no error accumulation. 157 tests. | [`EGPTMath/CLAUDE.md`](EGPTMath/CLAUDE.md) |
 | [`EGPTMath/FAT/`](EGPTMath/FAT/) | Faster Abadir Transform (pedagogical) — integer-only FFT/QFT. Classical QFT at O((log k)^3). | [`EGPTMath/FAT/FAT_README.md`](EGPTMath/FAT/FAT_README.md) |
-| [`Lean/`](Lean/) | Formal Lean 4 proofs (87 theorems, sorry-free, axiom-free) | [`Lean/CLAUDE.md`](Lean/CLAUDE.md) |
+| [`Lean/`](Lean/) | Formal Lean 4 proofs (90 theorems, sorry-free, axiom-free) | [`Lean/CLAUDE.md`](Lean/CLAUDE.md) |
 | [`content/`](content/) | Papers, books, reference docs, pyFRAQTL SDK | [`content/CLAUDE.md`](content/CLAUDE.md) |
 | [`www/`](www/) | Interactive browser demos and visualizers | [`www/CLAUDE.md`](www/CLAUDE.md) |
 | [`scripts/`](scripts/) | Build utilities (LaTeX-to-Markdown, validation report) | — |
@@ -44,7 +38,7 @@ Each subdirectory's `CLAUDE.md` contains detailed conventions, file inventories,
 ## Build & Verify
 
 ```bash
-# Lean proofs — typechecks all 87 theorems (requires Lean 4 + mathlib4)
+# Lean proofs — typechecks all 90 theorems (requires Lean 4 + mathlib4)
 cd Lean && lake build
 
 # EGPTMath — run the full test suite (157 tests)
@@ -62,8 +56,9 @@ node scripts/generate_sitemap.js
 
 ## Proof Dependency Graph
 
-### P=NP Proof Chain (8 files, sorry-free, axiom-free)
+### P=NP Proof Chains (sorry-free, axiom-free)
 
+**Chain 1 — P_eq_NP (8 files):**
 ```
 EGPT/Core.lean ─────────── ParticlePath, ComputerTape
        |
@@ -80,6 +75,13 @@ EGPT/Complexity/ComplexityInformationBridge.lean ── complexity-information b
 EGPT/Complexity/Interpretation.lean ── interpretation layer
        |
 EGPT/Complexity/PPNP.lean ── P, NP, P_eq_NP, Cook-Levin theorem
+```
+
+**Chain 2 — P_info_eq_NP_info (extends PPNP with Decomposition + UTM):**
+```
+PPNP.lean ─┬─ Decomposition.lean (assignmentFree_iff_sat, CNFSharesFactor)
+           ├─ UTM.lean (timeComplexity_eq_length)
+           └─ PPNPConstructive.lean ── P_info, NP_info, P_info_eq_NP_info
 ```
 
 ### Entropy Chain (independent — Rota's Entropy Theorem)
@@ -119,13 +121,15 @@ For Mermaid diagrams and a machine-readable JSON graph, see [`docs/PROOF_GRAPH.m
 | See the FRAQTL factorization algorithm | [`content/pyFRAQTL/FRAQTL_WhitePaper.md`](content/pyFRAQTL/FRAQTL_WhitePaper.md) |
 | **Formal proofs (why it works)** | |
 | Understand the P=NP proof | [`Lean/EGPT/PeqNP_Proof_README.md`](Lean/EGPT/PeqNP_Proof_README.md) |
-| Audit the proof chain step-by-step | [`SKEPTICS_GUIDE.md`](SKEPTICS_GUIDE.md) |
-| See all 87 theorems with axiom inventory | [`Lean/EGPT_PROOFS_VALIDATION.md`](Lean/EGPT_PROOFS_VALIDATION.md) |
+| Audit the proof chain step-by-step | [`PeqNP_SKEPTICS_GUIDE.md`](PeqNP_SKEPTICS_GUIDE.md) |
+| See all 90 theorems with axiom inventory | [`Lean/EGPT_PROOFS_VALIDATION.md`](Lean/EGPT_PROOFS_VALIDATION.md) |
 | Read the full dependency graph | [`Lean/PROOF_DEPENDENCIES.md`](Lean/PROOF_DEPENDENCIES.md) |
 | See the Mermaid proof DAG | [`docs/PROOF_GRAPH.md`](docs/PROOF_GRAPH.md) |
 | Ingest the graph programmatically | [`docs/proof_graph.json`](docs/proof_graph.json) |
 | **Narrative and context** | |
-| Understand the narrative and philosophy | [`EGPT_STORY.md`](EGPT_STORY.md) |
+| Understand the narrative and philosophy | [`EGPT_STORY_README.md`](EGPT_STORY_README.md) (full narrative, moved from README.md) |
+| Quick-start with tool-specific actions | [`README.md`](README.md) (agentic launcher) |
+| Read the original narrative exposition | [`EGPT_STORY.md`](EGPT_STORY.md) |
 | Read the academic paper | [`content/Papers/EGPT_PeqNP/PeqNP_QED.md`](content/Papers/EGPT_PeqNP/PeqNP_QED.md) |
 | Five foundational ideas + artifact maps | [`IDEAS.md`](IDEAS.md) |
 | Explore interactive demos | [`www/`](www/) — open HTML files directly |
@@ -147,7 +151,7 @@ The FAT variants in `EGPTMath/FAT/` demonstrate that the Quantum Fourier Transfo
 
 ## Specialist Agent Instructions
 
-Seven agents in [`.claude/agents/`](.claude/agents/) provide domain-specific conventions and working instructions for each layer of the repo:
+Eight agents in [`.claude/agents/`](.claude/agents/) provide domain-specific conventions and working instructions for each layer of the repo:
 
 | Agent File | Domain | Key Contents |
 |-----------|--------|-------------|
@@ -158,6 +162,7 @@ Seven agents in [`.claude/agents/`](.claude/agents/) provide domain-specific con
 | [`demo-builder.md`](.claude/agents/demo-builder.md) | Web demos | Chart.js/p5.js conventions, self-contained HTML style guide |
 | [`content-author.md`](.claude/agents/content-author.md) | Papers & stories | Content structure, tone by document type, key principles |
 | [`sync-validator.md`](.claude/agents/sync-validator.md) | Consistency checks | 11 validation checks across all layers |
+| [`egpt-navigator.md`](.claude/agents/egpt-navigator.md) | Repository navigation | "Dungeon Master" / interactive guide — routes users to files, agents, and exploration paths through conversational discovery |
 
 ## Boundaries
 

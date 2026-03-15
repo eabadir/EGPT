@@ -6,7 +6,7 @@ Canonical catalog of all linkable Electronic Graph Paper Theory (EGPT) artifacts
 
 All external-facing links use GitHub Pages URLs (not raw GitHub blob URLs). To construct a link, append the repo-relative path to the base URL.
 
-**P=NP Proof Chain:** The formal proof consists of 8 sorry-free, axiom-free Lean 4 files containing 87 theorems. The chain typechecks end-to-end with `lake build`. No custom axioms are introduced; the final theorem `P_eq_NP` closes by `rfl`.
+**P=NP Proof Chain:** The formal proof consists of 8 sorry-free, axiom-free Lean 4 files containing 90 theorems. The chain typechecks end-to-end with `lake build`. No custom axioms are introduced; the final theorem `P_eq_NP` closes by `rfl`.
 
 ---
 

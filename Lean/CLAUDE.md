@@ -22,13 +22,15 @@ EGPT/
 │   ├── ContinuumHypothesis.lean   # CH & GCH decidable in EGPT (beth staircase has no gaps)
 │   ├── Analysis.lean              # Analytical properties
 │   └── Filter.lean                # Rejection filters, probability distributions
-├── Complexity/                    # *** THE P=NP PROOF CHAIN ***
+├── Complexity/                    # *** THE P=NP PROOF CHAINS ***
 │   ├── Core.lean                  # PathToConstraint, polynomial definitions, equivPathNat/equivCNFPath/pathNat/natPath aliases
 │   ├── TableauFromCNF.lean        # SatisfyingTableau, walkCNFPaths, walkComplexity_upper_bound
 │   ├── ComplexityInformationBridge.lean  # Interpretation theorems: time complexity = information complexity
 │   ├── Interpretation.lean        # Thin import shim re-exporting ComplexityInformationBridge
-│   ├── PPNP.lean                  # P, NP, P_eq_NP, Cook-Levin theorem
-│   └── UTM.lean                   # Universal Turing Machine (NOT used in proof)
+│   ├── PPNP.lean                  # P, NP, P_eq_NP, Cook-Levin theorem (Chain 1 capstone)
+│   ├── Decomposition.lean         # Assignment-free SAT, CNFSharesFactor (Chain 2)
+│   ├── UTM.lean                   # Sequential read head, NDM particle transport, entropy walk, circuit SAT (Chain 2)
+│   └── PPNPConstructive.lean      # P_info, NP_info, P_info_eq_NP_info (Chain 2 capstone)
 ├── Entropy/                       # *** INDEPENDENT PROOF — not in P=NP chain ***
 │   ├── Common.lean                # Rota's 5 entropy axioms (HasRotaEntropyProperties)
 │   ├── H.lean                     # Entropy function definitions
@@ -48,15 +50,9 @@ PPNP/                              # Development workspace
 
 ## Critical Invariants
 
-1. **The P=NP proof chain is sorry-free and axiom-free.** These 8 files form the chain:
-   - `EGPT/Core.lean`
-   - `EGPT/NumberTheory/Core.lean`
-   - `EGPT/Constraints.lean`
-   - `EGPT/Complexity/Core.lean`
-   - `EGPT/Complexity/TableauFromCNF.lean`
-   - `EGPT/Complexity/ComplexityInformationBridge.lean`
-   - `EGPT/Complexity/Interpretation.lean`
-   - `EGPT/Complexity/PPNP.lean`
+1. **The P=NP proof chains are sorry-free and axiom-free.** Two chains:
+   - **P_eq_NP chain (8 files):** `Core.lean`, `NumberTheory/Core.lean`, `Constraints.lean`, `Complexity/Core.lean`, `Complexity/TableauFromCNF.lean`, `Complexity/ComplexityInformationBridge.lean`, `Complexity/Interpretation.lean`, `Complexity/PPNP.lean`
+   - **P_info_eq_NP_info chain (extends above):** `Complexity/Decomposition.lean`, `Complexity/UTM.lean`, `Complexity/PPNPConstructive.lean`
 
    Do NOT introduce `sorry`, `axiom`, or `native_decide` into these files.
 
@@ -85,6 +81,13 @@ PPNP/                              # Development workspace
 | `EGPT_GeneralizedContinuumHypothesis` | `NumberTheory/ContinuumHypothesis.lean` | GCH: no gap between consecutive beth levels |
 | `TypeTheoryConstructible` | `NumberTheory/ContinuumHypothesis.lean` | Types constructible in Lean 4 / CIC from ℕ via finitary operations |
 | `AbadirCompletenessTheorem` | `NumberTheory/ContinuumHypothesis.lean` | Every `TypeTheoryConstructible` type has beth-level cardinality |
+| `cnfSharesFactor_iff_zero_conditional_cnf_entropy` | `Complexity/Decomposition.lean` | CNF-level bridge: SAT ↔ zero conditional CNF entropy (sorry-free) |
+| `deterministicBreadthRun` | `Complexity/UTM.lean` | Deterministic clause-by-clause SAT filter from Finset.univ |
+| `survivorPrograms` | `Complexity/UTM.lean` | PProgram extraction from breadth run survivor set |
+| `NDTM_A_run` | `Complexity/UTM.lean` | Non-deterministic machine runner (particle transport) |
+| `potential_next_state` | `Complexity/UTM.lean` | Memoryless Markov state transition (proven memoryless) |
+| `ndm_survivors_eq_breadth_survivors` | `Complexity/UTM.lean` | NDM terminal states = breadth construction survivors |
+| `walk_per_clause_cost_independent_of_history` | `Complexity/UTM.lean` | Per-clause walk cost bounded by k, independent of clause interaction |
 
 ## Documentation
 

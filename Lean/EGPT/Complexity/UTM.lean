@@ -13,6 +13,15 @@ open EGPT.Entropy.Common EGPT.NumberTheory.Filter
 
 namespace EGPT.Complexity.UTM
 
+/-! ## Load-bearing Chain 2 declarations
+
+The definitions and theorems in this first section are imported by
+`PPNPConstructive.lean` and form part of the P=NP proof chain (Chain 2).
+They include the ReadHead / timeComplexity model, the RECT/IRECT bridge,
+the polarity-encoded literal address machinery, the NDM address walk,
+the NDM entropy walk, and the NDM circuit evaluation layer.
+-/
+
 /-!
 # The EGPT Computation Model
 
@@ -249,6 +258,18 @@ This is not an arbitrary choice — it follows from the physical model:
 The consequence: a program of length L processes exactly L bits of information
 in exactly L time steps. There is no mechanism to amplify L bits into 2^L
 steps of work, because there are no loops or revisits.
+-/
+
+/-! ## Supporting declarations (Debate Exchanges 17–18)
+
+The definitions below — particle state evolution, non-deterministic machine
+runner (`NDTM_A_run`), deterministic breadth construction
+(`deterministicBreadthRun`, `breadthStep`, `BreadthState`, etc.), survivor
+programs (`survivorPrograms`, `composeSurvivorPrograms`), and the
+`ConstrainedSystem` / `DMachine_CS_verify` layer — are NOT directly
+referenced by `PPNPConstructive.lean`. They remain here as foundational
+context from the adversarial debate (Exchanges 17–18) and underpin the
+address-space and entropy walk layers that ARE in the proof chain.
 -/
 
 /-!
@@ -656,6 +677,17 @@ theorem walk_per_clause_cost_independent_of_history {k : ℕ}
       (walkCNFPaths cnf endpoint').complexity ≤ cnf.length * k := by
   exact ⟨walkComplexity_upper_bound cnf endpoint,
          fun endpoint' => walkComplexity_upper_bound cnf endpoint'⟩
+
+/-! ## Chain 2 declarations resumed — NDM address walk, entropy walk, circuit eval
+
+The remaining declarations below ARE part of the P=NP proof chain (Chain 2).
+They are directly imported by `PPNPConstructive.lean`: `literalAddress`,
+`literalAddressPath`, `ndmAddressWalk`, `ndmWalkComplexity`,
+`NDMEntropyWalkState`, `ndmEntropyWalk`, `ndmEntropyWalk_*` theorems,
+`ndmCircuitEval`, `ndmCircuitEval_eq_evalCNF`, `ndmCircuit_entropy_bridge`,
+`ndmCircuit_sat_iff`, `ndmCircuit_cost_polynomial`, and
+`ndmWalkComplexity_polynomial`.
+-/
 
 /-!
 ==================================================================
