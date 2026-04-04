@@ -44,7 +44,6 @@ noncomputable def primeAtomSum (m : ℕ) : ℝ :=
 lemma primeAtomSum_eq_logb
     (m : ℕ) (hm : 0 < m) :
     primeAtomSum m = Real.logb 2 m := by
-  classical
   simpa [primeAtomSum] using
     (logb_two_factorization m hm).symm
 
@@ -57,7 +56,6 @@ noncomputable def factorialPrimeAtomSum
 lemma factorialPrimeAtomSum_eq_logb (n : ℕ) :
     factorialPrimeAtomSum n =
       Real.logb 2 (Nat.factorial n) := by
-  classical
   have hpos : 0 < Nat.factorial n :=
     Nat.factorial_pos n
   unfold factorialPrimeAtomSum
@@ -69,7 +67,6 @@ lemma logb_factorial_succ (n : ℕ) :
     Real.logb 2 (Nat.factorial (n+1)) =
       Real.logb 2 (n+1)
         + Real.logb 2 (Nat.factorial n) := by
-  classical
   have h1 : (Nat.factorial n : ℝ) ≠ 0 := by
     exact_mod_cast Nat.factorial_ne_zero n
   have h2 : ((n+1) : ℝ) ≠ 0 := by
@@ -93,7 +90,6 @@ lemma logb_factorial_increment (n : ℕ) :
     Real.logb 2 (Nat.factorial (n+1))
       - Real.logb 2 (Nat.factorial n)
       = Real.logb 2 (n+1) := by
-  classical
   have := logb_factorial_succ n
   simpa [sub_eq_add_neg, add_comm,
     add_left_comm, add_assoc]
@@ -108,7 +104,6 @@ theorem factorial_information_decomposition
       = ∑ p ∈ (Nat.factorial n).factorization.support,
           ((Nat.factorial n).factorization p : ℝ)
             * Real.logb 2 p := by
-  classical
   have := factorialPrimeAtomSum_eq_logb n
   unfold factorialPrimeAtomSum at this
   simpa [primeAtomSum] using this.symm

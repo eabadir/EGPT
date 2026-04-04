@@ -344,6 +344,46 @@ private lemma mk_Nat_L_pow (n m : ℕ) :
     push_cast
     simp [Nat.succ_eq_add_one, max_comm]
 
+private lemma exists_max_level {N : ℕ} (hN_pos : 0 < N) (F : Fin N → Type)
+  (ih : ∀ i : Fin N, ∃ nᵢ, Cardinal.mk (F i) = Cardinal.mk (Nat_L nᵢ)) :
+  ∃ max_lev : ℕ, (∀ i, Cardinal.mk (F i) ≤ Cardinal.mk (Nat_L max_lev)) ∧
+    (∃ i_max, Cardinal.mk (F i_max) = Cardinal.mk (Nat_L max_lev)) := by
+  induction N with
+  | zero => contradiction
+  | succ N' ind =>
+    by_cases hN' : N' = 0
+    · subst hN'
+      obtain ⟨n0, hn0⟩ := ih ⟨0, by decide⟩
+      use n0
+      constructor
+      · intro i
+        have : i = ⟨0, by decide⟩ := by ext; omega
+        subst this
+        exact le_of_eq hn0
+      · use ⟨0, by decide⟩
+    · have hN'_pos : 0 < N' := Nat.pos_of_ne_zero hN'
+      have ih_prev : ∀ i : Fin N', ∃ nᵢ, Cardinal.mk (F (Fin.castSucc i)) = Cardinal.mk (Nat_L nᵢ) :=
+        fun i => ih (Fin.castSucc i)
+      obtain ⟨max_prev, h_le_prev, ⟨i_max_prev, h_eq_prev⟩⟩ := ind hN'_pos (fun i => F (Fin.castSucc i)) ih_prev
+      obtain ⟨n_last, hn_last⟩ := ih (Fin.last N')
+      use max max_prev n_last
+      constructor
+      · intro i
+        exact Fin.lastCases
+          (by
+            rw [hn_last]
+            exact mk_Nat_L_mono (le_max_right _ _))
+          (fun j => by
+            calc Cardinal.mk (F (Fin.castSucc j))
+              _ ≤ Cardinal.mk (Nat_L max_prev) := h_le_prev j
+              _ ≤ Cardinal.mk (Nat_L (max max_prev n_last)) := mk_Nat_L_mono (le_max_left _ _))
+          i
+      · rcases le_total max_prev n_last with h_le | h_le
+        · rw [Nat.max_eq_right h_le]
+          use Fin.last N'
+        · rw [Nat.max_eq_left h_le]
+          use Fin.castSucc i_max_prev
+
 /-- **Abadir's Completeness Theorem (Universe Completeness)**:
     Every type constructible in Lean's type theory from a countably
     infinite base via finitary type constructors has cardinality
@@ -398,25 +438,14 @@ theorem AbadirCompletenessTheorem :
     --   #(Nat_L max_lev) ≤ #(Σ i, F i)
     --     ≤ N * #(Nat_L max_lev) = #(Nat_L max_lev)
     -- since N is finite and #(Nat_L max_lev) is infinite.
-    classical
+    have hN_pos : 0 < N := Nat.pos_of_ne_zero (NeZero.ne N)
     have h_wit :
         ∀ i : Fin N, ∃ nᵢ,
           Cardinal.mk (F i) =
             Cardinal.mk (Nat_L nᵢ) :=
       fun i => ih i
-    let level : Fin N → ℕ := fun i => (h_wit i).choose
-    have h_level : ∀ i,
-        Cardinal.mk (F i) =
-          Cardinal.mk (Nat_L (level i)) :=
-      fun i => (h_wit i).choose_spec
-    -- N ≥ 1 since [NeZero N]
-    have hN_pos : 0 < N := Nat.pos_of_ne_zero (NeZero.ne N)
-    let max_lev := Finset.univ.sup level
-    -- There exists an index achieving the maximum
-    obtain ⟨i_max, _, h_max⟩ :=
-      Finset.exists_mem_eq_sup
-        (Finset.univ (α := Fin N))
-        ⟨⟨0, hN_pos⟩, Finset.mem_univ _⟩ level
+    obtain ⟨max_lev, h_le_max, ⟨i_max, h_eq_max⟩⟩ :=
+      exists_max_level hN_pos F h_wit
     use max_lev
     apply le_antisymm
     · -- Upper bound: #(Σ i, F i) ≤ #(Nat_L max_lev)
@@ -429,9 +458,7 @@ theorem AbadirCompletenessTheorem :
                 Cardinal.mk (Nat_L max_lev)) := by
             apply Cardinal.sum_le_sum
             intro i
-            rw [h_level i]
-            exact mk_Nat_L_mono
-              (Finset.le_sup (Finset.mem_univ i))
+            exact h_le_max i
         _ = Cardinal.mk (Fin N) *
               Cardinal.mk (Nat_L max_lev) := by
             simp only [Cardinal.sum_const, Cardinal.lift_id]
@@ -446,9 +473,7 @@ theorem AbadirCompletenessTheorem :
               (aleph0_le_mk_Nat_L max_lev)
     · -- Lower bound: F i_max embeds into Σ i, F i
       calc Cardinal.mk (Nat_L max_lev)
-          = Cardinal.mk (F i_max) := by
-            dsimp [max_lev]
-            rw [h_max, ← h_level]
+          = Cardinal.mk (F i_max) := h_eq_max.symm
         _ ≤ Cardinal.mk (Σ i, F i) :=
             Cardinal.mk_le_of_injective
               (f := fun x => Sigma.mk i_max x)

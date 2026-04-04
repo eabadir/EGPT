@@ -70,8 +70,8 @@ def Literal.equivProd {constrained_position : ℕ} :
 {
   toFun := fun lit => (lit.particle_idx, lit.polarity),
   invFun := fun p => { particle_idx := p.1, polarity := p.2 },
-  left_inv := fun lit => by cases lit; simp,
-  right_inv := fun p => by cases p; simp
+  left_inv := fun lit => by cases lit; rfl,
+  right_inv := fun p => by cases p; rfl
 }
 
 /-- `Literal k` is an instance of `Encodable`. -/
@@ -173,7 +173,8 @@ lemma sum_map_le_length_mul_bound {α : Type*} (l : List α) (f : α → ℕ) (M
 by
   induction l with
   | nil =>
-    simp
+    simp only [List.map_nil, List.sum_nil, List.length_nil, Nat.zero_mul]
+    exact Nat.zero_le _
   | cons head tail ih =>
     simp only [List.map_cons, List.sum_cons, List.length_cons]
     -- The induction hypothesis `ih` applies to the tail of the list.
@@ -314,8 +315,8 @@ lemma List.Perm.any_iff {α : Type*} {p : α → Bool}
 by
   -- The proof is by induction on the permutation itself.
   induction h_perm with
-  | nil => simp
-  | cons x _ ih => simp [ih]
+  | nil => simp only [List.any_nil]
+  | cons x _ ih => simp only [List.any_cons, Bool.or_left_comm, ih]
   | swap x y l =>
     -- Need to prove: (y :: x :: l).any p = (x :: y :: l).any p
     -- This expands to: (p y || (p x || l.any p)) = (p x || (p y || l.any p))
@@ -390,7 +391,7 @@ by
   | nil =>
     -- Base case: for an empty list, foldl returns the accumulator.
     -- The goal becomes `acc.length = acc.length + 0`.
-    simp
+    simp only [List.foldl_nil, List.map_nil, List.sum_nil, add_zero]
   | cons head tail ih =>
     -- Inductive step: assume the property holds for the `tail` with any accumulator.
     -- Unfold the `foldl` for `head :: tail`.
@@ -418,7 +419,7 @@ by
   -- starting with an empty accumulator `[]`.
   rw [foldl_encodeClause_op_length [] c]
   -- The goal simplifies to `0 + ... = ...`, which is true.
-  simp
+  simp only [List.length_nil, zero_add]
 
 /--
 **Lemma: The length of an encoded clause is invariant under permutations.**
@@ -453,7 +454,7 @@ by
   induction l with
   | nil =>
     -- Base case: `foldl (++) [] []` is `[]`, and `[].flatten` is `[]`.
-    simp
+    simp only [List.foldl_nil, List.flatten_nil]
   | cons h t ih =>
     -- Inductive step:
     -- `foldl (++) [] (h::t) = foldl (++) (h) t`
@@ -470,7 +471,7 @@ by
           rw [List.append_assoc]
     rw [h_fold_append]
     -- [] ++ (h :: t).flatten = (h :: t).flatten
-    simp
+    simp only [List.nil_append]
 
 /--
 **Helper Lemma:** Shows that `foldl List.append` is equivalent to `foldl (++)`.

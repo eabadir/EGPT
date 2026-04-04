@@ -30,11 +30,10 @@ namespace InformationTheory
 /-- An `EntropyInt` is a pair of an `EntropyNat` (magnitude) and a `Bool` (sign/charge). -/
 def EntropyInt : Type := EntropyNat × Bool
 
-/-- Helper equivalence between `ℤ` and `ℕ × Bool`, built from `Equiv.intEquivNat`
-and `Equiv.boolProdNatEquivNat`. -/
+/-- Helper equivalence between `ℤ` and `ℕ × Bool`, built from `Equiv.intEquivNatSumNat`
+and `Equiv.boolProdEquivSum`. -/
 noncomputable def intEquivNatProdBool : ℤ ≃ ℕ × Bool :=
-  (Equiv.intEquivNat.trans (Equiv.boolProdNatEquivNat.symm)).trans
-    (Equiv.prodComm ℕ Bool).symm
+  Equiv.intEquivNatSumNat.trans ((Equiv.boolProdEquivSum ℕ).symm.trans (Equiv.prodComm Bool ℕ))
 
 /-- The canonical equivalence `EntropyInt ≃ ℤ`. -/
 noncomputable def entropyIntEquivInt : EntropyInt ≃ ℤ :=

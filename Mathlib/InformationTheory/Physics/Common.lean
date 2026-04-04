@@ -60,11 +60,10 @@ def UDMacrostate (N M : ℕ) := { q : Fin N → ℕ // ∑ i, q i = M }
 /-- `Multiset.count` distributes over a `Finset` sum of
 multisets. -/
 @[simp] lemma Multiset.count_finset_sum
-    {α β : Type*} [DecidableEq α] {s : Finset β}
+    {α β : Type*} [DecidableEq α] [DecidableEq β] {s : Finset β}
     (f : β → Multiset α) (a : α) :
     Multiset.count a (∑ i ∈ s, f i) =
       ∑ i ∈ s, Multiset.count a (f i) := by
-  classical
   -- We proceed by induction on the structure of `s`.
   refine Finset.induction ?base ?step s
   · -- base case: `s = ∅`

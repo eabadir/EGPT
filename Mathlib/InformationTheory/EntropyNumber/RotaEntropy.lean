@@ -431,7 +431,6 @@ lemma log_two_ne_zero : Real.log 2 ≠ 0 := by
     Real.logb 2 n =
       ∑ p ∈ n.factorization.support,
         (n.factorization p : ℝ) * Real.logb 2 p := by
-  classical
   change Real.logb 2 (n : ℝ)
     = ∑ p ∈ n.factorization.support,
         (n.factorization p : ℝ)
@@ -454,7 +453,6 @@ lemma entropy_uniform_logb_factorization
     ((∑ p ∈ n.factorization.support,
         (n.factorization p : ℝ)
           * Real.logb 2 p)).toNNReal := by
-  classical
   have hn_pos : 0 < n :=
     Nat.lt_trans (Nat.succ_pos 0) hn
   have hfac := logb_two_factorization n hn_pos
@@ -492,7 +490,6 @@ theorem fta_via_entropy_bits
     ((∑ p ∈ n.factorization.support,
         (n.factorization p : ℝ)
           * Real.logb 2 p)).toNNReal := by
-  classical
   have hfac := fta_via_information n hn
   simp [bridge, hfac]
 
@@ -579,7 +576,6 @@ lemma sum_range_succ_pull {α} [AddCommMonoid α]
     (f : ℕ → α) (n : ℕ) :
   ∑ k ∈ Finset.range (n+1), f k =
     f 0 + ∑ k ∈ Finset.range n, f (k+1) := by
-  classical
   induction n with
   | zero => simp
   | succ n ih =>
@@ -606,7 +602,6 @@ lemma foldl_range_eq_sum {α} [AddCommMonoid α]
     (List.range (n+1)).foldl
       (fun s k => s + f k) 0
     = ∑ k ∈ Finset.range (n+1), f k := by
-  classical
   induction n with
   | zero => simp
   | succ n ih =>
@@ -627,7 +622,6 @@ lemma foldl_classes_as_sum
   ∑ k ∈ Finset.range (n+1),
       ( (n.choose k : ℝ)
       * negMulLogb2 (p^k * (1 - p)^(n-k)) ) := by
-  classical
   unfold generateIrreducibleClasses
   have := foldl_range_eq_sum
     (f := fun k => ( (n.choose k : ℝ)
@@ -656,7 +650,6 @@ lemma choose_succ_weighted_sum_transform
       ∑ k ∈ Finset.range n,
         ((n-1).choose k : ℝ)
           * x^k * y^((n-1) - k) := by
-  classical
   have hpoint :
       ∀ k ∈ Finset.range n,
         (n.choose (k+1) : ℝ) * x^(k+1)
@@ -725,7 +718,6 @@ lemma sum_choose_pow_pred_eq_add_pow
       ((n-1).choose k : ℝ)
         * x^k * y^((n-1) - k)
   = (if n = 0 then 0 else (x + y)^(n-1)) := by
-  classical
   cases n with
   | zero => simp
   | succ m =>
@@ -759,7 +751,6 @@ theorem total_entropy_from_classes_eq_shannon_formula
   =
   n * (negMulLogb2 p + negMulLogb2 (1 - p)) := by
 
-  classical
   have hfold :=
     foldl_classes_as_sum n p hp_pos hp_lt_one
   set q : ℝ := ((1 - p : NNReal) : ℝ)
@@ -865,7 +856,6 @@ theorem total_entropy_from_classes_eq_shannon_formula
               * ((n.choose k : ℝ)
                 * pk k * ((n : ℝ) - k)) := by
               ring
-    classical
     have := Finset.sum_congr rfl
       (by intro k hk; simpa using hpoint k hk)
     simpa [Finset.sum_add_distrib,
@@ -942,7 +932,6 @@ theorem total_entropy_from_classes_eq_shannon_formula
       (n.choose k : ℝ) * pk k
         * ((n : ℝ) - k)
       = (n : ℝ) * q := by
-    classical
     have hsplit :
       ∑ k ∈ Finset.range (n+1),
         (n.choose k : ℝ) * pk k * ((n : ℝ) - k)

@@ -89,12 +89,7 @@ non-trivial, else `0`. -/
 noncomputable def rotaConstant
     {H : ∀ {α : Type} [Fintype α], (α → NNReal) → NNReal}
     (hH_axioms : HasRotaEntropyAxioms H) : ℝ :=
-  by classical
-  exact if _h_nontrivial :
-      (∃ n' ≥ 1, entropyUniform₀ hH_axioms n' ≠ 0) then
-    (entropyUniform₀ hH_axioms 2 : ℝ) / Real.log 2
-  else
-    0
+  (entropyUniform₀ hH_axioms 2 : ℝ) / Real.log 2
 
 /-- `rotaConstant` is non-negative. -/
 lemma rotaConstant_nonneg
@@ -102,14 +97,12 @@ lemma rotaConstant_nonneg
     (hH_axioms : HasRotaEntropyAxioms H) :
     rotaConstant hH_axioms ≥ 0 := by
   rw [rotaConstant]
-  split_ifs with h_nontrivial
-  · have hf02_real_nonneg :
-        (entropyUniform₀ hH_axioms 2 : ℝ) ≥ 0 :=
-      NNReal.coe_nonneg _
-    have hlog2_pos : Real.log 2 > 0 :=
-      Real.log_pos (by norm_num : (2 : ℝ) > 1)
-    exact div_nonneg hf02_real_nonneg (le_of_lt hlog2_pos)
-  · exact le_refl 0
+  have hf02_real_nonneg :
+      (entropyUniform₀ hH_axioms 2 : ℝ) ≥ 0 :=
+    NNReal.coe_nonneg _
+  have hlog2_pos : Real.log 2 > 0 :=
+    Real.log_pos (by norm_num : (2 : ℝ) > 1)
+  exact div_nonneg hf02_real_nonneg (le_of_lt hlog2_pos)
 
 /-! ### Helper lemmas -/
 
@@ -576,7 +569,7 @@ lemma entropyUniform₀_pos_of_nontrivial
       ∃ n' ≥ 1, entropyUniform₀ hH_axioms n' ≠ 0)
     {b : ℕ} (hb_ge2 : b ≥ 2) :
     entropyUniform₀ hH_axioms b ≠ 0 := by
-  by_contra hf0b_eq_0
+  intro hf0b_eq_0
   have hf0_2_eq_0 : entropyUniform₀ hH_axioms 2 = 0 :=
     entropyUniform₀_two_eq_zero_of_base hH_axioms hb_ge2
       hf0b_eq_0
@@ -882,8 +875,21 @@ theorem rota_uniqueness_formula
   · exact rotaConstant_nonneg hH_axioms
   · intro n hn_pos
     simp_rw [rotaConstant]
-    split_ifs with h_nontrivial
-    · let F0N := (entropyUniform₀ hH_axioms n : ℝ)
+    by_cases h_trivial : entropyUniform₀ hH_axioms 2 = 0
+    · have hf0n_eq_0_nnreal :
+          entropyUniform₀ hH_axioms n = 0 := by
+        have h_all_f0_pow2_zero :
+            ∀ k ≥ 1, entropyUniform₀ hH_axioms (2 ^ k) = 0 :=
+          fun k hk_ge1 =>
+            entropyUniform₀_pow2_eq_zero hH_axioms h_trivial hk_ge1
+        exact entropyUniform₀_eq_zero_of_pow2_zero hH_axioms
+          h_all_f0_pow2_zero (Nat.one_le_of_lt hn_pos)
+      have hf02_eq_0_real : (entropyUniform₀ hH_axioms 2 : ℝ) = 0 := by
+        simp [h_trivial]
+      simp only [hf0n_eq_0_nnreal, NNReal.coe_zero, hf02_eq_0_real, zero_div, zero_mul]
+    · have h_nontrivial : ∃ n' ≥ 1, entropyUniform₀ hH_axioms n' ≠ 0 :=
+        ⟨2, by norm_num, h_trivial⟩
+      let F0N := (entropyUniform₀ hH_axioms n : ℝ)
       let F02 := (entropyUniform₀ hH_axioms 2 : ℝ)
       let LOGN := Real.log n
       let LOG2 := Real.log 2
@@ -892,9 +898,7 @@ theorem rota_uniqueness_formula
         entropyUniform₀_ratio_eq_logb hH_axioms
           h_nontrivial hn_pos (by norm_num : 2 ≥ 2)
       have hf02_ne_zero : F02 ≠ 0 := by
-        exact NNReal.coe_ne_zero.mpr
-          (entropyUniform₀_pos_of_nontrivial hH_axioms
-            h_nontrivial (by norm_num))
+        exact NNReal.coe_ne_zero.mpr h_trivial
       have hlog2_ne_zero : LOG2 ≠ 0 :=
         ne_of_gt (Real.log_pos (by norm_num : (2 : ℝ) > 1))
       have hn_real_pos : (n : ℝ) > 0 :=
@@ -904,13 +908,6 @@ theorem rota_uniqueness_formula
       rw [div_eq_iff hf02_ne_zero] at h_ratio_eq_logb
       rw [h_ratio_eq_logb]
       ring
-    · have hf0n_eq_0_nnreal :
-          entropyUniform₀ hH_axioms n = 0 := by
-        by_contra hf0n_ne_0_hyp
-        exact h_nontrivial
-          (nontrivial_of_entropyUniform₀_ne_zero hH_axioms
-            hf0n_ne_0_hyp hn_pos)
-      simp only [hf0n_eq_0_nnreal, NNReal.coe_zero, zero_mul]
 
 /-- **Rota's Uniqueness Theorem**: There exists `C ≥ 0` such that
 `entropyUniform₀ H n = C * log n` for all `n > 0`. -/

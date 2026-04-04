@@ -55,11 +55,12 @@ instance {k : ℕ} [hk : Fact (0 < k)] : Inhabited (Literal k) where
 /-- Lists of literals are infinite whenever `k ≠ 0`. -/
 instance Clause.infinite {k : ℕ} [Fact (0 < k)] :
     Infinite (Clause k) := by
-  classical
   let lit : Literal k := default
   have inj : Injective (fun n : ℕ ↦ List.replicate n lit) := by
     intro m n hmn
-    simpa [List.length_replicate] using congrArg List.length hmn
+    have h_len := congrArg List.length hmn
+    simp only [List.length_replicate] at h_len
+    exact h_len
   exact Infinite.of_injective _ inj
 
 /-- `Clause` is denumerable (countably infinite) as soon as it is infinite. -/

@@ -3,6 +3,7 @@ Copyright (c) 2026 Essam Abadir. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Essam Abadir
 -/
+
 import Mathlib.InformationTheory.Complexity.PPNP
 import Mathlib.InformationTheory.Complexity.CNF.Prime
 import Mathlib.InformationTheory.Complexity.CNF.Encoding
@@ -209,7 +210,7 @@ theorem satDecisionProcedure_fixed_iff (k : ℕ) (cnf : SyntacticCNF k) :
 
 The chain of results:
 
-1. `hasExtractableAtoms` (VerifierDecidable.lean) — checks for extractable
+1. `hasExtractableAtoms` (CNF/Prime.lean) — checks for extractable
    prime atoms via linear sieve over CNF clauses.
 
 2. `P_eq_NP_info` (PPNP.lean) — the EGPT complexity classes P and NP

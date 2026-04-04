@@ -225,7 +225,9 @@ by
       apply ih tail_sat_assignment
       intro clause h_mem_tail
       exact path_complexity_le_k clause sat_assignment.val
-    linarith [h_head, h_tail]
+    -- `omega` does not see through `EntropyNat.toNat` coercions; use `ℕ` inequalities.
+    exact (Nat.add_le_add h_head h_tail).trans (Nat.le_of_eq (by
+      rw [Nat.succ_mul, Nat.add_comm]))
 
 /--
 **Computable Walk (The Universal Tableau Generator).**
@@ -269,11 +271,9 @@ theorem computeTableau_none_iff_not_sat {k : ℕ} (cnf : SyntacticCNF k) (v : Ve
   constructor
   · intro h_none
     unfold computeTableau? at h_none
-    by_contra h_not_false
-    push_neg at h_not_false
-    have h_true : evalCNF cnf v = true := by
-      cases evalCNF cnf v <;> simp_all
-    simp [h_true] at h_none
+    cases h : evalCNF cnf v
+    · rfl
+    · simp [h] at h_none
   · intro h_false
     unfold computeTableau?
     simp [h_false]

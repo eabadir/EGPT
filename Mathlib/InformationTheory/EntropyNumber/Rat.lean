@@ -93,7 +93,7 @@ noncomputable def EntropyRat.ofRat (q_in : ℚ) : EntropyRat :=
     · simpa [p, q] using q_in.reduced
     · intro hp_eq_zero
       dsimp [s, p]
-      have h_num_zero : q_in.num = 0 := by aesop
+      have h_num_zero : q_in.num = 0 := Int.natAbs_eq_zero.mp hp_eq_zero
       rw [h_num_zero]; simp⟩
 
 /-- Takes an `EntropyRat` and creates the corresponding `BiasedIIDParticleSource`
@@ -153,21 +153,20 @@ noncomputable def entropyRatEquivRat : EntropyRat ≃ ℚ :=
       constructor
       · rw [Rat.mkRat_eq_divInt v q, Rat.divInt_eq_div v ↑q]
         exact Rat.num_div_eq_of_coprime hq_pos_int h_coprime_int
-      · rw [Rat.mkRat_eq_divInt v q, Rat.divInt_eq_div v ↑q,
-             ← Int.natAbs_natCast q]
-        convert Rat.den_div_eq_of_coprime hq_pos_int h_coprime_int
-        aesop
+      · rw [Rat.mkRat_eq_divInt v q, Rat.divInt_eq_div v ↑q]
+        have h_den := Rat.den_div_eq_of_coprime hq_pos_int h_coprime_int
+        exact_mod_cast h_den
     rw [h_num_den.1, h_num_den.2, h_struct]
     simp
     constructor
     · by_cases hs : s
-      · aesop
+      · simp [hs]
       · simp [hs]
         have hp_ne_zero : p ≠ 0 := by
           intro hp_is_zero
           exact hs (h_zero_sign hp_is_zero)
-        aesop
-    · aesop,
+        omega
+    · omega,
   right_inv := by
     intro q_in
     show EntropyRat.toRat (EntropyRat.ofRat q_in) = q_in

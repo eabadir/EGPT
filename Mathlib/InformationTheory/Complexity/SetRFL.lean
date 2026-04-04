@@ -252,7 +252,8 @@ lemma canonical_n_squared_bound {k : ℕ}
     toNat (canonical_np_poly.eval
       (ofNat (encodeCNF cnf).length)) := by
     rw [eval_canonical_np_poly]
-  linarith
+  rw [← h2]
+  exact h1
 
 /--
 **Constructing all polynomial-bounded assignments from a CNF.**

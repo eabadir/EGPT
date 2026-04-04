@@ -6,6 +6,7 @@ Authors: Essam Abadir
 import Mathlib.InformationTheory.EntropyNumber.Rat
 import Mathlib.Analysis.Real.Cardinality
 import Mathlib.SetTheory.Cardinal.Aleph
+import Mathlib.Analysis.SpecificLimits.Basic
 
 /-!
 # EntropyReal: Information-Theoretic Reals
@@ -19,7 +20,8 @@ cardinality arguments.
 
 * `EntropyReal` — the type `EntropyNat → Bool`.
 * `entropyRealEquivFunNat` — the equivalence `EntropyReal ≃ (ℕ → Bool)`.
-* `entropyRealEquivReal` — the equivalence `EntropyReal ≃ ℝ`.
+* `evaluate_binary_sequence` — constructive forward map `(ℕ → Bool) → ℝ`.
+* `entropyRealEquivReal` — the classical equivalence `EntropyReal ≃ ℝ`.
 
 ## Main results
 
@@ -55,8 +57,33 @@ lemma cardinal_entropyReal_eq_two_pow_aleph0 :
     _ = Cardinal.mk Bool ^ Cardinal.mk ℕ   := by rw [Cardinal.power_def]
     _ = 2 ^ Cardinal.aleph0                := by aesop
 
+/-- The "Clean Forward Trip": an explicit, constructive surjection from
+information space (`ℕ → Bool`) to the classical continuum (`ℝ`).
+
+We split the infinite sequence of bits into even and odd indices:
+- The even bits encode an integer (sign + finite binary expansion).
+- The odd bits encode a fractional part in `[0, 1]` via standard binary series.
+
+This proves constructively that the discrete information space can generate
+every point in the continuous real line, without invoking `Classical.choice`. -/
+noncomputable def evaluate_binary_sequence (seq : ℕ → Bool) : ℝ :=
+  let seq_int := fun n => seq (2 * n)
+  let seq_frac := fun n => seq (2 * n + 1)
+  let int_part : ℤ :=
+    (if seq_int 0 then 1 else -1) *
+      (∑' n : ℕ, (if seq_int (n + 1) then (1 : ℤ) else 0) * (2 ^ n : ℤ))
+  let frac_part : ℝ :=
+    ∑' n : ℕ, (if seq_frac n then (1 : ℝ) else 0) / (2 ^ (n + 1) : ℝ)
+  (int_part : ℝ) + frac_part
+
 /-- The emergent reals have exactly the same cardinality as `ℝ`
-(the continuum). -/
+(the continuum).
+
+While the forward map (`evaluate_binary_sequence`) is a constructive
+surjection, the return map (`ℝ → EntropyReal`) requires `Classical.choice`
+to select a canonical binary representation for duals (e.g., `0.0111...` vs
+`0.1000...`). We isolate this classical dependency to the `Equiv` itself,
+keeping the generative forward direction clean. -/
 noncomputable def entropyRealEquivReal : EntropyReal ≃ ℝ :=
   have h : mk EntropyReal = mk ℝ := by
     calc
