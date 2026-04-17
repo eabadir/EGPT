@@ -208,8 +208,6 @@ Why the witness is just `k` bits of boolean selection:
   ONLY through `evalLiteral lit v → Bool` (Tableau.lean)
 - `npExistential_is_walkOracle` — the NP existential provides exactly
   the boolean oracle that `walkCNFPaths` needs for polynomial construction
-
-See https://eabadir.github.io/EGPT/Lean/PR/InformationTheory/Complexity/WHY_P_EQUALS_NP.md
 -/
 
 /-- NP: the verifier FUNCTION applied to an existential WITNESS. -/
@@ -463,8 +461,6 @@ identical because `verifierAccepts` IS `∃ witness, evalCNF ... witness = true`
 
 The proof is `Iff.rfl` (after unfolding `verifierAccepts`) because the
 verifier's Bool result on a finite domain IS the existential over witnesses.
-
-See https://eabadir.github.io/EGPT/Lean/PR/InformationTheory/Complexity/WHY_P_EQUALS_NP.md
 -/
 
 /--
