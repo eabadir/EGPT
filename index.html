@@ -100,13 +100,23 @@
 <h2 id="note-for-posterity">Note for Posterity</h2>
 <p>Lean 4 and rigorous computer-checked proof assistants exist precisely
 to remove the subjectivity of human peer review: the kernel checks the
-code, and the code speaks for itself.</p>
-<p>As elaborated below, I personally consider the real cap stone to be
+code, and the code speaks for itself. The typical highest standard of
+build requirement for Lean verification is without sorryAx and without
+custom axioms — i.e. only dependent on <code>propext</code>,
+<code>Quot.sound</code>, <code>Classical.choice</code>.</p>
+<p><strong>The proofs here meet an even higher standard — they build the
+whole of number theory from the ground up with no use of
+Classical.choice <em>except</em> for the return map that proves
+equivalence to Lean’s ℝ</strong>.</p>
+<p>InformationTheory provides this with constructive
+<code>EntropyNat ≃ ℕ</code>, <code>EntropyInt ≃ ℤ</code>,
+<code>EntropyRat ≃ ℚ</code>, <code>EntropyReal ≃ ℝ</code>.</p>
+<p>As elaborated below, I personally consider the real capstone to be
 Rota’s Entropy Theorem, formalized here as
-rota_all_entropy_scaled_shannon and I also don’t believe this is the
-first proof of P=NP. But, regardless …</p>
-<h2 id="let-the-code-speak-for-itself-build-and-verify">Let The Code
-Speak For Itself: Build and Verify</h2>
+<code>rota_all_entropy_scaled_shannon</code>, and I also don’t believe
+this is the first proof of P = NP. But, regardless …</p>
+<h3 id="let-the-code-speak-for-itself-build-and-verify">Let The Code
+Speak For Itself: Build and Verify</h3>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">-b</span> feat/information-theory https://github.com/eabadir/EGPT.git</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> EGPT</span>
@@ -117,7 +127,7 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> env lean <span class="at">-e</span> <span class="st">&#39;#print axioms Mathlib.InformationTheory.P_eq_NP_info&#39;</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> env lean <span class="at">-e</span> <span class="st">&#39;#print axioms Mathlib.InformationTheory.P_eq_NP&#39;</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> env lean <span class="at">-e</span> <span class="st">&#39;#print axioms Mathlib.InformationTheory.P_eq_NP_info_standard&#39;</span></span></code></pre></div>
-<p>What the code says - no capstone uses <code>sorryAx</code>.:</p>
+<p>What the code says — no capstone uses <code>sorryAx</code>:</p>
 <table>
 <colgroup>
 <col style="width: 50%" />
@@ -149,10 +159,13 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="
 </tr>
 </tbody>
 </table>
-<p>Eventually, the Lean community will have to answer how why this PR
-was closed by upstream maintainers without review. (<a
+<p>Eventually, the Lean community will have to answer why this PR was
+closed by upstream maintainers without review when it clearly not only
+meets, but exceeds, the most stringent verification standards of Lean.
+(<a
 href="https://github.com/leanprover-community/mathlib4/pull/37468">leanprover-community/mathlib4#37468</a>)
-— ### The Rota Entropy Theorem</p>
+—</p>
+<h2 id="the-rota-entropy-theorem">The Rota Entropy Theorem</h2>
 <p>The capstone theorem <code>rota_all_entropy_scaled_shannon</code> in
 <code>Mathlib/InformationTheory/EntropyNumber/RotaEntropy.lean</code>
 formalizes, for the first time in any proof assistant, Rota’s Entropy
