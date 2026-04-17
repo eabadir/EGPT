@@ -1,3 +1,57 @@
+
+## Note for Posterity
+
+Lean 4 and rigorous computer-checked proof assistants exist precisely to
+remove the subjectivity of human peer review: the kernel checks the code,
+and the code speaks for itself.
+
+As elaborated below, I personally consider the real cap stone to be Rota's Entropy Theorem, formalized here as rota_all_entropy_scaled_shannon and I also don't believe this is the first proof of P=NP. But, regardless ...
+
+## Let The Code Speak For Itself: Build and Verify
+
+```bash
+git clone -b feat/information-theory https://github.com/eabadir/EGPT.git
+cd EGPT
+lake exe cache get
+lake build Mathlib.InformationTheory
+
+lake env lean -e '#print axioms Mathlib.InformationTheory.rota_all_entropy_scaled_shannon'
+lake env lean -e '#print axioms Mathlib.InformationTheory.P_eq_NP_info'
+lake env lean -e '#print axioms Mathlib.InformationTheory.P_eq_NP'
+lake env lean -e '#print axioms Mathlib.InformationTheory.P_eq_NP_info_standard'
+```
+
+What the code says - no capstone uses `sorryAx`.:
+
+| Capstone | Axioms printed |
+|---|---|
+| `rota_all_entropy_scaled_shannon` | `propext`, `Quot.sound`, `Classical.choice` |
+| `P_eq_NP_info`          | `propext`, `Quot.sound` |
+| `P_eq_NP`               | `propext`, `Quot.sound` |
+| `P_eq_NP_info_standard` | `propext`, `Quot.sound` |
+
+
+
+Eventually, the Lean community will have to answer how why this PR
+was closed by upstream maintainers without review.
+([leanprover-community/mathlib4#37468](https://github.com/leanprover-community/mathlib4/pull/37468))
+---
+### The Rota Entropy Theorem
+
+The capstone theorem `rota_all_entropy_scaled_shannon` in
+`Mathlib/InformationTheory/EntropyNumber/RotaEntropy.lean` formalizes,
+for the first time in any proof assistant, Rota's Entropy Theorem —
+proved but not published in the manuscript Rota taught 18.313 from.
+The supporting uniqueness result lives in
+`Mathlib/InformationTheory/Entropy/Uniqueness.lean` (`rota_uniqueness`,
+`rota_uniqueness_formula`), and `Entropy/Concrete.lean` proves Shannon
+entropy satisfies all seven Rota axioms.
+
+The original proof is included at the repo root as
+`Rota_Entropy_Theorem_Original_Proof.pdf` (and `.tex`), with a markdown
+translation at [`RET_Paper.md`](./RET_Paper.md) and an addendum at the
+end of this README.
+
 # Mathlib.InformationTheory (fork branch)
 
 Fork of `leanprover-community/mathlib4` proposing a `Mathlib.InformationTheory`
@@ -22,30 +76,7 @@ distributions (each `= C · Shannon`).
 | External dependencies | none beyond mathlib |
 | Build | `lake build` |
 
----
 
-## Build and Verify
-
-```bash
-git clone -b feat/information-theory https://github.com/eabadir/EGPT.git
-cd EGPT
-lake exe cache get
-lake build Mathlib.InformationTheory
-
-lake env lean -e '#print axioms Mathlib.InformationTheory.P_eq_NP_info'
-lake env lean -e '#print axioms Mathlib.InformationTheory.P_eq_NP'
-lake env lean -e '#print axioms Mathlib.InformationTheory.P_eq_NP_info_standard'
-```
-
-Expected:
-
-| Capstone | Axioms printed |
-|---|---|
-| `P_eq_NP_info`          | `propext`, `Quot.sound` |
-| `P_eq_NP`               | `propext`, `Quot.sound` |
-| `P_eq_NP_info_standard` | `propext`, `Quot.sound` |
-
-No capstone uses `sorryAx`.
 
 ---
 
@@ -139,18 +170,7 @@ All imports are from mathlib. No external dependencies.
 
 ---
 
-## Note for Posterity
 
-Lean 4 and rigorous computer-checked proof assistants exist precisely to
-remove the subjectivity of human peer review: the kernel checks the code,
-and the code speaks for itself.
-
-This PR ([leanprover-community/mathlib4#37468](https://github.com/leanprover-community/mathlib4/pull/37468))
-was closed by upstream maintainers without review. The formalization is
-preserved here for posterity. The kernel has the final word: all three
-capstone chains compile without `sorry`, introduce no custom axioms, and
-depend only on `propext` and `Quot.sound` — no `Classical.choice`. The
-proofs are fully constructive.
 
 ### Precedence and Attribution
 
@@ -204,21 +224,7 @@ claim — that every live use of `Classical.choice` in mainstream mathlib
 admits a constructive replacement — is in development and will be
 included before this archive is finalized.
 
-### The Rota Entropy Theorem
 
-The capstone theorem `rota_all_entropy_scaled_shannon` in
-`Mathlib/InformationTheory/EntropyNumber/RotaEntropy.lean` formalizes,
-for the first time in any proof assistant, Rota's Entropy Theorem —
-proved but not published in the manuscript Rota taught 18.313 from.
-The supporting uniqueness result lives in
-`Mathlib/InformationTheory/Entropy/Uniqueness.lean` (`rota_uniqueness`,
-`rota_uniqueness_formula`), and `Entropy/Concrete.lean` proves Shannon
-entropy satisfies all seven Rota axioms.
-
-The original proof is included at the repo root as
-`Rota_Entropy_Theorem_Original_Proof.pdf` (and `.tex`), with a markdown
-translation at [`RET_Paper.md`](./RET_Paper.md) and an addendum at the
-end of this README.
 
 ---
 
@@ -283,8 +289,8 @@ Now what happens when we put the first two coins on each side of the scale? The 
 ```
 After recording the result of this weighing, we then place the second and third coins on the two sides of the scale. The result of this second weighing is to partition each of the blocks of the first weighing:
 ``` math
-\{12, 123, 3\} \to \{\{12\}, \{123\}, \{3\}\}, \quad 
-\{2, 23\} \to \{\{2\}, \{23\}\}, \quad 
+\{12, 123, 3\} \to \{\{12\}, \{123\}, \{3\}\}, \quad
+\{2, 23\} \to \{\{2\}, \{23\}\}, \quad
 \{1, 13\} \to \{\{1\}, \{13\}\}.
 ```
 

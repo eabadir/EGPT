@@ -97,6 +97,76 @@
 <header id="title-block-header">
 <h1 class="title">Mathlib.InformationTheory (fork branch)</h1>
 </header>
+<h2 id="note-for-posterity">Note for Posterity</h2>
+<p>Lean 4 and rigorous computer-checked proof assistants exist precisely
+to remove the subjectivity of human peer review: the kernel checks the
+code, and the code speaks for itself.</p>
+<p>As elaborated below, I personally consider the real cap stone to be
+Rota’s Entropy Theorem, formalized here as
+rota_all_entropy_scaled_shannon and I also don’t believe this is the
+first proof of P=NP. But, regardless …</p>
+<h2 id="let-the-code-speak-for-itself-build-and-verify">Let The Code
+Speak For Itself: Build and Verify</h2>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">-b</span> feat/information-theory https://github.com/eabadir/EGPT.git</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> EGPT</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> exe cache get</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> build Mathlib.InformationTheory</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> env lean <span class="at">-e</span> <span class="st">&#39;#print axioms Mathlib.InformationTheory.rota_all_entropy_scaled_shannon&#39;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> env lean <span class="at">-e</span> <span class="st">&#39;#print axioms Mathlib.InformationTheory.P_eq_NP_info&#39;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> env lean <span class="at">-e</span> <span class="st">&#39;#print axioms Mathlib.InformationTheory.P_eq_NP&#39;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> env lean <span class="at">-e</span> <span class="st">&#39;#print axioms Mathlib.InformationTheory.P_eq_NP_info_standard&#39;</span></span></code></pre></div>
+<p>What the code says - no capstone uses <code>sorryAx</code>.:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Capstone</th>
+<th>Axioms printed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rota_all_entropy_scaled_shannon</code></td>
+<td><code>propext</code>, <code>Quot.sound</code>,
+<code>Classical.choice</code></td>
+</tr>
+<tr>
+<td><code>P_eq_NP_info</code></td>
+<td><code>propext</code>, <code>Quot.sound</code></td>
+</tr>
+<tr>
+<td><code>P_eq_NP</code></td>
+<td><code>propext</code>, <code>Quot.sound</code></td>
+</tr>
+<tr>
+<td><code>P_eq_NP_info_standard</code></td>
+<td><code>propext</code>, <code>Quot.sound</code></td>
+</tr>
+</tbody>
+</table>
+<p>Eventually, the Lean community will have to answer how why this PR
+was closed by upstream maintainers without review. (<a
+href="https://github.com/leanprover-community/mathlib4/pull/37468">leanprover-community/mathlib4#37468</a>)
+— ### The Rota Entropy Theorem</p>
+<p>The capstone theorem <code>rota_all_entropy_scaled_shannon</code> in
+<code>Mathlib/InformationTheory/EntropyNumber/RotaEntropy.lean</code>
+formalizes, for the first time in any proof assistant, Rota’s Entropy
+Theorem — proved but not published in the manuscript Rota taught 18.313
+from. The supporting uniqueness result lives in
+<code>Mathlib/InformationTheory/Entropy/Uniqueness.lean</code>
+(<code>rota_uniqueness</code>, <code>rota_uniqueness_formula</code>),
+and <code>Entropy/Concrete.lean</code> proves Shannon entropy satisfies
+all seven Rota axioms.</p>
+<p>The original proof is included at the repo root as
+<code>Rota_Entropy_Theorem_Original_Proof.pdf</code> (and
+<code>.tex</code>), with a markdown translation at <a
+href="./RET_Paper.md"><code>RET_Paper.md</code></a> and an addendum at
+the end of this README.</p>
 <h1 id="mathlib.informationtheory-fork-branch">Mathlib.InformationTheory
 (fork branch)</h1>
 <p>Fork of <code>leanprover-community/mathlib4</code> proposing a
@@ -135,41 +205,6 @@ distributions (each <code>= C · Shannon</code>).</p>
 </tr>
 </tbody>
 </table>
-<hr />
-<h2 id="build-and-verify">Build and Verify</h2>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">-b</span> feat/information-theory https://github.com/eabadir/EGPT.git</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> EGPT</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> exe cache get</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> build Mathlib.InformationTheory</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> env lean <span class="at">-e</span> <span class="st">&#39;#print axioms Mathlib.InformationTheory.P_eq_NP_info&#39;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> env lean <span class="at">-e</span> <span class="st">&#39;#print axioms Mathlib.InformationTheory.P_eq_NP&#39;</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> env lean <span class="at">-e</span> <span class="st">&#39;#print axioms Mathlib.InformationTheory.P_eq_NP_info_standard&#39;</span></span></code></pre></div>
-<p>Expected:</p>
-<table>
-<thead>
-<tr>
-<th>Capstone</th>
-<th>Axioms printed</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>P_eq_NP_info</code></td>
-<td><code>propext</code>, <code>Quot.sound</code></td>
-</tr>
-<tr>
-<td><code>P_eq_NP</code></td>
-<td><code>propext</code>, <code>Quot.sound</code></td>
-</tr>
-<tr>
-<td><code>P_eq_NP_info_standard</code></td>
-<td><code>propext</code>, <code>Quot.sound</code></td>
-</tr>
-</tbody>
-</table>
-<p>No capstone uses <code>sorryAx</code>.</p>
 <hr />
 <h2 id="the-three-proof-chains">The Three Proof Chains</h2>
 <h3 id="chain-1-information-theoretic-p_eq_np_info">Chain 1 —
@@ -296,18 +331,6 @@ three-layer equivalence</li>
 <h2 id="dependencies">Dependencies</h2>
 <p>All imports are from mathlib. No external dependencies.</p>
 <hr />
-<h2 id="note-for-posterity">Note for Posterity</h2>
-<p>Lean 4 and rigorous computer-checked proof assistants exist precisely
-to remove the subjectivity of human peer review: the kernel checks the
-code, and the code speaks for itself.</p>
-<p>This PR (<a
-href="https://github.com/leanprover-community/mathlib4/pull/37468">leanprover-community/mathlib4#37468</a>)
-was closed by upstream maintainers without review. The formalization is
-preserved here for posterity. The kernel has the final word: all three
-capstone chains compile without <code>sorry</code>, introduce no custom
-axioms, and depend only on <code>propext</code> and
-<code>Quot.sound</code> — no <code>Classical.choice</code>. The proofs
-are fully constructive.</p>
 <h3 id="precedence-and-attribution">Precedence and Attribution</h3>
 <p>I, Essam Abadir, do not claim to be the first to prove P = NP. At
 best I am fourth. The first proof I encountered was in 1993 in
@@ -363,21 +386,6 @@ formalizing this claim — that every live use of
 <code>Classical.choice</code> in mainstream mathlib admits a
 constructive replacement — is in development and will be included before
 this archive is finalized.</p>
-<h3 id="the-rota-entropy-theorem">The Rota Entropy Theorem</h3>
-<p>The capstone theorem <code>rota_all_entropy_scaled_shannon</code> in
-<code>Mathlib/InformationTheory/EntropyNumber/RotaEntropy.lean</code>
-formalizes, for the first time in any proof assistant, Rota’s Entropy
-Theorem — proved but not published in the manuscript Rota taught 18.313
-from. The supporting uniqueness result lives in
-<code>Mathlib/InformationTheory/Entropy/Uniqueness.lean</code>
-(<code>rota_uniqueness</code>, <code>rota_uniqueness_formula</code>),
-and <code>Entropy/Concrete.lean</code> proves Shannon entropy satisfies
-all seven Rota axioms.</p>
-<p>The original proof is included at the repo root as
-<code>Rota_Entropy_Theorem_Original_Proof.pdf</code> (and
-<code>.tex</code>), with a markdown translation at <a
-href="./RET_Paper.md"><code>RET_Paper.md</code></a> and an addendum at
-the end of this README.</p>
 <hr />
 <h2 id="license">License</h2>
 <p>Apache-2.0, matching mathlib.</p>
@@ -462,8 +470,8 @@ to the three possible outcomes of the weighing:</p>
 <p>After recording the result of this weighing, we then place the second
 and third coins on the two sides of the scale. The result of this second
 weighing is to partition each of the blocks of the first weighing:</p>
-<pre class="math"><code>\{12, 123, 3\} \to \{\{12\}, \{123\}, \{3\}\}, \quad 
-\{2, 23\} \to \{\{2\}, \{23\}\}, \quad 
+<pre class="math"><code>\{12, 123, 3\} \to \{\{12\}, \{123\}, \{3\}\}, \quad
+\{2, 23\} \to \{\{2\}, \{23\}\}, \quad
 \{1, 13\} \to \{\{1\}, \{13\}\}.</code></pre>
 <p>The combined information of the two weighings is represented by the
 partition into seven blocks, each with one sample point. Call this
