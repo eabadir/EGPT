@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# pre-commit — regenerate index.html if README.md is staged.
+#
+# Installed via scripts/install_hooks.sh (symlinks this file into
+# .git/hooks/pre-commit). Safe to skip: if regeneration fails (e.g. no
+# network), the commit still proceeds with a warning.
+
+set -u
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT"
+
+if git diff --cached --name-only | grep -qx README.md; then
+  echo "README.md staged — regenerating index.html..."
+  if scripts/build_index.sh; then
+    git add index.html
+  else
+    echo "WARNING: index.html regeneration failed; committing README.md change without it." >&2
+  fi
+fi

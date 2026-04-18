@@ -1,138 +1,43 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>Mathlib.InformationTheory (fork branch)</title>
-  <style>
-    /* Default styles provided by pandoc.
-    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-    */
-    span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
-    /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      {   }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-    code span.at { color: #7d9029; } /* Attribute */
-    code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { color: #008000; } /* BuiltIn */
-    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #4070a0; } /* Char */
-    code span.cn { color: #880000; } /* Constant */
-    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-    code span.dt { color: #902000; } /* DataType */
-    code span.dv { color: #40a070; } /* DecVal */
-    code span.er { color: #ff0000; font-weight: bold; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #40a070; } /* Float */
-    code span.fu { color: #06287e; } /* Function */
-    code span.im { color: #008000; font-weight: bold; } /* Import */
-    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-    code span.op { color: #666666; } /* Operator */
-    code span.ot { color: #007020; } /* Other */
-    code span.pp { color: #bc7a00; } /* Preprocessor */
-    code span.sc { color: #4070a0; } /* SpecialChar */
-    code span.ss { color: #bb6688; } /* SpecialString */
-    code span.st { color: #4070a0; } /* String */
-    code span.va { color: #19177c; } /* Variable */
-    code span.vs { color: #4070a0; } /* VerbatimString */
-    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-  </style>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css" />
-  <script defer=""
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
-  type="text/javascript"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mathlib.InformationTheory (fork branch)</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5/github-markdown.min.css">
+<style>
+  body { box-sizing: border-box; min-width: 200px; max-width: 980px; margin: 0 auto; padding: 45px; }
+  @media (max-width: 767px) { body { padding: 15px; } }
+</style>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true
+    },
+    options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<body>
-<header id="title-block-header">
-<h1 class="title">Mathlib.InformationTheory (fork branch)</h1>
-</header>
-<h2 id="note-for-posterity">Note for Posterity</h2>
-<p>Lean 4 and rigorous computer-checked proof assistants exist precisely
-to remove the subjectivity of human peer review: the kernel checks the
-code, and the code speaks for itself. The typical highest standard of
-build requirement for Lean verification is without sorryAx and without
-custom axioms — i.e. only dependent on <code>propext</code>,
-<code>Quot.sound</code>, <code>Classical.choice</code>.</p>
-<p><strong>The proofs here meet an even higher standard — they build the
-whole of number theory from the ground up with no use of
-Classical.choice <em>except</em> for the return map that proves
-equivalence to Lean’s ℝ</strong>.</p>
-<p>InformationTheory provides this with constructive
-<code>EntropyNat ≃ ℕ</code>, <code>EntropyInt ≃ ℤ</code>,
-<code>EntropyRat ≃ ℚ</code>, <code>EntropyReal ≃ ℝ</code>.</p>
-<p>As elaborated below, I personally consider the real capstone to be
-Rota’s Entropy Theorem, formalized here as
-<code>rota_all_entropy_scaled_shannon</code>, and I also don’t believe
-this is the first proof of P = NP. But, regardless …</p>
-<h3 id="let-the-code-speak-for-itself-build-and-verify">Let The Code
-Speak For Itself: Build and Verify</h3>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">-b</span> feat/information-theory https://github.com/eabadir/EGPT.git</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> EGPT</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> exe cache get</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> build Mathlib.InformationTheory</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> env lean <span class="at">-e</span> <span class="st">&#39;#print axioms Mathlib.InformationTheory.rota_all_entropy_scaled_shannon&#39;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> env lean <span class="at">-e</span> <span class="st">&#39;#print axioms Mathlib.InformationTheory.P_eq_NP_info&#39;</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> env lean <span class="at">-e</span> <span class="st">&#39;#print axioms Mathlib.InformationTheory.P_eq_NP&#39;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ex">lake</span> env lean <span class="at">-e</span> <span class="st">&#39;#print axioms Mathlib.InformationTheory.P_eq_NP_info_standard&#39;</span></span></code></pre></div>
-<p>What the code says — no capstone uses <code>sorryAx</code>:</p>
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
+<body class="markdown-body">
+<h2 dir="auto">Does P=NP? Let The Code Speak For Itself: Build and Verify</h2>
+<p dir="auto">Lean 4 and rigorous computer-checked proof assistants exist precisely to<br>
+remove the subjectivity of human peer review: the kernel checks the code,<br>
+and the code speaks for itself.</p>
+<p dir="auto">As elaborated below, I personally consider the real capstone to be Rota's Entropy Theorem, formalized here as <code class="notranslate">rota_all_entropy_scaled_shannon</code>, and I also don't believe this is the first proof of P = NP. But, regardless ...</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">git clone -b feat/information-theory https://github.com/eabadir/EGPT.git
+<span class="pl-c1">cd</span> EGPT
+lake exe cache get
+lake build Mathlib.InformationTheory
+
+lake env lean -e <span class="pl-s"><span class="pl-pds">'</span>#print axioms Mathlib.InformationTheory.rota_all_entropy_scaled_shannon<span class="pl-pds">'</span></span>
+lake env lean -e <span class="pl-s"><span class="pl-pds">'</span>#print axioms Mathlib.InformationTheory.P_eq_NP_info<span class="pl-pds">'</span></span>
+lake env lean -e <span class="pl-s"><span class="pl-pds">'</span>#print axioms Mathlib.InformationTheory.P_eq_NP<span class="pl-pds">'</span></span>
+lake env lean -e <span class="pl-s"><span class="pl-pds">'</span>#print axioms Mathlib.InformationTheory.P_eq_NP_info_standard<span class="pl-pds">'</span></span></pre></div>
+<p dir="auto">What the code says — no capstone uses <code class="notranslate">sorryAx</code>:</p>
+<markdown-accessiblity-table><table role="table">
 <thead>
 <tr>
 <th>Capstone</th>
@@ -141,71 +46,73 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="
 </thead>
 <tbody>
 <tr>
-<td><code>rota_all_entropy_scaled_shannon</code></td>
-<td><code>propext</code>, <code>Quot.sound</code>,
-<code>Classical.choice</code></td>
+<td><code class="notranslate">P_eq_NP_info</code></td>
+<td><code class="notranslate">propext</code>, <code class="notranslate">Quot.sound</code></td>
 </tr>
 <tr>
-<td><code>P_eq_NP_info</code></td>
-<td><code>propext</code>, <code>Quot.sound</code></td>
+<td><code class="notranslate">P_eq_NP</code></td>
+<td><code class="notranslate">propext</code>, <code class="notranslate">Quot.sound</code></td>
 </tr>
 <tr>
-<td><code>P_eq_NP</code></td>
-<td><code>propext</code>, <code>Quot.sound</code></td>
+<td><code class="notranslate">P_eq_NP_info_standard</code></td>
+<td><code class="notranslate">propext</code>, <code class="notranslate">Quot.sound</code></td>
 </tr>
 <tr>
-<td><code>P_eq_NP_info_standard</code></td>
-<td><code>propext</code>, <code>Quot.sound</code></td>
+<td><code class="notranslate">rota_all_entropy_scaled_shannon</code></td>
+<td><code class="notranslate">propext</code>, <code class="notranslate">Quot.sound</code>, <code class="notranslate">Classical.choice</code></td>
 </tr>
 </tbody>
-</table>
-<p>Eventually, the Lean community will have to answer why this PR was
-closed by upstream maintainers without review when it clearly not only
-meets, but exceeds, the most stringent verification standards of Lean.
-(<a
-href="https://github.com/leanprover-community/mathlib4/pull/37468">leanprover-community/mathlib4#37468</a>)
-—</p>
-<h2 id="the-rota-entropy-theorem">The Rota Entropy Theorem</h2>
-<p>The capstone theorem <code>rota_all_entropy_scaled_shannon</code> in
-<code>Mathlib/InformationTheory/EntropyNumber/RotaEntropy.lean</code>
-formalizes, for the first time in any proof assistant, Rota’s Entropy
-Theorem — proved but not published in the manuscript Rota taught 18.313
-from. The supporting uniqueness result lives in
-<code>Mathlib/InformationTheory/Entropy/Uniqueness.lean</code>
-(<code>rota_uniqueness</code>, <code>rota_uniqueness_formula</code>),
-and <code>Entropy/Concrete.lean</code> proves Shannon entropy satisfies
-all seven Rota axioms.</p>
-<p>The original proof is included at the repo root as
-<code>Rota_Entropy_Theorem_Original_Proof.pdf</code> (and
-<code>.tex</code>), with a markdown translation at <a
-href="./RET_Paper.md"><code>RET_Paper.md</code></a> and an addendum at
-the end of this README.</p>
-<h1 id="mathlib.informationtheory-fork-branch">Mathlib.InformationTheory
-(fork branch)</h1>
-<p>Fork of <code>leanprover-community/mathlib4</code> proposing a
-<code>Mathlib.InformationTheory</code> subtree: 31 files adding entropy
-axiomatics (Rota’s 7 axioms + uniqueness), an information-theoretic
-number hierarchy (<code>EntropyNat ≃ ℕ</code>,
-<code>EntropyInt ≃ ℤ</code>, <code>EntropyRat ≃ ℚ</code>,
-<code>EntropyReal ≃ ℝ</code>), three constructive proofs that P = NP,
-and entropy proofs for Bose-Einstein, Fermi-Dirac, and Maxwell-Boltzmann
-distributions (each <code>= C · Shannon</code>).</p>
-<p><strong>Branch:</strong> <code>feat/information-theory</code>
+</table></markdown-accessiblity-table>
+<h2 dir="auto">Note for Posterity</h2>
+<p dir="auto">The typical highest standard of build requirement for Lean verification is without sorryAx and without custom axioms — i.e. only dependent on <code class="notranslate">propext</code>, <code class="notranslate">Quot.sound</code>, <code class="notranslate">Classical.choice</code>.</p>
+<p dir="auto"><strong>The proofs here meet an even higher standard — they build the whole of number theory from the ground up with no use of Classical.choice <em>except</em> for the return map that proves equivalence to Lean's ℝ</strong>.</p>
+<p dir="auto">InformationTheory provides this with constructive <code class="notranslate">EntropyNat ≃ ℕ</code>, <code class="notranslate">EntropyInt ≃ ℤ</code>,<br>
+<code class="notranslate">EntropyRat ≃ ℚ</code>, <code class="notranslate">EntropyReal ≃ ℝ</code>.</p>
+<h2 dir="auto">Eventually, the Lean community will have to answer why this PR<br>
+was closed by upstream maintainers without review when it clearly not only meets, but exceeds, the most stringent verification standards of Lean.<br>
+(<a href="https://github.com/leanprover-community/mathlib4/pull/37468" data-hovercard-type="pull_request" data-hovercard-url="/leanprover-community/mathlib4/pull/37468/hovercard">leanprover-community/mathlib4#37468</a>)</h2>
+<h2 dir="auto">The Rota Entropy Theorem</h2>
+<p dir="auto">The capstone theorem <code class="notranslate">rota_all_entropy_scaled_shannon</code> in<br>
+<code class="notranslate">Mathlib/InformationTheory/EntropyNumber/RotaEntropy.lean</code> formalizes,<br>
+for the first time in any proof assistant, Rota's Entropy Theorem —<br>
+proved but not published in the manuscript Rota taught 18.313 from.<br>
+The supporting uniqueness result lives in<br>
+<code class="notranslate">Mathlib/InformationTheory/Entropy/Uniqueness.lean</code> (<code class="notranslate">rota_uniqueness</code>,<br>
+<code class="notranslate">rota_uniqueness_formula</code>), and <code class="notranslate">Entropy/Concrete.lean</code> proves Shannon<br>
+entropy satisfies all seven Rota axioms.</p>
+<p dir="auto">The original proof is included at the repo root as<br>
+<code class="notranslate">Rota_Entropy_Theorem_Original_Proof.pdf</code> (and <code class="notranslate">.tex</code>), with a markdown<br>
+translation at <a href="./RET_Paper.md"><code class="notranslate">RET_Paper.md</code></a> and an addendum at the<br>
+end of this README.</p>
+<h1 dir="auto">Mathlib.InformationTheory (fork branch)</h1>
+<p dir="auto">Fork of <code class="notranslate">leanprover-community/mathlib4</code> proposing a <code class="notranslate">Mathlib.InformationTheory</code><br>
+subtree: 31 files adding entropy axiomatics (Rota's 7 axioms + uniqueness), an<br>
+information-theoretic number hierarchy (<code class="notranslate">EntropyNat ≃ ℕ</code>, <code class="notranslate">EntropyInt ≃ ℤ</code>,<br>
+<code class="notranslate">EntropyRat ≃ ℚ</code>, <code class="notranslate">EntropyReal ≃ ℝ</code>), three constructive proofs that P = NP,<br>
+and entropy proofs for Bose-Einstein, Fermi-Dirac, and Maxwell-Boltzmann<br>
+distributions (each <code class="notranslate">= C · Shannon</code>).</p>
+<p dir="auto"><strong>Branch:</strong> <code class="notranslate">feat/information-theory</code><br>
 <strong>License:</strong> Apache-2.0 (inherits mathlib)</p>
-<hr />
-<h2 id="summary">Summary</h2>
-<table>
+<hr>
+<h2 dir="auto">Summary</h2>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
 <tbody>
 <tr>
 <td>New files</td>
-<td>31 under <code>Mathlib/InformationTheory/</code></td>
+<td>31 under <code class="notranslate">Mathlib/InformationTheory/</code></td>
 </tr>
 <tr>
-<td><code>sorry</code> count</td>
+<td><code class="notranslate">sorry</code> count</td>
 <td>0</td>
 </tr>
 <tr>
-<td><code>Classical.choice</code></td>
+<td><code class="notranslate">Classical.choice</code></td>
 <td>not used by any capstone</td>
 </tr>
 <tr>
@@ -214,500 +121,291 @@ distributions (each <code>= C · Shannon</code>).</p>
 </tr>
 <tr>
 <td>Build</td>
-<td><code>lake build</code></td>
+<td><code class="notranslate">lake build</code></td>
 </tr>
 </tbody>
-</table>
-<hr />
-<h2 id="the-three-proof-chains">The Three Proof Chains</h2>
-<h3 id="chain-1-information-theoretic-p_eq_np_info">Chain 1 —
-Information-Theoretic (<code>P_eq_NP_info</code>)</h3>
-<ul>
-<li><strong>File:</strong>
-<code>Mathlib/InformationTheory/Complexity/PPNP.lean</code></li>
-<li><strong>Axioms:</strong> <code>propext</code>,
-<code>Quot.sound</code></li>
-<li><strong>Construction:</strong> Information content of a CNF
-<code>φ</code> is <code>|φ| · k</code>. A clause-by-clause walk extracts
-this information in <code>O(n²)</code> steps. The walk record serves as
-certificate, decision procedure, and entropy extraction. RECT (program
-complexity = information content) closes the loop.</li>
+</table></markdown-accessiblity-table>
+<hr>
+<h2 dir="auto">The Three Proof Chains</h2>
+<h3 dir="auto">Chain 1 — Information-Theoretic (<code class="notranslate">P_eq_NP_info</code>)</h3>
+<ul dir="auto">
+<li><strong>File:</strong> <code class="notranslate">Mathlib/InformationTheory/Complexity/PPNP.lean</code></li>
+<li><strong>Axioms:</strong> <code class="notranslate">propext</code>, <code class="notranslate">Quot.sound</code></li>
+<li><strong>Construction:</strong> Information content of a CNF <code class="notranslate">φ</code> is <code class="notranslate">|φ| · k</code>. A<br>
+clause-by-clause walk extracts this information in <code class="notranslate">O(n²)</code> steps. The walk<br>
+record serves as certificate, decision procedure, and entropy extraction.<br>
+RECT (program complexity = information content) closes the loop.</li>
 </ul>
-<h3 id="chain-2-definitional-identity-p_eq_np">Chain 2 — Definitional
-Identity (<code>P_eq_NP</code>)</h3>
-<ul>
-<li><strong>File:</strong>
-<code>Mathlib/InformationTheory/Complexity/SetRFL.lean</code></li>
-<li><strong>Axioms:</strong> <code>propext</code>,
-<code>Quot.sound</code></li>
-<li><strong>Construction:</strong> After <code>EntropyNat ≃ ℕ</code> and
-<code>SyntacticCNF ≃ EntropyNat</code> unfold, <code>P_def</code> and
-<code>NP_def</code> are syntactically identical predicates. The proof is
-<code>Set.ext</code> + <code>Iff.rfl</code>. Also proves Cook-Levin
-(<code>L_SAT_Canonical</code> NP-complete) and
-<code>L_SAT_in_P</code>.</li>
+<h3 dir="auto">Chain 2 — Definitional Identity (<code class="notranslate">P_eq_NP</code>)</h3>
+<ul dir="auto">
+<li><strong>File:</strong> <code class="notranslate">Mathlib/InformationTheory/Complexity/SetRFL.lean</code></li>
+<li><strong>Axioms:</strong> <code class="notranslate">propext</code>, <code class="notranslate">Quot.sound</code></li>
+<li><strong>Construction:</strong> After <code class="notranslate">EntropyNat ≃ ℕ</code> and <code class="notranslate">SyntacticCNF ≃ EntropyNat</code><br>
+unfold, <code class="notranslate">P_def</code> and <code class="notranslate">NP_def</code> are syntactically identical predicates. The<br>
+proof is <code class="notranslate">Set.ext</code> + <code class="notranslate">Iff.rfl</code>. Also proves Cook-Levin (<code class="notranslate">L_SAT_Canonical</code><br>
+NP-complete) and <code class="notranslate">L_SAT_in_P</code>.</li>
 </ul>
-<h3 id="chain-3-standard-complexity-p_eq_np_info_standard">Chain 3 —
-Standard Complexity (<code>P_eq_NP_info_standard</code>)</h3>
-<ul>
-<li><strong>File:</strong>
-<code>Mathlib/InformationTheory/Complexity/StandardComplexity.lean</code></li>
-<li><strong>Axioms:</strong> <code>propext</code>,
-<code>Quot.sound</code></li>
-<li><strong>Construction:</strong> Restates Chain 1 using
-<code>Language := Set (List Bool)</code> and traditional polynomial-time
-decision / certificate-bound predicates.</li>
-<li><strong>Note:</strong> An earlier version of this chain depended on
-<code>Classical.choice</code> via <code>linarith</code> and
-nonconstructive case analysis. A subsequent refactor replaced those with
-constructive tactics, eliminating the dependency.</li>
+<h3 dir="auto">Chain 3 — Standard Complexity (<code class="notranslate">P_eq_NP_info_standard</code>)</h3>
+<ul dir="auto">
+<li><strong>File:</strong> <code class="notranslate">Mathlib/InformationTheory/Complexity/StandardComplexity.lean</code></li>
+<li><strong>Axioms:</strong> <code class="notranslate">propext</code>, <code class="notranslate">Quot.sound</code></li>
+<li><strong>Construction:</strong> Restates Chain 1 using <code class="notranslate">Language := Set (List Bool)</code> and<br>
+traditional polynomial-time decision / certificate-bound predicates.</li>
+<li><strong>Note:</strong> An earlier version of this chain depended on <code class="notranslate">Classical.choice</code><br>
+via <code class="notranslate">linarith</code> and nonconstructive case analysis. A subsequent refactor<br>
+replaced those with constructive tactics, eliminating the dependency.</li>
 </ul>
-<h3 id="how-all-three-chains-stay-choice-free">How All Three Chains Stay
-Choice-Free</h3>
-<ul>
-<li><code>omega</code> in place of <code>linarith</code> where
-applicable.</li>
-<li>Structural list properties (<code>.length</code>) in place of
-well-founded recursion.</li>
-<li>All bounds proved explicitly in <code>calc</code> chains.</li>
+<h3 dir="auto">How All Three Chains Stay Choice-Free</h3>
+<ul dir="auto">
+<li><code class="notranslate">omega</code> in place of <code class="notranslate">linarith</code> where applicable.</li>
+<li>Structural list properties (<code class="notranslate">.length</code>) in place of well-founded recursion.</li>
+<li>All bounds proved explicitly in <code class="notranslate">calc</code> chains.</li>
 </ul>
-<p><code>computeTableau</code> in <code>Complexity/Tableau.lean</code>
-is fully computable and extractable via Lean’s code generator.</p>
-<hr />
-<h2 id="file-map">File Map</h2>
-<h3 id="entropy"><code>Entropy/</code></h3>
-<ul>
-<li><code>Shannon.lean</code> — <code>H(p) = -Σ pᵢ ln pᵢ</code>, uniform
-distributions, basic properties</li>
-<li><code>Axioms.lean</code> — Rota’s 7 axioms as structures</li>
-<li><code>Uniqueness.lean</code> — Rota-Khinchin: axiom-satisfying
-functions are <code>C · log</code></li>
-<li><code>Concrete.lean</code> — Shannon satisfies all 7 axioms; Gibbs;
-chain rule</li>
-<li><code>Program.lean</code> — <code>Program</code> type; RECT / IRECT
-bridge</li>
-<li><code>SourceCoding.lean</code> — SCT / ISCT; IID sources</li>
+<p dir="auto"><code class="notranslate">computeTableau</code> in <code class="notranslate">Complexity/Tableau.lean</code> is fully computable and<br>
+extractable via Lean's code generator.</p>
+<hr>
+<h2 dir="auto">File Map</h2>
+<h3 dir="auto"><code class="notranslate">Entropy/</code></h3>
+<ul dir="auto">
+<li><code class="notranslate">Shannon.lean</code> — <code class="notranslate">H(p) = -Σ pᵢ ln pᵢ</code>, uniform distributions, basic properties</li>
+<li><code class="notranslate">Axioms.lean</code> — Rota's 7 axioms as structures</li>
+<li><code class="notranslate">Uniqueness.lean</code> — Rota-Khinchin: axiom-satisfying functions are <code class="notranslate">C · log</code></li>
+<li><code class="notranslate">Concrete.lean</code> — Shannon satisfies all 7 axioms; Gibbs; chain rule</li>
+<li><code class="notranslate">Program.lean</code> — <code class="notranslate">Program</code> type; RECT / IRECT bridge</li>
+<li><code class="notranslate">SourceCoding.lean</code> — SCT / ISCT; IID sources</li>
 </ul>
-<h3 id="entropynumber"><code>EntropyNumber/</code></h3>
-<ul>
-<li><code>Basic.lean</code> — <code>EntropyNat ≃ ℕ</code></li>
-<li><code>Int.lean</code> — <code>EntropyInt ≃ ℤ</code></li>
-<li><code>Rat.lean</code> — <code>EntropyRat ≃ ℚ</code></li>
-<li><code>Real.lean</code> — <code>EntropyReal ≃ ℝ</code>;
-<code>|EntropyNat| = ℵ₀</code>, <code>|EntropyReal| = ℶ₁</code></li>
-<li><code>Polynomial.lean</code> — constructive polynomials;
-<code>IsPolynomial</code>, <code>IsBoundedByPolynomial</code></li>
-<li><code>Hierarchy.lean</code> — <code>Nat_L</code>,
-<code>Real_L</code>, <code>Rat_L</code>; beth-sequence
-cardinalities</li>
-<li><code>RotaEntropy.lean</code> — Rota scaling; fair-coin calibration;
-FTA via information</li>
-<li><code>PrimeAtoms.lean</code> — <code>v_p(m) · log p</code>
-decomposition</li>
-<li><code>ContinuumHypothesis.lean</code> — CH and GCH decidable</li>
+<h3 dir="auto"><code class="notranslate">EntropyNumber/</code></h3>
+<ul dir="auto">
+<li><code class="notranslate">Basic.lean</code> — <code class="notranslate">EntropyNat ≃ ℕ</code></li>
+<li><code class="notranslate">Int.lean</code> — <code class="notranslate">EntropyInt ≃ ℤ</code></li>
+<li><code class="notranslate">Rat.lean</code> — <code class="notranslate">EntropyRat ≃ ℚ</code></li>
+<li><code class="notranslate">Real.lean</code> — <code class="notranslate">EntropyReal ≃ ℝ</code>; <code class="notranslate">|EntropyNat| = ℵ₀</code>, <code class="notranslate">|EntropyReal| = ℶ₁</code></li>
+<li><code class="notranslate">Polynomial.lean</code> — constructive polynomials; <code class="notranslate">IsPolynomial</code>, <code class="notranslate">IsBoundedByPolynomial</code></li>
+<li><code class="notranslate">Hierarchy.lean</code> — <code class="notranslate">Nat_L</code>, <code class="notranslate">Real_L</code>, <code class="notranslate">Rat_L</code>; beth-sequence cardinalities</li>
+<li><code class="notranslate">RotaEntropy.lean</code> — Rota scaling; fair-coin calibration; FTA via information</li>
+<li><code class="notranslate">PrimeAtoms.lean</code> — <code class="notranslate">v_p(m) · log p</code> decomposition</li>
+<li><code class="notranslate">ContinuumHypothesis.lean</code> — CH and GCH decidable</li>
 </ul>
-<h3 id="complexity"><code>Complexity/</code></h3>
-<ul>
-<li><code>Core.lean</code> — <code>PathToConstraint</code>;
-entropy-number aliases</li>
-<li><code>CNF.lean</code> + <code>CNF/</code> — CNF syntax, encoding,
-prime-indexed literals</li>
-<li><code>Tableau.lean</code> — <code>SatisfyingTableau</code>;
-clause-by-clause walk; <code>n · k</code> bound</li>
-<li><code>Decomposition.lean</code> — assignment-free SAT criterion;
-prime-factor bridge</li>
-<li><code>UTM.lean</code> — sequential <code>ReadHead</code>; NDM
-address walk; entropy walk</li>
-<li><code>PPNP.lean</code> — Chain 1 capstone</li>
-<li><code>SetRFL.lean</code> — Chain 2 capstone</li>
-<li><code>StandardComplexity.lean</code> — Chain 3 capstone</li>
+<h3 dir="auto"><code class="notranslate">Complexity/</code></h3>
+<ul dir="auto">
+<li><code class="notranslate">Core.lean</code> — <code class="notranslate">PathToConstraint</code>; entropy-number aliases</li>
+<li><code class="notranslate">CNF.lean</code> + <code class="notranslate">CNF/</code> — CNF syntax, encoding, prime-indexed literals</li>
+<li><code class="notranslate">Tableau.lean</code> — <code class="notranslate">SatisfyingTableau</code>; clause-by-clause walk; <code class="notranslate">n · k</code> bound</li>
+<li><code class="notranslate">Decomposition.lean</code> — assignment-free SAT criterion; prime-factor bridge</li>
+<li><code class="notranslate">UTM.lean</code> — sequential <code class="notranslate">ReadHead</code>; NDM address walk; entropy walk</li>
+<li><code class="notranslate">PPNP.lean</code> — Chain 1 capstone</li>
+<li><code class="notranslate">SetRFL.lean</code> — Chain 2 capstone</li>
+<li><code class="notranslate">StandardComplexity.lean</code> — Chain 3 capstone</li>
 </ul>
-<h3 id="physics"><code>Physics/</code></h3>
-<ul>
-<li><code>Common.lean</code> — macrostates;
-<code>H_physical_system</code></li>
-<li><code>UniformSystems.lean</code> — occupancy / multiset
-equivalence</li>
-<li><code>StatisticalDistributions.lean</code> — BE / FD / MB entropies
-= <code>C · Shannon</code></li>
-<li><code>PhysicsDist.lean</code> — weighted <code>PhysicsDist</code>;
-<code>StatSystemType</code> enum</li>
+<h3 dir="auto"><code class="notranslate">Physics/</code></h3>
+<ul dir="auto">
+<li><code class="notranslate">Common.lean</code> — macrostates; <code class="notranslate">H_physical_system</code></li>
+<li><code class="notranslate">UniformSystems.lean</code> — occupancy / multiset equivalence</li>
+<li><code class="notranslate">StatisticalDistributions.lean</code> — BE / FD / MB entropies = <code class="notranslate">C · Shannon</code></li>
+<li><code class="notranslate">PhysicsDist.lean</code> — weighted <code class="notranslate">PhysicsDist</code>; <code class="notranslate">StatSystemType</code> enum</li>
 </ul>
-<h3 id="root">Root</h3>
-<ul>
-<li><code>Basic.lean</code> — <code>ComputerInstruction</code>,
-<code>ComputerTape</code>, IID sources, random-walk paths</li>
-<li><code>Bridge.lean</code> — time = information equivalence;
-three-layer equivalence</li>
+<h3 dir="auto">Root</h3>
+<ul dir="auto">
+<li><code class="notranslate">Basic.lean</code> — <code class="notranslate">ComputerInstruction</code>, <code class="notranslate">ComputerTape</code>, IID sources, random-walk paths</li>
+<li><code class="notranslate">Bridge.lean</code> — time = information equivalence; three-layer equivalence</li>
 </ul>
-<hr />
-<h2 id="dependencies">Dependencies</h2>
-<p>All imports are from mathlib. No external dependencies.</p>
-<hr />
-<h3 id="precedence-and-attribution">Precedence and Attribution</h3>
-<p>I, Essam Abadir, do not claim to be the first to prove P = NP. At
-best I am fourth. The first proof I encountered was in 1993 in
-Gian-Carlo Rota’s MIT class 18.313. What this submission contributes is
-a machine-verified account of why each of the following was already a
-proof of P = NP:</p>
-<ul>
-<li><strong>von Neumann and Ulam (Los Alamos, 1940s)</strong> — Monte
-Carlo is a working polynomial-time decision procedure over combinatorial
-state spaces, built from random walks and the cellular automata used to
-simulate neutron diffusion. The method predates the P vs NP vocabulary
-but is a P-time solver by construction.</li>
-<li><strong>John Conway (<em>On Numbers and Games</em>, 1976)</strong> —
-Conway’s bijection from the surreal numbers to the transcendentals
-showed that all of standard mathematics was collapsible into the
-computable discrete behavior of cellular automata. This was bijection,
-not philosophy.</li>
-<li><strong>Gian-Carlo Rota (18.313, 1970s–90s)</strong> — Information
-is the perfect recorded history of a particle’s movement, where
-“perfect” means the fewest bits in an unambiguous code — i.e. a
-Shannon-optimal coding. Rota’s theorem exposes that Shannon coding is
-<em>strictly more stringent</em> than bijection: it requires the
-least-bits, maximally compressed representation. Without that
-compression, syntactic novelty gets conflated with semantic novelty —
-precisely the conflation that <code>Classical.choice</code> permits, and
-that every Cantor-style diagonal construction relies on. These
-constructions fail to respect the Fundamental Theorem of Arithmetic:
-flipping a digit in a sequence and landing on <code>9</code> does not
-introduce a new prime because <code>3</code> was already in the
-alphabet; spelling “cat” as “chat” does not make a new animal. Rota’s
-entropy uniqueness theorem, formalized here in
-<code>Mathlib/InformationTheory/Entropy/Uniqueness.lean</code>, is what
-makes this stringency machine-checkable.</li>
-<li><strong>Essam Abadir (this submission, 2026)</strong> — the
-unification through the information-theoretic number hierarchy
-(<code>EntropyNat ≃ ℕ</code>, …, <code>EntropyReal ≃ ℝ</code>) and the
-<code>AbadirCompletenessTheorem</code> in
-<code>Mathlib/InformationTheory/EntropyNumber/ContinuumHypothesis.lean</code>.
-Completeness proves every constructible type has some
-<code>beth n</code> cardinality, which is why the Beth staircase is
-integer-rigid and CH is decidable in this system.</li>
+<hr>
+<h2 dir="auto">Dependencies</h2>
+<p dir="auto">All imports are from mathlib. No external dependencies.</p>
+<hr>
+<h3 dir="auto">Precedence and Attribution</h3>
+<p dir="auto">I, Essam Abadir, do not claim to be the first to prove P = NP. At best I<br>
+am fourth. The first proof I encountered was in 1993 in Gian-Carlo Rota's<br>
+MIT class 18.313. What this submission contributes is a machine-verified<br>
+account of why each of the following was already a proof of P = NP:</p>
+<ul dir="auto">
+<li><strong>von Neumann and Ulam (Los Alamos, 1940s)</strong> — Monte Carlo is a working<br>
+polynomial-time decision procedure over combinatorial state spaces,<br>
+built from random walks and the cellular automata used to simulate<br>
+neutron diffusion. The method predates the P vs NP vocabulary but is a<br>
+P-time solver by construction.</li>
+<li><strong>John Conway (<em>On Numbers and Games</em>, 1976)</strong> — Conway's bijection<br>
+from the surreal numbers to the transcendentals showed that all of<br>
+standard mathematics was collapsible into the computable discrete<br>
+behavior of cellular automata. This was bijection, not philosophy.</li>
+<li><strong>Gian-Carlo Rota (18.313, 1970s–90s)</strong> — Information is the perfect<br>
+recorded history of a particle's movement, where "perfect" means the<br>
+fewest bits in an unambiguous code — i.e. a Shannon-optimal coding.<br>
+Rota's theorem exposes that Shannon coding is <em>strictly more stringent</em><br>
+than bijection: it requires the least-bits, maximally compressed<br>
+representation. Without that compression, syntactic novelty gets<br>
+conflated with semantic novelty — precisely the conflation that<br>
+<code class="notranslate">Classical.choice</code> permits, and that every Cantor-style diagonal<br>
+construction relies on. These constructions fail to respect the<br>
+Fundamental Theorem of Arithmetic: flipping a digit in a sequence and<br>
+landing on <code class="notranslate">9</code> does not introduce a new prime because <code class="notranslate">3</code> was already<br>
+in the alphabet; spelling "cat" as "chat" does not make a new animal.<br>
+Rota's entropy uniqueness theorem, formalized here in<br>
+<code class="notranslate">Mathlib/InformationTheory/Entropy/Uniqueness.lean</code>, is what makes this<br>
+stringency machine-checkable.</li>
+<li><strong>Essam Abadir (this submission, 2026)</strong> — the unification through the<br>
+information-theoretic number hierarchy (<code class="notranslate">EntropyNat ≃ ℕ</code>, …,<br>
+<code class="notranslate">EntropyReal ≃ ℝ</code>) and the <code class="notranslate">AbadirCompletenessTheorem</code> in<br>
+<code class="notranslate">Mathlib/InformationTheory/EntropyNumber/ContinuumHypothesis.lean</code>.<br>
+Completeness proves every constructible type has some <code class="notranslate">beth n</code><br>
+cardinality, which is why the Beth staircase is integer-rigid and CH<br>
+is decidable in this system.</li>
 </ul>
-<p><code>Classical.choice</code> is not load-bearing for any of the
-three P = NP capstones. The same is true of the Completeness Theorem:
-the decidability of CH arises from the constructive hierarchy itself,
-not from choice. CH’s independence in ZFC comes from the freedom to
-postulate sets without constructive witness — which is precisely what
-<code>Classical.choice</code> smuggles in. In a type theory that
-enumerates its types, CH is a theorem, and <code>Classical.choice</code>
-should be treated as a bug in the standard library rather than an axiom
-of mathematics, and expunged wherever possible. A fourth capstone chain
-formalizing this claim — that every live use of
-<code>Classical.choice</code> in mainstream mathlib admits a
-constructive replacement — is in development and will be included before
-this archive is finalized.</p>
-<hr />
-<h2 id="license">License</h2>
-<p>Apache-2.0, matching mathlib.</p>
-<hr />
-<h2 id="addendum-rotas-entropy-theorem-full-text">Addendum: Rota’s
-Entropy Theorem (Full Text)</h2>
-<p><em>A Mathematically Precise And Universal Definition of
-Entropy</em></p>
-<p>Transcribed by Essam Abadir, 2026-04-17.</p>
-<p><em>In memory of Gian-Carlo Rota, April 27, 1932 – April 18,
-1999.</em></p>
-<h4 id="proof-of-rotas-entropy-theorem">Proof of Rota’s Entropy
-Theorem</h4>
-<p>The proof of Rota’s Entropy Theorem is, to my mind, the single most
-important proof of the latter half of the 20th century. It is also, to
-my knowledge, the only proof of such a major scientific theorem that is
-not published in any journal or book, but rather exists only in lecture
-notes and unpublished manuscripts.</p>
-<p>The remainder of this section is excerpted from class text provided
-by Professor Gian-Carlo Rota. To my knowledge it is unpublished and
-uncopyrighted. “Introduction to Probability Theory, Second Preliminary
-Edition” manuscript circa 1993, authors are Kenneth Baclawski,
-Gian-Carlo Rota, &amp; Sara Billis. It is similar to the one on the
-Internet Archive where the same proof is present, but I have not found
-this particular version online.</p>
-<h2 id="chapter-viii-entropy-and-information">Chapter VIII: Entropy and
-Information</h2>
-<h2 id="properties-of-entropy">Properties of Entropy</h2>
-<p>So far, we have discussed examples of the entropy of some random
-variables. Although these examples provide some motivation for our
-definition of entropy, they leave unanswered the more difficult question
-of why, out of all possible definitions, we use this one.</p>
-<p>We will do this by finding five self-evident properties that ought to
-hold for any reasonable measure of information (or entropy). It then
-turns out that our definition of entropy is the only one that satisfies
-all these properties.</p>
-<p>We begin with the most obvious of properties. As we have defined it,
-<span class="math inline">\(`H`\)</span> is a function of partitions of
-the sample space. However, it should be clear that we want <span
-class="math inline">\(`H`\)</span> to depend only on the set of
-probabilities of the blocks of the partition. In fact, we want <span
-class="math inline">\(`H`\)</span> to depend only on the positive
-probabilities which occur. Moreover, we want <span
-class="math inline">\(`H`\)</span> to be a continuous function of these
-probabilities. This is a convenience only. We could, with a great deal
-of effort, derive continuity from other more complex conditions; but we
-would rather concentrate on the important issues.</p>
-<p>We summarize the conditions on <span
-class="math inline">\(`H`\)</span> we have just described before going
-on to the difficult question of conditional entropy.</p>
-<h4 id="entropy-property-1">Entropy Property 1:</h4>
-<p>An entropy is a function defined on sets <span
-class="math inline">\(`\{p_1, p_2, \ldots, p_n\}`\)</span> of
-non-negative real numbers, which satisfy <span
-class="math inline">\(`p_1 + p_2 + \ldots + p_n = 1`\)</span>.</p>
-<h4 id="entropy-property-2">Entropy Property 2:</h4>
-<p>If <span class="math inline">\(`H`\)</span> is an entropy function,
-then for any set <span class="math inline">\(`\{p_1, p_2, \ldots, p_n,
-0\}`\)</span> on which <span class="math inline">\(`H`\)</span> is
-defined, <span class="math inline">\(`H`\)</span> satisfies:</p>
-<pre class="math"><code>H(p_1, p_2, \ldots, p_n, 0) = H(p_1, p_2, \ldots, p_n).</code></pre>
-<p>In other words, <span class="math inline">\(`H`\)</span> depends only
-on the nonzero <span class="math inline">\(`p_i`\)</span>’s in a given
-set.</p>
-<h4 id="entropy-property-3">Entropy Property 3:</h4>
-<p>An entropy function is continuous. The next property of entropy we
-consider requires the concept of conditional entropy. There are two ways
-to think of conditional entropy, and the fact that they are equivalent
-is our next property of entropy. To illustrate the ideas involved, we
-consider the following simple weighing problem:</p>
-<p>We have three coins, some of which may be counterfeit (but not all).
-Counterfeit coins are distinguishable from normal coins by the fact that
-they are lighter. We are given a balance scale, and we wish to find out
-which, if any, of the coins are counterfeit. The sample space for this
-problem consists of seven sample points, one for each possible set of
-good coins. We denote them as follows:</p>
-<pre class="math"><code>\Omega = \{1, 2, 3, 12, 13, 23, 123\}.</code></pre>
-<p>Now what happens when we put the first two coins on each side of the
-scale? The sample space is partitioned into three blocks corresponding
-to the three possible outcomes of the weighing:</p>
-<pre class="math"><code>\sigma = \{\{12, 123, 3\}, \{2, 23\}, \{1, 13\}\}.</code></pre>
-<p>After recording the result of this weighing, we then place the second
-and third coins on the two sides of the scale. The result of this second
-weighing is to partition each of the blocks of the first weighing:</p>
-<pre class="math"><code>\{12, 123, 3\} \to \{\{12\}, \{123\}, \{3\}\}, \quad
-\{2, 23\} \to \{\{2\}, \{23\}\}, \quad
-\{1, 13\} \to \{\{1\}, \{13\}\}.</code></pre>
-<p>The combined information of the two weighings is represented by the
-partition into seven blocks, each with one sample point. Call this
-partition <span class="math inline">\(`\pi`\)</span>. Conditional
-entropy is concerned with the effect of the second weighing, given that
-the first has occurred. One way to analyze this is to look at each block
-<span class="math inline">\(`\sigma_i`\)</span> of the partition of the
-first weighing and to analyze the situation as if it were the whole
-sample space. In general, for an event <span
-class="math inline">\(`A`\)</span> and a partition <span
-class="math inline">\(`\tau`\)</span>, we define the conditional entropy
-of <span class="math inline">\(`\pi`\)</span> given <span
-class="math inline">\(`A`\)</span>, written <span
-class="math inline">\(`H(\pi|A)`\)</span>, to be the entropy of the
-partition <span class="math inline">\(`\tau_1 \cap A, \tau_2 \cap A,
-\ldots`\)</span> that <span class="math inline">\(`\tau`\)</span>
-induces on <span class="math inline">\(`A`\)</span>.</p>
-<p>Thus, in the above weighing problem, we have three conditional
-entropies, one for each possible outcome of the first weighing:</p>
-<pre class="math"><code>H(\pi|\sigma_1), \quad H(\pi|\sigma_2), \quad H(\pi|\sigma_3).</code></pre>
-<p>The conditional entropy of <span class="math inline">\(`\pi`\)</span>
-given <span class="math inline">\(`\sigma`\)</span> is then defined to
-be the average of these. More precisely, if <span
-class="math inline">\(`\pi`\)</span> and <span
-class="math inline">\(`\sigma`\)</span> are any two partitions of a
-sample space <span class="math inline">\(`\Omega`\)</span> such that
-<span class="math inline">\(`\pi`\)</span> is finer than <span
-class="math inline">\(`\sigma`\)</span>, we define the conditional
-entropy of <span class="math inline">\(`\pi`\)</span> given <span
-class="math inline">\(`\sigma`\)</span> to be the average value of <span
-class="math inline">\(`H(\pi|\sigma_i)`\)</span> over all blocks <span
-class="math inline">\(`\sigma_i`\)</span> of <span
-class="math inline">\(`\sigma`\)</span>:</p>
-<pre class="math"><code>H(\pi|\sigma) = \sum_i P(\sigma_i) H(\pi|\sigma_i).</code></pre>
-<p>On the other hand, we would like to think of information as a
-“quantity” that increases as we ask more and more questions about our
-experiment. Therefore, the conditional entropy of <span
-class="math inline">\(`\pi`\)</span> given <span
-class="math inline">\(`\sigma`\)</span> ought to be the net increase in
-entropy from <span class="math inline">\(`\sigma`\)</span> to <span
-class="math inline">\(`\pi`\)</span>. In other words, we require our
-entropy function to satisfy:</p>
-<h4 id="entropy-property-4">Entropy Property 4:</h4>
-<p>If <span class="math inline">\(`\pi`\)</span> is a finer partition
-than <span class="math inline">\(`\sigma`\)</span>, then</p>
-<pre class="math"><code>H(\pi|\sigma) = H(\pi) - H(\sigma).</code></pre>
-<p>The last property we require is one that we have already discussed.
-The partition having maximum entropy among all partitions with a given
-number of blocks is the one for which all the blocks have the same
-probability.</p>
-<h4 id="entropy-property-5">Entropy Property 5:</h4>
-<p>If <span class="math inline">\(`H`\)</span> is an entropy function,
-then any set <span class="math inline">\(`\{p_1, p_2, \ldots,
-p_n\}`\)</span> on which <span class="math inline">\(`H`\)</span> is
-defined satisfies:</p>
-<pre class="math"><code>H(p_1, p_2, \ldots, p_n) \leq H\left(\frac{1}{n}, \frac{1}{n}, \ldots, \frac{1}{n}\right).</code></pre>
-<p>We are now ready for the following remarkable fact: if <span
-class="math inline">\(`H`\)</span> satisfies the above five properties,
-then <span class="math inline">\(`H`\)</span> is given by the formula
-introduced earlier in this chapter, except for a possible scale
-change.</p>
-<h2 id="uniqueness-of-entropy">Uniqueness of Entropy</h2>
-<p>If <span class="math inline">\(`H`\)</span> is a function satisfying
-the five properties of an entropy function, then there is a constant
-<span class="math inline">\(`C`\)</span> such that <span
-class="math inline">\(`H`\)</span> is given by:</p>
-<pre class="math"><code>H(p_1, p_2, \ldots, p_n) = C \sum_{i} p_i \log_2 \frac{1}{p_i}.</code></pre>
-<h4 id="proof">Proof:</h4>
-<p>The proof is rather technical, so we suggest omitting it on the first
-reading. However, it is of interest to outline the main points. To show
-that <span class="math inline">\(`H`\)</span> has the form given above,
-we use the following two facts:</p>
-<p>1. The entropy of the partition consisting of just one block of
-probability <span class="math inline">\(`1`\)</span> is zero, i.e.,
-<span class="math inline">\(`H(\Omega) = 0`\)</span>. By definition,
-<span class="math inline">\(`H(\Omega)`\)</span> is the same as <span
-class="math inline">\(`H(\{1\})`\)</span>. Therefore, <span
-class="math inline">\(`H(\Omega) = H(\{1\}) = 0`\)</span>.</p>
-<p>2. We define a function <span class="math inline">\(`f(n)`\)</span>
-by <span class="math inline">\(`H\left(\frac{1}{n}, \frac{1}{n}, \ldots,
-\frac{1}{n}\right)`\)</span>. We have just shown that <span
-class="math inline">\(`f(1) = 0`\)</span> and we want to calculate <span
-class="math inline">\(`f(n)`\)</span> in general. Using properties 2 and
-5, we show that <span class="math inline">\(`f(n)`\)</span> is
-increasing:</p>
-<pre class="math"><code>f(n) \leq f(n+1).</code></pre>
-<p>Next, we consider a partition <span
-class="math inline">\(`\sigma`\)</span> consisting of <span
-class="math inline">\(`n^k`\)</span> blocks, each of which has
-probability <span class="math inline">\(`\frac{1}{n^k}`\)</span>. Then
-subdivide each of these into <span class="math inline">\(`n`\)</span>
-parts, each of which has the same probability. Call the resulting
-partition <span class="math inline">\(`\pi`\)</span>. The conditional
-entropy <span class="math inline">\(`H(\pi|\sigma)`\)</span> for each
-block <span class="math inline">\(`\sigma_i`\)</span> is clearly given
-by <span class="math inline">\(`f(n)`\)</span>. Thus the conditional
-entropy <span class="math inline">\(`H(\pi|\sigma)`\)</span> is <span
-class="math inline">\(`f(k) - f(k-1)`\)</span>. If we apply this fact
-<span class="math inline">\(`k`\)</span> times, we obtain:</p>
-<pre class="math"><code>f(n^k) = k f(n).</code></pre>
-<p>Now fix two positive integers <span
-class="math inline">\(`n`\)</span> and <span
-class="math inline">\(`k`\)</span>. Since the exponential function is an
-increasing function, there is an integer <span
-class="math inline">\(`b`\)</span> such that:</p>
-<pre class="math"><code>2b \leq n^k &lt; 2b+1.</code></pre>
-<p>We now apply the two facts about <span
-class="math inline">\(`f(n)`\)</span> obtained above to this
-relation:</p>
-<pre class="math"><code>f(2^b) \leq f(n^k) \leq f(2^{b+1}).</code></pre>
-<p>Since <span class="math inline">\(`f(n)`\)</span> is increasing, we
-know:</p>
-<pre class="math"><code>b f(2) \leq k f(n) \leq (b+1)f(2).</code></pre>
-<p>Now divide these inequalities by <span class="math inline">\(`k
-f(2)`\)</span>:</p>
-<pre class="math"><code>\frac{b}{k} \leq \frac{f(n)}{f(2)} \leq \frac{b+1}{k}.</code></pre>
-<p>Now apply the increasing function <span
-class="math inline">\(`\log_2`\)</span> to the inequalities:</p>
-<pre class="math"><code>\frac{b}{k} \leq \log_2(n) \leq \frac{b+1}{k}.</code></pre>
-<p>It follows that both <span class="math inline">\(`f(n)/f(2)`\)</span>
-and <span class="math inline">\(`\log_2(n)`\)</span> are in the interval
-<span class="math inline">\(`[b/k, (b+1)/k]`\)</span>. This implies that
-<span class="math inline">\(`f(n)/f(2)`\)</span> and <span
-class="math inline">\(`\log_2(n)`\)</span> can be no farther apart than
-<span class="math inline">\(`1/k`\)</span>, the length of this interval.
-But <span class="math inline">\(`n`\)</span> and <span
-class="math inline">\(`k`\)</span> were arbitrary positive integers. So
-if we let <span class="math inline">\(`k`\)</span> get very large, we
-are forced to conclude that:</p>
-<pre class="math"><code>f(n)/f(2) = \log_2(n).</code></pre>
-<p>Thus, for positive integers <span class="math inline">\(`n`\)</span>,
-we have:</p>
-<pre class="math"><code>f(n) = f(2) \log_2(n).</code></pre>
-<p>We will define the constant <span class="math inline">\(`C`\)</span>
-to be <span class="math inline">\(`-f(2)`\)</span>. Since <span
-class="math inline">\(`f(2) \geq f(1) = 0`\)</span>, we know that <span
-class="math inline">\(`C`\)</span> is negative.</p>
-<p>We next consider a set <span class="math inline">\(`\{p_1, p_2,
-\ldots, p_n\}`\)</span> of positive rational numbers such that <span
-class="math inline">\(`p_1 + p_2 + \ldots + p_n = 1`\)</span>. Let <span
-class="math inline">\(`N`\)</span> be their common denominator, i.e.,
-<span class="math inline">\(`p_i = \frac{a_i}{N}`\)</span> for all <span
-class="math inline">\(`i`\)</span>, where each <span
-class="math inline">\(`a_i`\)</span> is an integer and <span
-class="math inline">\(`a_1 + a_2 + \ldots + a_n = N`\)</span>. Let <span
-class="math inline">\(`\sigma`\)</span> be a partition corresponding to
-the set of probabilities <span class="math inline">\(`\{p_1, p_2,
-\ldots, p_n\}`\)</span>. Let <span class="math inline">\(`\pi`\)</span>
-be a partition obtained by breaking up the <span
-class="math inline">\(`i`\)</span>-th block of <span
-class="math inline">\(`\sigma`\)</span> into <span
-class="math inline">\(`a_i`\)</span> parts. Then every block of <span
-class="math inline">\(`\pi`\)</span> has probability <span
-class="math inline">\(`\frac{1}{N}`\)</span>. By definition of
-conditional entropy:</p>
-<pre class="math"><code>H(\pi|\sigma) = -\sum_{i} P(\sigma_i) H(\pi|\sigma_i) = -\sum_{i} f(a_i) - C \sum_{i} p_i \log_2(a_i).</code></pre>
-<p>By property 4, on the other hand, we have:</p>
-<pre class="math"><code>H(\pi|\sigma) = H(\pi) - H(\sigma) = f(N) - H(\sigma).</code></pre>
-<p>Combining the two expressions for <span
-class="math inline">\(`H(\pi|\sigma)`\)</span> gives us:</p>
-<pre class="math"><code>H(\sigma) = -C \log_2(N) + C \sum_{i} p_i \log_2(a_i).</code></pre>
-<p>By continuity (property 3), <span class="math inline">\(`H`\)</span>
-must have this same formula for all sets <span
-class="math inline">\(`\{p_1, p_2, \ldots, p_n\}`\)</span> on which it
-is defined. This completes the proof.</p>
-<p>We leave it as an exercise to show that the above formula for entropy
-actually satisfies the five postulated properties. We conclude by giving
-an interpretation of independence of partitions in terms of conditional
-entropy. Intuitively, if <span class="math inline">\(`\pi`\)</span> and
-<span class="math inline">\(`\sigma`\)</span> are independent, then
-their joint entropy <span class="math inline">\(`H(\pi \cap
-\sigma)`\)</span> is the sum of the individual entropies:</p>
-<pre class="math"><code>H(\pi \cap \sigma) = H(\pi) + H(\sigma).</code></pre>
-<p>In terms of conditional entropy, this says that <span
-class="math inline">\(`H(\pi \cap \sigma) = H(\pi)`\)</span>.</p>
-<h2 id="the-shannon-coding-theorem">The Shannon Coding Theorem</h2>
-<p>A consequence of Entropy Property 4 of the last section is that if we
-wish to answer a question <span class="math inline">\(`X`\)</span> by
-means of a sequence of questions <span class="math inline">\(`S_1, S_2,
-\ldots, S_n`\)</span>, the joint entropy of <span
-class="math inline">\(`S_1, S_2, \ldots, S_n`\)</span> must be at least
-as large as the entropy of <span class="math inline">\(`X`\)</span>, and
-hence the sum of the entropies of the <span
-class="math inline">\(`S_i`\)</span>’s must be at least as large as the
-entropy of <span class="math inline">\(`X`\)</span>. In particular, if
-the <span class="math inline">\(`S_i`\)</span>’s are yes-no questions,
-then <span class="math inline">\(`H_2(S_i) \leq 1`\)</span> and we get
-the crude inequality:</p>
-<pre class="math"><code>n \geq H_2(X).</code></pre>
-<p>The problem of finding a set of sufficient statistics for a random
-variable <span class="math inline">\(`X`\)</span> is called the
-<em>coding problem</em> for <span class="math inline">\(`X`\)</span>,
-and the sequence <span class="math inline">\(`S_1, S_2, \ldots,
-S_n`\)</span> is said to <em>code</em> <span
-class="math inline">\(`X`\)</span>. As we will see in the exercises, the
-kinds of questions one may ask are usually restricted to some class of
-questions. Devising particular codes is a highly nontrivial task.</p>
-<p>One of the reasons that coding is so nontrivial in general is that
-one is usually required to answer a whole sequence of questions <span
-class="math inline">\(`X_1, X_2, \ldots`\)</span>, produced by some
-process, and as a result one would like to answer the questions in the
-most efficient way possible. Consider one example. Suppose that <span
-class="math inline">\(`X`\)</span> takes values <span
-class="math inline">\(`1`\)</span> through <span
-class="math inline">\(`200`\)</span> each with probability <span
-class="math inline">\(`0.85`\)</span>, and takes values <span
-class="math inline">\(`0`\)</span> with probability <span
-class="math inline">\(`7.5 \times 10^{-4}`\)</span>. Then <span
-class="math inline">\(`H_2(X)`\)</span> is less than <span
-class="math inline">\(`1`\)</span>. Simply by counting one can see that
-at least <span class="math inline">\(`8`\)</span> yes-no questions will
-be needed to achieve a sufficient statistic for <span
-class="math inline">\(`X`\)</span>, even though the entropy suggests
-that one should be able to determine <span
-class="math inline">\(`X`\)</span> with a single yes-no question.</p>
-<h2 id="references">References</h2>
-<p>C. E. Shannon, “A Mathematical Theory of Communication,” <em>Bell
-System Technical Journal</em>, 27(3), 1948.</p>
-<p>C. E. Shannon, “A Symbolic Analysis of Relay and Switching Circuits,”
-<em>Master’s thesis</em>, MIT, 1937. (Also <em>Transactions of the
-AIEE</em>, 57(12):713–723, 1938.)</p>
-<p>K. Baclawski, G.-C. Rota, and S. Billis, <em>Introduction to
-Probability Theory, Preliminary Edition</em>, MIT, circa 1979–1993 draft
-(unpublished).</p>
+<p dir="auto"><code class="notranslate">Classical.choice</code> is not load-bearing for any of the three P = NP<br>
+capstones. The same is true of the Completeness Theorem: the<br>
+decidability of CH arises from the constructive hierarchy itself, not<br>
+from choice. CH's independence in ZFC comes from the freedom to<br>
+postulate sets without constructive witness — which is precisely what<br>
+<code class="notranslate">Classical.choice</code> smuggles in. In a type theory that enumerates its<br>
+types, CH is a theorem, and <code class="notranslate">Classical.choice</code> should be treated as a<br>
+bug in the standard library rather than an axiom of mathematics, and<br>
+expunged wherever possible. A fourth capstone chain formalizing this<br>
+claim — that every live use of <code class="notranslate">Classical.choice</code> in mainstream mathlib<br>
+admits a constructive replacement — is in development and will be<br>
+included before this archive is finalized.</p>
+<hr>
+<h2 dir="auto">License</h2>
+<p dir="auto">Apache-2.0, matching mathlib.</p>
+<hr>
+<h2 dir="auto">Addendum: Rota's Entropy Theorem (Full Text)</h2>
+<p dir="auto"><em>A Mathematically Precise And Universal Definition of Entropy</em></p>
+<p dir="auto">Transcribed by Essam Abadir, 2026-04-17.</p>
+<p dir="auto"><em>In memory of Gian-Carlo Rota, April 27, 1932 – April 18, 1999.</em></p>
+<h4 dir="auto">Proof of Rota’s Entropy Theorem</h4>
+<p dir="auto">The proof of Rota’s Entropy Theorem is, to my mind, the single most important proof of the latter half of the 20th century. It is also, to my knowledge, the only proof of such a major scientific theorem that is not published in any journal or book, but rather exists only in lecture notes and unpublished manuscripts.</p>
+<p dir="auto">The remainder of this section is excerpted from class text provided by Professor Gian-Carlo Rota. To my knowledge it is unpublished and uncopyrighted. "Introduction to Probability Theory, Second Preliminary Edition" manuscript circa 1993, authors are Kenneth Baclawski, Gian-Carlo Rota, &amp; Sara Billis. It is similar to the one on the Internet Archive where the same proof is present, but I have not found this particular version online.</p>
+<h2 dir="auto">Chapter VIII: Entropy and Information</h2>
+<h2 dir="auto">Properties of Entropy</h2>
+<p dir="auto">So far, we have discussed examples of the entropy of some random variables. Although these examples provide some motivation for our definition of entropy, they leave unanswered the more difficult question of why, out of all possible definitions, we use this one.</p>
+<p dir="auto">We will do this by finding five self-evident properties that ought to hold for any reasonable measure of information (or entropy). It then turns out that our definition of entropy is the only one that satisfies all these properties.</p>
+<p dir="auto">We begin with the most obvious of properties. As we have defined it, <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H$</math-renderer> is a function of partitions of the sample space. However, it should be clear that we want <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H$</math-renderer> to depend only on the set of probabilities of the blocks of the partition. In fact, we want <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H$</math-renderer> to depend only on the positive probabilities which occur. Moreover, we want <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H$</math-renderer> to be a continuous function of these probabilities. This is a convenience only. We could, with a great deal of effort, derive continuity from other more complex conditions; but we would rather concentrate on the important issues.</p>
+<p dir="auto">We summarize the conditions on <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H$</math-renderer> we have just described before going on to the difficult question of conditional entropy.</p>
+<h4 dir="auto">Entropy Property 1:</h4>
+<p dir="auto">An entropy is a function defined on sets <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">${p_1, p_2, \ldots, p_n}$</math-renderer> of non-negative real numbers, which satisfy <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$p_1 + p_2 + \ldots + p_n = 1$</math-renderer>.</p>
+<h4 dir="auto">Entropy Property 2:</h4>
+<p dir="auto">If <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H$</math-renderer> is an entropy function, then for any set <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">${p_1, p_2, \ldots, p_n, 0}$</math-renderer> on which <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H$</math-renderer> is defined, <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H$</math-renderer> satisfies:</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$$
+H(p_1, p_2, \ldots, p_n, 0) = H(p_1, p_2, \ldots, p_n).
+$$</math-renderer></p>
+<p dir="auto">In other words, <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H$</math-renderer> depends only on the nonzero <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$p_i$</math-renderer>’s in a given set.</p>
+<h4 dir="auto">Entropy Property 3:</h4>
+<p dir="auto">An entropy function is continuous.<br>
+The next property of entropy we consider requires the concept of conditional entropy. There are two ways to think of conditional entropy, and the fact that they are equivalent is our next property of entropy. To illustrate the ideas involved, we consider the following simple weighing problem:</p>
+<p dir="auto">We have three coins, some of which may be counterfeit (but not all). Counterfeit coins are distinguishable from normal coins by the fact that they are lighter. We are given a balance scale, and we wish to find out which, if any, of the coins are counterfeit. The sample space for this problem consists of seven sample points, one for each possible set of good coins. We denote them as follows:</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$$
+\Omega = {1, 2, 3, 12, 13, 23, 123}.
+$$</math-renderer></p>
+<p dir="auto">Now what happens when we put the first two coins on each side of the scale? The sample space is partitioned into three blocks corresponding to the three possible outcomes of the weighing:</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$$
+\sigma = {{12, 123, 3}, {2, 23}, {1, 13}}.
+$$</math-renderer></p>
+<p dir="auto">After recording the result of this weighing, we then place the second and third coins on the two sides of the scale. The result of this second weighing is to partition each of the blocks of the first weighing:</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$$
+{12, 123, 3} \to {{12}, {123}, {3}}, \quad
+{2, 23} \to {{2}, {23}}, \quad
+{1, 13} \to {{1}, {13}}.
+$$</math-renderer></p>
+<p dir="auto">The combined information of the two weighings is represented by the partition into seven blocks, each with one sample point. Call this partition <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\pi$</math-renderer>. Conditional entropy is concerned with the effect of the second weighing, given that the first has occurred. One way to analyze this is to look at each block <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\sigma_i$</math-renderer> of the partition of the first weighing and to analyze the situation as if it were the whole sample space. In general, for an event <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$A$</math-renderer> and a partition <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\tau$</math-renderer>, we define the conditional entropy of <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\pi$</math-renderer> given <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$A$</math-renderer>, written <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H(\pi|A)$</math-renderer>, to be the entropy of the partition <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\tau_1 \cap A, \tau_2 \cap A, \ldots$</math-renderer> that <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\tau$</math-renderer> induces on <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$A$</math-renderer>.</p>
+<p dir="auto">Thus, in the above weighing problem, we have three conditional entropies, one for each possible outcome of the first weighing:</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$$
+H(\pi|\sigma_1), \quad H(\pi|\sigma_2), \quad H(\pi|\sigma_3).
+$$</math-renderer></p>
+<p dir="auto">The conditional entropy of <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\pi$</math-renderer> given <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\sigma$</math-renderer> is then defined to be the average of these. More precisely, if <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\pi$</math-renderer> and <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\sigma$</math-renderer> are any two partitions of a sample space <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\Omega$</math-renderer> such that <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\pi$</math-renderer> is finer than <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\sigma$</math-renderer>, we define the conditional entropy of <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\pi$</math-renderer> given <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\sigma$</math-renderer> to be the average value of <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H(\pi|\sigma_i)$</math-renderer> over all blocks <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\sigma_i$</math-renderer> of <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\sigma$</math-renderer>:</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$$
+H(\pi|\sigma) = \sum_i P(\sigma_i) H(\pi|\sigma_i).
+$$</math-renderer></p>
+<p dir="auto">On the other hand, we would like to think of information as a "quantity" that increases as we ask more and more questions about our experiment. Therefore, the conditional entropy of <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\pi$</math-renderer> given <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\sigma$</math-renderer> ought to be the net increase in entropy from <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\sigma$</math-renderer> to <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\pi$</math-renderer>. In other words, we require our entropy function to satisfy:</p>
+<h4 dir="auto">Entropy Property 4:</h4>
+<p dir="auto">If <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\pi$</math-renderer> is a finer partition than <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\sigma$</math-renderer>, then</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$$
+H(\pi|\sigma) = H(\pi) - H(\sigma).
+$$</math-renderer></p>
+<p dir="auto">The last property we require is one that we have already discussed. The partition having maximum entropy among all partitions with a given number of blocks is the one for which all the blocks have the same probability.</p>
+<h4 dir="auto">Entropy Property 5:</h4>
+<p dir="auto">If <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H$</math-renderer> is an entropy function, then any set <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">${p_1, p_2, \ldots, p_n}$</math-renderer> on which <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H$</math-renderer> is defined satisfies:</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$$
+H(p_1, p_2, \ldots, p_n) \leq H\left(\frac{1}{n}, \frac{1}{n}, \ldots, \frac{1}{n}\right).
+$$</math-renderer></p>
+<p dir="auto">We are now ready for the following remarkable fact: if <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H$</math-renderer> satisfies the above five properties, then <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H$</math-renderer> is given by the formula introduced earlier in this chapter, except for a possible scale change.</p>
+<h2 dir="auto">Uniqueness of Entropy</h2>
+<p dir="auto">If <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H$</math-renderer> is a function satisfying the five properties of an entropy function, then there is a constant <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$C$</math-renderer> such that <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H$</math-renderer> is given by:</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$$
+H(p_1, p_2, \ldots, p_n) = C \sum_{i} p_i \log_2 \frac{1}{p_i}.
+$$</math-renderer></p>
+<h4 dir="auto">Proof:</h4>
+<p dir="auto">The proof is rather technical, so we suggest omitting it on the first reading. However, it is of interest to outline the main points. To show that <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H$</math-renderer> has the form given above, we use the following two facts:</p>
+<p dir="auto">1. The entropy of the partition consisting of just one block of probability <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$1$</math-renderer> is zero, i.e., <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H(\Omega) = 0$</math-renderer>. By definition, <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H(\Omega)$</math-renderer> is the same as <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H({1})$</math-renderer>. Therefore, <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H(\Omega) = H({1}) = 0$</math-renderer>.</p>
+<p dir="auto">2. We define a function <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$f(n)$</math-renderer> by <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H\left(\frac{1}{n}, \frac{1}{n}, \ldots, \frac{1}{n}\right)$</math-renderer>. We have just shown that <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$f(1) = 0$</math-renderer> and we want to calculate <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$f(n)$</math-renderer> in general. Using properties 2 and 5, we show that <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$f(n)$</math-renderer> is increasing:</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$$
+f(n) \leq f(n+1).
+$$</math-renderer></p>
+<p dir="auto">Next, we consider a partition <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\sigma$</math-renderer> consisting of <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$n^k$</math-renderer> blocks, each of which has probability <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\frac{1}{n^k}$</math-renderer>. Then subdivide each of these into <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$n$</math-renderer> parts, each of which has the same probability. Call the resulting partition <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\pi$</math-renderer>. The conditional entropy <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H(\pi|\sigma)$</math-renderer> for each block <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\sigma_i$</math-renderer> is clearly given by <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$f(n)$</math-renderer>. Thus the conditional entropy <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H(\pi|\sigma)$</math-renderer> is <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$f(k) - f(k-1)$</math-renderer>. If we apply this fact <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$k$</math-renderer> times, we obtain:</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$$
+f(n^k) = k f(n).
+$$</math-renderer></p>
+<p dir="auto">Now fix two positive integers <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$n$</math-renderer> and <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$k$</math-renderer>. Since the exponential function is an increasing function, there is an integer <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$b$</math-renderer> such that:</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$$
+2b \leq n^k &lt; 2b+1.
+$$</math-renderer></p>
+<p dir="auto">We now apply the two facts about <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$f(n)$</math-renderer> obtained above to this relation:</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$$
+f(2^b) \leq f(n^k) \leq f(2^{b+1}).
+$$</math-renderer></p>
+<p dir="auto">Since <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$f(n)$</math-renderer> is increasing, we know:</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$$
+b f(2) \leq k f(n) \leq (b+1)f(2).
+$$</math-renderer></p>
+<p dir="auto">Now divide these inequalities by <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$k f(2)$</math-renderer>:</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$$
+\frac{b}{k} \leq \frac{f(n)}{f(2)} \leq \frac{b+1}{k}.
+$$</math-renderer></p>
+<p dir="auto">Now apply the increasing function <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\log_2$</math-renderer> to the inequalities:</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$$
+\frac{b}{k} \leq \log_2(n) \leq \frac{b+1}{k}.
+$$</math-renderer></p>
+<p dir="auto">It follows that both <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$f(n)/f(2)$</math-renderer> and <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\log_2(n)$</math-renderer> are in the interval <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$[b/k, (b+1)/k]$</math-renderer>. This implies that <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$f(n)/f(2)$</math-renderer> and <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\log_2(n)$</math-renderer> can be no farther apart than <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$1/k$</math-renderer>, the length of this interval. But <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$n$</math-renderer> and <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$k$</math-renderer> were arbitrary positive integers. So if we let <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$k$</math-renderer> get very large, we are forced to conclude that:</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$$
+f(n)/f(2) = \log_2(n).
+$$</math-renderer></p>
+<p dir="auto">Thus, for positive integers <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$n$</math-renderer>, we have:</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$$
+f(n) = f(2) \log_2(n).
+$$</math-renderer></p>
+<p dir="auto">We will define the constant <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$C$</math-renderer> to be <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$-f(2)$</math-renderer>. Since <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$f(2) \geq f(1) = 0$</math-renderer>, we know that <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$C$</math-renderer> is negative.</p>
+<p dir="auto">We next consider a set <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">${p_1, p_2, \ldots, p_n}$</math-renderer> of positive rational numbers such that <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$p_1 + p_2 + \ldots + p_n = 1$</math-renderer>. Let <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$N$</math-renderer> be their common denominator, i.e., <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$p_i = \frac{a_i}{N}$</math-renderer> for all <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$i$</math-renderer>, where each <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$a_i$</math-renderer> is an integer and <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$a_1 + a_2 + \ldots + a_n = N$</math-renderer>. Let <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\sigma$</math-renderer> be a partition corresponding to the set of probabilities <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">${p_1, p_2, \ldots, p_n}$</math-renderer>. Let <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\pi$</math-renderer> be a partition obtained by breaking up the <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$i$</math-renderer>-th block of <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\sigma$</math-renderer> into <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$a_i$</math-renderer> parts. Then every block of <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\pi$</math-renderer> has probability <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\frac{1}{N}$</math-renderer>. By definition of conditional entropy:</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$$
+H(\pi|\sigma) = -\sum_{i} P(\sigma_i) H(\pi|\sigma_i) = -\sum_{i} f(a_i) - C \sum_{i} p_i \log_2(a_i).
+$$</math-renderer></p>
+<p dir="auto">By property 4, on the other hand, we have:</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$$
+H(\pi|\sigma) = H(\pi) - H(\sigma) = f(N) - H(\sigma).
+$$</math-renderer></p>
+<p dir="auto">Combining the two expressions for <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H(\pi|\sigma)$</math-renderer> gives us:</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$$
+H(\sigma) = -C \log_2(N) + C \sum_{i} p_i \log_2(a_i).
+$$</math-renderer></p>
+<p dir="auto">By continuity (property 3), <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H$</math-renderer> must have this same formula for all sets <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">${p_1, p_2, \ldots, p_n}$</math-renderer> on which it is defined. This completes the proof.</p>
+<p dir="auto">We leave it as an exercise to show that the above formula for entropy actually satisfies the five postulated properties. We conclude by giving an interpretation of independence of partitions in terms of conditional entropy. Intuitively, if <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\pi$</math-renderer> and <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$\sigma$</math-renderer> are independent, then their joint entropy <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H(\pi \cap \sigma)$</math-renderer> is the sum of the individual entropies:</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$$
+H(\pi \cap \sigma) = H(\pi) + H(\sigma).
+$$</math-renderer></p>
+<p dir="auto">In terms of conditional entropy, this says that <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H(\pi \cap \sigma) = H(\pi)$</math-renderer>.</p>
+<h2 dir="auto">The Shannon Coding Theorem</h2>
+<p dir="auto">A consequence of Entropy Property 4 of the last section is that if we wish to answer a question <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$X$</math-renderer> by means of a sequence of questions <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$S_1, S_2, \ldots, S_n$</math-renderer>, the joint entropy of <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$S_1, S_2, \ldots, S_n$</math-renderer> must be at least as large as the entropy of <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$X$</math-renderer>, and hence the sum of the entropies of the <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$S_i$</math-renderer>’s must be at least as large as the entropy of <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$X$</math-renderer>. In particular, if the <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$S_i$</math-renderer>’s are yes-no questions, then <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H_2(S_i) \leq 1$</math-renderer> and we get the crude inequality:</p>
+<p dir="auto"><math-renderer class="js-display-math" style="display: block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$$
+n \geq H_2(X).
+$$</math-renderer></p>
+<p dir="auto">The problem of finding a set of sufficient statistics for a random variable <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$X$</math-renderer> is called the <em>coding problem</em> for <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$X$</math-renderer>, and the sequence <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$S_1, S_2, \ldots, S_n$</math-renderer> is said to <em>code</em> <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$X$</math-renderer>. As we will see in the exercises, the kinds of questions one may ask are usually restricted to some class of questions. Devising particular codes is a highly nontrivial task.</p>
+<p dir="auto">One of the reasons that coding is so nontrivial in general is that one is usually required to answer a whole sequence of questions <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$X_1, X_2, \ldots$</math-renderer>, produced by some process, and as a result one would like to answer the questions in the most efficient way possible. Consider one example. Suppose that <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$X$</math-renderer> takes values <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$1$</math-renderer> through <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$200$</math-renderer> each with probability <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$0.85$</math-renderer>, and takes values <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$0$</math-renderer> with probability <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$7.5 \times 10^{-4}$</math-renderer>. Then <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$H_2(X)$</math-renderer> is less than <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$1$</math-renderer>. Simply by counting one can see that at least <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$8$</math-renderer> yes-no questions will be needed to achieve a sufficient statistic for <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$X$</math-renderer>, even though the entropy suggests that one should be able to determine <math-renderer class="js-inline-math" style="display: inline-block" data-run-id="d890b35ece88f6c283b68c525566b6fd">$X$</math-renderer> with a single yes-no question.</p>
+<h2 dir="auto">References</h2>
+<p dir="auto">C. E. Shannon,<br>
+“A Mathematical Theory of Communication,”<br>
+<em>Bell System Technical Journal</em>, 27(3), 1948.</p>
+<p dir="auto">C. E. Shannon,<br>
+“A Symbolic Analysis of Relay and Switching Circuits,”<br>
+<em>Master’s thesis</em>, MIT, 1937. (Also <em>Transactions of the AIEE</em>, 57(12):713–723, 1938.)</p>
+<p dir="auto">K. Baclawski, G.-C. Rota, and S. Billis,<br>
+<em>Introduction to Probability Theory, Preliminary Edition</em>,<br>
+MIT, circa 1979–1993 draft (unpublished).</p>
 </body>
 </html>

@@ -1,18 +1,10 @@
 
-## Note for Posterity
-
+## Does P=NP? Let The Code Speak For Itself: Build and Verify
 Lean 4 and rigorous computer-checked proof assistants exist precisely to
 remove the subjectivity of human peer review: the kernel checks the code,
-and the code speaks for itself. The typical highest standard of build requirement for Lean verification is without sorryAx and without custom axioms — i.e. only dependent on `propext`, `Quot.sound`, `Classical.choice`.
-
-**The proofs here meet an even higher standard — they build the whole of number theory from the ground up with no use of Classical.choice *except* for the return map that proves equivalence to Lean's ℝ**.
-
-InformationTheory provides this with constructive `EntropyNat ≃ ℕ`, `EntropyInt ≃ ℤ`,
-`EntropyRat ≃ ℚ`, `EntropyReal ≃ ℝ`.
+and the code speaks for itself.
 
 As elaborated below, I personally consider the real capstone to be Rota's Entropy Theorem, formalized here as `rota_all_entropy_scaled_shannon`, and I also don't believe this is the first proof of P = NP. But, regardless ...
-
-### Let The Code Speak For Itself: Build and Verify
 
 ```bash
 git clone -b feat/information-theory https://github.com/eabadir/EGPT.git
@@ -25,17 +17,23 @@ lake env lean -e '#print axioms Mathlib.InformationTheory.P_eq_NP_info'
 lake env lean -e '#print axioms Mathlib.InformationTheory.P_eq_NP'
 lake env lean -e '#print axioms Mathlib.InformationTheory.P_eq_NP_info_standard'
 ```
-
 What the code says — no capstone uses `sorryAx`:
 
 | Capstone | Axioms printed |
 |---|---|
-| `rota_all_entropy_scaled_shannon` | `propext`, `Quot.sound`, `Classical.choice` |
 | `P_eq_NP_info`          | `propext`, `Quot.sound` |
 | `P_eq_NP`               | `propext`, `Quot.sound` |
 | `P_eq_NP_info_standard` | `propext`, `Quot.sound` |
+| `rota_all_entropy_scaled_shannon` | `propext`, `Quot.sound`, `Classical.choice` |
 
+## Note for Posterity
 
+ The typical highest standard of build requirement for Lean verification is without sorryAx and without custom axioms — i.e. only dependent on `propext`, `Quot.sound`, `Classical.choice`.
+
+**The proofs here meet an even higher standard — they build the whole of number theory from the ground up with no use of Classical.choice *except* for the return map that proves equivalence to Lean's ℝ**.
+
+InformationTheory provides this with constructive `EntropyNat ≃ ℕ`, `EntropyInt ≃ ℤ`,
+`EntropyRat ≃ ℚ`, `EntropyReal ≃ ℝ`.
 
 Eventually, the Lean community will have to answer why this PR
 was closed by upstream maintainers without review when it clearly not only meets, but exceeds, the most stringent verification standards of Lean.
