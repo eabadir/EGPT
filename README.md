@@ -38,6 +38,8 @@ InformationTheory provides this with constructive `EntropyNat ≃ ℕ`, `Entropy
 Eventually, the Lean community will have to answer why this PR
 was closed by upstream maintainers without review when it clearly not only meets, but exceeds, the most stringent verification standards of Lean.
 ([leanprover-community/mathlib4#37468](https://github.com/leanprover-community/mathlib4/pull/37468))
+It does not build by CI: https://github.com/leanprover-community/mathlib4/actions/runs/23829373405/job/69459330728
+You can fix it or ask for help on Zulip.
 ---
 
 ## The Rota Entropy Theorem
